@@ -1,0 +1,326 @@
+/**************** Fonts *****************************/
+@font-face {
+    font-family: "fa-solid-900";
+    src: url("../fonts/fa-solid-900.woff2");
+    src: url("../fonts/fa-solid-900.eot") format("embedded-opentype"),
+        url("../fonts/fa-solid-900.ttf") format("truetype"),
+        url("../fonts/fa-solid-900.woff") format("woff"),
+        url("../fonts/fa-solid-900.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "fa-brands-400";
+    src: url("../fonts/fa-brands-400.woff2");
+    src: url("../fonts/fa-brands-400.eot") format("embedded-opentype"),
+        url("../fonts/fa-brands-400.ttf") format("truetype"),
+        url("../fonts/fa-brands-400.woff") format("woff"),
+        url("../fonts/fa-brands-400.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "fa-regular-400";
+    src: url("../fonts/fa-regular-400.woff2");
+    src: url("../fonts/fa-regular-400.eot") format("embedded-opentype"),
+        url("../fonts/fa-regular-400.ttf") format("truetype"),
+        url("../fonts/fa-regular-400.woff") format("woff"),
+        url("../fonts/fa-regular-400.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "glyphicons-halflings-regular";
+    src: url("../fonts/glyphicons-halflings-regular.woff2");
+    src: url("../fonts/glyphicons-halflings-regular.eot")
+            format("embedded-opentype"),
+        url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"),
+        url("../fonts/glyphicons-halflings-regular.woff") format("woff"),
+        url("../fonts/glyphicons-halflings-regular.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+/*************** Colors *******************/
+:root {
+    --black: #000000;
+    --primary: #327039; /*green*/
+    --secondary: #7ECA9C; /*green light*/
+    --blublack: #1C1427; /*blue black*/
+    --grey: #00000029;
+    --greyBg: #FBFBFB;
+    --greyBrdr: #DBDBDB;
+}
+/**************** Basic Style *****************************/
+body {
+    background: var(--greyBg);
+    color: var(--blublack);
+}
+.left-side-menu,
+.navbar-custom {
+    background: var(--blublack);
+}
+.page-title-main {
+    color: #fff;
+}
+a {
+    color: var(--primary);
+    transition: all 0.3s ease-in-out;
+}
+a:hover,
+a:focus {
+    color: var(--secondary);
+}
+.left.side-menu {
+    background: var(--blublack);
+}
+.pro-user-name.ml-1 {
+    color: var(--greyBg);
+}
+.topbar .topbar-left .logo {
+    line-height: 70px;
+    display: block;
+    height: 70px;
+}
+.topbar .topbar-left .logo img {
+    max-height: 100%;
+    object-fit: contain;
+}
+.topbar .topbar-left , .navbar-default{
+    border-top-color: var(--secondary);
+}
+.navbar-default{
+    background-color:var(--blublack);
+}
+.page-title , .button-menu-mobile{
+    color: var(--greyBg);
+}
+.button-menu-mobile:hover ,
+.button-menu-mobile:focus {
+    color: var(--secondary);
+}
+.user-box i.text-dark {
+    color: var(--primary) !important;
+    margin-left: 10px;
+}
+#sidebar-menu ul ul a{
+    color: var(--greyBg);
+}
+#sidebar-menu > ul > li > a {
+    color: var(--greyBg);
+    background-color: transparent;
+}
+#sidebar-menu > ul > li > a:active,
+#sidebar-menu > ul > li > a:focus,
+#sidebar-menu > ul > li > a:hover,
+#sidebar-menu > ul > li > a.active, 
+#sidebar-menu > ul > li.active > a {
+    color: var(--secondary) !important;
+    border-right: 3px solid var(--secondary);
+}
+#sidebar-menu .subdrop {
+    border-right: 3px solid var(--secondary);
+    color: var(--secondary) !important;
+}
+.user-box ul li a:hover, #sidebar-menu ul ul li.active a, #sidebar-menu ul ul a:hover {
+    color: var(--secondary);
+}
+.label-purple {
+    background-color: var(--primary) ;
+}
+.content-page {
+    margin-top: 80px;
+}
+.card-box p.text-muted.font-14.mb-3 {
+    margin: 10px auto;
+    text-align: center;
+}
+.btn-info {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+.btn-info:hover,
+.btn-info:focus {
+    background-color: var(--secondary) !important;
+    border-color: var(--secondary) !important;
+    color: #fff;
+}
+.btn-primary {
+    background-color: var(--blublack) !important;
+    border-color: var(--blublack) !important;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--black) !important;
+    border-color: var(--black) !important;
+    color: #fff;
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+.page-item.active .page-link {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+table h6.btn.btn-success.btn-circule {
+    margin-top: 0;
+}
+table.dataTable{
+    width: 100% !important;
+    max-width: 100% !important;
+}
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child:before{
+    background-color: var(--primary);
+}
+.navbar-custom .button-menu-mobile{
+    color: var(--greyBg);
+}
+table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable td:last-child, table.table-bordered.dataTable td:last-child {
+    border-right-width: 1px;
+    border-left-width: 0px;
+}
+.table-bordered thead td, .table-bordered thead th {
+    border-bottom-width: 1px;
+}
+.btn-danger {
+    color: #fff !important;
+}
+form .form-actions {
+    text-align: center;
+}
+form .form-actions .btn ,
+form .form-group .btn ,
+.form-group .btn {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    min-width: 120px;
+    display: table;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--greyBg);
+}
+table.dataTable > tbody > tr.child ul.dtr-details > li {
+    display: flex;
+    justify-content: space-between;
+}
+.dtr-data {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.dtr-data .btn {
+    margin-left: 3px;
+    margin-bottom: 3px;
+    margin-top: 0;
+}
+.swal2-icon.swal2-warning {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+button.swal2-confirm.btn-warning.swal2-styled{
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+button.swal2-confirm.btn-warning.swal2-styled:hover , button.swal2-confirm.btn-warning.swal2-styled:focus{
+    background-color: var(--black);
+    border-color: var(--black);
+}
+a.btn.btn-success.btn-circule {
+    color: #fff !important;
+}
+a.dropdown-item.notify-item {
+    cursor: pointer;
+}
+.input-group-btn , .col-xs-12.aligne-center.contentbtn{
+    position: relative;
+    font-size: 0;
+    white-space: nowrap;
+    text-align: center;
+}
+.input-group-btn .btn , .col-xs-12.aligne-center.contentbtn .btn{
+    min-width: 120px;
+}
+.form-horizontal .control-label {
+    text-align: right;
+}
+.card-box a.input-group-btn {
+    margin: 14px auto !important;
+    display: table;
+}
+.logo_im{
+    width: 60px;
+    object-fit: contain;
+}
+/*********** LOGIN *************************************/
+.authentication-bg .btn-primary{
+    background-color: var(--primary);
+    border-color: var(--primary);
+    max-width: 210px;
+}
+.account-pages {
+    background: url(../images/big/layer3.png) no-repeat bottom left;
+
+    background-size: 40% 80%;
+}
+.btn-bordred.btn-custom {
+    background-color: var(--primary);
+    border-bottom: 2px solid var(--primary) !important;
+}
+.btn-custom:hover, .btn-custom:focus, .btn-custom:active, .btn-custom.active, .btn-custom.focus, .btn-custom:active, .btn-custom:focus, .btn-custom:hover, .open > .dropdown-toggle.btn-custom {
+    background-color: var(--blublack) !important;
+    border: 1px solid var(--blublack) !important;
+}
+.wrapper-page .card-box {
+    background-color: rgba(255, 255 ,255 , .6);
+}
+.authentication-bg .btn-primary:hover,
+.authentication-bg .btn-primary:focus{
+    background-color: var(--black);
+    border-color: var(--black);
+}
+.authentication-bg a.text-muted.ml-1{
+    color: var(--primary) !important;
+}
+.authentication-bg a.text-muted.ml-1:hover,
+.authentication-bg a.text-muted.ml-1:focus{
+    color: var(--black) !important;
+}
+body.authentication-bg {
+    background: url('../images/traveling.png') no-repeat bottom left;
+    background-size: contain;
+    position: relative;
+}
+.authentication-bg .card {
+    background-color: rgb(255 255 255 / 60%);
+    box-shadow: 0 2px 3px 5px rgb(234 234 234 / 60%);
+    color: var(--black);
+}
+.authentication-bg .account-pages {
+    margin: 0 !important;
+    height: 100% !important;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+/**********************************************************************/
+/******************** Responsive *********************************/
+@media (max-width: 991px){
+    .account-pages {
+        background-size: contain;
+    }
+}
+@media (max-width: 767.98px){
+    table .btn {
+        padding: 4px 6px;
+        font-size: 13px;
+        margin: 0 0 3px 3px;
+    }
+    .dataTables_wrapper .dataTables_filter {
+        text-align: center!important;
+    }
+}
