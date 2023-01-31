@@ -1,4 +1,5 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -29,7 +30,7 @@ class UserSeeder extends Seeder
         ];
 
         foreach ($users as $item) {
-            $user = \App\User::create($item);
+            $user = \App\Models\User::create($item);
             $admin=$user->first();
             $admin->assignRole(Role::where('name', 'Super Admin')->first());
         }

@@ -20,6 +20,10 @@ File: Components
 /* =============
    Buttons
 ============= */
+.popover {
+  width: 304px;
+  max-width: 100%;
+}
 .btn {
   border-radius: 2px;
   padding: 6px 14px;

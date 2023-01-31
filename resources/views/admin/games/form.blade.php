@@ -136,7 +136,7 @@
             <label class="form-label">Price vip</label>
             <div class="form-line">
                 {!! Form::number("price_vip",null,['class'=>'form-control','placeholder'=>'price_vip'])!!}
-                @error('is_flow')
+                @error('price_vip')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
                 </div>
@@ -148,8 +148,8 @@
         <div class="form-group form-float">
             <label class="form-label">Ride Category</label>
             <div class="form-line">
-                {!! Form::select('game_category_id', $game_cats,null, array('class' => 'form-control')) !!}
-                @error('game_category_id')
+                {!! Form::select('game_cat_id', $game_cats,null, array('class' => 'form-control')) !!}
+                @error('game_cat_id')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
                 </div>

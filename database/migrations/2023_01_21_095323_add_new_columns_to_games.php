@@ -14,7 +14,7 @@ class AddNewColumnsToGames extends Migration
     public function up()
     {
         Schema::table('games', function (Blueprint $table) {
-            $table->foreignId('game_category_id')->nullable()->constrained('game_categories');
+            $table->foreignId('game_cat_id')->nullable()->constrained('game_categories');
             $table->foreignId('zone_id')->nullable()->constrained('zones');
 
         });

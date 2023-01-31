@@ -14,13 +14,13 @@
                 <div class="widget-chart-1">
                     <div class="widget-chart-box-1">
                         <input data-plugin="knob" data-width="80" data-height="80" data-fgColor="#f05050 "
-                               data-bgColor="#AAE2C6" value="{{App\User::count()}}"
+                               data-bgColor="#AAE2C6" value="{{App\Models\User::count()}}"
                                data-skin="tron" data-angleOffset="180" data-readOnly=true
                                data-thickness=".15" style="margin-left: -62px;"/>
                     </div>
 
                     <div class="widget-detail-1">
-                        <h2 class="p-t-10 m-b-0"> {{App\User::count()}} </h2>
+                        <h2 class="p-t-10 m-b-0"> {{App\Models\User::count()}} </h2>
                         <p class="text-muted">User</p>
                     </div>
                 </div>

@@ -28,7 +28,7 @@ class GameRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'nullable',
             'park_id' => 'required',
-            'capacity' => 'required|int',
+            'capacity' => 'required',
             'cycle_duration_per_second' => 'nullable',
             'cycle_duration_load_unload_minutes' => 'nullable',
             'is_flow' => 'required',

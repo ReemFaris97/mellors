@@ -35,6 +35,9 @@ Rides
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 capacity
                             </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Category
+                            </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Duration /sec
@@ -60,6 +63,7 @@ Rides
                                 <td>{{ $item->price }}</td>
                                 <td>{{ $item->price_vip }}</td>
                                 <td>{{ $item->capacity }}</td>
+                                <td>{{ $item->game_cats->name }}</td>
                                 <td>{{ $item->cycle_duration_per_second }}</td>
                                 <td>{{ $item->cycle_duration_load_unload_minutes }}</td>
                                 {!!Form::open( ['route' => ['admin.games.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}

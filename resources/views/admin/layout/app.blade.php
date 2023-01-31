@@ -85,7 +85,6 @@
 </div>
 <!-- Start content -->
 <div class="content-page">
-    @include('sweet::alert')
 
     <div class="content">
         <div class="container">

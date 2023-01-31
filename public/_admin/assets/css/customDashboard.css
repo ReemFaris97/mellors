@@ -58,7 +58,10 @@
 body {
     background: var(--greyBg);
     color: var(--blublack);
+    direction: ltr;
+
 }
+
 .left-side-menu,
 .navbar-custom {
     background: var(--blublack);

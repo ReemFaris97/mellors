@@ -10,7 +10,7 @@ var handleDataTableButtons = function() {
     0 !== $("#datatable-buttons").length && $("#datatable-buttons").DataTable({
         dom: "Bfrtip",
         language:{
-            url:'//cdn.datatables.net/plug-ins/1.10.25/i18n/Arabic.json'
+            url:'//cdn.datatables.net/plug-ins/1.10.25/i18n/English.json'
         },
         buttons: [{
             extend: "copy",

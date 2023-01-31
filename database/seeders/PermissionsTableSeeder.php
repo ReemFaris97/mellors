@@ -1,4 +1,5 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,7 +15,7 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissions = [
   
-            /**   [
+               [
                   'name' => 'role-list',
                   'guard_name' => 'web',
                   'title' => 'roles List',
@@ -325,7 +326,7 @@ class PermissionsTableSeeder extends Seeder
                 'guard_name' => 'web',
                 'title' => 'delete rides',
                 'route_name' => 'admin.rides.destroy'
-            ], */
+            ],
             [
                 'name' => 'customer_feedbacks-list',
                 'guard_name' => 'web',

@@ -203,8 +203,10 @@ File: Menu
   background-color: rgba(113, 182, 249, 0.4);
 }
 .content-page {
-  margin-right: 250px;
+  margin-left: 250px;
   overflow: hidden;
+  direction: ltr;
+
 }
 .content-page .content {
   padding: 0px 5px;
@@ -249,7 +251,7 @@ File: Menu
   -o-transition: -o-transform 0.15s;
   transition: transform .15s;
   position: absolute;
-  left: 20px;
+  right: 20px;
   display: inline-block;
   font-family: 'Material-Design-Iconic-Font';
   text-rendering: auto;
@@ -326,8 +328,8 @@ File: Menu
   display: inline-block;
   font-size: 16px;
   line-height: 17px;
-  margin-right: 3px;
-  margin-left: 15px;
+  margin-right: 15px;
+  margin-left: 3px;
   text-align: center;
   vertical-align: middle;
   width: 20px;
@@ -336,13 +338,13 @@ File: Menu
   font-size: 18px;
 }
 #sidebar-menu ul li a .drop-arrow {
-  float: right;
+  float: left;
 }
 #sidebar-menu ul li a .drop-arrow i {
-  margin-right: 0px;
+  margin-left: 0px;
 }
 #sidebar-menu > ul > li > a.active {
-  border-right: 3px solid #71b6f9;
+  border-left: 3px solid #71b6f9;
   color: #71b6f9 !important;
 }
 .menu-title {
@@ -389,14 +391,14 @@ File: Menu
   background: #f4f8fb !important;
 }
 #wrapper.enlarged .left.side-menu #sidebar-menu > ul > li > a i {
-  margin-left: 20px !important;
-  margin-right: 5px;
+  margin-right: 20px !important;
+  margin-left: 5px;
   font-size: 20px;
 }
 #wrapper.enlarged .left.side-menu .label {
   position: absolute;
   top: 5px;
-  right: 30px;
+  leftt: 30px;
   text-indent: 0;
   display: block !important;
   padding: .2em .6em .3em !important;
@@ -414,14 +416,14 @@ File: Menu
 }
 #wrapper.enlarged .left.side-menu #sidebar-menu ul > li:hover > ul {
   display: block;
-  right: 70px;
+  left: 70px;
   position: absolute;
   width: 190px;
 }
 #wrapper.enlarged .left.side-menu #sidebar-menu ul > li:hover > ul a {
   background: #ffffff;
   box-shadow: none;
-  padding-right: 15px;
+  padding-left: 15px;
   position: relative;
   width: 186px;
   z-index: 6;

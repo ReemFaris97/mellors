@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Zone\ZoneRequest;
 use App\Models\Zone;
 use App\Models\Park;
-use App\User;
+use App\Models\User;
 use Spatie\Permission\Models\Role;
 
 class ZoneController extends Controller
