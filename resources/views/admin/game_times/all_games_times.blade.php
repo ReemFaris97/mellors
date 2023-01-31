@@ -61,6 +61,8 @@
 
 @endsection
 
-
+@section('footer')
+    @include('admin.datatable.scripts')
+@endsection
 
 

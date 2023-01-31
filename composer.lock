@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9bf6b23ed63845a5ffd626dba52500a",
+    "content-hash": "9848281776dc835cb5e6b2946e9d276c",
     "packages": [
         {
             "name": "brick/math",
@@ -1033,6 +1033,49 @@
                 }
             ],
             "time": "2022-10-26T14:07:24+00:00"
+        },
+        {
+            "name": "infinety/alerts",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Infinety/alerts.git",
+                "reference": "1ea792f4e810fc0c4d1f5b80df6c18f1d555f2b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Infinety/alerts/zipball/1ea792f4e810fc0c4d1f5b80df6c18f1d555f2b8",
+                "reference": "1ea792f4e810fc0c4d1f5b80df6c18f1d555f2b8",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "Infinety\\Alerts\\": "/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Infinety",
+                    "email": "create@infinety.co.uk"
+                }
+            ],
+            "description": "A Sweet Alert package for Laravel 5>",
+            "keywords": [
+                "alert",
+                "laravel",
+                "laravel sweet alert",
+                "sweet-alert"
+            ],
+            "support": {
+                "source": "https://github.com/Infinety/alerts/tree/master"
+            },
+            "time": "2017-10-17T15:38:14+00:00"
         },
         {
             "name": "laravel/framework",
@@ -8350,7 +8393,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "infinety/alerts": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

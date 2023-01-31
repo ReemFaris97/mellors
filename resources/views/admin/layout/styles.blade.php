@@ -20,7 +20,7 @@
 <![endif]-->
 <script src="{{asset('_admin/assets/js/modernizr.min.js')}}"></script>
 <link href="{{ asset('_admin/assets/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet"
-      type="text/css" />
+type="text/css" />
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">

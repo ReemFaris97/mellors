@@ -73,7 +73,7 @@ class GameTimeController extends Controller
     {
         $park_id=Game::where('id',$id)->pluck('park_id')->first();
         $time=ParkTime::where('park_id',$park_id)->where('date',date('Y-m-d'))->first();
-        return view('admin.game_times.edit',compact('time'));
+        return view('admin.game_times.edit',compact('time','id'));
 
 
     }
