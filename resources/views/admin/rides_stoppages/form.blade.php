@@ -2,7 +2,7 @@
 <div class="row">
 
     <div class="form-group">
-        <label for="name"> Upload Rides Report </label>
+        <label for="name"> Upload Stoppages Report With File  </label>
         {!! Form::file("file",['class'=>'form-control'])!!}
 
     </div>

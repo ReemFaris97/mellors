@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Imports\RidesImport;
+use App\Imports\RidesStoppageImport;
 use App\Models\Ride;
+use App\Models\RideStoppages;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class RidesController extends Controller
+class RideStoppageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +19,8 @@ class RidesController extends Controller
      */
     public function index()
     {
-        $items=Ride::all();
-        return view('admin.rides.index',compact('items'));
+        $items=RideStoppages::all();
+        return view('admin.rides_stoppages.index',compact('items'));
     }
 
     /**
@@ -29,7 +31,7 @@ class RidesController extends Controller
     public function create()
     {
 
-        return view('admin.rides.add');
+        return view('admin.rides_stoppages.add');
     }
 
     /**
@@ -40,9 +42,9 @@ class RidesController extends Controller
      */
     public function store(Request $request)
     {
-        Excel::import(new RidesImport(), $request->file('file'));
+        Excel::import(new RidesStoppageImport(), $request->file('file'));
         alert()->success('Ride Added successfully !');
-        return redirect()->route('admin.rides.index');
+        return redirect()->route('admin.rides-stoppage.index');
     }
 
 

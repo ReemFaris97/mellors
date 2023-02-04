@@ -8,20 +8,19 @@ class Ride extends Model
 {
 
     protected $fillable = [
-        'type',
         'game_id',
-        'stoppage_reason',
+        'capacity_one_cycle',
+        'one_cycle_duration_seconds',
+        'ride_cycle_mins',
+        'is_flow',
+        'ride_price',
+        'ride_price_vip',
+        'ride_category',
         'date',
-        'stopage_sub_category_id'
     ];
-
-    public function stoppageSubCategory()
-    {
-        return $this->belongsTo(StopageSubCategory::class, 'stopage_sub_category_id', 'id')->withTrashed();
-    }
 
     public function game()
     {
-        return $this->belongsTo(Game::class, 'game_id', 'id')->withTrashed();
+        return $this->belongsTo(Game::class, 'game_id', 'id')->withDefault()->withTrashed();
     }
 }

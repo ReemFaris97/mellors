@@ -25,9 +25,7 @@ class RideRequest extends FormRequest
     {
         return [
             'game_id'=>'required|exists:games,id',
-            'type'=>'required|in:1,0',
-            'stopage_sub_category_id'=>'nullable|exists:stopage_sub_categories,id',
-            'stoppage_reason'=>'nullable|string',
+
         ];
     }
 }
