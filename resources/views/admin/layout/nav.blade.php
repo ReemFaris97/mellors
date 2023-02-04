@@ -8,7 +8,7 @@
 
   @if(auth()->user()->can('role-list') ||auth()->user()->can('role-create'))
     <li class="has_sub">
-        <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-invert-colors"></i> <span>Roles and Permissions </span>
+        <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-week"></i> <span>Roles and Permissions </span>
             <span class="menu-arrow"></span></a>
         <ul class="list-unstyled">
               @can('role-list')
@@ -25,7 +25,7 @@
 
   <li class="has_sub">
       <a href="javascript:void(0);" class="waves-effect"><i
-              class="zmdi zmdi-collection-text"></i><span>Users Departments </span> <span
+              class="zmdi zmdi-view-list"></i><span>Users Departments </span> <span
               class="menu-arrow"></span></a>
       <ul class="list-unstyled">
                      @can('departments-list')
@@ -45,7 +45,7 @@
 @if(auth()->user()->can('branches-list')|| auth()->user()->can('branches-create'))
   <li class="has_sub">
       <a href="javascript:void(0);" class="waves-effect"><i
-              class="zmdi zmdi-collection-text"></i><span>Branches </span> <span class="menu-arrow"></span></a>
+              class="zmdi zmdi-view-list"></i><span>Branches </span> <span class="menu-arrow"></span></a>
       <ul class="list-unstyled">
           <li><a href="{{route('admin.branches.index')}}">All Branches</a></li>
           <li><a href="{{route('admin.branches.create')}}">Add New Branch</a></li>
@@ -57,7 +57,7 @@
 @if(auth()->user()->can('users-list')|| auth()->user()->can('users-create'))
   <li class="has_sub">
       <a href="javascript:void(0);" class="waves-effect"><i
-              class="zmdi zmdi-collection-text"></i><span> Users </span> <span class="menu-arrow"></span></a>
+              class="zmdi zmdi-assignment-returned"></i><span> Users </span> <span class="menu-arrow"></span></a>
       <ul class="list-unstyled">
            @can('users-list')
               <li><a href="{{route('admin.users.index')}}">All Users</a></li>
@@ -73,7 +73,7 @@
 @if(auth()->user()->can('parks-list')|| auth()->user()->can('parks-create'))
   <li class="has_sub">
       <a href="javascript:void(0);" class="waves-effect"><i
-              class="zmdi zmdi-collection-text"></i><span>Parks </span> <span class="menu-arrow"></span></a>
+              class="zmdi zmdi-local-parking"></i><span>Parks </span> <span class="menu-arrow"></span></a>
       <ul class="list-unstyled">
           <li><a href="{{route('admin.parks.index')}}">All Parks</a></li>
           <li><a href="{{route('admin.parks.create')}}">Add New Park</a></li>
@@ -84,7 +84,7 @@
 @if(auth()->user()->can('park_times-list')|| auth()->user()->can('park_times-create'))
   <li class="has_sub">
       <a href="javascript:void(0);" class="waves-effect"><i
-              class="zmdi zmdi-collection-text"></i><span>Open & Close Time </span> <span
+              class="zmdi zmdi-calendar-check"></i><span>Open & Close Time </span> <span
               class="menu-arrow"></span></a>
       <ul class="list-unstyled">
           <li><a href="{{route('admin.park_times.index')}}">All Parks</a></li>
@@ -97,7 +97,7 @@
 @if(auth()->user()->can('zones-list')|| auth()->user()->can('zones-create'))
   <li class="has_sub">
       <a href="javascript:void(0);" class="waves-effect"><i
-              class="zmdi zmdi-collection-text"></i><span>Zones </span><span class="menu-arrow"></span></a>
+              class="zmdi zmdi-traffic"></i><span>Zones </span><span class="menu-arrow"></span></a>
       <ul class="list-unstyled">
           <li><a href="{{route('admin.zones.index')}}">All Zones</a></li>
           <li><a href="{{route('admin.zones.create')}}">Add New Zone</a></li>
@@ -111,7 +111,7 @@
 @if(auth()->user()->can('game_cats-list')|| auth()->user()->can('game_cats-create'))
   <li class="has_sub">
       <a href="javascript:void(0);" class="waves-effect"><i
-              class="zmdi zmdi-collection-text"></i><span>Rides Category </span> <span class="menu-arrow"></span></a>
+              class="zmdi zmdi-view-list"></i><span>Rides Category </span> <span class="menu-arrow"></span></a>
       <ul class="list-unstyled">
           <li><a href="{{route('admin.game_cats.index')}}">All categories</a></li>
           <li><a href="{{route('admin.game_cats.create')}}">Add new category</a></li>
@@ -123,7 +123,7 @@
 
   <li class="has_sub">
   <a href="javascript:void(0);" class="waves-effect"><i
-          class="zmdi zmdi-collection-text"></i><span>Rides </span> <span class="menu-arrow"></span></a>
+          class="zmdi zmdi-playstation"></i><span>Rides </span> <span class="menu-arrow"></span></a>
   <ul class="list-unstyled">
       <li><a href="{{route('admin.games.index')}}">All Rides</a></li>
       <li><a href="{{route('admin.games.create')}}">Add new Ride</a></li>

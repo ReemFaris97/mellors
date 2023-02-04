@@ -24,6 +24,14 @@ class RoleTableSeeder extends Seeder
                     'created_at' => NULL,
                     'updated_at' => NULL,
                 ),
+            1 =>
+                array (
+                    'id' => 1,
+                    'name' => 'zone supervisor ',
+                    'guard_name' => 'web',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                ),
         ));
     }
 }
