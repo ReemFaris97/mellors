@@ -8,7 +8,7 @@
 
     <div class="card-box">
         <a href="{{route('admin.rides.create')}}">
-            <button type="button" class="btn btn-info">Create New Rides</button>
+            <button type="button" class="btn btn-info">Create New Stoppage</button>
         </a>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
@@ -20,38 +20,47 @@
                                 colspan="1" aria-sort="ascending">ID
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Name
+                                Ride Name
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Capacity
+                                Ride Number
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Duration seconds
+                                Number of Seats
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride Cycle Mins (include load /unload)
+                                Operator Number
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                is_flow
+                                Operator Name
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride Price
+                                Date
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride Price VIP
+                                Time
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                               Category
+                                Ride_Status
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                               Date
+                                Ride_Stoppage_Category
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Ride_Stoppage_SubCategory
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Ride Notes
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Opened_Date
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Park Name
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Zone
+                                DateTime
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
@@ -65,17 +74,19 @@
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                <td>{{ $item->game->name }}</td>
-                                <td>{{ $item->capacity_one_cycle }}</td>
-                                <td>{{ $item->one_cycle_duration_seconds ?? "" }}</td>
-                                <td>{{ $item->ride_cycle_mins?? "" }}</td>
-                                <td>{{ $item->is_flow == 0 ? 'No' : 'Yes' }}</td>
-                                <td>{{ $item->ride_price }}</td>
-                                <td>{{ $item->ride_price_vip }}</td>
-                                <td>{{ $item->ride_category }}</td>
+                                <td>{{ $item->ride->name }}</td>
+                                <td>{{ $item->ride->id }}</td>
+                                <td>{{ $item->number_of_seats ?? "" }}</td>
+                                <td>{{ $item->operator_number?? "" }}</td>
+                                <td>{{ $item->operator_name }}</td>
                                 <td>{{ $item->date }}</td>
-                                <td>{{ $item->game->parks }}</td>
-                                <td>{{ $item->game->zones }}</td>
+                                <td>{{ $item->time }}</td>
+                                <td>{{ $item->ride_status }}</td>
+                                <td>{{ $item->stopageSubCategory->name ?? "name" }}</td>
+                                <td>{{ $item->ride_notes }}</td>
+                                <td>{{ $item->opened_Date }}</td>
+                                <td>{{ $item->date_time }}</td>
+                                <td>{{ $item->down_minutes }}</td>
                                 {!!Form::open( ['route' => ['admin.rides.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>

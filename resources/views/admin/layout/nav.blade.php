@@ -141,6 +141,7 @@
       <li><a href="{{route('admin.stoppage-category.index')}}"> Stoppage Categories</a></li>
       <li><a href="{{route('admin.stoppage-sub-category.index')}}"> Stoppage sub Categories</a></li>
       <li><a href="{{route('admin.rides.index')}}"> Rides</a></li>
+      <li><a href="{{route('admin.rides-stoppages.index')}}"> Rides Stoppages</a></li>
       <li><a href="{{route('admin.queues.create')}}">Add Queues</a></li>
       <li><a href="{{route('admin.queues.index')}}">show Rides Queues</a></li>
 

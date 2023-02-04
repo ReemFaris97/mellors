@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::resource('stoppage-category','Admin\StoppageCategoryController');//done
     Route::resource('stoppage-sub-category','Admin\StoppageSubCategoryController');//done
     Route::resource('rides','Admin\RidesController');//done
+    Route::resource('rides-stoppages','Admin\RideStoppageController');//done
 
     Route::resource('queues','Admin\QueueController');
     Route::get('/search_queues/', 'Admin\QueueController@search')->name('search');

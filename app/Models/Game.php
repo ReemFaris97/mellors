@@ -16,23 +16,17 @@ class Game extends Model
 
     public function parks()
     {
-        return $this->belongsTo(Park::class,'park_id')->withDefault([
-            'name'=>'not found'
-        ]);
+        return $this->belongsTo(Park::class,'park_id')->withDefault();
 
     }
     public function game_cats()
     {
-        return $this->belongsTo(GameCategory::class,'game_cat_id')->withDefault([
-            'name'=>'not found'
-        ]);
+        return $this->belongsTo(GameCategory::class,'game_cat_id')->withDefault();
 
     }
     public function zones()
     {
-        return $this->belongsTo(Zone::class,'zone_id')->withDefault([
-            'name'=>'not found'
-        ]);
+        return $this->belongsTo(Zone::class,'zone_id')->withDefault();
 
     }
 
