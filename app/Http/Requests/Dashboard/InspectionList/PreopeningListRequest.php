@@ -25,14 +25,14 @@ class PreopeningListRequest extends FormRequest
     {
 
         $rules= [
-            'game_id' => 'required',
+            'ride_id' => 'required',
             'zone_id' => 'required',
             'user_id' => 'nullable',
             'inspection_list' => 'required'
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
-                'game_id'=>'nullable',
+                'ride_id'=>'nullable',
                 'zone_id'=>'nullable',
                 'user_id'=>'nullable',
                 'inspection_list'=>'nullable'

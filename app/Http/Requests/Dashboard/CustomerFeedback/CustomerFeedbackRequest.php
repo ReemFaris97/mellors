@@ -26,7 +26,7 @@ class CustomerFeedbackRequest extends FormRequest
 
         $rules= [
             'comment' => 'required',
-            'game_id' => 'required',
+            'ride_id' => 'required',
             'date' => 'required',
             'type' => 'required'
         ];

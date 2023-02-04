@@ -8,6 +8,7 @@ use App\Models\GameTime;
 use App\Models\Park;
 use App\Models\Game;
 use App\Models\ParkTime;
+use App\Models\Ride;
 use Illuminate\Http\Request;
 
 class GameTimeController extends Controller
@@ -19,7 +20,7 @@ class GameTimeController extends Controller
      */
     public function index()
     {
-        $items=Game::all();
+        $items=Ride::all();
         return view('admin.game_times.index',compact('items'));
     }
 
@@ -71,7 +72,7 @@ class GameTimeController extends Controller
      */
     public function edit($id)
     {
-        $park_id=Game::where('id',$id)->pluck('park_id')->first();
+        $park_id=Ride::where('id',$id)->pluck('park_id')->first();
         $time=ParkTime::where('park_id',$park_id)->where('date',date('Y-m-d'))->first();
         return view('admin.game_times.edit',compact('time','id'));
 

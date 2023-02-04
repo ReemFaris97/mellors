@@ -17,7 +17,7 @@ class CreateGameTimesTable extends Migration
             $table->id();
             $table->time('start');
             $table->time('end');
-            $table->foreignId('game_id')->nullable()->constrained('games');
+            $table->foreignId('ride_id')->nullable()->constrained('rides');
             $table->date('date');
             $table->timestamps();
         });

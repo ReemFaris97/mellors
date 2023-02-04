@@ -17,7 +17,7 @@ class CreateQueuesTable extends Migration
             $table->id();
             $table->time('start')->nullable();
             $table->time('end')->nullable();
-            $table->foreignId('game_id')->nullable()->constrained('games');
+            $table->foreignId('ride_id')->nullable()->constrained('rides');
             $table->date('date');
             $table->integer('queue_minutes')->nullable();
             $table->timestamps();

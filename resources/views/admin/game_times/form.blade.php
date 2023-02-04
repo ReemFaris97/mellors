@@ -42,7 +42,7 @@
     </div>
     </div>
     @if(isset($id))
-        {!! Form::input('hidden','game_id',$id,['class'=>'form-control']) !!}
+        {!! Form::input('hidden','ride_id',$id,['class'=>'form-control']) !!}
     @endif
 <div class="col-xs-12 aligne-center contentbtn">
     <button class="btn btn-primary waves-effect" type="submit">Save</button>

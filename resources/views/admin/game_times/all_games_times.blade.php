@@ -17,7 +17,7 @@
                                 colspan="1" aria-sort="ascending">ID
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Games
+                                Rides
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
@@ -38,7 +38,7 @@
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                <td>{{ $item->games->name }}</td>
+                                <td>{{ $item->rides->name }}</td>
                                 <td>{{ $item->start }}</td>
                                 <td>{{ $item->end }}</td>
                                 <td>{{ $item->date }}</td>

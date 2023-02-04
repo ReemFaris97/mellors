@@ -5,10 +5,10 @@
             {!! Form::label('Ride') !!}
         </div>
         <div class="col-lg-6">
-            {!! Form::select('game_id', $games,null, array('class' => 'form-control')) !!}
-            @if ($errors->has('game_id'))
+            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control')) !!}
+            @if ($errors->has('ride_id'))
                 <span class="help-block">
-                    <strong>{{ $errors->first('game_id') }}</strong>
+                    <strong>{{ $errors->first('ride_id') }}</strong>
                 </span>
             @endif
         </div>

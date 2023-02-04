@@ -16,7 +16,7 @@ class CreatePreopeningListsTable extends Migration
         Schema::create('preopening_lists', function (Blueprint $table) {
             $table->id();
             $table->string('inspection_list');
-            $table->foreignId('game_id')->nullable()->constrained('games');
+            $table->foreignId('ride_id')->nullable()->constrained('rides');
             $table->foreignId('zone_id')->nullable()->constrained('zones');
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->softDeletes();

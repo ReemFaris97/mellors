@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class CustomerFeedbacks extends Model
 {
     protected $fillable = [
-        'comment','type','game_id','date'
+        'comment','type','ride_id','date'
     ];
 
-    public function games()
+    public function rides()
     {
-        return $this->belongsTo(Game::class,'game_id')->withDefault([
+        return $this->belongsTo(Ride::class,'ride_id')->withDefault([
             'name'=>'not found'
         ]);
 

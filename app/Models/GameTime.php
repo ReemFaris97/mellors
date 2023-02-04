@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class GameTime extends Model
 {
     protected $fillable = [
-        'start','end','game_id','date'
+        'start','end','ride_id','date'
     ];
 
-    public function games()
+    public function rides()
     {
-        return $this->belongsTo(Game::class,'game_id')->withDefault([
+        return $this->belongsTo(Ride::class,'ride_id')->withDefault([
             'name'=>'not found'
         ]);
 

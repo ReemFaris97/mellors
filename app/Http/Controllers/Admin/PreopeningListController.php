@@ -8,6 +8,7 @@ use App\Http\Requests\Dashboard\InspectionList\PreopeningListRequest;
 use App\Models\Game;
 use App\Models\InspectionList;
 use App\Models\PreopeningList;
+use App\Models\Ride;
 use Illuminate\Support\Facades\Auth;
 
 class PreopeningListController extends Controller
@@ -25,9 +26,9 @@ class PreopeningListController extends Controller
 
     public function add_preopening_list($zone_id)
     {
-        $games=Game::where('zone_id',$zone_id)->pluck('name','id')->all();
+        $rides=Ride::where('zone_id',$zone_id)->pluck('name','id')->all();
         $inspections=InspectionList::all();
-        return view('admin.preopening_lists.add',compact('inspections','zone_id','games'));
+        return view('admin.preopening_lists.add',compact('inspections','zone_id','rides'));
     }
 
     /**

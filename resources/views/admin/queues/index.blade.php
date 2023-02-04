@@ -16,7 +16,7 @@ Show Queues On Selected Ride
             </div>
             <div class="form-group">
                 <label for="last_name">Select Ride</label>
-                {!! Form::select('game_id', \App\Models\Game::pluck('name','id')->all(),null, array('class' => 'form-control')) !!}
+                {!! Form::select('ride_id', \App\Models\Ride::pluck('name','id')->all(),null, array('class' => 'form-control')) !!}
             </div>
             <div class="col-xs-12">
                 <div class="input-group-btn">
@@ -57,7 +57,7 @@ Show Queues On Selected Ride
                         @foreach ($queues as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                <td>{{ $item->games->name }}</td>
+                                <td>{{ $item->rides->name }}</td>
                                 <td>{{ $item->date }}</td>
                                 <td>{{ $item->queue_minutes }}</td>
                                 <td>{{ $item->end }}</td>

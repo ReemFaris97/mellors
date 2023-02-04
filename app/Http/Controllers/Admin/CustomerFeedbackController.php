@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CustomerFeedback\CustomerFeedbackRequest;
+use App\Models\Ride;
 use Illuminate\Http\Request;
 use App\Models\CustomerFeedbacks;
 use App\Models\Game;
@@ -22,10 +23,10 @@ class CustomerFeedbackController extends Controller
     }
 
     public function search(Request $request){
-        $game_id = $request->input('game_id');
+        $ride_id = $request->input('ride_id');
         $date = $request->input('date');
         $customer_feedbacks = CustomerFeedbacks::query()
-            ->where('game_id',$game_id)
+            ->where('ride_id',$ride_id)
             ->Where('date', $date)
             ->get();
         return view('admin.customer_feedbacks.index', compact('customer_feedbacks'));
@@ -38,8 +39,8 @@ class CustomerFeedbackController extends Controller
      */
     public function create()
     {
-        $games=Game::pluck('name','id')->all();
-        return view('admin.customer_feedbacks.add',compact('games'));
+        $rides=Ride::pluck('name','id')->all();
+        return view('admin.customer_feedbacks.add',compact('rides'));
     }
 
     /**

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Queue\QueueRequest;
 use App\Models\Park;
-use App\Models\Game;
 use App\Models\ParkTime;
 use App\Models\Queue;
+use App\Models\Ride;
 use Illuminate\Http\Request;
 
 class QueueController extends Controller
@@ -31,8 +31,8 @@ class QueueController extends Controller
      */
     public function create()
     {
-        $games=Game::pluck('name','id')->all();
-        return view('admin.queues.add',compact('games'));
+        $rides=Ride::pluck('name','id')->all();
+        return view('admin.queues.add',compact('rides'));
 
     }
 
@@ -97,10 +97,10 @@ class QueueController extends Controller
     }
 
     public function search(Request $request){
-        $game_id = $request->input('game_id');
+        $ride_id = $request->input('ride_id');
         $date = $request->input('date');
         $queues = Queue::query()
-            ->where('game_id',$game_id)
+            ->where('ride_id',$ride_id)
             ->Where('date', $date)
             ->get();
         return view('admin.queues.index', compact('queues'));

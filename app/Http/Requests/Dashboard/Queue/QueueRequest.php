@@ -24,7 +24,7 @@ class QueueRequest extends FormRequest
     public function rules()
     {
             $rules = [
-                'game_id'=>'nullable',
+                'ride_id'=>'nullable',
                 'start'=>'nullable',
                 'end'=>'nullable',
                 'queue_minutes'=>'nullable',

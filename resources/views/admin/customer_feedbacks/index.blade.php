@@ -54,7 +54,7 @@
                         @foreach ($customer_feedbacks as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                <td>{{ $item->games->name }}</td>
+                                <td>{{ $item->rides->name }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->comment }}</td>
 

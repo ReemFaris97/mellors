@@ -119,7 +119,7 @@
       </ul>
   </li>
 @endif
-@if(auth()->user()->can('games-list')|| auth()->user()->can('games-create'))
+{{--@if(auth()->user()->can('games-list')|| auth()->user()->can('games-create'))
 
   <li class="has_sub">
   <a href="javascript:void(0);" class="waves-effect"><i
@@ -130,7 +130,7 @@
 
   </ul>
 </li>
-@endif
+@endif--}}
 
 @if(auth()->user()->can('rides-list')|| auth()->user()->can('rides-create'))
 
