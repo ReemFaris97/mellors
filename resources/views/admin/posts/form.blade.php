@@ -5,7 +5,7 @@
 
 @if (isset($post->image))
     <div class="form-group">
-        <label for="name">  recent post image</label>
+        <label for="name"> recent post image</label>
         <a data-fancybox="gallery" href="{{$post->image}}">
             <img src="{{$post->image}}" width="70" height="70"
                  class="img-thumbnail" alt="adv_img">
@@ -14,10 +14,10 @@
 @endif
 
 <div class="form-group">
-    <label for="name">   post image</label>
-            {!! Form::file("image",['class'=>'form-control'])!!}
+    <label for="name"> post image</label>
+    {!! Form::file("image",['class'=>'form-control'])!!}
 
-        </div>
+</div>
 <div class="card-footer">
     <button type="submit" class="btn btn-primary">Submit</button>
 </div>
