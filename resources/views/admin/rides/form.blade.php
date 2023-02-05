@@ -1,9 +1,13 @@
-{{--@include('admin.common.errors')--}}
 <div class="row">
 
     <div class="form-group">
         <label for="name"> Upload Rides Report </label>
-        {!! Form::file("file",['class'=>'form-control'])!!}
+        <input type="file" name="file"  class="form-control" required >
+        @error('file')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
 
     </div>
 

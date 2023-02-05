@@ -47,9 +47,6 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride_Stoppage_Category
                             </th>
-{{--                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">--}}
-{{--                                Ride_Stoppage_SubCategory--}}
-{{--                            </th>--}}
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Notes
                             </th>
@@ -90,10 +87,6 @@
                                 {!!Form::open( ['route' => ['admin.rides-stoppages.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                    {{--@if(auth()->user()->can('rides-stoppages-edit'))--}}
-                                        {{--<a href="{{ route('admin.rides-stoppages.edit', $item) }}"--}}
-                                           {{--class="btn btn-info">Edit</a>--}}
-                                    {{--@endif--}}
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.rides-stoppages.destroy', $item) }}"
                                            onclick="delete_form(this)">
