@@ -48,7 +48,11 @@ class RideStoppageController extends Controller
     }
 
 
+    public function edit($id)
+    {
 
+
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -57,6 +61,14 @@ class RideStoppageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $rideStoppages=RideStoppages::find($id);
+        if ($rideStoppages){
+
+            $rideStoppages->delete();
+            alert()->success('Row deleted successfully');
+            return back();
+        }
+        alert()->error('Row not found');
+        return redirect()->route('admin.rides-stoppages.index');
     }
 }

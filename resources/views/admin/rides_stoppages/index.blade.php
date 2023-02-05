@@ -91,8 +91,8 @@
                                 {!!Form::close() !!}
                                 <td>
                                     {{--@if(auth()->user()->can('rides-stoppages-edit'))--}}
-                                        <a href="{{ route('admin.rides-stoppages.edit', $item) }}"
-                                           class="btn btn-info">Edit</a>
+                                        {{--<a href="{{ route('admin.rides-stoppages.edit', $item) }}"--}}
+                                           {{--class="btn btn-info">Edit</a>--}}
                                     {{--@endif--}}
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.rides-stoppages.destroy', $item) }}"
