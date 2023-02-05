@@ -22,7 +22,8 @@ class CustomerFeedbackController extends Controller
        return view('admin.customer_feedbacks.index');
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $ride_id = $request->input('ride_id');
         $date = $request->input('date');
         $customer_feedbacks = CustomerFeedbacks::query()
@@ -64,7 +65,6 @@ class CustomerFeedbackController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.preopening_lists.edit')->with('branch',PreopeningList::find($id));
 
     }
 
@@ -77,11 +77,7 @@ class CustomerFeedbackController extends Controller
      */
     public function update(PreopeningListRequest $request, PreopeningList $preopening_list)
     {
-        $preopening_list->update($request->validated());
-        $preopening_list->save();
 
-        alert()->success('Preopening List updated successfully !');
-        return redirect()->route('admin.preopening_lists.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -91,14 +87,14 @@ class CustomerFeedbackController extends Controller
      */
     public function destroy($id)
     {
-        $preopening_list=PreopeningList::find($id);
-        if ($preopening_list){
+        $feedback=CustomerFeedbacks::find($id);
+        if ($feedback){
 
-            $preopening_list->delete();
-            alert()->success('Preopening List deleted successfully');
+            $feedback->delete();
+            alert()->success('Customer Feedback deleted successfully');
             return back();
         }
-        alert()->error('Preopening List not found');
-        return redirect()->route('admin.preopening_lists.index');
+        alert()->error('Customer Feedback not found');
+        return redirect()->route('admin.customer_feedbacks.index');
     }
 }

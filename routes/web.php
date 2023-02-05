@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::get('/add_preopening_list/{zone_id}', 'Admin\PreopeningListController@add_preopening_list');
 
     Route::resource('customer_feedbacks','Admin\CustomerFeedbackController');//done
-//    Route::get('/search_customer_feedbacks/', 'Admin\CustomerFeedbackController@search')->name('search');
+    Route::get('/search_customer_feedbacks/', 'Admin\CustomerFeedbackController@search')->name('search');
 
 
 });

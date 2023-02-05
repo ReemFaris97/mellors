@@ -49,7 +49,7 @@ class GameTimeController extends Controller
     public function store(GameTimeRequest $request)
     {
         GameTime::create($request->validated());
-        alert()->success('Open and Clode tieme Added successfully to the Ride !');
+        alert()->success('Open and Close time Added Successfully to the Ride !');
         return redirect()->route('admin.game_times.index');
     }
 
@@ -97,8 +97,16 @@ class GameTimeController extends Controller
      * @param  \App\GameTime  $GameTime
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GameTime $gameTime)
+    public function destroy($id)
     {
-        //
+        $gameTime=GameTime::find($id);
+        if ($gameTime){
+
+            $gameTime->delete();
+            alert()->success('Open to Close Time  deleted successfully');
+            return back();
+        }
+        alert()->error('GameTime not found');
+        return redirect()->route('admin.game_times.index');
     }
 }

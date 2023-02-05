@@ -19,34 +19,52 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Rides
                             </th>
-
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Open Date
+                            </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Open Time
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Close Date
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Close Time
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Date
+                                Process
                             </th>
 
                         </tr>
                         </thead>
 
                         <tbody>
+                        @if(isset($items))
 
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->rides->name }}</td>
-                                <td>{{ $item->start }}</td>
-                                <td>{{ $item->end }}</td>
                                 <td>{{ $item->date }}</td>
+                                <td>{{ $item->start }}</td>
+                                <td>{{ $item->close_date }}</td>
+                                <td>{{ $item->end }}</td>
+                                {!!Form::open( ['route' => ['admin.game_times.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
+                                <td>
+                                    @if(auth()->user()->can('game_times-delete'))
+                                        <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                           data-url="{{ route('admin.game_times.destroy', $item) }}"
+                                           onclick="delete_form(this)">
+                                            Delete
+                                        </a>
+                                    @endif
 
-
+                                </td>
                             </tr>
 
                         @endforeach
+                            @endif
 
                         </tbody>
                     </table>

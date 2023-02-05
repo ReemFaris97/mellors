@@ -59,7 +59,7 @@ ddd();
 
     public function add_daily_entrance_count(EntranceCountRequest $request,ParkTime $parkTime)
     {
-        return $request;
+//        return $request;
         $parkTime->update($request->validated());
         $parkTime->save();
         alert()->success('Daily Entrance Count Added successfully to the park !');
@@ -97,7 +97,7 @@ ddd();
      * @param  \App\ParkTime  $parkTime
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ParkTime $parkTime)
+    public function update(ParkTimeRequest $request, ParkTime $parkTime)
     {
         $parkTime->update($request->validated());
         $parkTime->save();

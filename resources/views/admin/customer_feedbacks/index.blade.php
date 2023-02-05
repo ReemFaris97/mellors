@@ -16,7 +16,7 @@
         </div>
         <div class="form-group">
             <label for="last_name">Select Ride</label>
-            {!! Form::select('game_id', \App\Models\Game::pluck('name','id')->all(),null, array('class' => 'form-control')) !!}
+            {!! Form::select('ride_id', \App\Models\Ride::pluck('name','id')->all(),null, array('class' => 'form-control')) !!}
         </div>
         <div class="col-xs-12">
             <div class="input-group-btn">
@@ -45,7 +45,9 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Customer Feedback
                             </th>
-
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Process
+                            </th>
                         </tr>
                         </thead>
 
@@ -57,6 +59,18 @@
                                 <td>{{ $item->rides->name }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->comment }}</td>
+                                {!!Form::open( ['route' => ['admin.customer_feedbacks.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
+                                <td>
+                                    @if(auth()->user()->can('customer_feedbacks-delete'))
+                                        <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                           data-url="{{ route('admin.customer_feedbacks.destroy', $item) }}"
+                                           onclick="delete_form(this)">
+                                            Delete
+                                        </a>
+                                    @endif
+
+                                </td>
 
                             </tr>
 

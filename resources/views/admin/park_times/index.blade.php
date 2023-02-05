@@ -22,9 +22,14 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Parks
                             </th>
-
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Open Date
+                            </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Open Time
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Close Date
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Close Time
@@ -44,7 +49,9 @@
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->parks->name }}</td>
+                                <td>{{ $item->date }}</td>
                                 <td>{{ $item->start }}</td>
+                                <td>{{ $item->close_date }}</td>
                                 <td>{{ $item->end }}</td>
                                 <td>
                                     <button type="button" class="btn btn-info waves-effect m-r-20" data-toggle="modal"

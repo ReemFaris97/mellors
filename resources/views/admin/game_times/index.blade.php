@@ -32,12 +32,13 @@
                         </thead>
 
                         <tbody>
+                        @if(isset($items))
 
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->parks->name }}</td>
+                                <td>{{ $item->park->name }}</td>
                                 <td>
                                     <a href="{{ route('admin.game_times.edit', $item) }}"
                                            class="btn btn-info">Edit</a>
@@ -47,6 +48,7 @@
                             </tr>
 
                         @endforeach
+                            @endif
 
                         </tbody>
                     </table>

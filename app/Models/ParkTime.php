@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ParkTime extends Model
 {
     protected $fillable = [
-        'start','end','park_id','date','daily_entrance_count'
+        'start','end','park_id','date','daily_entrance_count','close_date'
     ];
 
     public function parks()

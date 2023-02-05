@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class GameTime extends Model
 {
     protected $fillable = [
-        'start','end','ride_id','date'
+        'start','end','ride_id','date','close_date'
     ];
 
     public function rides()
@@ -17,4 +17,5 @@ class GameTime extends Model
         ]);
 
     }
+
 }

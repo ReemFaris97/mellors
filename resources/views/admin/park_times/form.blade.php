@@ -11,7 +11,7 @@
         </div>
     <div class="form-group">
         <div class="col-lg-12">
-            {!! Form::label('Date') !!}
+            {!! Form::label('Open Date') !!}
         </div>
         <div class="col-lg-6">
             {!! Form::date('date',null,['class'=>'form-control']) !!}
@@ -35,7 +35,19 @@
         @endif
     </div>
     </div>
-
+    <div class="form-group">
+        <div class="col-lg-12">
+            {!! Form::label('Close Date') !!}
+        </div>
+        <div class="col-lg-6">
+            {!! Form::date('close_date',null,['class'=>'form-control']) !!}
+            @if ($errors->has('close_date'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('close_date') }}</strong>
+                </span>
+            @endif
+        </div>
+    </div>
     <div class="form-group">
     <div class="col-lg-12">
         {!! Form::label('Closed Time') !!}

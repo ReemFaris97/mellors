@@ -56,16 +56,16 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Opened_Date
                             </th>
-{{--                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">--}}
-{{--                                Park Name--}}
-{{--                            </th>--}}
-{{--                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">--}}
-{{--                                DateTime--}}
-{{--                            </th>--}}
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Date Time
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Down Times
+                            </th>
 
-{{--                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">--}}
-{{--                                Process--}}
-{{--                            </th>--}}
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Process
+                            </th>
                         </tr>
                         </thead>
 
@@ -87,12 +87,15 @@
                                 <td>{{ $item->opened_Date }}</td>
                                 <td>{{ $item->date_time }}</td>
                                 <td>{{ $item->down_minutes }}</td>
-                                {!!Form::open( ['route' => ['admin.rides.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::open( ['route' => ['admin.rides-stoppages.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-
+                                    {{--@if(auth()->user()->can('rides-stoppages-edit'))--}}
+                                        <a href="{{ route('admin.rides-stoppages.edit', $item) }}"
+                                           class="btn btn-info">Edit</a>
+                                    {{--@endif--}}
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                           data-url="{{ route('admin.rides.destroy', $item) }}"
+                                           data-url="{{ route('admin.rides-stoppages.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>
