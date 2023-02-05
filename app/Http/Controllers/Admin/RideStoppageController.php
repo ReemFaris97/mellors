@@ -44,7 +44,7 @@ class RideStoppageController extends Controller
     {
         Excel::import(new RidesStoppageImport(), $request->file('file'));
         alert()->success('Ride Added successfully !');
-        return redirect()->route('admin.rides-stoppage.index');
+        return redirect()->route('admin.rides-stoppages.index');
     }
 
 

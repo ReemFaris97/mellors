@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Zone extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         'name',
         'park_id',

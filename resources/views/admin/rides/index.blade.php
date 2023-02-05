@@ -42,13 +42,13 @@
                                 Ride Price VIP
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                               Category
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                Date
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Park Name
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Category
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Zone
@@ -65,17 +65,18 @@
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                <td>{{ $item->game->name }}</td>
+                                <td>{{ $item->name }}</td>
                                 <td>{{ $item->capacity_one_cycle }}</td>
                                 <td>{{ $item->one_cycle_duration_seconds ?? "" }}</td>
                                 <td>{{ $item->ride_cycle_mins?? "" }}</td>
                                 <td>{{ $item->is_flow == 0 ? 'No' : 'Yes' }}</td>
                                 <td>{{ $item->ride_price }}</td>
                                 <td>{{ $item->ride_price_vip }}</td>
-                                <td>{{ $item->ride_category }}</td>
+
                                 <td>{{ $item->date }}</td>
-                                <td>{{ $item->game->parks }}</td>
-                                <td>{{ $item->game->zones }}</td>
+                                <td>{{ $item->park->name }}</td>
+                                <td>{{ $item->category->name }}</td>
+                                <td>{{ $item->zone->name }}</td>
                                 {!!Form::open( ['route' => ['admin.rides.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>

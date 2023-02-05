@@ -1,13 +1,13 @@
 @extends('admin.layout.app')
 
 @section('title')
-   All Rides
+   All Rides Stoppages
 @endsection
 
 @section('content')
 
     <div class="card-box">
-        <a href="{{route('admin.rides.create')}}">
+        <a href="{{route('admin.rides-stoppages.create')}}">
             <button type="button" class="btn btn-info">Create New Stoppage</button>
         </a>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -47,25 +47,25 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride_Stoppage_Category
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride_Stoppage_SubCategory
-                            </th>
+{{--                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">--}}
+{{--                                Ride_Stoppage_SubCategory--}}
+{{--                            </th>--}}
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Notes
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Opened_Date
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Park Name
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                DateTime
-                            </th>
+{{--                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">--}}
+{{--                                Park Name--}}
+{{--                            </th>--}}
+{{--                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">--}}
+{{--                                DateTime--}}
+{{--                            </th>--}}
 
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Process
-                            </th>
+{{--                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">--}}
+{{--                                Process--}}
+{{--                            </th>--}}
                         </tr>
                         </thead>
 

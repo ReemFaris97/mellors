@@ -26,10 +26,10 @@ class RideStoppages extends Model
 
     public function ride()
     {
-        return $this->belongsTo(Ride::class)->withDefault()->withTrached();
+        return $this->belongsTo(Ride::class)->withDefault();
     }
     public function stopageSubCategory()
     {
-        return $this->belongsTo(StopageSubCategory::class)->withDefault()->withTrached();
+        return $this->belongsTo(StopageSubCategory::class)->withDefault()->withTrashed();
     }
 }

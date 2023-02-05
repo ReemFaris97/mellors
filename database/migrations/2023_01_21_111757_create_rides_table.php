@@ -15,7 +15,6 @@ class CreateRidesTable extends Migration
     {
         Schema::create('rides', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('game_id')->nullable()->constrained('games');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->integer('capacity_one_cycle')->nullable();

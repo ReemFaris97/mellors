@@ -19,19 +19,20 @@ class RidesStoppageImport implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $row) {
             $ride = Ride::where('name', $row['ride_name'])->first();
-            $sub_category = StopageSubCategory::where('name', $row['Ride_Stoppage_SubCategory'])->first();
+            $sub_category = StopageSubCategory::where('name', $row['ride_stoppage_subcategory'])->first();
+//            dd($row);
             RideStoppages::create([
-                'ride_id' => $ride ?? 1,
+                'ride_id' => $ride->id ?? 1,
                 'number_of_seats'=>$row['number_of_seats'],
                 'operator_number'=>$row['operator_number'],
                 'operator_name'=>$row['operator_name'],
                 'ride_status'=>$row['ride_status'],
-                'stopage_sub_category_id'=>$sub_category->name,
+                'stopage_sub_category_id'=>$sub_category->id ?? 1,
                 'ride_notes'=>$row['ride_notes'],
-                'date'=>$row['date'],
-                'time'=>$row['time'],
-                'opened_date'=>$row['opened_date'],
-                'date_time'=>$row['date_time'],
+                'date'=> date('Y-m-d', strtotime($row['date'])),
+                'time'=> date('H:i:s', strtotime($row['time'])),
+                'opened_date'=>date('Y-m-d', strtotime($row['opened_date'])),
+                'date_time'=>date('Y-m-d H:i:s', strtotime($row['datetime'])),
                 'down_minutes'=>$row['down_minutes']
             ]);
         }

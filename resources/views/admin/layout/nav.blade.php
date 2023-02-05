@@ -119,32 +119,28 @@
       </ul>
   </li>
 @endif
-{{--@if(auth()->user()->can('games-list')|| auth()->user()->can('games-create'))
+@if(auth()->user()->can('rides-list')|| auth()->user()->can('rides-create'))
 
   <li class="has_sub">
   <a href="javascript:void(0);" class="waves-effect"><i
           class="zmdi zmdi-playstation"></i><span>Rides </span> <span class="menu-arrow"></span></a>
   <ul class="list-unstyled">
-      <li><a href="{{route('admin.games.index')}}">All Rides</a></li>
-      <li><a href="{{route('admin.games.create')}}">Add new Ride</a></li>
-
+      <li><a href="{{route('admin.rides.index')}}">All Rides</a></li>
   </ul>
 </li>
-@endif--}}
+@endif
 
 @if(auth()->user()->can('rides-list')|| auth()->user()->can('rides-create'))
 
   <li class="has_sub">
   <a href="javascript:void(0);" class="waves-effect"><i
-          class="zmdi zmdi-collection-text"></i><span>Rides Operations </span> <span class="menu-arrow"></span></a>
+          class="zmdi zmdi-collection-text"></i><span>Stoppage Operations </span> <span class="menu-arrow"></span></a>
   <ul class="list-unstyled">
       <li><a href="{{route('admin.stoppage-category.index')}}"> Stoppage Categories</a></li>
       <li><a href="{{route('admin.stoppage-sub-category.index')}}"> Stoppage sub Categories</a></li>
-      <li><a href="{{route('admin.rides.index')}}"> Rides</a></li>
       <li><a href="{{route('admin.rides-stoppages.index')}}"> Rides Stoppages</a></li>
       <li><a href="{{route('admin.queues.create')}}">Add Queues</a></li>
       <li><a href="{{route('admin.queues.index')}}">show Rides Queues</a></li>
-
   </ul>
 </li>
 @endif
