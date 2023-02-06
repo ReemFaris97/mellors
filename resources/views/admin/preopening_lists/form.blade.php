@@ -28,8 +28,8 @@
                                 {{ $value->name }}</label>
                     </div>
                 @endforeach
-
             </div>
+
 
         </div>
 

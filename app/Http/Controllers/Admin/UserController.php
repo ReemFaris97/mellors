@@ -7,9 +7,12 @@ use App\Http\Requests\Dashboard\User\StoreRequest;
 use App\Http\Requests\Dashboard\User\UpdateRequest;
 use App\Models\Branch;
 use App\Models\Department;
+use App\Models\Park;
 use App\Models\User;
+use App\Models\UserPark;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use function Symfony\Component\String\length;
 
 class UserController extends Controller
 {
@@ -35,8 +38,9 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $departments = Department::pluck('name','id')->all();
         $branches = Branch::pluck('name','id')->all();
+        $parks = Park::pluck('name','id')->all();
 
-        return  view('admin.users.add',compact('roles','departments','branches'));
+        return  view('admin.users.add',compact('roles','departments','branches','parks'));
     }
 
     /**
@@ -49,6 +53,15 @@ class UserController extends Controller
     {
         $user=User::create($request->validated());
         $user->assignRole($request->input('roles'));
+        if(isset($request['park_id']))
+        {
+        $input['user_id'] = $user->id;
+        foreach ($request['park_id'] as $id)
+        {
+            $input['park_id'] = $id;
+            UserPark::create($input);
+        }
+        }
         alert()->success('user added successfully !');
         return back();
     }
@@ -65,8 +78,10 @@ class UserController extends Controller
         $branches = Branch::pluck('name','id')->all();
         $userRole = $user->roles()->first()->id ?? null;
         $departments = Department::pluck('name','id')->all();
+        $parks = Park::pluck('name','id')->all();
+
         return  view('admin.users.edit')->with(['user'=>$user,'roles'=>$roles,
-            'userRole'=>$userRole,'departments'=>$departments,'branches'=>$branches]);
+            'userRole'=>$userRole,'departments'=>$departments,'branches'=>$branches,'parks'=>$parks]);
     }
 
     /**

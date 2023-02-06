@@ -46,6 +46,7 @@ Zones
                                            class="btn btn-info">Edit</a>
                                     @endif
 
+
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.zones.destroy', $item) }}"
                                            onclick="delete_form(this)">

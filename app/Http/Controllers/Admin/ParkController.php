@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Park\ParkRequest;
+use Illuminate\Http\Request;
 use App\Models\Branch;
+
 use App\Models\Park;
 
 class ParkController extends Controller
@@ -93,5 +94,15 @@ class ParkController extends Controller
         }
         alert()->error('park not found');
         return redirect()->route('admin.parks.index');
+    }
+
+    public function get_by_branch(Request $request)
+    {
+            $html = '';
+            $parks = Park::where('branch_id', $request->branch_id)->get();
+            foreach ($parks as $park) {
+                $html .= '<option value="' . $park->id . '">' . $park->name . '</option>';
+            }
+        return response()->json(['html' => $html]);
     }
 }

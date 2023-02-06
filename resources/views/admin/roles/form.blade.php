@@ -22,7 +22,7 @@
         <div class="form-group">
             <p  style="  position: absolute; right: 100px;">
                 <label>
-                    تحديد الكل
+                     All
                     <input type="checkbox" id="selectAll" name="SelectAll">
                 </label>
             </p>

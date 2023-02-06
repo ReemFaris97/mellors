@@ -37,33 +37,40 @@
 
 
 <div class="form-group">
-    <label class="col-md-3 control-label">Roles :</label>
-    <div class="col-xs-12 col-md-9">
+    <label >Roles :</label>
         {!! Form::select('roles', $roles,@$userRole?$userRole:null, array('class' => 'form-control')) !!}
-    </div>
 </div>
 
 
 <div class="form-group">
-    <label class="col-md-3 control-label">Department :</label>
-    <div class="col-xs-12 col-md-9">
+    <label>Department :</label>
         {!! Form::select('department_id', $departments,null, array('class' => 'form-control')) !!}
-    </div>
 </div>
-
-
 
 <div class="form-group">
-    <label class="col-md-3 control-label">Branch :</label>
-    <div class="col-xs-12 col-md-9">
-        {!! Form::select('branch_id', $branches,null, array('class' => 'form-control')) !!}
-    </div>
+    <label >Branch :</label>
+        {!! Form::select('branch_id', @$branches?$branches:null,null, array('class' => 'form-control','id'=>'branch')) !!}
 </div>
-
+<div class="form-group">
+    <label >User Park :</label>
+    {!! Form::select('park_id[]',@$parks?$parks:null,null, array('class' => 'form-control','multiple'=>"",'id'=>'park')) !!}
+</div>
 
 <div class="col-xs-12">
     <div class="input-group-btn">
-        <button type="submit" class="btn waves-effect waves-light btn-primary">حفظ</button>
+        <button type="submit" class="btn waves-effect waves-light btn-primary">Save</button>
     </div>
 </div>
-
+@push('scripts')
+    <script type="text/javascript">
+        $("#branch").change(function(){
+            $.ajax({
+                url: "{{ route('admin.parks.get_by_branch') }}?branch_id=" + $(this).val(),
+                method: 'GET',
+                success: function(data) {
+                    $('#park').html(data.html);
+                }
+            });
+        });
+    </script>
+@endpush
