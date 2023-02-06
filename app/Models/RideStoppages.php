@@ -21,7 +21,8 @@ class RideStoppages extends Model
         'time',
         'opened_date',
         'date_time',
-        'down_minutes'
+        'down_minutes',
+        'user_id'
     ];
 
     public function ride()

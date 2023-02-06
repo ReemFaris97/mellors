@@ -5,8 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Imports\RidesImport;
 use App\Imports\RidesStoppageImport;
+use App\Models\GameCategory;
+use App\Models\Park;
 use App\Models\Ride;
 use App\Models\RideStoppages;
+use App\Models\StopageCategory;
+use App\Models\StopageSubCategory;
+use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -30,8 +36,11 @@ class RideStoppageController extends Controller
      */
     public function create()
     {
-
-        return view('admin.rides_stoppages.add');
+        $rides = Ride::pluck('name', 'id')->all();;
+        $stopage_category=StopageCategory::pluck('name','id')->toArray();
+        $stopage_sub_category=StopageSubCategory::pluck('name','id')->toArray();
+        $users=User::pluck('name','id')->toArray();
+        return view('admin.rides_stoppages.add',compact('stopage_category','rides','stopage_sub_category','users'));
     }
 
     /**
@@ -41,6 +50,14 @@ class RideStoppageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    {
+        Excel::import(new RidesStoppageImport(), $request->file('file'));
+        alert()->success('Ride Added successfully !');
+        return redirect()->route('admin.rides-stoppages.index');
+    }
+
+
+    public function uploadStoppagesExcleFile(Request $request)
     {
         Excel::import(new RidesStoppageImport(), $request->file('file'));
         alert()->success('Ride Added successfully !');

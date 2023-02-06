@@ -46,7 +46,9 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::resource('stoppage-category','Admin\StoppageCategoryController');//done
     Route::resource('stoppage-sub-category','Admin\StoppageSubCategoryController');//done
     Route::resource('rides','Admin\RidesController');//done
+    Route::Post('upload-rides-with-excel','Admin\RidesController@uploadExcleFile')->name('uploadExcleFile');//done
     Route::resource('rides-stoppages','Admin\RideStoppageController');//done
+    Route::Post('upload-stoppages-with-excel','Admin\RideStoppageController@uploadStoppagesExcleFile')->name('uploadStoppagesExcleFile');//done
 
     Route::resource('queues','Admin\QueueController');
     Route::get('/search_queues/', 'Admin\QueueController@search')->name('search');
@@ -56,7 +58,7 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::get('/add_preopening_list/{zone_id}', 'Admin\PreopeningListController@add_preopening_list');
 
     Route::resource('customer_feedbacks','Admin\CustomerFeedbackController');//done
-    Route::get('/search_customer_feedbacks/', 'Admin\CustomerFeedbackController@search')->name('search');
+    Route::get('/search_customer_feedbacks/', 'Admin\CustomerFeedbackController@search')->name('searchCustomerFeedBack');
 
 
 });
