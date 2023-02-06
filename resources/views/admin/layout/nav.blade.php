@@ -130,14 +130,25 @@
 </li>
 @endif
 
+
+@if(auth()->user()->can('rides-list')|| auth()->user()->can('rides-create'))
+
+    <li class="has_sub">
+        <a href="javascript:void(0);" class="waves-effect"><i
+                class="zmdi zmdi-collection-text"></i><span>Stoppages Categories </span> <span class="menu-arrow"></span></a>
+        <ul class="list-unstyled">
+            <li><a href="{{route('admin.stoppage-category.index')}}"> Stoppage Categories</a></li>
+            <li><a href="{{route('admin.stoppage-sub-category.index')}}"> Stoppage sub Categories</a></li>
+        </ul>
+    </li>
+@endif
+
 @if(auth()->user()->can('rides-list')|| auth()->user()->can('rides-create'))
 
   <li class="has_sub">
   <a href="javascript:void(0);" class="waves-effect"><i
-          class="zmdi zmdi-collection-text"></i><span>Stoppage Operations </span> <span class="menu-arrow"></span></a>
+          class="zmdi zmdi-collection-text"></i><span>Ride Operations </span> <span class="menu-arrow"></span></a>
   <ul class="list-unstyled">
-      <li><a href="{{route('admin.stoppage-category.index')}}"> Stoppage Categories</a></li>
-      <li><a href="{{route('admin.stoppage-sub-category.index')}}"> Stoppage sub Categories</a></li>
       <li><a href="{{route('admin.rides-stoppages.index')}}"> Rides Stoppages</a></li>
       <li><a href="{{route('admin.queues.create')}}">Add Queues</a></li>
       <li><a href="{{route('admin.queues.index')}}">show Rides Queues</a></li>
