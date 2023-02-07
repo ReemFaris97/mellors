@@ -14,23 +14,32 @@
 </div>
 </div>
     <div class="col-xs-12">
-        <div class="form-group">
-            <label class="col-md-3 control-label">Choose Zone Supervisor :</label>
-            <div class="col-xs-12 col-md-9">
-                {!! Form::select('zone_supervisor', $users,null, array('class' => 'form-control')) !!}
-            </div>
-        </div>
+
+    <div class="form-group">
+        <label >Branch :</label>
+        {!! Form::select('branch_id', @$branches?$branches:null,null, array('class' => 'form-control','id'=>'branch')) !!}
     </div>
-    <div class="col-xs-12">
-        <div class="form-group">
-            <label class="col-md-3 control-label">Park :</label>
-            <div class="col-xs-12 col-md-9">
-                {!! Form::select('park_id', $parks,null, array('class' => 'form-control')) !!}
-            </div>
-        </div>
     </div>
+    <div class="form-group">
+        <label > Park :</label>
+        {!! Form::select('park_id',@$parks?$parks:null,null, array('class' => 'form-control','id'=>'park')) !!}
+    </div>
+
 
 <div class="col-xs-12 aligne-center contentbtn">
     <button class="btn btn-primary waves-effect" type="submit">Save</button>
 </div>
 </div>
+@push('scripts')
+    <script type="text/javascript">
+        $("#branch").change(function(){
+            $.ajax({
+                url: "{{ route('admin.parks.get_by_branch') }}?branch_id=" + $(this).val(),
+                method: 'GET',
+                success: function(data) {
+                    $('#park').html(data.html);
+                }
+            });
+        });
+    </script>
+@endpush

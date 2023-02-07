@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\Dashboard\Zone\ZoneRequest;
+use App\Models\Branch;
 use App\Models\Zone;
 use App\Models\Park;
 use App\Models\User;
@@ -30,11 +32,10 @@ class ZoneController extends Controller
      */
     public function create()
     {
-        $users=User::role('zone supervisor')->pluck('name','id')->all();
-
+        $branches = Branch::pluck('name','id')->all();
         $parks = Park::pluck('name','id')->all();
 
-        return view('admin.zones.add',compact('parks','users'));
+        return view('admin.zones.add',compact('branches','parks'));
     }
 
     /**
@@ -45,11 +46,7 @@ class ZoneController extends Controller
      */
     public function store(ZoneRequest $request)
     {
-        Zone::create
-           (['name' => $request->input('name'),
-            'park_id' => $request->input('park_id'),
-            'zone_supervisor' => $request->input('zone_supervisor')
-            ]);
+        Zone::create($request->validated());
         alert()->success('Zone Added successfully !');
         return redirect()->route('admin.zones.index');
     }
@@ -62,9 +59,10 @@ class ZoneController extends Controller
      */
     public function edit($id)
     {
+        $branches = Branch::pluck('name','id')->all();
         $parks = Park::pluck('name','id')->all();
         $zone=Zone::find($id);
-        return view('admin.zones.edit',compact('parks','zone'));
+        return view('admin.zones.edit',compact('parks','zone','branches'));
 
     }
 
@@ -100,5 +98,15 @@ class ZoneController extends Controller
         }
         alert()->error('zone not found');
         return redirect()->route('admin.zones.index');
+    }
+
+    public function get_by_branch(Request $request)
+    {
+        $html = '';
+        $zones = Zone::where('branch_id', $request->branch_id)->get();
+        foreach ($zones as $zone) {
+            $html .= '<option value="' . $zone->id . '">' . $zone->name . '</option>';
+        }
+        return response()->json(['html' => $html]);
     }
 }

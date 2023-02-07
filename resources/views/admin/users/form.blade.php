@@ -55,6 +55,10 @@
     <label >User Park :</label>
     {!! Form::select('park_id[]',@$parks?$parks:null,null, array('class' => 'form-control','multiple'=>"",'id'=>'park')) !!}
 </div>
+<div class="form-group">
+    <label >User Zone :</label>
+    {!! Form::select('zone_id[]',@$zones?$zones:null,null, array('class' => 'form-control','multiple'=>"",'id'=>'zone')) !!}
+</div>
 
 <div class="col-xs-12">
     <div class="input-group-btn">
@@ -73,4 +77,16 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        $("#branch").change(function(){
+            $.ajax({
+                url: "{{ route('admin.zones.get_by_branch') }}?branch_id=" + $(this).val(),
+                method: 'GET',
+                success: function(data) {
+                    $('#zone').html(data.html);
+                }
+            });
+        });
+    </script>
+
 @endpush

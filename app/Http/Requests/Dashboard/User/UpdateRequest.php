@@ -27,7 +27,7 @@ class UpdateRequest extends FormRequest
             'name'=>'required|string',
             'phone'=>'required|string',
             'email'=>'required|email|unique:users,email,'.$this->route('user')->id,
-            'password'=>'required|confirmed',
+//            'password'=>'required|confirmed',
 
         ];
     }

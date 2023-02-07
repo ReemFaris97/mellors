@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::resource('parks','Admin\ParkController');//done
     Route::get('get_by_branch', 'Admin\ParkController@get_by_branch')->name('parks.get_by_branch');
     Route::resource('zones','Admin\ZoneController');//done
+    Route::get('get_by_branch_id', 'Admin\ZoneController@get_by_branch')->name('zones.get_by_branch');
+
 
     Route::resource('park_times','Admin\ParkTimeController');//done
     Route::resource('game_times','Admin\GameTimeController');//done

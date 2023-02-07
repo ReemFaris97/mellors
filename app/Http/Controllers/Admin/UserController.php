@@ -10,6 +10,8 @@ use App\Models\Department;
 use App\Models\Park;
 use App\Models\User;
 use App\Models\UserPark;
+use App\Models\UserZone;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use function Symfony\Component\String\length;
@@ -39,8 +41,9 @@ class UserController extends Controller
         $departments = Department::pluck('name','id')->all();
         $branches = Branch::pluck('name','id')->all();
         $parks = Park::pluck('name','id')->all();
+        $zones = Zone::pluck('name','id')->all();
 
-        return  view('admin.users.add',compact('roles','departments','branches','parks'));
+        return  view('admin.users.add',compact('roles','departments','branches','parks','zones'));
     }
 
     /**
@@ -53,13 +56,21 @@ class UserController extends Controller
     {
         $user=User::create($request->validated());
         $user->assignRole($request->input('roles'));
+        $input['user_id'] = $user->id;
         if(isset($request['park_id']))
         {
-        $input['user_id'] = $user->id;
         foreach ($request['park_id'] as $id)
         {
             $input['park_id'] = $id;
             UserPark::create($input);
+        }
+        }
+        if(isset($request['zone_id']))
+        {
+        foreach ($request['zone_id'] as $id)
+        {
+            $input['zone_id'] = $id;
+            UserZone::create($input);
         }
         }
         alert()->success('user added successfully !');
@@ -79,9 +90,11 @@ class UserController extends Controller
         $userRole = $user->roles()->first()->id ?? null;
         $departments = Department::pluck('name','id')->all();
         $parks = Park::pluck('name','id')->all();
+        $zones = Zone::pluck('name','id')->all();
+
 
         return  view('admin.users.edit')->with(['user'=>$user,'roles'=>$roles,
-            'userRole'=>$userRole,'departments'=>$departments,'branches'=>$branches,'parks'=>$parks]);
+            'userRole'=>$userRole,'departments'=>$departments,'branches'=>$branches,'zones'=>$zones,'parks'=>$parks]);
     }
 
     /**
@@ -97,6 +110,28 @@ class UserController extends Controller
 
         \DB::table('model_has_roles')->where('model_id',$user->id)->delete();
         $user->assignRole($request->input('roles'));
+
+        if(isset($request['park_id']))
+        {
+            UserPark::where('user_id',$user->id)->delete();
+            foreach ($request['park_id'] as $id)
+            {
+                $input['park_id'] = $id;
+                $input['user_id'] = $user->id;
+                UserPark::create($input);
+            }
+        }
+        if(isset($request['zone_id']))
+        {
+            UserZone::where('user_id',$user->id)->delete();
+
+            foreach ($request['zone_id'] as $id)
+            {
+                $input['zone_id'] = $id;
+                $input['user_id'] = $user->id;
+                UserZone::create($input);
+            }
+        }
 
         alert()->success('user edited successfully !');
         return  redirect()->route('admin.users.index');

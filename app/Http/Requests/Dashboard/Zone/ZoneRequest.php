@@ -27,12 +27,14 @@ class ZoneRequest extends FormRequest
         $rules= [
             'name' => 'required',
             'park_id' => 'required',
-            'zone_supervisor' => 'required'
-
+            'branch_id' => 'required'
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
                 'name'=>'nullable',
+                'park_id' => 'nullable',
+                'branch_id' => 'nullable'
+
             ];
         }
         return $rules;

@@ -11,7 +11,7 @@ class Zone extends Model
     protected $fillable = [
         'name',
         'park_id',
-        'zone_supervisor'
+        'branch_id'
     ];
 
     public function parks()
@@ -21,12 +21,14 @@ class Zone extends Model
         ]);
 
     }
-    public function users()
+    public function branches()
     {
-        return $this->belongsTo(User::class,'zone_supervisor')->withDefault([
+        return $this->belongsTo(Branch::class,'branch_id')->withDefault([
             'name'=>'not found'
         ]);
 
     }
+
+
 
 }
