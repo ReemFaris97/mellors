@@ -32,10 +32,10 @@
         <div class="form-group form-float">
             <label class="form-label">Park</label>
             <div class="form-line">
-                {!! Form::select('park_id', $parks,null, array('class' => 'form-control')) !!}
+                {!! Form::select('park_id', $parks,null, array('class' => 'form-control park_id','placeholder'=>'Choose Park Name')) !!}
                 @error('park_id')
                 <div class="invalid-feedback" style="color: #ef1010">
-                    {{ $message }}
+{{--                    {{ $message }}--}}
                 </div>
                 @enderror
             </div>
@@ -45,7 +45,13 @@
         <div class="form-group form-float">
             <label class="form-label">Zone</label>
             <div class="form-line">
-                {!! Form::select('zone_id', $zones,null, array('class' => 'form-control')) !!}
+{{--                {!! Form::select('zone_id', $zones,null, array('class' => 'form-control zone_id')) !!}--}}
+
+                <select class="form-control js-example-basic-single ms zone_id" id="zone_id" name="zone_id"
+                        data-live-search=true required>
+                    <option disabled> choose Park First</option>
+
+                </select>
                 @error('zone_id')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
@@ -164,3 +170,31 @@
     <button class="btn btn-primary waves-effect" type="submit">Save</button>
 </div>
 </div>
+
+@push('scripts')
+
+    <script>
+ $('.park_id').change(function() {
+        var val = $(this).val();
+        $.ajax({
+            type: "post",
+            url: "{{ route('admin.getParkZones') }}",
+            data: {
+                'park_id': val,
+                '_token': "{{ @csrf_token() }}"
+            },
+            success: function(data) {
+                var options = '<option value="" disabled>choose Zone</option>';
+                $.each(data.zones, function(key, value) {
+                    options += '<option value="' + value.id + '">' + value.name +
+                        '</option>';
+
+                });
+                $("#zone_id").empty().append(options);
+            }
+        });
+    });
+
+    </script>
+
+@endpush
