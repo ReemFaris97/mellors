@@ -76,6 +76,7 @@
                                                         <label class="form-label"> </label>
                                                         <div class="form-line">
                                                             {!! Form::number('daily_entrance_count', null, ['class' => 'form-control']) !!}
+                                                            {!! Form::hidden('park_id', $item->id, ['class' => 'form-control']) !!}
                                                         </div>
                                                     </div>
                                                      <div class="modal-footer">

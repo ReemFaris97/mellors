@@ -19,7 +19,7 @@ class ParkTimeController extends Controller
      */
     public function index()
     {
-        $items=ParkTime::all();
+        $items=ParkTime::where('date',date('Y-m-d'))->get();
         return view('admin.park_times.index',compact('items'));
     }
 
@@ -116,8 +116,10 @@ class ParkTimeController extends Controller
 
     public function add_daily_entrance_count(ParkTimeRequest $request, ParkTime $parkTime)
     {
-        $parkTime->update(['daily_entrance_count'=>($request['daily_entrance_count'])]);
-        $parkTime->save();
+        $toUpdateColumns = ['daily_entrance_count' => $request['daily_entrance_count']];
+        $res = ParkTime::findOrFail($request->park_id);
+        $res->fill($toUpdateColumns);
+        $res->save();
         alert()->success('daily entrance count added successfully !');
         return redirect()->route('admin.park_times.index');
     }
