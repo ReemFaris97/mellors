@@ -52,19 +52,8 @@ class ParkTimeController extends Controller
         alert()->success('Open and Clode tieme Added successfully to the park !');
         return redirect()->route('admin.park_times.index');
     }
-public function constructor()
-{
-ddd();
-}
 
-    public function add_daily_entrance_count(EntranceCountRequest $request,ParkTime $parkTime)
-    {
-//        return $request;
-        $parkTime->update($request->validated());
-        $parkTime->save();
-        alert()->success('Daily Entrance Count Added successfully to the park !');
-        return redirect()->route('admin.park_times.index');
-    }
+
 
     /**
      * Display the specified resource.
@@ -122,6 +111,14 @@ ddd();
             return back();
         }
         alert()->error('Park Time not found');
+        return redirect()->route('admin.park_times.index');
+    }
+
+    public function add_daily_entrance_count(ParkTimeRequest $request, ParkTime $parkTime)
+    {
+        $parkTime->update(['daily_entrance_count'=>($request['daily_entrance_count'])]);
+        $parkTime->save();
+        alert()->success('daily entrance count added successfully !');
         return redirect()->route('admin.park_times.index');
     }
 }

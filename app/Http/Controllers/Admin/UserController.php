@@ -40,8 +40,6 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $departments = Department::pluck('name','id')->all();
         $branches = Branch::pluck('name','id')->all();
-
-
         return  view('admin.users.add',compact('roles','departments','branches'));
     }
 

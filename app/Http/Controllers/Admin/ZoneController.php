@@ -21,7 +21,8 @@ class ZoneController extends Controller
      */
     public function index()
     {
-        $items=Zone::all();
+        $items=auth()->user()->zones->all();
+//       dd($items);
         return view('admin.zones.index',compact('items'));
     }
 

@@ -65,15 +65,19 @@
                                                         Add Daily Entrance Count</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    {!! Form::open([url('/daily_entrance_count'), 'class' => 'form phone_validate',
-                                                       'id' => 'ClientStore', 'method' => 'get', 'files' => true]) !!}
-                                                    <div class="form-group">
+
+                                                    {!!Form::model($item , ['route' => ['admin.park_times.daily_entrance_count' , $item->id] ,
+                                                     'id' => 'ClientStore', 'method' => 'PATCH','enctype'=>"multipart/form-data"]) !!}
+
+
+                                                    {{--{!! Form::open([route('admin.park_times.daily_entrance_count') , 'class' => 'form phone_validate',--}}
+                                                       {{--'id' => 'ClientStore', 'method' => 'post', 'files' => true]) !!}--}}
+                                                    {{--<div class="form-group">--}}
                                                         <label class="form-label"> </label>
                                                         <div class="form-line">
                                                             {!! Form::number('daily_entrance_count', null, ['class' => 'form-control']) !!}
                                                         </div>
                                                     </div>
-                                                    <input name="project_id" value="{{ $item->id }}" type="hidden">
                                                      <div class="modal-footer">
                                                         <button class="btn btn-primary waves-effect saveProject" type="submit">Save</button>
                                                     </div>

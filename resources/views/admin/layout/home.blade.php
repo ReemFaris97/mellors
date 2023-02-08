@@ -97,7 +97,7 @@
                 <div class="widget-chart-1">
                     <div class="widget-chart-box-1">
                         <input data-plugin="knob" data-width="80" data-height="80" data-fgColor="#f05050 "
-                               data-bgColor="#B8E6F4" value=" {{App\Models\Game::count()}}"
+                               data-bgColor="#B8E6F4" value=" {{App\Models\Ride::count()}}"
                                data-skin="tron" data-angleOffset="180" data-readOnly=true
                                data-thickness=".15" style="margin-left: -62px;"/>
                     </div>
