@@ -3,17 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Imports\RidesImport;
 use App\Imports\RidesStoppageImport;
-use App\Models\GameCategory;
-use App\Models\Park;
 use App\Models\Ride;
 use App\Models\RideStoppages;
 use App\Models\StopageCategory;
 use App\Models\StopageSubCategory;
 use App\Models\User;
-use App\Models\Zone;
 use Illuminate\Http\Request;
+use App\Http\Requests\Dashboard\Ride\RideStoppageRequest;
+
 use Maatwebsite\Excel\Facades\Excel;
 
 class RideStoppageController extends Controller
@@ -49,9 +47,9 @@ class RideStoppageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RideStoppageRequest $request)
     {
-        Excel::import(new RidesStoppageImport(), $request->file('file'));
+        RideStoppages::create($request->validated());
         alert()->success('Ride Added successfully !');
         return redirect()->route('admin.rides-stoppages.index');
     }

@@ -17,8 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ride_id')->nullable()->constrained('rides');
             $table->integer('number_of_seats')->nullable();
-            $table->string('operator_number')->nullable();
-            $table->string('operator_name')->nullable();
             $table->enum('ride_status',['stopped','active']);
             $table->foreignId('stopage_sub_category_id')->nullable()->constrained('stopage_sub_categories');
             $table->text('ride_notes')->nullable();

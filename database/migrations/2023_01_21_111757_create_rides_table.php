@@ -22,6 +22,7 @@ class CreateRidesTable extends Migration
             $table->integer('ride_cycle_mins')->nullable();
             $table->boolean('is_flow')->default(false);
             $table->decimal('ride_price')->nullable();
+            $table->integer('number_of_seats')->nullable();
             $table->decimal('ride_price_vip')->nullable();
             $table->text('ride_category')->nullable();
             $table->foreignId('game_cat_id')->nullable()->constrained('game_categories');
