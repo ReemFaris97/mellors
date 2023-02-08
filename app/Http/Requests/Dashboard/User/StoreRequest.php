@@ -26,7 +26,13 @@ class StoreRequest extends FormRequest
         return [
             'name'=>'required|string',
             'phone'=>'required|string',
-            'user_number'=>'required',
+            'dept_id'=>'required|string',
+            'first_name'=>'nullable',
+            'middle_name'=>'nullable',
+            'branch_id'=>'required',
+            'department_id'=>'required',
+            'last_name'=>'nullable',
+            'user_number'=>'required|unique:users',
             'email'=>'required|email|unique:users,email',
             'password'=>'required|confirmed'
         ];

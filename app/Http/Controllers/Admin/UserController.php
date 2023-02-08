@@ -40,10 +40,9 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $departments = Department::pluck('name','id')->all();
         $branches = Branch::pluck('name','id')->all();
-        $parks = Park::pluck('name','id')->all();
-        $zones = Zone::pluck('name','id')->all();
 
-        return  view('admin.users.add',compact('roles','departments','branches','parks','zones'));
+
+        return  view('admin.users.add',compact('roles','departments','branches'));
     }
 
     /**
@@ -56,23 +55,16 @@ class UserController extends Controller
     {
         $user=User::create($request->validated());
         $user->assignRole($request->input('roles'));
-        $input['user_id'] = $user->id;
-        if(isset($request['park_id']))
-        {
-        foreach ($request['park_id'] as $id)
-        {
-            $input['park_id'] = $id;
-            UserPark::create($input);
+        $user = User::find($user->id);
+        if(isset($request['park_id'])) {
+            $parkIds = $request['park_id'];
+            $user->parks()->sync($parkIds);
         }
+        if(isset($request['zone_id'])) {
+            $zoneIds = $request['zone_id'];
+            $user->zones()->sync($zoneIds);
         }
-        if(isset($request['zone_id']))
-        {
-        foreach ($request['zone_id'] as $id)
-        {
-            $input['zone_id'] = $id;
-            UserZone::create($input);
-        }
-        }
+
         alert()->success('user added successfully !');
         return back();
     }
@@ -89,10 +81,8 @@ class UserController extends Controller
         $branches = Branch::pluck('name','id')->all();
         $userRole = $user->roles()->first()->id ?? null;
         $departments = Department::pluck('name','id')->all();
-        $parks = Park::pluck('name','id')->all();
-        $zones = Zone::pluck('name','id')->all();
-
-
+        $parks=$user->parks->pluck('name','id')->all();
+        $zones=$user->zones->pluck('name','id')->all();
         return  view('admin.users.edit')->with(['user'=>$user,'roles'=>$roles,
             'userRole'=>$userRole,'departments'=>$departments,'branches'=>$branches,'zones'=>$zones,'parks'=>$parks]);
     }
@@ -114,23 +104,14 @@ class UserController extends Controller
         if(isset($request['park_id']))
         {
             UserPark::where('user_id',$user->id)->delete();
-            foreach ($request['park_id'] as $id)
-            {
-                $input['park_id'] = $id;
-                $input['user_id'] = $user->id;
-                UserPark::create($input);
-            }
+            $parkIds = $request['park_id'];
+            $user->parks()->attach($parkIds);
         }
         if(isset($request['zone_id']))
         {
             UserZone::where('user_id',$user->id)->delete();
-
-            foreach ($request['zone_id'] as $id)
-            {
-                $input['zone_id'] = $id;
-                $input['user_id'] = $user->id;
-                UserZone::create($input);
-            }
+            $zoneIds = $request['zone_id'];
+            $user->zones()->sync($zoneIds);
         }
 
         alert()->success('user edited successfully !');

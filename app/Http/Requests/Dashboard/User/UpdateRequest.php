@@ -26,6 +26,11 @@ class UpdateRequest extends FormRequest
         return [
             'name'=>'required|string',
             'phone'=>'required|string',
+            'first_name'=>'nullable',
+            'middle_name'=>'nullable',
+            'last_name'=>'nullable',
+            'branch_id'=>'required',
+            'department_id'=>'required',
             'email'=>'required|email|unique:users,email,'.$this->route('user')->id,
 //            'password'=>'required|confirmed',
 

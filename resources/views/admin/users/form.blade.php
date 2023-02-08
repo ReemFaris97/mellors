@@ -44,20 +44,20 @@
 
 <div class="form-group">
     <label>Department :</label>
-        {!! Form::select('department_id', $departments,null, array('class' => 'form-control')) !!}
+        {!! Form::select('department_id', @$departments?$departments:null,null, array('class' => 'form-control','placeholder'=>'choose department')) !!}
 </div>
 
 <div class="form-group">
     <label >Branch :</label>
-        {!! Form::select('branch_id', @$branches?$branches:null,null, array('class' => 'form-control','id'=>'branch')) !!}
+        {!! Form::select('branch_id', @$branches?$branches:null,null, array('class' => 'form-control','id'=>'branch','placeholder'=>'choose branch')) !!}
 </div>
 <div class="form-group">
-    <label >User Park :</label>
-    {!! Form::select('park_id[]',@$parks?$parks:null,null, array('class' => 'form-control','multiple'=>"",'id'=>'park')) !!}
+    <label >User Park (choose branch first):</label>
+    {!! Form::select('park_id[]',@$parks?$parks:[],null,array('class' => 'form-control','multiple'=>"",'id'=>'park')) !!}
 </div>
 <div class="form-group">
-    <label >User Zone :</label>
-    {!! Form::select('zone_id[]',@$zones?$zones:null,null, array('class' => 'form-control','multiple'=>"",'id'=>'zone')) !!}
+    <label >User Zone (choose branch first):</label>
+    {!! Form::select('zone_id[]',@$zones?$zones:[],null, array('class' => 'form-control','multiple'=>"",'id'=>'zone')) !!}
 </div>
 
 <div class="col-xs-12">

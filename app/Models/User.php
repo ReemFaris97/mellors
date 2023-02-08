@@ -24,7 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'dept_id',
+        'department_id ',
+        'branch_id',
         'first_name',
         'middle_name',
         'last_name',
@@ -50,4 +51,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function parks()
+    {
+        return $this->belongsToMany(Park::class, 'user_parks');
+    }
+    public function zones()
+    {
+        return $this->belongsToMany(Zone::class, 'user_zones');
+    }
 }
