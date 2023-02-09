@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class RideCycles extends Model
 {
     use HasFactory;
+    protected $guarded=[];
+
+    public function ride()
+    {
+        return $this->belongsTo(Ride::class)->withDefault();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault();
+    }
 }
