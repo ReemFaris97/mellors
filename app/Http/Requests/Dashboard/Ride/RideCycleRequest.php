@@ -13,7 +13,7 @@ class RideCycleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,23 @@ class RideCycleRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'ride_id'=>'required',
+            'park_id'=>'required',
+            'user_id'=>'required',
+            'seats_filled'=>'required',
+            'number_of_vip'=>'required',
+            'number_of_disabled'=>'required',
+            'cycle_time_minute'=>'required',
+            'ride_price'=>'required',
+            'ride_price_vip'=>'required',
+            'ride_price_new'=>'required',
+            'ride_price_vip_new'=>'required',
+            'sales'=>'required',
+            'date'=>'nullable',
+            'time'=>'nullable',
+            'opened_date'=>'nullable',
+
+
         ];
     }
 }

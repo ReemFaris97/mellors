@@ -4,6 +4,22 @@
         <label class="col-lg-12">Ride :</label></label>
         <div class="col-lg-6">
             {!! Form::select('ride_id', $rides,null, array('class' => 'form-control col-lg-6')) !!}
+            @error('ride_id')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-12">Parks :</label></label>
+        <div class="col-lg-6">
+            {!! Form::select('park_id', $parks,null, array('class' => 'form-control col-lg-6')) !!}
+            @error('park_id')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
     </div>
 
@@ -11,62 +27,148 @@
         <label class="col-lg-12">Operator :</label></label>
         <div class="col-lg-6">
             {!! Form::select('user_id', $users,null, array('class' => 'form-control col-lg-6','placeholder'=>'CHOOSE Operators')) !!}
+            @error('user_id')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
     </div>
 
-    <div class="form-group stoppageCategory ">
-        <label class="col-lg-12">Ride Status :</label></label>
+
+    <div class="form-group">
+        <label class="col-lg-12">Seats filled :</label>
         <div class="col-lg-6">
-            {!! Form::select('ride_status', ['stopped','active'],null, array('class' => 'form-control col-lg-6','placeholder'=>'Ride Status')) !!}
+            {!! Form::number("seats_filled",null,['class'=>'form-control','placeholder'=>'Seats filled '])!!}
+            @error('seats_filled')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
     </div>
-    <div class="form-group stoppageSubCategory ">
-        <label class="col-lg-12">Stoppage Reasons Main Category :</label></label>
+    <div class="form-group">
+        <label class="col-lg-12">Number of vip:</label>
         <div class="col-lg-6">
-            {!! Form::select('', $stopage_category,null, array('class' => 'form-control col-lg-6 mai_category','placeholder'=>'Stoppage sub Category')) !!}
-        </div>
-    </div>
-    <div class="form-group stoppageSubCategory ">
-        <label class="col-lg-12">Stoppage Sub Category :</label></label>
-        <div class="col-lg-6">
-            <select class="form-control js-example-basic-single ms subCategory" id="subCategory" name="stopage_sub_category_id"
-                    data-live-search=true required>
-                    <option disabled> choose Main Category First</option>
-
-            </select>
-
-        </div>
-    </div>
-
-    <div class="form-group stoppageReason">
-        <label class="col-lg-12">Ride Notes :</label></label>
-        <div class="col-lg-6">
-            {!! Form::textarea("ride_notes",null,['class'=>'form-control','placeholder'=>'Ride Notes'])!!}
+            {!! Form::number("number_of_vip",null,['class'=>'form-control','placeholder'=>'number of vip'])!!}
+            @error('number_of_vip')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-lg-12">Down Time :</label>
+        <label class="col-lg-12">Number of disabled:</label>
         <div class="col-lg-6">
-            {!! Form::number("down_minutes",null,['class'=>'form-control','placeholder'=>'Down Time'])!!}
+            {!! Form::number("number_of_disabled",null,['class'=>'form-control','placeholder'=>'number of disabled'])!!}
+            @error('number_of_disabled')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-lg-12">cycle time minute:</label>
+        <div class="col-lg-6">
+            {!! Form::number("cycle_time_minute",null,['class'=>'form-control','placeholder'=>'cycle time minute'])!!}
+            @error('cycle_time_minute')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-12">Ride price:</label>
+        <div class="col-lg-6">
+            {!! Form::number("ride_price",null,['class'=>'form-control','placeholder'=>'Ride price'])!!}
+            @error('ride_price')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-12">Ride price:</label>
+        <div class="col-lg-6">
+            {!! Form::number("ride_price_vip",null,['class'=>'form-control','placeholder'=>'Ride price vip'])!!}
+            @error('ride_price_vip')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-12">Ride price:</label>
+        <div class="col-lg-6">
+            {!! Form::number("ride_price_new",null,['class'=>'form-control','placeholder'=>'Ride price new'])!!}
+            @error('ride_price_new')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-lg-12">Ride price vip New:</label>
+        <div class="col-lg-6">
+            {!! Form::number("ride_price_vip_new",null,['class'=>'form-control','placeholder'=>'Ride price vip New'])!!}
+            @error('ride_price_vip_new')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-12">Sales:</label>
+        <div class="col-lg-6">
+            {!! Form::number("sales",null,['class'=>'form-control','placeholder'=>'Sales'])!!}
+            @error('sales')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
     </div>
     <div class="form-group">
         <label class="col-lg-12"> Date :</label>
         <div class="col-lg-6">
             {!! Form::date("date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
+            @error('date')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
     </div>
-{{--    <div class="form-group">--}}
-{{--        <label class="col-lg-12"> Date Time :</label>--}}
-{{--        <div class="col-lg-6">--}}
-{{--            {!! Form::time("date_time",null,['class'=>'form-control','placeholder'=>'date_time'])!!}--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    <div class="form-group">
+        <label class="col-lg-12">  Time :</label>
+        <div class="col-lg-6">
+            {!! Form::time("time",null,['class'=>'form-control','placeholder'=>'time'])!!}
+            @error('time')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
     <div class="form-group">
         <label class="col-lg-12">Opened Date :</label>
         <div class="col-lg-6">
             {!! Form::date("opened_date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
+            @error('opened_date')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
     </div>
 
@@ -76,29 +178,4 @@
 </div>
 
 
-@push('scripts')
-<script type="text/javascript">
-    $('.mai_category').change(function() {
-        var val = $(this).val();
-        $.ajax({
-            type: "post",
-            url: "{{ route('admin.getSubStoppageCategories') }}",
-            data: {
-                'stopage_category_id': val,
-                '_token': "{{ @csrf_token() }}"
-            },
-            success: function(data) {
-                var options = '<option disabled>choose Zone</option>';
-                $.each(data.subCategory, function(key, value) {
-                    options += '<option value="' + value.id + '">' + value.name +
-                        '</option>';
-
-                });
-                $("#subCategory").empty().append(options);
-            }
-        });
-    });
-
-</script>
-@endpush
 

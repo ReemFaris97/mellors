@@ -6,6 +6,26 @@
 
 @section('content')
     <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="card-box">
+
+                <h4 class="header-title m-t-0 m-b-30">Departments Number</h4>
+
+                <div class="widget-chart-1">
+                    <div class="widget-chart-box-1">
+                        <input data-plugin="knob" data-width="80" data-height="80" data-fgColor="#f05050 "
+                               data-bgColor="#B8E6F4" value=" {{App\Models\Department::count()}}"
+                               data-skin="tron" data-angleOffset="180" data-readOnly=true
+                               data-thickness=".15" style="margin-left: -62px;"/>
+                    </div>
+
+                    <div class="widget-detail-1">
+                        <h2 class="p-t-10 m-b-0">  {{App\Models\Department::count()}} </h2>
+                        <p class="text-muted">Department</p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end col -->
 
         <div class="col-lg-3 col-md-6">
             <div class="card-box">
@@ -109,22 +129,84 @@
                 </div>
             </div>
         </div><!-- end col -->
+
+
         <div class="col-lg-3 col-md-6">
             <div class="card-box">
-
-                <h4 class="header-title m-t-0 m-b-30">Departments Number</h4>
+                <h4 class="header-title m-t-0 m-b-30">Number of Ride Categories</h4>
 
                 <div class="widget-chart-1">
                     <div class="widget-chart-box-1">
                         <input data-plugin="knob" data-width="80" data-height="80" data-fgColor="#f05050 "
-                               data-bgColor="#B8E6F4" value=" {{App\Models\Department::count()}}"
+                               data-bgColor="#AAE2C6" value="{{App\Models\GameCategory::count()}}"
                                data-skin="tron" data-angleOffset="180" data-readOnly=true
                                data-thickness=".15" style="margin-left: -62px;"/>
                     </div>
 
                     <div class="widget-detail-1">
-                        <h2 class="p-t-10 m-b-0">  {{App\Models\Department::count()}} </h2>
-                        <p class="text-muted">Department</p>
+                        <h2 class="p-t-10 m-b-0"> {{App\Models\GameCategory::count()}} </h2>
+                        <p class="text-muted">GameCategory</p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end col -->
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card-box">
+                <h4 class="header-title m-t-0 m-b-30">Number of Stoppages Categories</h4>
+
+                <div class="widget-chart-1">
+                    <div class="widget-chart-box-1">
+                        <input data-plugin="knob" data-width="80" data-height="80" data-fgColor="#f05050 "
+                               data-bgColor="#AAE2C6" value="{{App\Models\StopageCategory::count()}}"
+                               data-skin="tron" data-angleOffset="180" data-readOnly=true
+                               data-thickness=".15" style="margin-left: -62px;"/>
+                    </div>
+
+                    <div class="widget-detail-1">
+                        <h2 class="p-t-10 m-b-0"> {{App\Models\StopageCategory::count()}} </h2>
+                        <p class="text-muted">StopageCategory</p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end col -->
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card-box">
+                <h4 class="header-title m-t-0 m-b-30">Number of Stoppages Sub Categories</h4>
+
+                <div class="widget-chart-1">
+                    <div class="widget-chart-box-1">
+                        <input data-plugin="knob" data-width="80" data-height="80" data-fgColor="#f05050 "
+                               data-bgColor="#AAE2C6" value="{{App\Models\StopageSubCategory::count()}}"
+                               data-skin="tron" data-angleOffset="180" data-readOnly=true
+                               data-thickness=".15" style="margin-left: -62px;"/>
+                    </div>
+
+                    <div class="widget-detail-1">
+                        <h2 class="p-t-10 m-b-0"> {{App\Models\StopageSubCategory::count()}} </h2>
+                        <p class="text-muted">StopageSubCategory</p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end col -->
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card-box">
+
+                <h4 class="header-title m-t-0 m-b-30">Customers Feedback Number</h4>
+
+                <div class="widget-chart-1">
+                    <div class="widget-chart-box-1">
+                        <input data-plugin="knob" data-width="80" data-height="80" data-fgColor="#f05050 "
+                               data-bgColor="#B8E6F4" value=" {{App\Models\CustomerFeedbacks::count()}}"
+                               data-skin="tron" data-angleOffset="180" data-readOnly=true
+                               data-thickness=".15" style="margin-left: -62px;"/>
+                    </div>
+
+                    <div class="widget-detail-1">
+                        <h2 class="p-t-10 m-b-0">  {{App\Models\CustomerFeedbacks::count()}} </h2>
+                        <p class="text-muted">CustomerFeedbacks</p>
                     </div>
                 </div>
             </div>

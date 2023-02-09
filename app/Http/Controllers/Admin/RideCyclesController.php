@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Ride\RideCycleRequest;
 use App\Imports\RidesStoppageImport;
+use App\Models\Park;
 use App\Models\Ride;
 use App\Models\RideCycles;
 use App\Models\User;
@@ -33,7 +34,8 @@ class RideCyclesController extends Controller
     {
         $rides = Ride::pluck('name', 'id')->all();;
         $users=User::pluck('name','id')->toArray();
-        return view('admin.rides_cycles.add',compact('rides','users'));
+        $parks=Park::pluck('name','id')->toArray();
+        return view('admin.rides_cycles.add',compact('rides','users','parks'));
     }
 
     /**
