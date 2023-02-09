@@ -38,7 +38,7 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentRequest $request)
     {
-        Department::create(['name' => $request->input('name')]);
+        Department::create($request->validated());
         alert()->success('Department Added successfully !');
         return redirect()->route('admin.departments.index');
     }

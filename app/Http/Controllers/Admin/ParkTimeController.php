@@ -19,7 +19,10 @@ class ParkTimeController extends Controller
      */
     public function index()
     {
-        $items=ParkTime::where('date',date('Y-m-d'))->get();
+      $parks[]=auth()->user()->parks->toArray();
+//      return $parks;
+          $items=ParkTime::where('date',date('Y-m-d'))
+                          ->where('park_id',$parks)->get();
         return view('admin.park_times.index',compact('items'));
     }
 
@@ -30,7 +33,7 @@ class ParkTimeController extends Controller
      */
     public function create()
     {
-        $parks = Park::pluck('name','id')->all();
+        $parks=auth()->user()->parks->pluck('name','id')->toArray();
 
         return view('admin.park_times.add',compact('parks'));
     }

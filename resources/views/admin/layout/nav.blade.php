@@ -89,7 +89,7 @@
       <ul class="list-unstyled">
           <li><a href="{{route('admin.park_times.index')}}">All Parks</a></li>
           <li><a href="{{route('admin.park_times.create')}}">Add Park open and close times</a></li>
-          <li><a href="{{route('admin.game_times.index')}}">Update Ride open and close times</a></li>
+          {{--<li><a href="{{route('admin.game_times.index')}}">Update Ride open and close times</a></li>--}}
 
       </ul>
   </li>

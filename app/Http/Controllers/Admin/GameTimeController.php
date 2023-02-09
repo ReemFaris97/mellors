@@ -59,9 +59,10 @@ class GameTimeController extends Controller
      * @param  \App\GameTime  $GameTime
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-
+        $items=Ride::where('park_id',$id)->get();
+        return view('admin.game_times.index',compact('items'));
     }
 
     /**

@@ -68,11 +68,6 @@
 
                                                     {!!Form::model($item , ['route' => ['admin.park_times.daily_entrance_count' , $item->id] ,
                                                      'id' => 'ClientStore', 'method' => 'PATCH','enctype'=>"multipart/form-data"]) !!}
-
-
-                                                    {{--{!! Form::open([route('admin.park_times.daily_entrance_count') , 'class' => 'form phone_validate',--}}
-                                                       {{--'id' => 'ClientStore', 'method' => 'post', 'files' => true]) !!}--}}
-                                                    {{--<div class="form-group">--}}
                                                         <label class="form-label"> </label>
                                                         <div class="form-line">
                                                             {!! Form::number('daily_entrance_count', null, ['class' => 'form-control']) !!}
@@ -92,8 +87,11 @@
                                 {!!Form::open( ['route' => ['admin.park_times.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                        <a href="{{ route('admin.park_times.edit', $item) }}"
-                                           class="btn btn-info">Edit</a>
+                                    <a href="{{ route('admin.game_times.show', $item) }}"
+                                       class="btn btn-info">Edit Ride Time</a>
+                                    <a href="{{ route('admin.park_times.edit', $item) }}"
+                                       class="btn btn-info">Edit Park Time</a>
+
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.park_times.destroy', $item) }}"
                                            onclick="delete_form(this)">
