@@ -22,7 +22,7 @@ class ParkTimeController extends Controller
       $parks[]=auth()->user()->parks->toArray();
 //      return $parks;
           $items=ParkTime::where('date',date('Y-m-d'))
-                          ->where('park_id',$parks)->get();
+                          ->whereIn('park_id',$parks)->get();
         return view('admin.park_times.index',compact('items'));
     }
 

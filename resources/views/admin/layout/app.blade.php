@@ -96,7 +96,7 @@
     </footer>
 </div>
 @include('admin.layout.scripts')
-@include('Alerts::alerts')
+@include('sweetalert::alert')
 @yield('footer')
 @stack('scripts')
 </body>

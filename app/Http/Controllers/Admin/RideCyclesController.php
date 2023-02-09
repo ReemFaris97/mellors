@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Ride\RideCycleRequest;
 use App\Imports\RidesStoppageImport;
 use App\Models\Ride;
 use App\Models\RideCycles;
@@ -41,9 +42,10 @@ class RideCyclesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RideCycleRequest $request)
     {
-        //
+        RideCycles::create($request->validated());
+
     }
 
 
