@@ -4,7 +4,7 @@
 <div class="form-group form-float">
     <label class="form-label">Inspection Element Name</label>
     <div class="form-line">
-        {!! Form::text("name",null,['class'=>'form-control','placeholder'=>' Branch name'])!!}
+        {!! Form::text("name",null,['class'=>'form-control','placeholder'=>' Inspection Element'])!!}
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
             {{ $message }}

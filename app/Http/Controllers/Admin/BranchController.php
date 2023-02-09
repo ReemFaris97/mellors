@@ -38,7 +38,7 @@ class BranchController extends Controller
      */
     public function store(BranchRequest $request)
     {
-        Branch::create(['name' => $request->input('name')]);
+        Branch::create($request->validated());
         alert()->success('Branch Added successfully !');
         return redirect()->route('admin.branches.index');
     }
