@@ -150,6 +150,7 @@
           class="zmdi zmdi-collection-text"></i><span>Ride Operations </span> <span class="menu-arrow"></span></a>
   <ul class="list-unstyled">
       <li><a href="{{route('admin.rides-stoppages.index')}}"> Rides Stoppages</a></li>
+      <li><a href="{{route('admin.rides-cycles.index')}}"> Rides Cycles</a></li>
       <li><a href="{{route('admin.queues.create')}}">Add Queues</a></li>
       <li><a href="{{route('admin.queues.index')}}">show Rides Queues</a></li>
   </ul>
