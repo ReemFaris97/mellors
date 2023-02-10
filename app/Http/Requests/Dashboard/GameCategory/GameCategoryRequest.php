@@ -29,7 +29,7 @@ class GameCategoryRequest extends FormRequest
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
-                'name'=>'nullable',
+                'name'=>'required',
             ];
         }
         return $rules;

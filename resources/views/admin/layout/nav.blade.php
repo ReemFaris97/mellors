@@ -152,8 +152,9 @@
   <ul class="list-unstyled">
       <li><a href="{{route('admin.rides-stoppages.index')}}"> Rides Stoppages</a></li>
       <li><a href="{{route('admin.rides-cycles.index')}}"> Rides Cycles</a></li>
+      <li><a href="{{route('admin.queues.index')}}">Rides Queues</a></li>
       <li><a href="{{route('admin.queues.create')}}">Add Queues</a></li>
-      <li><a href="{{route('admin.queues.index')}}">show Rides Queues</a></li>
+
   </ul>
 </li>
 @endif

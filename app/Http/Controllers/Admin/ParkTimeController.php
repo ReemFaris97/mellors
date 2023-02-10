@@ -22,7 +22,7 @@ class ParkTimeController extends Controller
       $parks[]=auth()->user()->parks->toArray();
 //      return $parks;
           $items=ParkTime::where('date',date('Y-m-d'))
-                          ->whereIn('park_id',$parks)->get();
+                          ->where('park_id',$parks)->get();
         return view('admin.park_times.index',compact('items'));
     }
 
@@ -46,13 +46,8 @@ class ParkTimeController extends Controller
      */
     public function store(ParkTimeRequest $request)
     {
-        ParkTime::create([
-            'start' => $request->input('start'),
-            'end' => $request->input('end'),
-            'date' => $request->input('date'),
-            'park_id' => $request->input('park_id'),
-            ]);
-        alert()->success('Open and Clode tieme Added successfully to the park !');
+        ParkTime::create($request->validated());
+        alert()->success('Open and Close Time Added successfully to the park !')->autoclose(50000);
         return redirect()->route('admin.park_times.index');
     }
 
@@ -94,7 +89,7 @@ class ParkTimeController extends Controller
         $parkTime->update($request->validated());
         $parkTime->save();
 
-        alert()->success('Park Time updated successfully !');
+        alert()->success('Park Time updated successfully !')->autoclose(50000);
         return redirect()->route('admin.park_times.index');
     }
     /**
@@ -110,10 +105,10 @@ class ParkTimeController extends Controller
         ){
 
             $parkTime->delete();
-            alert()->success('Park Time deleted successfully');
+            alert()->success('Park Time deleted successfully')->autoclose(50000);
             return back();
         }
-        alert()->error('Park Time not found');
+        alert()->error('Park Time not found')->autoclose(50000);
         return redirect()->route('admin.park_times.index');
     }
 
@@ -123,7 +118,7 @@ class ParkTimeController extends Controller
         $res = ParkTime::findOrFail($request->park_id);
         $res->fill($toUpdateColumns);
         $res->save();
-        alert()->success('daily entrance count added successfully !');
+        alert()->success('daily entrance count added successfully !')->autoclose(50000);
         return redirect()->route('admin.park_times.index');
     }
 }

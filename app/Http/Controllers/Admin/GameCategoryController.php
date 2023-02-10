@@ -61,8 +61,9 @@ class GameCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(GameCategoryRequest $request, GameCategory $game_cats)
+    public function update(GameCategoryRequest $request, $id)
     {
+        $game_cats=GameCategory::find($id);
         $game_cats->update($request->validated());
         $game_cats->save();
 

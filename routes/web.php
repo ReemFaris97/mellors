@@ -55,6 +55,7 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::Post('upload-cycles-with-excel','Admin\RideCyclesController@uploadCycleExcleFile')->name('uploadCycleExcleFile');//done
 
     Route::resource('queues','Admin\QueueController');
+    Route::Post('upload-queues-with-excel','Admin\QueueController@uploadQueueExcleFile')->name('uploadQueueExcleFile');//done
     Route::get('/search_queues/', 'Admin\QueueController@search')->name('search');
 
     Route::resource('inspection_lists','Admin\InspectionListController');//done

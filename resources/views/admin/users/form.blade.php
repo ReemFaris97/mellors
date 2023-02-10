@@ -44,12 +44,12 @@
 
 <div class="form-group">
     <label>Department :</label>
-        {!! Form::select('department_id', @$departments?$departments:null,null, array('class' => 'form-control','placeholder'=>'choose department')) !!}
+        {!! Form::select('department_id',$departments,null,array('class' => 'form-control','placeholder'=>'choose department','disabled')) !!}
 </div>
 
 <div class="form-group">
     <label >Branch :</label>
-        {!! Form::select('branch_id', @$branches?$branches:null,null, array('class' => 'form-control','id'=>'branch','placeholder'=>'choose branch')) !!}
+        {!! Form::select('branch_id',$branches,null,array('class' => 'form-control','id'=>'branch','placeholder'=>'choose branch','disabled')) !!}
 </div>
 <div class="form-group">
     <label >User Park (choose branch first):</label>

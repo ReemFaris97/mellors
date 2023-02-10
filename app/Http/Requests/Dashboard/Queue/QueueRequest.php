@@ -24,11 +24,15 @@ class QueueRequest extends FormRequest
     public function rules()
     {
             $rules = [
-                'ride_id'=>'nullable',
-                'start'=>'nullable',
-                'end'=>'nullable',
-                'queue_minutes'=>'nullable',
-                'date'=>'nullable'
+                'ride_id'=>'required',
+                'park_id'=>'required',
+                'user_id'=>'required',
+                'seats_filled'=>'required',
+                'queue_minutes'=>'required',
+                'queue_seconds'=>'required',
+                'date'=>'nullable',
+                'time'=>'nullable',
+                'opened_date'=>'nullable',
             ];
 
         return $rules;

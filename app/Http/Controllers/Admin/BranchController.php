@@ -38,7 +38,7 @@ class BranchController extends Controller
      */
     public function store(BranchRequest $request)
     {
-        Branch::create($request->validated());
+        Branch::create;
         alert()->success('Branch Added successfully !');
         return redirect()->route('admin.branches.index');
     }
@@ -67,7 +67,7 @@ class BranchController extends Controller
         $branch->update($request->validated());
         $branch->save();
 
-        alert()->success('department updated successfully !')->autoclose(50000);
+        alert()->success('Branch updated successfully !');
         return redirect()->route('admin.branches.index');
     }
     /**
@@ -80,12 +80,11 @@ class BranchController extends Controller
     {
         $branch=Branch::find($id);
         if ($branch){
-
             $branch->delete();
-            alert()->success('department deleted successfully');
+            alert()->success('Branch deleted successfully');
             return back();
         }
-        alert()->error('department not found');
+        alert()->error('Branch not found');
         return redirect()->route('admin.branches.index');
     }
 }

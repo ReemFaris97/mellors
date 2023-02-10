@@ -12,6 +12,7 @@ use App\Traits\bcryptPass;
 
 class User extends Authenticatable
 {
+
     use  Notifiable,bcryptPass, HasRoles;
 
     /**
@@ -24,7 +25,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'department_id ',
+        'department_id',
         'branch_id',
         'first_name',
         'middle_name',

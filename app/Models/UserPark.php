@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class UserPark extends Model
 {
+
     protected $fillable = [
         'user_id','park_id'
     ];

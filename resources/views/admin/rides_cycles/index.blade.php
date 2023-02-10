@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-   All Rides Stoppages
+   All Ride Cycles
 @endsection
 
 @section('content')

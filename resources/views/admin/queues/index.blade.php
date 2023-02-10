@@ -25,7 +25,7 @@ Show Queues On Selected Ride
             </div>
             {!!Form::close() !!}
 
-      @if(isset($queues))
+      {{--@if(isset($queues))--}}
 
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
@@ -37,37 +37,69 @@ Show Queues On Selected Ride
                                 colspan="1" aria-sort="ascending">ID
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride
+                                Ride Name
+                            </th>
+
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Operator Name
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Park Name
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Date
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Queue minutes
+                                Time
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                               End Time
+                                seats_filled
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Queue Minites
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Queue seconds
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Opened_Date
                             </th>
 
-
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Process
+                            </th>
                         </tr>
                         </thead>
+
                         <tbody>
 
-                        @foreach ($queues as $item)
+                        @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                <td>{{ $item->rides->name }}</td>
+                                <td>{{ $item->ride->name }}</td>
+                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->ride->park->name ?? "" }}</td>
                                 <td>{{ $item->date }}</td>
+                                <td>{{ $item->time }}</td>
+                                <td>{{ $item->seats_filled }}</td>
+                                <td>{{ $item->opened_Date }}</td>
                                 <td>{{ $item->queue_minutes }}</td>
-                                <td>{{ $item->end }}</td>
+                                <td>{{ $item->queue_seconds }}</td>
+                                {!!Form::open( ['route' => ['admin.queues.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
+                                <td>
+                                    <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                       data-url="{{ route('admin.queues.destroy', $item) }}"
+                                       onclick="delete_form(this)">
+                                        Delete
+                                    </a>
 
+                                </td>
                             </tr>
 
                         @endforeach
 
                         </tbody>
-                    </table>
                     </table>
 
 
@@ -75,7 +107,7 @@ Show Queues On Selected Ride
             </div>
 
         </div>
-          @endif
+          {{--@endif--}}
     </div>
 
 

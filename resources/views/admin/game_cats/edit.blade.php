@@ -10,7 +10,8 @@
                 <a class="input-group-btn" href="{{route('admin.game_cats.index')}}">
                     <button type="button" class="btn waves-effect waves-light btn-primary">back</button>
                 </a>
-                            {!!Form::model($game_cats , ['route' => ['admin.game_cats.update' , $game_cats->id] , 'method' => 'PATCH','enctype'=>"multipart/form-data",'files' => true,'id'=>'form']) !!}
+                            {!!Form::model($game_cats , ['route' => ['admin.game_cats.update' , $game_cats->id] ,
+                             'method' => 'PATCH','enctype'=>"multipart/form-data",'files' => true,'id'=>'form']) !!}
                             @include('admin.game_cats.form')
                             {!!Form::close() !!}
             </div>

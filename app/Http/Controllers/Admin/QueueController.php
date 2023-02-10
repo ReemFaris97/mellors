@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Queue\QueueRequest;
 use App\Models\Park;
-use App\Models\ParkTime;
+use App\Models\User;
 use App\Models\Queue;
 use App\Models\Ride;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class QueueController extends Controller
 {
@@ -31,11 +33,18 @@ class QueueController extends Controller
      */
     public function create()
     {
-        $rides=Ride::pluck('name','id')->all();
-        return view('admin.queues.add',compact('rides'));
+        $rides = Ride::pluck('name', 'id')->all();;
+        $users=User::pluck('name','id')->toArray();
+        $parks=Park::pluck('name','id')->toArray();
+        return view('admin.queues.add',compact('rides','users','parks'));
 
     }
-
+    public function uploadQueueExcleFile(Request $request)
+    {
+        Excel::import(new \App\Imports\RideQueues(), $request->file('file'));
+        alert()->success('Ride Queues Added successfully !');
+        return redirect()->route('admin.queues.index');
+    }
     /**
      * Store a newly created resource in storage.
      *

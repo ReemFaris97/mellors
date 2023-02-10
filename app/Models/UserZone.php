@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class UserZone extends Model
 {
+
     protected $fillable = [
         'user_id','zone_id'
     ];
