@@ -7,6 +7,9 @@ Show Queues On Selected Ride
 @section('content')
 
     <div class="card-box">
+        <a href="{{route('admin.queues.create')}}">
+            <button type="button" class="btn btn-info">Create New Queue</button>
+        </a>
         <form action="{{url('/search_queues')}}" method="GET">
 
             @csrf
@@ -82,9 +85,10 @@ Show Queues On Selected Ride
                                 <td>{{ $item->date }}</td>
                                 <td>{{ $item->time }}</td>
                                 <td>{{ $item->seats_filled }}</td>
-                                <td>{{ $item->opened_Date }}</td>
                                 <td>{{ $item->queue_minutes }}</td>
                                 <td>{{ $item->queue_seconds }}</td>
+                                <td>{{ $item->opened_date }}</td>
+
                                 {!!Form::open( ['route' => ['admin.queues.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
