@@ -112,6 +112,6 @@ class QueueController extends Controller
             ->where('ride_id',$ride_id)
             ->Where('date', $date)
             ->get();
-        return view('admin.queues.index', compact('$items'));
+        return view('admin.queues.index', compact('items'));
     }
 }
