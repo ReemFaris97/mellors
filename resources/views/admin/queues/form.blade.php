@@ -84,7 +84,7 @@
     <div class="form-group">
         <label class="col-lg-12">  Queue minutes :</label>
         <div class="col-lg-6">
-            {!! Form::time("queue_minutes",null,['class'=>'form-control','placeholder'=>'time'])!!}
+            {!! Form::number("queue_minutes",null,['class'=>'form-control','placeholder'=>'Queue minutes'])!!}
             @error('queue_minutes')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
@@ -95,7 +95,7 @@
     <div class="form-group">
         <label class="col-lg-12">  Queue seconds :</label>
         <div class="col-lg-6">
-            {!! Form::time("queue_seconds",null,['class'=>'form-control','placeholder'=>'time'])!!}
+            {!! Form::number("queue_seconds",null,['class'=>'form-control','placeholder'=>'Queue seconds'])!!}
             @error('queue_seconds')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
