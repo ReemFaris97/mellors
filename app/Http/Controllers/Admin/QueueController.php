@@ -108,10 +108,10 @@ class QueueController extends Controller
     public function search(Request $request){
         $ride_id = $request->input('ride_id');
         $date = $request->input('date');
-        $queues = Queue::query()
+        $items = Queue::query()
             ->where('ride_id',$ride_id)
             ->Where('date', $date)
             ->get();
-        return view('admin.queues.index', compact('queues'));
+        return view('admin.queues.index', compact('$items'));
     }
 }
