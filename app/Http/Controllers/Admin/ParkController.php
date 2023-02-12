@@ -19,6 +19,7 @@ class ParkController extends Controller
     public function index()
     {
         $items=auth()->user()->parks->all();
+
         return view('admin.parks.index',compact('items'));
     }
 
@@ -42,8 +43,7 @@ class ParkController extends Controller
      */
     public function store(ParkRequest $request)
     {
-        Park::create(['name' => $request->input('name')
-        ,'branch_id' => $request->input('branch_id')]);
+        Park::create($request->validated());
         alert()->success('Park Added successfully !');
         return redirect()->route('admin.parks.index');
     }

@@ -25,7 +25,7 @@
 
   <li class="has_sub">
       <a href="javascript:void(0);" class="waves-effect"><i
-              class="zmdi zmdi-view-list"></i><span>Users Departments </span> <span
+              class="zmdi zmdi-view-list"></i><span> Departments </span> <span
               class="menu-arrow"></span></a>
       <ul class="list-unstyled">
                      @can('departments-list')
@@ -54,21 +54,7 @@
   </li>
 @endif
 
-@if(auth()->user()->can('users-list')|| auth()->user()->can('users-create'))
-  <li class="has_sub">
-      <a href="javascript:void(0);" class="waves-effect"><i
-              class="zmdi zmdi-assignment-returned"></i><span> Users </span> <span class="menu-arrow"></span></a>
-      <ul class="list-unstyled">
-           @can('users-list')
-              <li><a href="{{route('admin.users.index')}}">All Users</a></li>
-           @endcan
-            @can('users-create')
-              <li><a href="{{route('admin.users.create')}}">Add New User</a></li>
-           @endcan
 
-      </ul>
-  </li>
-@endif
 
 @if(auth()->user()->can('parks-list')|| auth()->user()->can('parks-create'))
   <li class="has_sub">
@@ -81,19 +67,7 @@
   </li>
   @endif
 
-@if(auth()->user()->can('park_times-list')|| auth()->user()->can('park_times-create'))
-  <li class="has_sub">
-      <a href="javascript:void(0);" class="waves-effect"><i
-              class="zmdi zmdi-calendar-check"></i><span>Open & Close Time </span> <span
-              class="menu-arrow"></span></a>
-      <ul class="list-unstyled">
-          <li><a href="{{route('admin.park_times.index')}}">All Parks</a></li>
-          <li><a href="{{route('admin.park_times.create')}}">Add Park open and close times</a></li>
-          {{--<li><a href="{{route('admin.game_times.index')}}">Update Ride open and close times</a></li>--}}
 
-      </ul>
-  </li>
-@endif
 @if(auth()->user()->can('zones-list')|| auth()->user()->can('zones-create'))
   <li class="has_sub">
       <a href="javascript:void(0);" class="waves-effect"><i
@@ -107,7 +81,34 @@
       </ul>
   </li>
 @endif
+@if(auth()->user()->can('users-list')|| auth()->user()->can('users-create'))
+    <li class="has_sub">
+        <a href="javascript:void(0);" class="waves-effect"><i
+                    class="zmdi zmdi-assignment-returned"></i><span> Users </span> <span class="menu-arrow"></span></a>
+        <ul class="list-unstyled">
+            @can('users-list')
+                <li><a href="{{route('admin.users.index')}}">All Users</a></li>
+            @endcan
+            @can('users-create')
+                <li><a href="{{route('admin.users.create')}}">Add New User</a></li>
+            @endcan
 
+        </ul>
+    </li>
+@endif
+@if(auth()->user()->can('park_times-list')|| auth()->user()->can('park_times-create'))
+    <li class="has_sub">
+        <a href="javascript:void(0);" class="waves-effect"><i
+                    class="zmdi zmdi-calendar-check"></i><span>Open & Close Time </span> <span
+                    class="menu-arrow"></span></a>
+        <ul class="list-unstyled">
+            <li><a href="{{route('admin.park_times.index')}}">All Parks</a></li>
+            <li><a href="{{route('admin.park_times.create')}}">Add Park open and close times</a></li>
+            {{--<li><a href="{{route('admin.game_times.index')}}">Update Ride open and close times</a></li>--}}
+
+        </ul>
+    </li>
+@endif
 @if(auth()->user()->can('game_cats-list')|| auth()->user()->can('game_cats-create'))
   <li class="has_sub">
       <a href="javascript:void(0);" class="waves-effect"><i
