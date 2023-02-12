@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-Branches
+Preopening Lists
 @endsection
 
 @section('content')
@@ -18,7 +18,10 @@ Branches
                                 colspan="1" aria-sort="ascending">ID
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Branch
+                                Ride
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Comment
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
@@ -32,18 +35,19 @@ Branches
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                {!!Form::open( ['route' => ['admin.branches.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                <td>{{ $item->rides->name }}</td>
+                                <td>{{ $item->comment }}</td>
+                                {!!Form::open( ['route' => ['admin.preopening_lists.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                    @if(auth()->user()->can('branches-edit'))
-                                        <a href="{{ route('admin.branches.edit', $item) }}"
+                                    @if(auth()->user()->can('preopening_lists-edit'))
+                                        <a href="{{ route('admin.preopening_lists.edit', $item) }}"
                                            class="btn btn-info">Edit</a>
                                     @endif
-                                        @if(auth()->user()->can('branches-delete'))
+                                        @if(auth()->user()->can('preopening_lists-delete'))
 
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                           data-url="{{ route('admin.branches.destroy', $item) }}"
+                                           data-url="{{ route('admin.preopening_lists.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>
@@ -66,6 +70,10 @@ Branches
     </div>
 
 
+@endsection
+
+@section('footer')
+    @include('admin.datatable.scripts')
 @endsection
 
 

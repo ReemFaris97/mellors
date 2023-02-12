@@ -14,7 +14,7 @@ class PreopeningList extends Model
         'ride_id',
         'inspection_list',
         'zone_id',
-        'user_id'
+        'user_id','date','comment'
     ];
     public function rides()
     {

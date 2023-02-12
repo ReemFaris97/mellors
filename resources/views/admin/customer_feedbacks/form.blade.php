@@ -59,7 +59,14 @@
             </div>
         </div>
 
-
+        <div class="form-group">
+            <label for="name"> Upload Customer Feedback Images  </label>
+        {!! Form::file('image[]' , [
+                                  "class" => "form-control  file_upload_preview",
+                                  "multiple" => "multiple",
+                                  "data-preview-file-type" => "text"
+                                              ]) !!}
+        </div>
 
 <div class="col-xs-12 aligne-center contentbtn">
     <button class="btn btn-primary waves-effect" type="submit">Save</button>

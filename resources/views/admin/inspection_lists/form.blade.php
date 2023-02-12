@@ -12,6 +12,18 @@
         @enderror
     </div>
 </div>
+    <div class="col-xs-12">
+        <div class="form-group form-float">
+            <label class="form-label">Comment</label>
+            <div class="form-line">
+                {!! Form::textArea("comment",null,['class'=>'form-control','placeholder'=>' Inspection Element Comment'])!!}
+                @error('comment')
+                <div class="invalid-feedback" style="color: #ef1010">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+        </div>
 </div>
 
 <div class="col-xs-12 aligne-center contentbtn">

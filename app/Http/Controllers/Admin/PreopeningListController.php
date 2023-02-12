@@ -67,7 +67,20 @@ class PreopeningListController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.preopening_lists.edit')->with('branch',PreopeningList::find($id));
+        $item=PreopeningList::find($id);
+        $zone_id=$item->zone_id;
+        $list = explode(",",$item->inspection_list);
+        $rides=Ride::where('zone_id',$item->zone_id)->pluck('name','id')->all();
+        $item=PreopeningList::find($id);
+        $inspections=InspectionList::all();
+        return view('admin.preopening_lists.edit',compact('rides','list','zone_id','item','inspections'));
+
+    }
+    public function show($id)
+    {
+        $items=PreopeningList::where('zone_id',$id)->get();
+
+        return view('admin.preopening_lists.index',compact('items'));
 
     }
 
@@ -80,7 +93,14 @@ class PreopeningListController extends Controller
      */
     public function update(PreopeningListRequest $request, PreopeningList $preopening_list)
     {
-        $preopening_list->update($request->validated());
+        $preopening_list->update([
+        'ride_id'=>$request->validated('ride_id'),
+        'zone_id'=>$request->validated('zone_id'),
+        'user_id' =>$request->validated('user_id'),
+        'inspection_list'=>implode(',', (array) $request['inspection_list']),
+        'comment'=>$request->validated('comment'),
+        'date'=>$request->validated('date')
+        ]);
         $preopening_list->save();
 
         alert()->success('Preopening List updated successfully !');

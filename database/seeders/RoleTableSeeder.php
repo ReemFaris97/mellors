@@ -32,6 +32,14 @@ class RoleTableSeeder extends Seeder
                     'created_at' => NULL,
                     'updated_at' => NULL,
                 ),
+            2 =>
+                array (
+                    'id' => 2,
+                    'name' => 'Technical ',
+                    'guard_name' => 'web',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                ),
         ));
     }
 }

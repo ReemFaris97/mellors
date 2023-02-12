@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CustomerFeedback\CustomerFeedbackRequest;
 use App\Models\Ride;
 use Illuminate\Http\Request;
 use App\Models\CustomerFeedbacks;
-use App\Models\Game;
+use App\Models\CustomerFeedbackImage;
 use Illuminate\Support\Facades\Auth;
+use Image;
+use Helper;
+
 
 
 class CustomerFeedbackController extends Controller
@@ -52,7 +56,14 @@ class CustomerFeedbackController extends Controller
      */
     public function store(CustomerFeedbackRequest $request)
     {
-        CustomerFeedbacks::create($request->validated());
+        $cf = new CustomerFeedbacks();
+        $cf->comment = $request->input('comment');
+        $cf-> type = $request->input('type');
+        $cf-> date = $request->input('date');
+        $cf->ride_id = $request->input('ride_id');
+        $cf->save();
+        $customer_feedback_id=$cf->id;
+        multiUploaderWithmodelproduct($request,'image',new CustomerFeedbackImage(),null,$customer_feedback_id);
         alert()->success('Customer Feedback  Added successfully !');
         return redirect()->route('admin.customer_feedbacks.index');
     }
