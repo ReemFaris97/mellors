@@ -20,7 +20,7 @@ class Helpers
      * Upload Path
      * @return string
      */
-    function uploadpath()
+  public static function uploadpath()
     {
         return 'photos';
     }
@@ -52,15 +52,15 @@ class Helpers
         return True;
     }
 
-    function multiUploaderWithmodelproduct($request, $img_name, $model, $onId = null, $lawyer_id)
+  public static function multiUploaderWithmodelproduct($request, $img_name, $model, $onId = null, $lawyer_id)
     {
         $images = [];
         $i = 0;
         foreach ($request[$img_name] as $image) {
-            $path = \Storage::disk('public')->putFile(uploadpath(), $image);
+            $path = \Storage::disk('public')->putFile('photos', $image);
             $images[$i] = $path;
             $i++;
-            $model->create(['image' => $path, '$customer_feedback_id' => $lawyer_id,]);
+            $model->create(['image' => $path, 'customer_feedback_id' => $lawyer_id]);
         }
         return $images;
     }

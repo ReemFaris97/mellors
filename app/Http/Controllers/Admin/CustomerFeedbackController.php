@@ -63,7 +63,7 @@ class CustomerFeedbackController extends Controller
         $cf->ride_id = $request->input('ride_id');
         $cf->save();
         $customer_feedback_id=$cf->id;
-        multiUploaderWithmodelproduct($request,'image',new CustomerFeedbackImage(),null,$customer_feedback_id);
+        \app\Http\Helpers\Helpers::multiUploaderWithmodelproduct($request,'image',new CustomerFeedbackImage(),null,$customer_feedback_id);
         alert()->success('Customer Feedback  Added successfully !');
         return redirect()->route('admin.customer_feedbacks.index');
     }
