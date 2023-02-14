@@ -81,7 +81,7 @@
                                 <td>{{ $item->ride_status }}</td>
                                 <td>{{ $item->stopageSubCategory->name ?? "name" }}</td>
                                 <td>{{ $item->ride_notes }}</td>
-                                <td>{{ $item->opened_Date }}</td>
+                                <td>{{ $item->opened_date }}</td>
                                 <td>{{ $item->date_time }}</td>
                                 <td>{{ $item->down_minutes }}</td>
                                 {!!Form::open( ['route' => ['admin.rides-stoppages.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}

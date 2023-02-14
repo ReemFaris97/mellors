@@ -23,10 +23,14 @@ class RideStoppageController extends Controller
      */
     public function index()
     {
-        $items=RideStoppages::all();
-        return view('admin.rides_stoppages.index',compact('items'));
+        if (auth()->user()->hasRole('Technical')) {
+            $items = RideStoppages::where('ride_status', 'stopped')
+                ->where('opened_date',date('Y-m-d'))->get();
+            return view('admin.rides_stoppages.index', compact('items'));
+        }
+        else
+            return redirect()->back();
     }
-
     /**
      * Show the form for creating a new resource.
      *

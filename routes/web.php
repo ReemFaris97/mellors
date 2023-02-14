@@ -48,14 +48,14 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::resource('stoppage-category','Admin\StoppageCategoryController');//done
     Route::resource('stoppage-sub-category','Admin\StoppageSubCategoryController');//done
     Route::resource('rides','Admin\RidesController');//done
-    Route::Post('upload-rides-with-excel','Admin\RidesController@uploadExcleFile')->name('uploadExcleFile');//done
+    Route::Post('upload-rides-with-excel','Admin\RidesController@uploadExcleFile')->name('uploadExcleFile');
     Route::resource('rides-stoppages','Admin\RideStoppageController');//done
-    Route::Post('upload-stoppages-with-excel','Admin\RideStoppageController@uploadStoppagesExcleFile')->name('uploadStoppagesExcleFile');//done
+    Route::Post('upload-stoppages-with-excel','Admin\RideStoppageController@uploadStoppagesExcleFile')->name('uploadStoppagesExcleFile');
      Route::resource('rides-cycles','Admin\RideCyclesController');//done
-    Route::Post('upload-cycles-with-excel','Admin\RideCyclesController@uploadCycleExcleFile')->name('uploadCycleExcleFile');//done
+    Route::Post('upload-cycles-with-excel','Admin\RideCyclesController@uploadCycleExcleFile')->name('uploadCycleExcleFile');
 
-    Route::resource('queues','Admin\QueueController');
-    Route::Post('upload-queues-with-excel','Admin\QueueController@uploadQueueExcleFile')->name('uploadQueueExcleFile');//done
+    Route::resource('queues','Admin\QueueController');//done
+    Route::Post('upload-queues-with-excel','Admin\QueueController@uploadQueueExcleFile')->name('uploadQueueExcleFile');
     Route::get('/search_queues/', 'Admin\QueueController@search')->name('search');
 
     Route::resource('inspection_lists','Admin\InspectionListController');//done

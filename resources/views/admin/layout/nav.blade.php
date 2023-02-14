@@ -145,7 +145,7 @@
 </li>
 @endif
 
-@if(auth()->user()->can('rides-list')|| auth()->user()->can('rides-create'))
+@if(auth()->user()->can('rides-stoppages-list')|| auth()->user()->can('rides-stoppages-create'))
 
   <li class="has_sub">
   <a href="javascript:void(0);" class="waves-effect"><i
