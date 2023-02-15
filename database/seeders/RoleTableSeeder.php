@@ -16,19 +16,35 @@ class RoleTableSeeder extends Seeder
         \DB::table('roles')->delete();
 
         \DB::table('roles')->insert(array (
-//            0 =>
-//                array (
-//                    'id' => 1,
-//                    'name' => 'Super Admin',
-//                    'guard_name' => 'web',
-//                    'created_at' => NULL,
-//                    'updated_at' => NULL,
-//                ),
+            0 =>
+                array (
+                    'id' => 1,
+                    'name' => 'Super Admin',
+                    'guard_name' => 'web',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                ),
 
             1 =>
                 array (
                     'id' => 2,
-                    'name' => 'Technical ',
+                    'name' => 'zone supervisor',
+                    'guard_name' => 'web',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                ),
+            2 =>
+                array (
+                    'id' => 3,
+                    'name' => 'Technical',
+                    'guard_name' => 'web',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                ),
+            3 =>
+                array (
+                    'id' => 4,
+                    'name' => 'Operation ',
                     'guard_name' => 'web',
                     'created_at' => NULL,
                     'updated_at' => NULL,

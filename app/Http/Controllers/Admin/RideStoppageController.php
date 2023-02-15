@@ -26,10 +26,11 @@ class RideStoppageController extends Controller
         if (auth()->user()->hasRole('Technical')) {
             $items = RideStoppages::where('ride_status', 'stopped')
                 ->where('opened_date',date('Y-m-d'))->get();
-            return view('admin.rides_stoppages.index', compact('items'));
         }
-        else
-            return redirect()->back();
+        else{
+            $items = RideStoppages::all();
+        }
+            return view('admin.rides_stoppages.index', compact('items'));
     }
     /**
      * Show the form for creating a new resource.

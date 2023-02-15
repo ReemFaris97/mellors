@@ -11,7 +11,7 @@ trait ImageOperations
     public function setImageAttribute($image)
     {
         if (!is_null($image) and is_file($image))
-            $this->attributes['image'] = uploadImage('uploads', $image);
+            $this->attributes['image'] = $this->uploadImage('uploads', $image);
         else
             $this->attributes['image'] = $image;
     }
@@ -24,6 +24,38 @@ trait ImageOperations
         else
             return asset($image);
     }
+
+
+    function uploadImage($file, $img)
+    {
+        return '/storage/' . \Storage::disk('public')->putFile($file, $img);
+    }
+
+    function getimg($filename)
+    {
+        return asset($filename);
+    }
+
+    public function Gallery($request, $model, $item)
+    {
+        if ($request->hasFile('file')) {
+            foreach ($request['file'] as $key => $image) {
+                $imageName = $path = \Storage::disk('public')->putFile('photos', $image);
+                $model->create(['file' => $imageName] + $item);
+            }
+        }
+
+        // How to Use
+        //   if ($request->has('file')) {
+        //            $this->Gallery($request, new ProjectGallery(), ['project_id' => $project->id]);
+        //        }
+    }
+
+
+
+
+
+
 
 
 }
