@@ -154,6 +154,7 @@
       <li><a href="{{route('admin.rides-stoppages.index')}}"> Rides Stoppages</a></li>
       <li><a href="{{route('admin.rides-cycles.index')}}"> Rides Cycles</a></li>
       <li><a href="{{route('admin.queues.index')}}">Rides Queues</a></li>
+      <li><a href="{{route('admin.rsr_reports.create')}}">Add RSR Report</a></li>
 
   </ul>
 </li>

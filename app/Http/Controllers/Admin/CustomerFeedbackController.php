@@ -9,10 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\CustomerFeedbacks;
 use App\Models\CustomerFeedbackImage;
 use Illuminate\Support\Facades\Auth;
-use Image;
-use Helper;
 
-
+use App\Traits\ImageOperations;
 
 class CustomerFeedbackController extends Controller
 {
@@ -63,7 +61,9 @@ class CustomerFeedbackController extends Controller
         $cf->ride_id = $request->input('ride_id');
         $cf->save();
         $customer_feedback_id=$cf->id;
-        \app\Http\Helpers\Helpers::multiUploaderWithmodelproduct($request,'image',new CustomerFeedbackImage(),null,$customer_feedback_id);
+           if ($request->has('file')) {
+                    $this->Gallery($request, new CustomerFeedbackImage(), ['project_id' =>$customer_feedback_id]);
+                }
         alert()->success('Customer Feedback  Added successfully !');
         return redirect()->route('admin.customer_feedbacks.index');
     }
