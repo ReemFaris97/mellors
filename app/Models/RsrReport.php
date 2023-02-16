@@ -18,19 +18,20 @@ class RsrReport extends Model
         'corrective_actions_taken',
         'conclusion',
         'date',
-        'type'
+        'type',
+        'status'
     ];
 
     public function created_by()
     {
-        return $this->belongsTo(User::class, 'created_by_id', 'id')->withDefault()->withTrashed();
+        return $this->belongsTo(User::class, 'created_by_id', 'id');
     }
     public function rides()
     {
-        return $this->belongsTo(Ride::class, 'ride_id', 'id')->withDefault()->withTrashed();
+        return $this->belongsTo(Ride::class, 'ride_id', 'id');
     }
     public function verified_by()
     {
-        return $this->belongsTo(User::class, 'verified_by_id', 'id')->withDefault()->withTrashed();
+        return $this->belongsTo(User::class, 'verified_by_id', 'id');
     }
 }

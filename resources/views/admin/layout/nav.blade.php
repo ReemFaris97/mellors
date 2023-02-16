@@ -154,12 +154,24 @@
       <li><a href="{{route('admin.rides-stoppages.index')}}"> Rides Stoppages</a></li>
       <li><a href="{{route('admin.rides-cycles.index')}}"> Rides Cycles</a></li>
       <li><a href="{{route('admin.queues.index')}}">Rides Queues</a></li>
-      <li><a href="{{route('admin.rsr_reports.create')}}">Add RSR Report</a></li>
 
   </ul>
 </li>
 @endif
-
+@if(auth()->user()->can('rsr_reports-list')|| auth()->user()->can('rsr_reports-create'))
+    <li class="has_sub">
+        <a href="javascript:void(0);" class="waves-effect"><i
+                    class="zmdi zmdi-view-list"></i><span>RSR Reports </span> <span class="menu-arrow"></span></a>
+        <ul class="list-unstyled">
+            @can('rsr_reports-list')
+            <li><a href="{{route('admin.rsr_reports.index')}}">All RSR Reports</a></li>
+                @endcan
+                @can('rsr_reports-list')
+                <li><a href="{{route('admin.rsr_reports.create')}}">Add RSR Report</a></li>
+                @endcan
+        </ul>
+    </li>
+@endif
 @if(auth()->user()->can('customer_feedbacks-list')|| auth()->user()->can('customer_feedbacks-create'))
 
 <li class="has_sub">

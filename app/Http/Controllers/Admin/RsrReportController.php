@@ -21,7 +21,8 @@ class RsrReportController extends Controller
      */
     public function index()
     {
-       return view('admin.rsr_reports.index');
+        $items=RsrReport::all();
+       return view('admin.rsr_reports.index',compact('items'));
     }
 
 
@@ -70,8 +71,17 @@ class RsrReportController extends Controller
      */
     public function edit($id)
     {
+        $rsrReport=RsrReport::findorfail($id);
+        $rides=Ride::pluck('name','id')->all();
+        return view('admin.rsr_reports.edit',compact('rsrReport','rides'));
+    }
+    public function show($id)
+    {
+        $rsrReport=RsrReport::findorfail($id);
+        return view('admin.rsr_reports.show',compact('rsrReport'));
 
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -82,6 +92,24 @@ class RsrReportController extends Controller
      */
     public function update(RsrReportRequest $request, RsrReport $rsrReport)
     {
+        $rsrReport->update([
+            'ride_id'=>$request->validated('ride_id'),
+            'ride_performance_details'=>$request->validated('ride_performance_details'),
+            'ride_inspection'=>$request->validated('ride_inspection'),
+            'corrective_actions_taken'=>$request->validated('corrective_actions_taken'),
+            'conclusion'=>$request->validated('conclusion'),
+//            'type'=>$request->validated('type'),
+            'date'=>$request->validated('date'),
+            'status'=>'approved',
+            'verified_by_id'=>\auth()->user()->id
+    ]);
+        $rsrReport->save();
+        if ($request->has('file')) {
+            RsrReportsImages::where('rsr_report_id',$rsrReport->id)->delete();
+            $this->Gallery($request, new RsrReportsImages(), ['project_id' =>$rsrReport->id]);
+        }
+        alert()->success('RSR Report Updated successfully !');
+        return redirect()->route('admin.rsr_reports.index');
 
     }
     /**
@@ -92,6 +120,24 @@ class RsrReportController extends Controller
      */
     public function destroy($id)
     {
+        $rsr=RsrReport::find($id);
+        if ($rsr){
 
+            $rsr->delete();
+            alert()->success('Rsr Report deleted successfully');
+            return back();
+        }
+        alert()->error('Rsr Report not found');
+        return redirect()->route('admin.rsr_reports.index');
+
+    }
+    public function approve($id)
+    {
+        $rsr=RsrReport::find($id);
+        $rsr->status='approved';
+        $rsr->verified_by_id=\auth()->user()->id;
+        $rsr->save();
+        alert()->success('RSR Report Approved successfully !');
+        return redirect()->route('admin.rsr_reports.index');
     }
 }

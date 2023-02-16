@@ -70,5 +70,6 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::post('get-sub-stoppages-categories','Admin\GeneralController@getSubStoppageCategories')->name('getSubStoppageCategories');
 
     Route::resource('rsr_reports','Admin\RsrReportController');
+    Route::get('rsr_reports/{id}/approve','Admin\RsrReportController@approve');
 
 });

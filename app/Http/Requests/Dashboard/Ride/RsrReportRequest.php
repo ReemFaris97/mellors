@@ -33,8 +33,6 @@ class RsrReportRequest extends FormRequest
             'date'=>'nullable',
             'type'=>'nullable',
 
-            'created_by_id'=>'nullable',
-            'verified_by_id'=>'nullable',
 
 
         ];
