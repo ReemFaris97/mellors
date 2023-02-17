@@ -73,9 +73,9 @@
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->ride->name }}</td>
                                 <td>{{ $item->ride->id }}</td>
-                                <td>{{ $item->number_of_seats ?? "" }}</td>
-                                <td>{{ $item->operator_number?? "" }}</td>
-                                <td>{{ $item->operator_name }}</td>
+                                <td>{{ $item->ride->number_of_seats ?? "" }}</td>
+                                <td>{{ $item->user->phone?? "" }}</td>
+                                <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->date }}</td>
                                 <td>{{ $item->time }}</td>
                                 <td>{{ $item->ride_status }}</td>
@@ -87,6 +87,9 @@
                                 {!!Form::open( ['route' => ['admin.rides-stoppages.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
+                                    <a href="{{ route('admin.rides-stoppages.edit', $item) }}"
+                                       class="btn btn-info">Edit</a>
+
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.rides-stoppages.destroy', $item) }}"
                                            onclick="delete_form(this)">

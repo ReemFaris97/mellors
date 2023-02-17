@@ -34,4 +34,9 @@ class RideStoppages extends Model
     {
         return $this->belongsTo(StopageSubCategory::class)->withDefault()->withTrashed();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault();
+    }
 }

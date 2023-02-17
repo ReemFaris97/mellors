@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Imports\RidesStoppageImport;
 use App\Models\Ride;
 use App\Models\RideStoppages;
+use App\Models\rideStoppagesImages;
 use App\Models\StopageCategory;
 use App\Models\StopageSubCategory;
 use App\Models\User;
+use App\Traits\ImageOperations;
 use Illuminate\Http\Request;
 use App\Http\Requests\Dashboard\Ride\RideStoppageRequest;
 
@@ -16,6 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class RideStoppageController extends Controller
 {
+    use ImageOperations;
     /**
      * Display a listing of the resource.
      *
@@ -25,13 +28,13 @@ class RideStoppageController extends Controller
     {
         if (auth()->user()->hasRole('Technical')) {
             $items = RideStoppages::where('ride_status', 'stopped')
-                ->where('opened_date',date('Y-m-d'))->get();
-        }
-        else{
+                ->where('opened_date', date('Y-m-d'))->get();
+        } else {
             $items = RideStoppages::all();
         }
-            return view('admin.rides_stoppages.index', compact('items'));
+        return view('admin.rides_stoppages.index', compact('items'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -40,20 +43,21 @@ class RideStoppageController extends Controller
     public function create()
     {
         $rides = Ride::pluck('name', 'id')->all();;
-        $stopage_category=StopageCategory::pluck('name','id')->toArray();
-        $stopage_sub_category=StopageSubCategory::pluck('name','id')->toArray();
-        $users=User::pluck('name','id')->toArray();
-        return view('admin.rides_stoppages.add',compact('stopage_category','rides','stopage_sub_category','users'));
+        $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
+        $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
+        $users = User::pluck('name', 'id')->toArray();
+        return view('admin.rides_stoppages.add', compact('stopage_category', 'rides', 'stopage_sub_category', 'users'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(RideStoppageRequest $request)
     {
+
         RideStoppages::create($request->validated());
         alert()->success('Ride Added successfully !');
         return redirect()->route('admin.rides-stoppages.index');
@@ -70,19 +74,37 @@ class RideStoppageController extends Controller
 
     public function edit($id)
     {
-
+        $item = RideStoppages::findOrFail($id);
+        $rides = Ride::pluck('name', 'id')->all();;
+        $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
+        $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
+        $users = User::pluck('name', 'id')->toArray();
+        return view('admin.rides_stoppages.edit', compact('item','stopage_category', 'rides', 'stopage_sub_category', 'users'));
 
     }
+
+    public function update(RideStoppageRequest $request,$id)
+    {
+        $item = RideStoppages::findOrFail($id);
+        $item->update($request->validated());
+        if ($request->has('file')) {
+            $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' =>$id]);
+        }
+        alert()->success('Ride Updated successfully !');
+        return redirect()->route('admin.rides-stoppages.index');
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $rideStoppages=RideStoppages::find($id);
-        if ($rideStoppages){
+        $rideStoppages = RideStoppages::find($id);
+        if ($rideStoppages) {
 
             $rideStoppages->delete();
             alert()->success('Row deleted successfully');

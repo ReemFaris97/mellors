@@ -9,7 +9,7 @@
         <div class="col-sm-12">
             <div class="card-box">
                 <h4 class="header-title m-t-0 m-b-30">  Add Stoppage Operation</h4>
-                        {!!Form::open( ['route' => 'admin.uploadStoppagesExcleFile' ,'class'=>'form phone_validate', 'method' => 'Post', 'enctype'=>"multipart/form-data",'class'=>'form-horizontal','files' => true,'id'=>'form']) !!}
+                        {!!Form::open( ['route' => 'admin.uploadStoppagesExcleFile' ,'class'=>'form phone_validate', 'method' => 'Post', 'enctype'=>"multipart/form-data",'class'=>'form-horizontal','files' => true]) !!}
                         @csrf
                         @include('admin.rides_stoppages.exce_upload')
                         {!!Form::close() !!}
@@ -28,5 +28,5 @@
     <!-- end row -->
 @endsection
 @push('scripts')
-    {!! JsValidator::formRequest(\App\Http\Requests\Dashboard\Ride\RideRequest::class, '#form'); !!}
+    {!! JsValidator::formRequest(\App\Http\Requests\Dashboard\Ride\RideStoppageRequest::class, '#form'); !!}
 @endpush
