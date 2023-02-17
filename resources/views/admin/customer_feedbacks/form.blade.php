@@ -36,7 +36,7 @@
             <div class="form-group form-float">
                 <label class="form-label">Comment</label>
                 <div class="form-line">
-                    {!! Form::textArea("comment",null,['class'=>'form-control','placeholder'=>' comment'])!!}
+                    {!! Form::textArea("comment",null,['class'=>'form-control summernote','placeholder'=>' comment'])!!}
                     @error('comment')
                     <div class="invalid-feedback" style="color: #ef1010">
                         {{ $message }}

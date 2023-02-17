@@ -10,6 +10,7 @@
 <link href="{{asset('_admin/assets/css/pages.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('_admin/assets/css/menu.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('_admin/assets/css/responsive.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('_admin/assets/summernote.css')}}" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"/>
 
 <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->

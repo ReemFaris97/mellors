@@ -18,4 +18,8 @@ class CustomerFeedbacks extends Model
         ]);
 
     }
+    public function images()
+    {
+        return $this->hasMany(CustomerFeedbackImage::class,'customer_feedback_id');
+    }
 }

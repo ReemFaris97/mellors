@@ -34,4 +34,8 @@ class RsrReport extends Model
     {
         return $this->belongsTo(User::class, 'verified_by_id', 'id');
     }
+    public function rsr_images()
+    {
+        return $this->hasMany(RsrReportsImages::class,'rsr_report_id');
+    }
 }

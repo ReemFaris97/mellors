@@ -27,6 +27,7 @@ class CustomerFeedbackController extends Controller
 
     public function search(Request $request)
     {
+
         $ride_id = $request->input('ride_id');
         $date = $request->input('date');
         $customer_feedbacks = CustomerFeedbacks::query()

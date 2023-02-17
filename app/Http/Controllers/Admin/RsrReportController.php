@@ -10,10 +10,13 @@ use Illuminate\Http\Request;
 use App\Models\RsrReportsImages;
 use Illuminate\Support\Facades\Auth;
 
+use App\Traits\ImageOperations;
 
 
 class RsrReportController extends Controller
 {
+    use ImageOperations;
+
     /**
      * Display a listing of the resource.
      *
@@ -57,7 +60,7 @@ class RsrReportController extends Controller
         $rsrReport->save();
         $rsr_report_id=$rsrReport->id;
            if ($request->has('file')) {
-                    $this->Gallery($request, new RsrReportsImages(), ['project_id' =>$rsr_report_id]);
+               $this->Gallery($request, new RsrReportsImages(), ['rsr_report_id' =>$rsr_report_id]);
                 }
         alert()->success('RSR Report Added successfully !');
         return redirect()->route('admin.rsr_reports.index');
@@ -106,7 +109,7 @@ class RsrReportController extends Controller
         $rsrReport->save();
         if ($request->has('file')) {
             RsrReportsImages::where('rsr_report_id',$rsrReport->id)->delete();
-            $this->Gallery($request, new RsrReportsImages(), ['project_id' =>$rsrReport->id]);
+            $this->Gallery($request, new RsrReportsImages(), ['rsr_report_id' =>$rsrReport->id]);
         }
         alert()->success('RSR Report Updated successfully !');
         return redirect()->route('admin.rsr_reports.index');

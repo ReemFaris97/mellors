@@ -30,30 +30,27 @@
                             colspan="1" aria-sort="ascending">Ride Performance Details:
                         </th>
                     </tr>
-                    <tr><td  style="border-color: #0b0b0b">{{ $rsrReport->ride_performance_details }}</td></tr>
+                    <tr><td  style="border-color: #0b0b0b">{!! $rsrReport->ride_performance_details !!}</td></tr>
 
                     <tr>
                         <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                             colspan="1" aria-sort="ascending"> Ride Inspection/Observation:
                         </th>
                     </tr>
-                    <tr><td  style="border-color: #0b0b0b">{{ $rsrReport->ride_inspection }}</td></tr>
+                    <tr><td  style="border-color: #0b0b0b">{!!   $rsrReport->ride_inspection !!}</td></tr>
 
                     <tr>
                         <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                             colspan="1" aria-sort="ascending">Corrective Actions Taken:
                         </th>
                     </tr>
-                    <tr><td  style="border-color: #0b0b0b">{{ $rsrReport->corrective_actions_taken}}</td></tr>
+                    <tr><td  style="border-color: #0b0b0b">{!!   $rsrReport->corrective_actions_taken!!}</td></tr>
                     <tr>
                         <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                             colspan="1" aria-sort="ascending">Conclusion/Recommendation:
                         </th>
                     </tr>
-                    <tr><td  style="border-color: #0b0b0b">{{ $rsrReport->conclusion }}</td></tr>
-
-
-
+                    <tr><td  style="border-color: #0b0b0b">{!! $rsrReport->conclusion !!}</td></tr>
                    </tbody>
 
                 </table>
@@ -90,7 +87,14 @@
                 </tr>
                 </tbody>
                 </table>
-
+                <table  style="border-color: #0b0b0b" class="table table-striped table-bordered dt-responsive nowrap">
+                    <tbody>
+                    <tr>
+                        <td  style="border-color: #0b0b0b">Images</td>
+                        <td  style="border-color: #0b0b0b"></td>
+                    </tr>
+                    </tbody>
+                </table>
 
             </div>
         </div><!-- end col -->
