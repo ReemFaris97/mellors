@@ -1,48 +1,73 @@
-{{--@include('admin.common.errors')--}}
+
 <div class="row">
     <div class="form-group">
         <label class="col-lg-12">Ride :</label></label>
         <div class="col-lg-6">
             {!! Form::select('ride_id', $rides,null, array('class' => 'form-control col-lg-6')) !!}
         </div>
+        @error('name')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
     </div>
 
     <div class="form-group stoppageCategory ">
-        <label class="col-lg-12">Operator :</label></label>
+        <label class="col-lg-12">Operator :</label>
         <div class="col-lg-6">
             {!! Form::select('user_id', $users,null, array('class' => 'form-control col-lg-6','placeholder'=>'CHOOSE Operators')) !!}
         </div>
+        @error('name')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
     </div>
 
     <div class="form-group stoppageCategory ">
-        <label class="col-lg-12">Ride Status :</label></label>
+        <label class="col-lg-12">Ride Status :</label>
         <div class="col-lg-6">
             {!! Form::select('ride_status', ['stopped','active'],null, array('class' => 'form-control col-lg-6','placeholder'=>'Ride Status')) !!}
         </div>
+        @error('name')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
     </div>
     <div class="form-group stoppageSubCategory ">
-        <label class="col-lg-12">Stoppage Reasons Main Category :</label></label>
+        <label class="col-lg-12">Stoppage Reasons Main Category :</label>
         <div class="col-lg-6">
-            {!! Form::select('', $stopage_category,null, array('class' => 'form-control col-lg-6 mai_category','placeholder'=>'Stoppage sub Category')) !!}
+            {!! Form::select('', $stopage_category,null, array('class' => 'form-control col-lg-6 mai_category','placeholder'=>'Stoppage main Category')) !!}
         </div>
     </div>
     <div class="form-group stoppageSubCategory ">
-        <label class="col-lg-12">Stoppage Sub Category :</label></label>
+        <label class="col-lg-12">Stoppage Sub Category :</label>
         <div class="col-lg-6">
             <select class="form-control js-example-basic-single ms subCategory" id="subCategory" name="stopage_sub_category_id"
                     data-live-search=true required>
                     <option disabled> choose Main Category First</option>
 
             </select>
+            @error('name')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
 
         </div>
     </div>
 
     <div class="form-group stoppageReason">
-        <label class="col-lg-12">Ride Notes :</label></label>
+        <label class="col-lg-12">Ride Notes :</label>
         <div class="col-lg-6">
             {!! Form::textarea("ride_notes",null,['class'=>'form-control','placeholder'=>'Ride Notes'])!!}
         </div>
+        @error('name')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
     </div>
 
     <div class="form-group">
@@ -50,12 +75,22 @@
         <div class="col-lg-6">
             {!! Form::number("down_minutes",null,['class'=>'form-control','placeholder'=>'Down Time'])!!}
         </div>
+        @error('name')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
     </div>
     <div class="form-group">
         <label class="col-lg-12"> Date :</label>
         <div class="col-lg-6">
             {!! Form::date("date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
         </div>
+        @error('name')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
     </div>
 {{--    <div class="form-group">--}}
 {{--        <label class="col-lg-12"> Date Time :</label>--}}
@@ -68,7 +103,25 @@
         <div class="col-lg-6">
             {!! Form::date("opened_date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
         </div>
+        @error('name')
+        <div class="invalid-feedback" style="color: #ef1010">
+{{--            {{ $message }}--}}
+        </div>
+        @enderror
     </div>
+
+    @if(auth()->user()->hasRole('Technical'))
+    <div class="form-group stoppageReason">
+        <label class="col-lg-12">Stoppage description :</label>
+        <div class="col-lg-6">
+            {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>'Stoppage description'])!!}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name"> Upload  Images </label>
+        {!! Form::file('file[]' , ["class" => "form-control  file_upload_preview","multiple" => "multiple","data-preview-file-type" => "text" ]) !!}
+    </div>
+    @endif
 
     <div class="col-xs-12 aligne-center contentbtn">
         <button class="btn btn-primary waves-effect" type="submit">Save</button>

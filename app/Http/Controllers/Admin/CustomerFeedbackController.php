@@ -14,6 +14,7 @@ use App\Traits\ImageOperations;
 
 class CustomerFeedbackController extends Controller
 {
+    use ImageOperations;
     /**
      * Display a listing of the resource.
      *
@@ -62,7 +63,7 @@ class CustomerFeedbackController extends Controller
         $cf->save();
         $customer_feedback_id=$cf->id;
            if ($request->has('file')) {
-                    $this->Gallery($request, new CustomerFeedbackImage(), ['project_id' =>$customer_feedback_id]);
+                    $this->Gallery($request, new CustomerFeedbackImage(), ['customer_feedback_id' =>$customer_feedback_id]);
                 }
         alert()->success('Customer Feedback  Added successfully !');
         return redirect()->route('admin.customer_feedbacks.index');

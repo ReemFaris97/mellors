@@ -41,7 +41,7 @@ trait ImageOperations
         if ($request->hasFile('file')) {
             foreach ($request['file'] as $key => $image) {
                 $imageName = $path = \Storage::disk('public')->putFile('photos', $image);
-                $model->create(['file' => $imageName] + $item);
+                $model->create(['image' => $imageName] + $item);
             }
         }
 
