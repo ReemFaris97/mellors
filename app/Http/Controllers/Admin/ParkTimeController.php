@@ -19,10 +19,15 @@ class ParkTimeController extends Controller
      */
     public function index()
     {
-      $parks[]=auth()->user()->parks->toArray();
-//      return $parks;
-          $items=ParkTime::where('date',date('Y-m-d'))
-                          ->where('park_id',$parks)->get();
+        if (auth()->user()->hasRole('Super Admin')) {
+            $items= ParkTime::where('date', date('Y-m-d'))->get();
+        }
+        else{
+            $parks=auth()->user()->parks->all();
+            $items= ParkTime::where('date', date('Y-m-d'))
+                ->wherein('park_id', $parks)->get();
+        }
+
         return view('admin.park_times.index',compact('items'));
     }
 

@@ -32,7 +32,6 @@ class ParkTimeRequest extends FormRequest
             'daily_entrance_count'=>'nullable',
             'close_date'=>'nullable'
 
-
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [

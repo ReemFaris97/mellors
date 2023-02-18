@@ -12,4 +12,5 @@ class RsrReportsImages extends Model
     public function rsr_report()
     {
         return $this->belongsTo(RsrReport::class,'rsr_report_id')->withTrashed();
-    }}
+    }
+}

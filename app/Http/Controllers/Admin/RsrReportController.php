@@ -81,7 +81,8 @@ class RsrReportController extends Controller
     public function show($id)
     {
         $rsrReport=RsrReport::findorfail($id);
-        return view('admin.rsr_reports.show',compact('rsrReport'));
+        $images=RsrReportsImages::where('rsr_report_id',$id)->get();
+        return view('admin.rsr_reports.show',compact('rsrReport','images'));
 
     }
 

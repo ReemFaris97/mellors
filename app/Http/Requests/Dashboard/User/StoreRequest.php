@@ -26,7 +26,6 @@ class StoreRequest extends FormRequest
         return [
             'name'=>'required|string',
             'phone'=>'required|string',
-            'dept_id'=>'required|string',
             'first_name'=>'nullable',
             'middle_name'=>'nullable',
             'branch_id'=>'required',

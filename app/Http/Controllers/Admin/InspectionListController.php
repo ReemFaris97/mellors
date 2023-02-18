@@ -38,7 +38,7 @@ class InspectionListController extends Controller
      */
     public function store(InspectionListRequest $request)
     {
-        InspectionList::create(['name' => $request->input('name')]);
+        InspectionList::create($request->validated());
         alert()->success('Inspection element Added successfully !');
         return redirect()->route('admin.inspection_lists.index');
     }

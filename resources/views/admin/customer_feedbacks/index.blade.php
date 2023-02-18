@@ -45,10 +45,6 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Customer Feedback
                             </th>
-
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Images
-                            </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
                             </th>
@@ -63,13 +59,11 @@
                                 <td>{{ $item->rides->name }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>{!!   $item->comment !!}</td>
-                                <td><img class="img-responsive center-block"
-                                         style="width:70px;height: 70px"
-                                         src="{{url('/'.$item->image)}}"/>
-                                </td>
                                 {!!Form::open( ['route' => ['admin.customer_feedbacks.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
+                                    <a href="{{ route('admin.customer_feedbacks.show', $item) }}"
+                                       class="btn btn-primary">Show</a>
                                     @if(auth()->user()->can('customer_feedbacks-delete'))
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.customer_feedbacks.destroy', $item) }}"

@@ -22,7 +22,8 @@ class CustomerFeedbackController extends Controller
      */
     public function index()
     {
-       return view('admin.customer_feedbacks.index');
+        $customer_feedbacks =CustomerFeedbacks::Where('date', date('Y-m-d'))->get();
+        return view('admin.customer_feedbacks.index',compact('customer_feedbacks'));
     }
 
     public function search(Request $request)
@@ -34,6 +35,7 @@ class CustomerFeedbackController extends Controller
             ->where('ride_id',$ride_id)
             ->Where('date', $date)
             ->get();
+
         return view('admin.customer_feedbacks.index', compact('customer_feedbacks'));
     }
 
@@ -78,6 +80,13 @@ class CustomerFeedbackController extends Controller
      */
     public function edit($id)
     {
+
+    }
+    public function show($id)
+    {
+        $items=CustomerFeedbacks::findorfail($id);
+        $images=CustomerFeedbackImage::where('customer_feedback_id',$id)->get();
+        return view('admin.customer_feedbacks.show',compact('items','images'));
 
     }
 

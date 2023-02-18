@@ -87,14 +87,24 @@
                 </tr>
                 </tbody>
                 </table>
+                @if(isset($images))
                 <table  style="border-color: #0b0b0b" class="table table-striped table-bordered dt-responsive nowrap">
+
                     <tbody>
+                    <th  class="sorting_asc" style="text-align: center; border-color: #0b0b0b;" tabindex="0"  aria-controls="datatable-buttons" rowspan="1"
+                         colspan="1" aria-sort="ascending">Images
+                    </th>
                     <tr>
-                        <td  style="border-color: #0b0b0b">Images</td>
-                        <td  style="border-color: #0b0b0b"></td>
+                        @foreach($images as $image)
+                        <td style="border-color: #0b0b0b"><img class="img-responsive center-block"
+                                 style="width:70px;height: 70px"
+                                 src="{{url('../storage/app/public/'.$image->image)}}"/>
+                        </td>
+                            @endforeach
                     </tr>
                     </tbody>
                 </table>
+                    @endif
 
             </div>
         </div><!-- end col -->
