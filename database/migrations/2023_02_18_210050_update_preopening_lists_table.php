@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('preopening_lists', function (Blueprint $table) {
             $table->dropColumn('inspection_list');
             $table->foreignId('inspection_list_id')->after('ride_id')->constrained('inspection_lists');
-            $table->boolean('checked')->after('inspection_element_id');
+            $table->boolean('checked')->after('inspection_list_id');
         });
     }
 
