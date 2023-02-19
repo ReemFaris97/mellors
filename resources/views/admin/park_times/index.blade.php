@@ -7,9 +7,7 @@
 @section('content')
 
     <div class="card-box">
-        <a href="{{url('game-all-times')}}">
-            <button type="button" class="btn btn-info">Show Rides with different open and close times </button>
-        </a>
+
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">
@@ -66,8 +64,7 @@
                                                 </div>
                                                 <div class="modal-body">
 
-                                                    {!!Form::model($item , ['route' => ['admin.park_times.daily_entrance_count' , $item->id] ,
-                                                     'id' => 'ClientStore', 'method' => 'PATCH','enctype'=>"multipart/form-data"]) !!}
+                                                    {!!Form::model($item , ['route' => ['admin.park_times.daily_entrance_count' , $item->id],'id' => 'ClientStore', 'method' => 'PATCH','enctype'=>"multipart/form-data"]) !!}
                                                         <label class="form-label"> </label>
                                                         <div class="form-line">
                                                             {!! Form::number('daily_entrance_count', null, ['class' => 'form-control']) !!}
@@ -83,36 +80,32 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td>
                                 {!!Form::open( ['route' => ['admin.park_times.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                    <a href="{{ route('admin.game_times.show', $item) }}"
-                                       class="btn btn-info">Edit Ride Time</a>
-                                    <a href="{{ route('admin.park_times.edit', $item) }}"
-                                       class="btn btn-info">Edit Park Time</a>
+                                    <a href="{{ route('admin.game_times.show', $item->parks->id) }}"
+                                       class="btn btn-info">Edit Ride Time Slot</a>
 
-                                        <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                           data-url="{{ route('admin.park_times.destroy', $item) }}"
-                                           onclick="delete_form(this)">
-                                            Delete
-                                        </a>
+                                    <a href="{{ route('admin.park_times.edit', $item) }}"
+                                       class="btn btn-info">Edit Park Time Slot</a>
+
+                                    <a href="{{url('game-all-times/'.$item->parks->id)}}">
+                                        <button type="button" class="btn btn-info"> Rides with different time slot </button>
+                                    </a>
+                                    <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                       data-url="{{ route('admin.park_times.destroy', $item) }}"
+                                       onclick="delete_form(this)">
+                                        Delete
+                                    </a>
 
                                 </td>
 
                             </tr>
 
                         @endforeach
-
-                        </tbody>
-                    </table>
-
-
-                </div>
-            </div>
-
-        </div>
-    </div>
+            </tboody>
+            </table>
+            </div></div></div></div>
 
 
 @endsection

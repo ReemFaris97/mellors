@@ -24,9 +24,9 @@ class GameTimeController extends Controller
         return view('admin.game_times.index',compact('items'));
     }
 
-    public function all_times()
+    public function all_times($id)
     {
-        $items=GameTime::where('date',date('Y-m-d'))->get();
+        $items=GameTime::where('date',date('Y-m-d'))->get()->where('park_id',$id);
         return view('admin.game_times.all_games_times',compact('items'));
     }
 
@@ -47,9 +47,17 @@ class GameTimeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(GameTimeRequest $request)
-    {
+    {  $dateExists = GameTime::where([
+        ['date',$request['date']],
+        ['ride_id', $request['ride_id']]
+    ])->first();
+        if ($dateExists){
+            alert()->error(' Time Slot Already Exist !');
+            return redirect()->back();
+        }
+
         GameTime::create($request->validated());
-        alert()->success('Open and Close time Added Successfully to the Ride !');
+        alert()->success('Time Slot Added Successfully to the Ride !');
         return redirect()->route('admin.game_times.index');
     }
 
@@ -75,7 +83,7 @@ class GameTimeController extends Controller
     {
         $park_id=Ride::where('id',$id)->pluck('park_id')->first();
         $time=ParkTime::where('park_id',$park_id)->where('date',date('Y-m-d'))->first();
-        return view('admin.game_times.edit',compact('time','id'));
+        return view('admin.game_times.edit',compact('time','id','park_id'));
 
 
     }

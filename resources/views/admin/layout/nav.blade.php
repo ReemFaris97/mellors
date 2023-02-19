@@ -100,11 +100,11 @@
 @if(auth()->user()->can('park_times-list')|| auth()->user()->can('park_times-create'))
     <li class="has_sub">
         <a href="javascript:void(0);" class="waves-effect"><i
-                    class="zmdi zmdi-calendar-check"></i><span>Open & Close Time </span> <span
+                    class="zmdi zmdi-calendar-check"></i><span>Parks Time Slot </span> <span
                     class="menu-arrow"></span></a>
         <ul class="list-unstyled">
             <li><a href="{{route('admin.park_times.index')}}">All Parks</a></li>
-            <li><a href="{{route('admin.park_times.create')}}">Add Park open and close times</a></li>
+            <li><a href="{{route('admin.park_times.create')}}">Add Park Time Slot</a></li>
             {{--<li><a href="{{route('admin.game_times.index')}}">Update Ride open and close times</a></li>--}}
 
         </ul>

@@ -9,7 +9,7 @@ class GameTime extends Model
 {
 
     protected $fillable = [
-        'start','end','ride_id','date','close_date'
+        'start','end','ride_id','date','close_date','park_id'
     ];
 
     public function rides()

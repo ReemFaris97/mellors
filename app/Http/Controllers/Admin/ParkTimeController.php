@@ -50,8 +50,16 @@ class ParkTimeController extends Controller
      */
     public function store(ParkTimeRequest $request)
     {
+        $dateExists = ParkTime::where([
+            ['date',$request['date']],
+            ['park_id', $request['park_id']]
+        ])->first();
+        if ($dateExists){
+            alert()->error(' Time Slot Already Exist !');
+            return redirect()->back();
+        }
         ParkTime::create($request->validated());
-        alert()->success('Open and Close Time Added successfully to the park !')->autoclose(50000);
+        alert()->success('Open and Close Time Added successfully to the park !');
         return redirect()->route('admin.park_times.index');
     }
 
@@ -104,15 +112,14 @@ class ParkTimeController extends Controller
      */
     public function destroy($id)
     {
-        $parkTime=ParkTime::find($id);
-        if ($parkTime
-        ){
 
+        $parkTime=ParkTime::find($id);
+        if ($parkTime){
             $parkTime->delete();
-            alert()->success('Park Time deleted successfully')->autoclose(50000);
+            alert()->success('Park Time deleted successfully');
             return back();
         }
-        alert()->error('Park Time not found')->autoclose(50000);
+        alert()->error('Park Time not found');
         return redirect()->route('admin.park_times.index');
     }
 

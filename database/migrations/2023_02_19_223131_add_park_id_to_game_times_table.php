@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('preopening_lists', function (Blueprint $table) {
-            $table->dropColumn('inspection_list');
-            $table->foreignId('inspection_list_id')->after('ride_id')->constrained('inspection_lists');
-            $table->boolean('checked')->after('inspection_list_id');
+        Schema::table('game_times', function (Blueprint $table) {
+            $table->foreignId('park_id')->nullable()->constrained('parks');
+
         });
     }
 
@@ -27,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('game_times', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::resource('game_times','Admin\GameTimeController');//done
     Route::PATCH('daily_entrance_count', 'Admin\ParkTimeController@add_daily_entrance_count')->name('park_times.daily_entrance_count');
 
-    Route::get('/game-all-times','Admin\GameTimeController@all_times');
+    Route::get('/game-all-times/{id}','Admin\GameTimeController@all_times');
 
     Route::resource('game_cats','Admin\GameCategoryController');//done
     Route::resource('games','Admin\GameController');//done
