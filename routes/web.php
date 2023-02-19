@@ -60,7 +60,9 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
 
     Route::resource('inspection_lists','Admin\InspectionListController');//done
     Route::resource('preopening_lists','Admin\PreopeningListController');//done
-    Route::get('/add_preopening_list/{zone_id}', 'Admin\PreopeningListController@add_preopening_list');
+    Route::get('/add_preopening_list_to_ride/{id}', 'Admin\PreopeningListController@add_preopening_list_to_ride');
+    Route::get('/zone_rides/{zone_id}', 'Admin\PreopeningListController@zone_rides');
+    Route::resource('ride_inspection_lists','Admin\RideInspectionListController');
 
     Route::resource('customer_feedbacks','Admin\CustomerFeedbackController');//done
     Route::get('/search_customer_feedbacks/', 'Admin\CustomerFeedbackController@search')->name('searchCustomerFeedBack');

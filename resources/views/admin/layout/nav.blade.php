@@ -75,7 +75,8 @@
       <ul class="list-unstyled">
           <li><a href="{{route('admin.zones.index')}}">All Zones</a></li>
           <li><a href="{{route('admin.zones.create')}}">Add New Zone</a></li>
-          <li><a href="{{route('admin.inspection_lists.index')}}">Zone Inspection Elements</a></li>
+          <li><a href="{{route('admin.inspection_lists.index')}}">Inspection Elements</a></li>
+          <li><a href="{{route('admin.ride_inspection_lists.index')}}">Add Ride Inspection Elements</a></li>
 
 
       </ul>

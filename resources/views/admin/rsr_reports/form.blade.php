@@ -13,22 +13,22 @@
             </div>
         </div>
 
-        <div class="col-xs-12">
-            <div class="form-group form-float">
-                <label class="form-label">RSR Report Type</label>
-                <div class="form-line">
-                    <select name="type" class="form-control">
-                        <option value="{{ 'with_stoppages' }}"> With Stoppages</option>
-                        <option value="{{ 'without_stoppages' }}"> Without Stoppages </option>
-                    </select>
-                    @error('type')
-                    <div class="invalid-feedback" style="color: #ef1010">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-            </div>
-        </div>
+        {{--<div class="col-xs-12">--}}
+            {{--<div class="form-group form-float">--}}
+                {{--<label class="form-label">RSR Report Type</label>--}}
+                {{--<div class="form-line">--}}
+                    {{--<select name="type" class="form-control">--}}
+                        {{--<option value="{{ 'with_stoppages' }}"> With Stoppages</option>--}}
+                        {{--<option value="{{ 'without_stoppages' }}"> Without Stoppages </option>--}}
+                    {{--</select>--}}
+                    {{--@error('type')--}}
+                    {{--<div class="invalid-feedback" style="color: #ef1010">--}}
+                        {{--{{ $message }}--}}
+                    {{--</div>--}}
+                    {{--@enderror--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
 <div class="col-xs-12">
 <div class="form-group form-float">

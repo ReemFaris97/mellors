@@ -1,13 +1,15 @@
 @extends('admin.layout.app')
 
 @section('title')
-Zones
+Rides Inspection List
 @endsection
 
 @section('content')
 
     <div class="card-box">
-
+        <a href="{{route('admin.ride_inspection_lists.create')}}">
+            <button type="button" class="btn btn-info">Create New Ride Inspection List</button>
+        </a>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">
@@ -18,13 +20,7 @@ Zones
                                 colspan="1" aria-sort="ascending">ID
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                               All Zones
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Add Preopening List
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                show Preopening Lists
+                                Ride
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
@@ -38,26 +34,21 @@ Zones
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
-                                {!!Form::open( ['route' => ['admin.zones.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::open( ['route' => ['admin.ride_inspection_lists.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                    <a href="{{url('/zone_rides/'.$item->id)}}" class="btn btn-info">Add Preopening List</a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.preopening_lists.show', $item) }}" class="btn btn-info">Show Preopening Lists</a>
-                                </td>
-                                <td>
-                                    @if(auth()->user()->can('zones-edit'))
-                                        <a href="{{ route('admin.zones.edit', $item) }}"
+                                    @if(auth()->user()->can('preopening_lists-edit'))
+                                        <a href="{{ route('admin.ride_inspection_lists.edit', $item) }}"
                                            class="btn btn-info">Edit</a>
                                     @endif
-
+                                        @if(auth()->user()->can('preopening_lists-delete'))
 
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                           data-url="{{ route('admin.zones.destroy', $item) }}"
+                                           data-url="{{ route('admin.ride_inspection_lists.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>
+                                        @endif
 
                                 </td>
 
@@ -78,8 +69,10 @@ Zones
 
 @endsection
 
-
 @section('footer')
     @include('admin.datatable.scripts')
 @endsection
+
+
+
 

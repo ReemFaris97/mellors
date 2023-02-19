@@ -36,4 +36,13 @@ class Ride extends Model
     {
         return $this->belongsTo(GameCategory::class, 'game_cat_id', 'id')->withDefault()->withTrashed();
     }
+
+    public function inspection_list()
+    {
+        return $this->belongsToMany(InspectionList::class, 'ride_inspection_lists');
+    }
+    public function preopening_list()
+    {
+        return $this->belongsToMany(InspectionList::class, 'preopening_lists');
+    }
 }

@@ -13,4 +13,9 @@ class InspectionList extends Model
     protected $fillable = [
         'name','comment'
     ];
+
+    public function ride()
+    {
+        return $this->belongsToMany(Ride::class, 'ride_inspection_lists');
+    }
 }

@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-Zones
+Rides
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@ Zones
                                 colspan="1" aria-sort="ascending">ID
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                               All Zones
+                               All Zones Rides
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Add Preopening List
@@ -34,14 +34,14 @@ Zones
 
                         <tbody>
 
-                        @foreach ($items as $item)
+                        @foreach ($rides as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 {!!Form::open( ['route' => ['admin.zones.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                    <a href="{{url('/zone_rides/'.$item->id)}}" class="btn btn-info">Add Preopening List</a>
+                                    <a href="{{url('/add_preopening_list_to_ride/'.$item->id)}}" class="btn btn-info">Add Preopening List</a>
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.preopening_lists.show', $item) }}" class="btn btn-info">Show Preopening Lists</a>

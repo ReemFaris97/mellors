@@ -12,7 +12,7 @@ class PreopeningList extends Model
 
     protected $fillable = [
         'ride_id',
-        'inspection_list',
+        'inspection_list_id',
         'zone_id',
         'user_id','date','comment'
     ];

@@ -54,7 +54,7 @@ class RsrReportController extends Controller
         $rsrReport->ride_inspection = $request->input('ride_inspection');
         $rsrReport->corrective_actions_taken = $request->input('corrective_actions_taken');
         $rsrReport->conclusion = $request->input('conclusion');
-        $rsrReport-> type = $request->input('type');
+        $rsrReport-> type = 'without_stoppages';
         $rsrReport-> date = $request->input('date');
         $rsrReport-> created_by_id = \auth()->user()->id;
         $rsrReport->save();

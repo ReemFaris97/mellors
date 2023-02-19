@@ -21,7 +21,11 @@ class ZoneController extends Controller
      */
     public function index()
     {
-        $items=auth()->user()->zones->all();
+        if (auth()->user()->hasRole('Super Admin')) {
+            $items=Zone::all();
+        }else {
+            $items = auth()->user()->zones->all();
+        }
 //       dd($items);
         return view('admin.zones.index',compact('items'));
     }

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\InspectionList\PreopeningListRequest;
 use App\Models\Game;
 use App\Models\InspectionList;
 use App\Models\PreopeningList;
 use App\Models\Ride;
+use App\Models\RideInspectionList;
 use Illuminate\Support\Facades\Auth;
 
 class PreopeningListController extends Controller
@@ -23,12 +24,17 @@ class PreopeningListController extends Controller
         $items=PreopeningList::all();
        return view('admin.preopening_lists.index',compact('items'));
     }
-
-    public function add_preopening_list($zone_id)
+    public function zone_rides($zone_id)
     {
-        $rides=Ride::where('zone_id',$zone_id)->pluck('name','id')->all();
-        $inspections=InspectionList::all();
-        return view('admin.preopening_lists.add',compact('inspections','zone_id','rides'));
+        $rides=Ride::where('zone_id',$zone_id)->get();
+        return view('admin.preopening_lists.zone_rides',compact('zone_id','rides'));
+    }
+
+    public function add_preopening_list_to_ride($id)
+    {
+       $inspections=RideInspectionList::where('ride_id',$id)->get();
+//       return $inspections;
+        return view('admin.preopening_lists.add',compact('inspections','id'));
     }
 
     /**
@@ -48,13 +54,12 @@ class PreopeningListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PreopeningListRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
-        $input['user_id'] = Auth::id();
-        $input['inspection_list'] = implode(',', (array) $request['inspection_list']);
-        PreopeningList::create($input);
-
+//        return $request;
+        $ride=Ride::find($request['ride_id']);
+        $ride->preopening_list()->sync($request['comment']);
+        $ride->preopening_list()->sync($request['inspection_element_id']);
         alert()->success('Preopening List Added successfully !');
         return redirect()->route('admin.zones.index');
     }

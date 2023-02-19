@@ -64,7 +64,7 @@ class UserController extends Controller
         }
 
         alert()->success('user added successfully !');
-        return back();
+        return  redirect()->route('admin.users.index');
     }
 
     /**

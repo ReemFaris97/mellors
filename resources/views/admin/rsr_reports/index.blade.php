@@ -45,7 +45,13 @@
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->rides->name }}</td>
                                 <td>{{ $item->type=='with_stoppages'?'With Stoppages':'Without Stoppages' }}</td>
-                                <td>{{ $item->status=='approved'?'Approved':'Pending' }}</td>
+                                <td>
+                                    @if($item->status=='approved')
+                                <span style="background-color:#d9edf7">Verified</span>
+                                    @else
+                                        Pending
+                                    @endif
+                                </td>
                                 <td>{{ $item->created_by->name }}</td>
                                 <td>{{ $item->date }}</td>
                                 {!!Form::open( ['route' => ['admin.rsr_reports.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
