@@ -87,6 +87,8 @@
                                 {!!Form::open( ['route' => ['admin.rides-stoppages.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
+                                    <a href="{{url('add_rsr_stoppage_report/'.$item->id)}}"
+                                       class="btn btn-info">Add RSR report</a>
                                     <a href="{{ route('admin.rides-stoppages.edit', $item) }}"
                                        class="btn btn-info">Edit</a>
 

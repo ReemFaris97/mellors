@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ride;
 use App\Models\StopageSubCategory;
 use App\Models\Zone;
 use Illuminate\Http\Request;
@@ -23,6 +24,16 @@ class GeneralController extends Controller
         $cities = StopageSubCategory::where("stopage_category_id", $request->stopage_category_id)->get();
 
         return response()->json(['subCategory' => $cities]);
+    }
+
+    public function getParkRides(Request $request)
+    {
+        $html = '';
+        $rides = Ride::where('park_id', $request->park_id)->get();
+        foreach ($rides as $ride) {
+            $html .= '<option value="' . $ride->id . '">' . $ride->name . '</option>';
+        }
+        return response()->json(['html' => $html]);
     }
 
 }

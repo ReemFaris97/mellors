@@ -2,34 +2,32 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="form-group form-float">
-            <label class="form-label">Ride</label>
+            <label class="form-label">Park</label>
             <div class="form-line">
-                {!! Form::select('ride_id', $rides,null, array('class' => 'form-control')) !!}
-                @error('ride_id')
+                {!! Form::select('park_id',@$parks?$parks:[],null, array('class' => 'form-control','id'=>'park','placeholder'=>'Choose Park')) !!}
+                @error('park_id')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
                 </div>
                 @enderror
             </div>
         </div>
-
-        {{--<div class="col-xs-12">--}}
-            {{--<div class="form-group form-float">--}}
-                {{--<label class="form-label">RSR Report Type</label>--}}
-                {{--<div class="form-line">--}}
-                    {{--<select name="type" class="form-control">--}}
-                        {{--<option value="{{ 'with_stoppages' }}"> With Stoppages</option>--}}
-                        {{--<option value="{{ 'without_stoppages' }}"> Without Stoppages </option>--}}
-                    {{--</select>--}}
-                    {{--@error('type')--}}
-                    {{--<div class="invalid-feedback" style="color: #ef1010">--}}
-                        {{--{{ $message }}--}}
-                    {{--</div>--}}
-                    {{--@enderror--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-
+        <div class="col-xs-12">
+            <div class="form-group form-float">
+                <label class="form-label">Ride</label>
+                <div class="form-line">
+                    <select class="form-control js-example-basic-single ms ride" id="ride" name="ride_id"
+                            data-live-search=true required>
+                        <option disabled> choose Park First</option>
+                    </select>
+                    @error('ride_id')
+                    <div class="invalid-feedback" style="color: #ef1010">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+            </div>
+        </div>
 <div class="col-xs-12">
 <div class="form-group form-float">
     <label class="form-label">Ride Performance Details</label>
@@ -104,7 +102,9 @@
                                   "data-preview-file-type"=>"text"
                                               ]) !!}
         </div>
-
+        @if(isset($id))
+         <input type="hidden" name="stoppage_id" value="{{$id}}">
+        @endif
 <div class="col-xs-12 aligne-center contentbtn">
     <button class="btn btn-primary waves-effect" type="submit">Save</button>
 </div>
@@ -112,3 +112,17 @@
 </div>
 
 
+</div>
+@push('scripts')
+    <script type="text/javascript">
+        $("#park").change(function(){
+            $.ajax({
+                url: "{{ route('admin.getParkRides') }}?park_id=" + $(this).val(),
+                method: 'GET',
+                success: function(data) {
+                    $('#ride').html(data.html);
+                }
+            });
+        });
+    </script>
+@endpush

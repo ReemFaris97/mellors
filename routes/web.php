@@ -70,8 +70,10 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
 
     Route::post('get-park-zones','Admin\GeneralController@getParkZones')->name('getParkZones');
     Route::post('get-sub-stoppages-categories','Admin\GeneralController@getSubStoppageCategories')->name('getSubStoppageCategories');
+    Route::get('get_park_rides', 'Admin\GeneralController@getParkRides')->name('getParkRides');
 
     Route::resource('rsr_reports','Admin\RsrReportController');
     Route::get('rsr_reports/{id}/approve','Admin\RsrReportController@approve');
+    Route::get('add_rsr_stoppage_report/{id}','Admin\RsrReportController@addRsrStoppageReport');
 
 });

@@ -11,6 +11,8 @@ class RsrReport extends Model
 
     protected $fillable = [
         'ride_id',
+        'stoppage_id',
+        'park_id',
         'created_by_id',
         'verified_by_id',
         'ride_performance_details',
@@ -29,6 +31,10 @@ class RsrReport extends Model
     public function rides()
     {
         return $this->belongsTo(Ride::class, 'ride_id', 'id');
+    }
+    public function parks()
+    {
+        return $this->belongsTo(Park::class, 'park_id', 'id');
     }
     public function verified_by()
     {

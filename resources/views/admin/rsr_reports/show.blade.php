@@ -20,10 +20,14 @@
                    <tbody>
                     <tr>
                         <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                            colspan="1" aria-sort="ascending">Ride Name:
+                             colspan="1" aria-sort="ascending">Park Name :{{ $rsrReport->parks->name }}
                         </th>
                     </tr>
-                    <tr><td  style="border-color: #0b0b0b">{{ $rsrReport->rides->name }}</td></tr>
+                    <tr>
+                        <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                            colspan="1" aria-sort="ascending">Ride Name :{{ $rsrReport->rides->name }}
+                        </th>
+                    </tr>
 
                     <tr>
                         <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"

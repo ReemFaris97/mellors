@@ -66,22 +66,31 @@
       </ul>
   </li>
   @endif
+@if(auth()->user()->can('inspection_lists-list')|| auth()->user()->can('inspection_lists-create'))
+    <li class="has_sub">
+        <a href="javascript:void(0);" class="waves-effect"><i
+                    class="zmdi zmdi-traffic"></i><span>Ride Inspection Elements </span><span class="menu-arrow"></span></a>
+        <ul class="list-unstyled">
+            <li><a href="{{route('admin.inspection_lists.index')}}">Add Inspection Elements</a></li>
+            <li><a href="{{route('admin.ride_inspection_lists.index')}}">Add Inspection Elements To Ride</a></li>
 
+
+        </ul>
+    </li>
+@endif
 
 @if(auth()->user()->can('zones-list')|| auth()->user()->can('zones-create'))
   <li class="has_sub">
       <a href="javascript:void(0);" class="waves-effect"><i
-              class="zmdi zmdi-traffic"></i><span>Zones </span><span class="menu-arrow"></span></a>
+              class="zmdi zmdi-traffic"></i><span>Zones & Preoppening List </span><span class="menu-arrow"></span></a>
       <ul class="list-unstyled">
           <li><a href="{{route('admin.zones.index')}}">All Zones</a></li>
           <li><a href="{{route('admin.zones.create')}}">Add New Zone</a></li>
-          <li><a href="{{route('admin.inspection_lists.index')}}">Inspection Elements</a></li>
-          <li><a href="{{route('admin.ride_inspection_lists.index')}}">Add Ride Inspection Elements</a></li>
-
 
       </ul>
   </li>
 @endif
+
 @if(auth()->user()->can('users-list')|| auth()->user()->can('users-create'))
     <li class="has_sub">
         <a href="javascript:void(0);" class="waves-effect"><i
@@ -168,7 +177,7 @@
             <li><a href="{{route('admin.rsr_reports.index')}}">All RSR Reports</a></li>
                 @endcan
                 @can('rsr_reports-list')
-                <li><a href="{{route('admin.rsr_reports.create')}}">Add RSR Report</a></li>
+                <li><a href="{{route('admin.rsr_reports.create')}}">Add RSR Report Witout Stoppage</a></li>
                 @endcan
         </ul>
     </li>

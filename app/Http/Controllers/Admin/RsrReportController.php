@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Ride\RsrReportRequest;
+use App\Models\Park;
 use App\Models\Ride;
 use App\Models\RsrReport;
 use Illuminate\Http\Request;
@@ -36,10 +37,22 @@ class RsrReportController extends Controller
      */
     public function create()
     {
-        $rides=Ride::pluck('name','id')->all();
-        return view('admin.rsr_reports.add',compact('rides'));
+        if (auth()->user()->hasRole('Super Admin')){
+            $parks=Park::pluck('name','id')->toArray();
+        }else{
+            $parks=auth()->user()->parks->pluck('name','id')->toArray();
+        }
+        return view('admin.rsr_reports.add',compact('parks'));
     }
-
+    public function addRsrStoppageReport($id)
+    {
+        if (auth()->user()->hasRole('Super Admin')){
+            $parks=Park::pluck('name','id')->toArray();
+        }else{
+            $parks=auth()->user()->parks->pluck('name','id')->toArray();
+        }
+        return view('admin.rsr_reports.add',compact('parks','id'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -50,20 +63,30 @@ class RsrReportController extends Controller
     {
         $rsrReport = new RsrReport();
         $rsrReport->ride_id = $request->input('ride_id');
+        $rsrReport->park_id = $request->input('park_id');
         $rsrReport->ride_performance_details = $request->input('ride_performance_details');
         $rsrReport->ride_inspection = $request->input('ride_inspection');
         $rsrReport->corrective_actions_taken = $request->input('corrective_actions_taken');
         $rsrReport->conclusion = $request->input('conclusion');
-        $rsrReport-> type = 'without_stoppages';
         $rsrReport-> date = $request->input('date');
         $rsrReport-> created_by_id = \auth()->user()->id;
+        if ($request->has('stoppage_id')) {
+            $rsrReport-> type = 'with_stoppages';
+            $rsrReport->stoppage_id = $request->input('stoppage_id');
+        }else{
+            $rsrReport-> type = 'without_stoppages';
+        }
         $rsrReport->save();
         $rsr_report_id=$rsrReport->id;
            if ($request->has('file')) {
                $this->Gallery($request, new RsrReportsImages(), ['rsr_report_id' =>$rsr_report_id]);
                 }
-        alert()->success('RSR Report Added successfully !');
-        return redirect()->route('admin.rsr_reports.index');
+        if ($request->has('stoppage_id')) {
+            alert()->success('RSR Report For Stoppage Added successfully !');
+            return redirect()->back();
+        }else{
+            alert()->success('RSR Report Added successfully !');
+            return redirect()->route('admin.rsr_reports.index');        }
     }
 
     /**

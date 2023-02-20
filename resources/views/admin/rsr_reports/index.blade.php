@@ -47,7 +47,7 @@
                                 <td>{{ $item->type=='with_stoppages'?'With Stoppages':'Without Stoppages' }}</td>
                                 <td>
                                     @if($item->status=='approved')
-                                <span style="background-color:#d9edf7">Verified</span>
+                                <span style="background-color:#a5dc86">Verified</span>
                                     @else
                                         Pending
                                     @endif
