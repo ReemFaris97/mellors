@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Park extends Model
 {
     use SoftDeletes;
+
     protected $fillable = [
-        'name','branch_id'
+        'name', 'branch_id'
     ];
 
     public function users()
@@ -19,9 +20,14 @@ class Park extends Model
 
     public function branches()
     {
-        return $this->belongsTo(Branch::class,'branch_id')->withDefault([
-            'name'=>'not found'
+        return $this->belongsTo(Branch::class, 'branch_id')->withDefault([
+            'name' => 'not found'
         ]);
 
+    }
+
+    public function parkTimes()
+    {
+        return $this->hasMany(ParkTime::class, 'park_id', 'id');
     }
 }

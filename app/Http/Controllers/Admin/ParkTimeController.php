@@ -37,7 +37,12 @@ class ParkTimeController extends Controller
      */
     public function create()
     {
-        $parks=auth()->user()->parks->pluck('name','id')->toArray();
+        if (auth()->user()->hasRole('Super Admin')){
+            $parks=Park::pluck('name','id')->toArray();
+        }else{
+            $parks=auth()->user()->parks->pluck('name','id')->toArray();
+        }
+
 
         return view('admin.park_times.add',compact('parks'));
     }

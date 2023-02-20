@@ -23,7 +23,11 @@ class RideStoppages extends Model
         'opened_date',
         'date_time',
         'down_minutes',
-        'user_id'
+        'user_id',
+        'stoppage_status',
+        'type',
+        'time_slot_start',
+        'time_slot_end'
     ];
 
     public function ride()
@@ -38,5 +42,10 @@ class RideStoppages extends Model
     public function user()
     {
         return $this->belongsTo(User::class)->withDefault();
+    }
+
+    public  function album(){
+
+        return $this->hasMany(rideStoppagesImages::class,'ride_stoppages_id','id');
     }
 }

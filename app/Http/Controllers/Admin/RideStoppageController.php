@@ -11,6 +11,7 @@ use App\Models\StopageCategory;
 use App\Models\StopageSubCategory;
 use App\Models\User;
 use App\Traits\ImageOperations;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\Dashboard\Ride\RideStoppageRequest;
 
@@ -57,8 +58,14 @@ class RideStoppageController extends Controller
      */
     public function store(RideStoppageRequest $request)
     {
-
-        RideStoppages::create($request->validated());
+        $data=$request->validated();
+        $ride=Ride::findOrFail($data['ride_id']);
+        $time=$ride->park->parkTimes->first();
+        $data['date']=$time->date;
+        $data['ride_status']="stopped";
+        $data['time']=Carbon::now()->toTimeString();
+        $data['opened_date']=Carbon::now()->format('Y-m-d');
+        RideStoppages::create($data);
         alert()->success('Ride Added successfully !');
         return redirect()->route('admin.rides-stoppages.index');
     }
@@ -79,7 +86,8 @@ class RideStoppageController extends Controller
         $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
         $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
         $users = User::pluck('name', 'id')->toArray();
-        return view('admin.rides_stoppages.edit', compact('item','stopage_category', 'rides', 'stopage_sub_category', 'users'));
+        $album=$item->album;
+        return view('admin.rides_stoppages.edit', compact('item','stopage_category', 'rides', 'stopage_sub_category', 'users','album'));
 
     }
 

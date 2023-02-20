@@ -18,7 +18,12 @@ class ParkController extends Controller
      */
     public function index()
     {
-        $items=auth()->user()->parks->all();
+        if (auth()->user()->hasRole('Super Admin')){
+            $items=Park::all();
+        }else{
+            $items=auth()->user()->parks->all();
+        }
+
         return view('admin.parks.index',compact('items'));
     }
 

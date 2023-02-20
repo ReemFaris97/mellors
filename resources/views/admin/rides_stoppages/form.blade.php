@@ -3,7 +3,7 @@
     <div class="form-group">
         <label class="col-lg-12">Ride :</label></label>
         <div class="col-lg-6">
-            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control col-lg-6')) !!}
+            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control col-lg-6','placeholder'=>'choose ride')) !!}
         </div>
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
@@ -15,7 +15,7 @@
     <div class="form-group stoppageCategory ">
         <label class="col-lg-12">Operator :</label>
         <div class="col-lg-6">
-            {!! Form::select('user_id', $users,null, array('class' => 'form-control col-lg-6','placeholder'=>'CHOOSE Operators')) !!}
+            {!! Form::select('user_id', $users,null, array('class' => 'form-control col-lg-6','placeholder'=>'Choose Operators')) !!}
         </div>
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
@@ -70,7 +70,19 @@
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="form-group ">
+        <label class="col-lg-12">Type :</label>
+        <div class="col-lg-6">
+            {!! Form::select('type', ['all_day'=>'all_day','time_slot'=>'time_slot'],null, array('class' => 'form-control col-lg-6 stoppageType','placeholder'=>'Stoppage type')) !!}
+        </div>
+        @error('type')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
+
+    <div class="form-group downTime hidden">
         <label class="col-lg-12">Down Time :</label>
         <div class="col-lg-6">
             {!! Form::number("down_minutes",null,['class'=>'form-control','placeholder'=>'Down Time'])!!}
@@ -81,43 +93,61 @@
         </div>
         @enderror
     </div>
+<div class="timeSlot hidden">
     <div class="form-group">
-        <label class="col-lg-12"> Date :</label>
+        <div class="col-lg-12">
+            {!! Form::label('Start Time') !!}
+        </div>
         <div class="col-lg-6">
-            {!! Form::date("date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
+            {!! Form::time('time_slot_start',null,['class'=>'form-control']) !!}
+            @if ($errors->has('start'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('start') }}</strong>
+                </span>
+            @endif
         </div>
-        @error('name')
-        <div class="invalid-feedback" style="color: #ef1010">
-            {{ $message }}
-        </div>
-        @enderror
     </div>
-{{--    <div class="form-group">--}}
-{{--        <label class="col-lg-12"> Date Time :</label>--}}
-{{--        <div class="col-lg-6">--}}
-{{--            {!! Form::time("date_time",null,['class'=>'form-control','placeholder'=>'date_time'])!!}--}}
-{{--        </div>--}}
-{{--    </div>--}}
     <div class="form-group">
-        <label class="col-lg-12">Opened Date :</label>
+        <div class="col-lg-12">
+            {!! Form::label('Close Date') !!}
+        </div>
         <div class="col-lg-6">
-            {!! Form::date("opened_date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
+            {!! Form::date('time_slot_end',null,['class'=>'form-control']) !!}
+            @if ($errors->has('close_date'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('close_date') }}</strong>
+                </span>
+            @endif
         </div>
-        @error('name')
-        <div class="invalid-feedback" style="color: #ef1010">
-{{--            {{ $message }}--}}
-        </div>
-        @enderror
     </div>
+</div>
 
-    @if(auth()->user()->hasRole('Technical'))
+    @if(auth()->user()->hasRole('Technical') || auth()->user()->hasRole('Super Admin'))
     <div class="form-group stoppageReason">
         <label class="col-lg-12">Stoppage description :</label>
         <div class="col-lg-6">
             {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>'Stoppage description'])!!}
         </div>
     </div>
-    <div class="form-group">
+
+        <div class="col-md-6">
+            @if (isset($album))
+                <div class="form-group form-float">
+                    <label class="form-label">Images :</label>
+                    <div class="form-line row">
+                        @foreach ($album as $item)
+                            <div class="col-sm-3">
+                                <div class="flex-img">
+                                    <a download href="{{ $item->image }}"> <img class="img-preview" src="{{ $item->image }}" style="height: 50px; width: 50px"></a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+        </div>
+
+        <div class="form-group">
         <label for="name"> Upload  Images </label>
         {!! Form::file('file[]' , ["class" => "form-control  file_upload_preview","multiple" => "multiple","data-preview-file-type" => "text" ]) !!}
     </div>
@@ -151,6 +181,21 @@
             }
         });
     });
+
+    $('.stoppageType').change(function() {
+        var val = $(this).val();
+        console.log(val);
+      if(val == "time_slot"){
+          $('.downTime').removeClass('hidden');
+          $('.timeSlot').removeClass('hidden');
+      }
+      if(val == "all_day"){
+          $('.downTime').addClass('hidden');
+          $('.timeSlot').addClass('hidden');
+      }
+    });
+
+
 
 </script>
 @endpush
