@@ -22,7 +22,8 @@ trait ImageOperations
         if (is_null($image)or $image=='')
             return asset('_admin/assets/images/logo.png');
         else
-            return asset($image);
+
+            return $this->getimg($image);
     }
 
 
@@ -33,7 +34,13 @@ trait ImageOperations
 
     function getimg($filename)
     {
-        return asset($filename);
+        if (!empty($filename)) {
+            $base_url = url('/');
+            return $base_url . '/storage/' . $filename;
+        } else {
+            return '';
+        }
+
     }
 
     public function Gallery($request, $model, $item)

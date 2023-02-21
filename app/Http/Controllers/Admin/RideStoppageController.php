@@ -65,7 +65,10 @@ class RideStoppageController extends Controller
         $data['ride_status']="stopped";
         $data['time']=Carbon::now()->toTimeString();
         $data['opened_date']=Carbon::now()->format('Y-m-d');
-        RideStoppages::create($data);
+        $stoppage=RideStoppages::create($data);
+        if ($request->has('file')) {
+            $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' =>$stoppage->id]);
+        }
         alert()->success('Ride Added successfully !');
         return redirect()->route('admin.rides-stoppages.index');
     }
@@ -94,11 +97,19 @@ class RideStoppageController extends Controller
     public function update(RideStoppageRequest $request,$id)
     {
         $item = RideStoppages::findOrFail($id);
-        $item->update($request->validated());
+        $data=$request->validated();
+        if ($request->has('description') && $request->ride_status == "stopped"){
+            $data['stoppage_status']="working";
+        }elseif ($request->ride_status == "active"){
+            $data['stoppage_status']="done";
+        }
+
+        $item->update($data);
+
         if ($request->has('file')) {
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' =>$id]);
         }
-        alert()->success('Ride Updated successfully !');
+        alert()->success('Ride Stoppage Updated successfully !');
         return redirect()->route('admin.rides-stoppages.index');
 
     }

@@ -45,6 +45,9 @@
                                 Ride_Status
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Stoppage Status
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride_Stoppage_Category
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
@@ -79,6 +82,7 @@
                                 <td>{{ $item->date }}</td>
                                 <td>{{ $item->time }}</td>
                                 <td>{{ $item->ride_status }}</td>
+                                <td>{{ $item->stoppage_status }}</td>
                                 <td>{{ $item->stopageSubCategory->name ?? "name" }}</td>
                                 <td>{{ $item->ride_notes }}</td>
                                 <td>{{ $item->opened_date }}</td>

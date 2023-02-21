@@ -27,7 +27,7 @@
     <div class="form-group stoppageCategory ">
         <label class="col-lg-12">Ride Status :</label>
         <div class="col-lg-6">
-            {!! Form::select('ride_status', ['stopped','active'],null, array('class' => 'form-control col-lg-6','placeholder'=>'Ride Status')) !!}
+            {!! Form::select('ride_status', ["stopped"=>'stopped',"active"=>'active'],null, array('class' => 'form-control col-lg-6','placeholder'=>'Ride Status')) !!}
         </div>
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
@@ -123,6 +123,7 @@
 </div>
 
     @if(auth()->user()->hasRole('Technical') || auth()->user()->hasRole('Super Admin'))
+        <br><br><br>
     <div class="form-group stoppageReason">
         <label class="col-lg-12">Stoppage description :</label>
         <div class="col-lg-6">
@@ -130,15 +131,17 @@
         </div>
     </div>
 
-        <div class="col-md-6">
+        <br><br><br>
+
+        <div class="form-group">
             @if (isset($album))
-                <div class="form-group form-float">
+                <div class="form-group">
                     <label class="form-label">Images :</label>
                     <div class="form-line row">
                         @foreach ($album as $item)
                             <div class="col-sm-3">
                                 <div class="flex-img">
-                                    <a download href="{{ $item->image }}"> <img class="img-preview" src="{{ $item->image }}" style="height: 50px; width: 50px"></a>
+                                    <a download href="{{ $item->image }}"> <img class="img-preview" src="{{ $item->image }}" style="height: 100px; width: 100px"></a>
                                 </div>
                             </div>
                         @endforeach
