@@ -3,18 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class PreopeningList extends Model
 {
-    use SoftDeletes;
-
     protected $fillable = [
         'ride_id',
         'inspection_list_id',
-        'zone_id',
-        'user_id','date','comment'
+        'list_type',
+        'status',
+        'comment',
+        'created_by_id'
     ];
     public function rides()
     {
@@ -23,9 +22,16 @@ class PreopeningList extends Model
         ]);
 
     }
-    public function zones()
+    public function inspection_list()
     {
-        return $this->belongsTo(Zone::class,'zone_id')->withDefault([
+        return $this->belongsTo(InspectionList::class,'inspection_list_id')->withDefault([
+            'name'=>'not found'
+        ]);
+
+    }
+    public function created_by()
+    {
+        return $this->belongsTo(User::class,'created_by_id')->withDefault([
             'name'=>'not found'
         ]);
 

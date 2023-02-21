@@ -24,9 +24,6 @@ Zones
                                 Add Preopening List
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                show Preopening Lists
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
                             </th>
                         </tr>
@@ -43,9 +40,9 @@ Zones
                                 <td>
                                     <a href="{{url('/zone_rides/'.$item->id)}}" class="btn btn-info">Add Preopening List</a>
                                 </td>
-                                <td>
-                                    <a href="{{ route('admin.preopening_lists.show', $item) }}" class="btn btn-info">Show Preopening Lists</a>
-                                </td>
+                                {{--<td>--}}
+                                    {{--<a href="{{ route('admin.preopening_lists.show', $item) }}" class="btn btn-info">Show Preopening Lists</a>--}}
+                                {{--</td>--}}
                                 <td>
                                     @if(auth()->user()->can('zones-edit'))
                                         <a href="{{ route('admin.zones.edit', $item) }}"

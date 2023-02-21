@@ -11,7 +11,7 @@ class InspectionList extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name','comment'
+        'name'
     ];
 
     public function ride()

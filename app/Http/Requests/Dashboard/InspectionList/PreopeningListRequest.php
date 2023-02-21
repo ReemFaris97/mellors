@@ -23,23 +23,18 @@ class PreopeningListRequest extends FormRequest
      */
     public function rules()
     {
-
         $rules= [
             'ride_id' => 'required',
-            'zone_id' => 'required',
-            'user_id' => 'nullable',
-            'inspection_list' => 'required',
-            'comment' => 'nullable',
-            'date' => 'required',
+            'inspection_list_id' => 'required',
+            'status' => 'nullable',
+            'comment' => 'nullable'
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
-                'ride_id'=>'nullable',
-                'zone_id'=>'nullable',
-                'user_id'=>'nullable',
-                'inspection_list'=>'nullable',
-                 'comment' => 'nullable',
-                 'date' => 'required',
+                'ride_id' => 'nullable',
+                'inspection_list_id' => 'nullable',
+                'status' => 'nullable',
+                'comment' => 'nullable'
             ];
         }
         return $rules;

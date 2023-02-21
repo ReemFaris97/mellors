@@ -72,7 +72,7 @@
                     class="zmdi zmdi-traffic"></i><span>Ride Inspection Elements </span><span class="menu-arrow"></span></a>
         <ul class="list-unstyled">
             <li><a href="{{route('admin.inspection_lists.index')}}">Add Inspection Elements</a></li>
-            <li><a href="{{route('admin.ride_inspection_lists.index')}}">Add Inspection Elements To Ride</a></li>
+            <li><a href="{{route('admin.ride_inspection_lists.index')}}">Assign Inspection Elements To Ride</a></li>
 
 
         </ul>

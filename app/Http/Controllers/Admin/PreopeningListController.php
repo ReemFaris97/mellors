@@ -56,12 +56,21 @@ class PreopeningListController extends Controller
      */
     public function store(Request $request)
     {
-//        return $request;
-        $ride=Ride::find($request['ride_id']);
-        $ride->preopening_list()->sync($request['comment']);
-        $ride->preopening_list()->sync($request['inspection_element_id']);
-        alert()->success('Preopening List Added successfully !');
-        return redirect()->route('admin.zones.index');
+//      dd($request->all());
+
+       foreach ($request->inspection_list_id as $key=>$value){
+           $preopening_list= new PreopeningList();
+           $preopening_list->inspection_list_id=$request->inspection_list_id[$key];
+           $preopening_list->ride_id=$request->ride_id[$key];
+           $preopening_list->comment=$request->comment[$key];
+           $preopening_list->status=$request->status[$key];
+           $preopening_list->created_by_id=auth()->user()->id;
+           $preopening_list->save();
+       }
+        return response()->json(['success'=>'Preopening List Added successfully']);
+
+//        alert()->success('Preopening List Added successfully !');
+//        return redirect()->back();
     }
 
     /**

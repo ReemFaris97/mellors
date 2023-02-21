@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePreopeningListsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,11 +15,13 @@ class CreatePreopeningListsTable extends Migration
     {
         Schema::create('preopening_lists', function (Blueprint $table) {
             $table->id();
-            $table->string('inspection_list');
-            $table->foreignId('ride_id')->nullable()->constrained('rides');
-            $table->foreignId('zone_id')->nullable()->constrained('zones');
-            $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->softDeletes();
+            $table->foreignId('ride_id')->nullable()->constrained('parks');
+            $table->foreignId('inspection_list_id')->nullable()->constrained('inspection_lists');
+            $table->enum('list_type',['preopening','maintenance'])->default('preopening');
+            $table->enum('status',['yes','no'])->default('yes');
+            $table->longText('comment')->nullable();
+            $table->foreignId('created_by_id')->nullable()->constrained('users');
+
             $table->timestamps();
         });
     }
@@ -33,4 +35,4 @@ class CreatePreopeningListsTable extends Migration
     {
         Schema::dropIfExists('preopening_lists');
     }
-}
+};

@@ -26,13 +26,11 @@ class InspectionListRequest extends FormRequest
 
         $rules= [
             'name' => 'required',
-            'comment'=>'required',
 
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
-                'name'=>'nullable',
-                'comment'=>'nullable',
+                'name'=>'required',
 
             ];
         }

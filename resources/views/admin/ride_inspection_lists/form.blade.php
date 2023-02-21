@@ -1,5 +1,7 @@
 {{--@include('admin.common.errors')--}}
 <div class="row">
+    @isset($list)
+        @else
         <div class="col-xs-12">
             <div class="form-group form-float">
                 <label class="form-label">Ride</label>
@@ -13,7 +15,7 @@
                 </div>
             </div>
         </div>
-
+@endif
     <div class="col-xs-12 col-sm-12 col-md-12">
 
         <div class="form-group">

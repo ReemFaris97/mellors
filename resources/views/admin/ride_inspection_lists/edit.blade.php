@@ -6,7 +6,7 @@
         <div class="col-sm-12">
             <div class="card-box">
                 <h4 class="header-title m-t-0 m-b-30">Update Ride Inspection List </h4>
-                <a class="input-group-btn" href="{{route('admin.preopening_lists.index')}}">
+                <a class="input-group-btn" href="{{route('admin.ride_inspection_lists.index')}}">
                     <button type="button" class="btn waves-effect waves-light btn-primary">back</button>
                 </a>
                             {!!Form::model($ride, ['route' => ['admin.ride_inspection_lists.update' , $ride->id] , 'method' => 'PATCH','enctype'=>"multipart/form-data",'files' => true,'id'=>'form']) !!}

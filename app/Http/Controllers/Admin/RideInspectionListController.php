@@ -18,7 +18,12 @@ class RideInspectionListController extends Controller
      */
     public function index()
     {
-        $items=Ride::all();
+        if (auth()->user()->hasRole('Super Admin')) {
+            $items=Ride::all();
+        }else {
+            $zones = auth()->user()->zones->all();
+            $items=Ride::whereIn('zone_id',$zones)->get();
+        }
        return view('admin.ride_inspection_lists.index',compact('items'));
     }
 
