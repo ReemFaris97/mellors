@@ -101,7 +101,7 @@
                     <tr>
                         @foreach($images as $image)
                         <td style="border-color: #0b0b0b"><img class="img-responsive center-block"
-                                 style="width:70px;height: 70px"
+                                 style="width:300px;height: 300px"
                                  src="{{url('../storage/app/public/'.$image->image)}}"/>
                         </td>
                             @endforeach
