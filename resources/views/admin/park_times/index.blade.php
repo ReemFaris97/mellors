@@ -68,6 +68,12 @@
                                                         <label class="form-label"> </label>
                                                         <div class="form-line">
                                                             {!! Form::number('daily_entrance_count', null, ['class' => 'form-control']) !!}
+
+                                                            @if ($errors->has('daily_entrance_count'))
+                                                                <span class="help-block">
+                                                              <strong>{{ $errors->first('daily_entrance_count') }}</strong>
+                                                                </span>
+                                                            @endif
                                                             {!! Form::hidden('park_id', $item->id, ['class' => 'form-control']) !!}
                                                         </div>
                                                     </div>

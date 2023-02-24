@@ -24,12 +24,7 @@ class EntranceCountRequest extends FormRequest
     public function rules()
     {
         if ($this->getMethod() == 'PATCH') {
-            ddd();
             $rules = [
-                'park_id'=>'nullable',
-                'start'=>'nullable',
-                'end'=>'nullable',
-                'date'=>'nullable',
                 'daily_entrance_count'=>'required'
             ];
         }

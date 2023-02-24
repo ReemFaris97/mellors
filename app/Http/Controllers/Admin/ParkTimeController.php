@@ -128,7 +128,7 @@ class ParkTimeController extends Controller
         return redirect()->route('admin.park_times.index');
     }
 
-    public function add_daily_entrance_count(ParkTimeRequest $request, ParkTime $parkTime)
+    public function add_daily_entrance_count(EntranceCountRequest $request, ParkTime $parkTime)
     {
         $toUpdateColumns = ['daily_entrance_count' => $request['daily_entrance_count']];
         $res = ParkTime::findOrFail($request->park_id);
