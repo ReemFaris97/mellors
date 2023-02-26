@@ -195,3 +195,15 @@
 </li>
 @endif
 
+
+@if(auth()->user()->can('rides-list')|| auth()->user()->can('rides-create'))
+
+    <li class="has_sub">
+        <a href="javascript:void(0);" class="waves-effect"><i
+                class="zmdi zmdi-playstation"></i><span>Reports </span> <span class="menu-arrow"></span></a>
+        <ul class="list-unstyled">
+            <li><a href="{{route('admin.reports.rideStatus')}}">Ride Status Report</a></li>
+        </ul>
+    </li>
+@endif
+

@@ -76,4 +76,6 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::get('rsr_reports/{id}/approve','Admin\RsrReportController@approve');
     Route::get('add_rsr_stoppage_report/{id}','Admin\RsrReportController@addRsrStoppageReport');
 
+    Route::get('rides-status','Admin\ReportsController@rideStatus')->name('reports.rideStatus');
+
 });

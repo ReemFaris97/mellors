@@ -36,6 +36,9 @@
                                 Daily Entrance Count
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                duration_time
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
                             </th>
                         </tr>
@@ -51,6 +54,8 @@
                                 <td>{{ $item->start }}</td>
                                 <td>{{ $item->close_date }}</td>
                                 <td>{{ $item->end }}</td>
+                                <td>{{ $item->end }}</td>
+                                <td>{{ $item->duration_time }}</td>
                                 <td>
                                     <button type="button" class="btn btn-info waves-effect m-r-20" data-toggle="modal"
                                             data-target="#modal-{{ $item->id }}">Add Daily Entrance Count
