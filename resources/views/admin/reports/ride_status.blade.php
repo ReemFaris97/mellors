@@ -1,15 +1,13 @@
 @extends('admin.layout.app')
 
 @section('title')
-   All Rides
+    Rides Status
 @endsection
 
 @section('content')
 
     <div class="card-box">
-        <a href="{{route('admin.rides.create')}}">
-            <button type="button" class="btn btn-info">Create New Rides</button>
-        </a>
+
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">

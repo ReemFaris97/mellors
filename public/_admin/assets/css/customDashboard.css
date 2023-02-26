@@ -48,8 +48,8 @@
 :root {
     --black: #000000;
     --primary: #327039; /*green*/
-    --secondary: #7ECA9C; /*green light*/
-    --blublack: #333333d6; /*blue black*/
+    --secondary: #000000;
+    --blublack: #2b578de6;
     --grey: #00000029;
     --greyBg: #FBFBFB;
     --greyBrdr: #DBDBDB;
