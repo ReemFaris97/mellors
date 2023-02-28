@@ -81,5 +81,6 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::resource('incidents','Admin\IncidentController');
     //Route::resource('questions','Admin\QuestionController');
     Route::resource('health_and_safety_reports','Admin\HealthAndSafetyReportController');
+    Route::resource('skill_game_reports','Admin\SkillGameReportController');
 
 });

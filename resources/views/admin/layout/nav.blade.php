@@ -214,6 +214,7 @@
         <ul class="list-unstyled">
             <li><a href="{{route('admin.reports.rideStatus')}}">Ride Status Report</a></li>
             <li><a href="{{route('admin.health_and_safety_reports.index')}}">Health & Safety Report</a></li>
+            <li><a href="{{route('admin.skill_game_reports.index')}}">Skill games Report</a></li>
             {{--<li><a href="{{route('admin.questions.index')}}"> Reports Questions</a></li>--}}
         </ul>
     </li>
