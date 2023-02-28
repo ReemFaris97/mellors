@@ -78,4 +78,8 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
 
     Route::get('rides-status','Admin\ReportsController@rideStatus')->name('reports.rideStatus');
 
+    Route::resource('incidents','Admin\IncidentController');
+    //Route::resource('questions','Admin\QuestionController');
+    Route::resource('health_and_safety_reports','Admin\HealthAndSafetyReportController');
+
 });

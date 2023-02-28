@@ -194,7 +194,17 @@
   </ul>
 </li>
 @endif
+@if(auth()->user()->can('customer_feedbacks-list')|| auth()->user()->can('customer_feedbacks-create'))
 
+    <li class="has_sub">
+        <a href="javascript:void(0);" class="waves-effect"><i
+                    class="zmdi zmdi-collection-text"></i><span>Health & Saftey</span> <span class="menu-arrow"></span></a>
+        <ul class="list-unstyled">
+            <li><a href="{{route('admin.incidents.index')}}"> Incident Reports</a></li>
+
+        </ul>
+    </li>
+@endif
 
 @if(auth()->user()->can('rides-list')|| auth()->user()->can('rides-create'))
 
@@ -203,7 +213,11 @@
                 class="zmdi zmdi-playstation"></i><span>Reports </span> <span class="menu-arrow"></span></a>
         <ul class="list-unstyled">
             <li><a href="{{route('admin.reports.rideStatus')}}">Ride Status Report</a></li>
+            <li><a href="{{route('admin.health_and_safety_reports.index')}}">Health & Safety Report</a></li>
+            {{--<li><a href="{{route('admin.questions.index')}}"> Reports Questions</a></li>--}}
         </ul>
     </li>
 @endif
+
+
 

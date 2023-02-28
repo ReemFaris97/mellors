@@ -30,4 +30,9 @@ class Park extends Model
     {
         return $this->hasMany(ParkTime::class, 'park_id', 'id');
     }
+
+    public function rides()
+    {
+        return $this->hasMany(Ride::class, 'park_id', 'id');
+    }
 }

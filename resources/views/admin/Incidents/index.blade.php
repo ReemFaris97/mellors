@@ -1,15 +1,16 @@
 @extends('admin.layout.app')
 
 @section('title')
-Inspection list elements
+Incident Reports
 @endsection
 
 @section('content')
 
     <div class="card-box">
-        <a href="{{ route('admin.inspection_lists.create')}}">
-            <button type="button" class="btn btn-info">Add New Element TO Inspection List </button>
-        </a>
+
+        <p class="text-muted font-14 mb-3">
+            <a href="{{ route('admin.incidents.create') }}" class="btn btn-info">Add New</a>
+        </p>
 
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
@@ -21,7 +22,12 @@ Inspection list elements
                                 colspan="1" aria-sort="ascending">ID
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Inspection Elements
+                                Ride
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Date
+                            </th><th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Description
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
@@ -34,18 +40,20 @@ Inspection list elements
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                {!!Form::open( ['route' => ['admin.inspection_lists.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                <td>{{ $item->rides->name }}</td>
+                                <td>{{ $item->date }}</td>
+                                <td>{!!  $item->comment !!} </td>
+                                {!!Form::open( ['route' => ['admin.incidents.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                    @if(auth()->user()->can('inspection_lists-edit'))
-                                        <a href="{{ route('admin.inspection_lists.edit', $item) }}"
-                                           class="btn btn-info">Edit</a>
-                                    @endif
-                                        @if(auth()->user()->can('inspection_lists-delete'))
+                                    {{--@if(auth()->user()->can('incidents-edit'))--}}
+                                        {{--<a href="{{ route('admin.incidents.edit', $item) }}"--}}
+                                           {{--class="btn btn-info">Edit</a>--}}
+                                    {{--@endif--}}
+                                        @if(auth()->user()->can('incidents-delete'))
 
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                           data-url="{{ route('admin.inspection_lists.destroy', $item) }}"
+                                           data-url="{{ route('admin.incidents.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>
@@ -69,11 +77,9 @@ Inspection list elements
 
 
 @endsection
-
-
-
-
-
 @section('footer')
     @include('admin.datatable.scripts')
 @endsection
+
+
+
