@@ -26,7 +26,8 @@ class IncidentRequest extends FormRequest
             $rules = [
                 'ride_id'=>'required',
                 'comment'=>'required',
-                'date'=>'required',
+                'park_time_id'=>'required',
+                'time'=>'required',
             ];
 
         return $rules;

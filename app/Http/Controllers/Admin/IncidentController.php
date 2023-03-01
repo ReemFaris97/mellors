@@ -19,7 +19,7 @@ class IncidentController extends Controller
      */
     public function index()
     {
-        $items=Incident::where('date',Carbon::now()->format('Y-m-d'))->get();
+        $items=Incident::where('created_at',Carbon::now()->format('Y-m-d'))->get();
        return view('admin.incidents.index',compact('items'));
     }
 
@@ -37,7 +37,11 @@ class IncidentController extends Controller
         $rides=Ride::pluck('name','id')->all();
         return view('admin.incidents.add',compact('rides'));
     }
-
+    
+    public function add_incident_report($ride_id,$park_time_id)
+    {
+        return view('admin.incidents.add',compact('ride_id','park_time_id'));
+    }
     /**
      * Store a newly created resource in storage.
      *

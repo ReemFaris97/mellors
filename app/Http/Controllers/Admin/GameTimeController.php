@@ -72,6 +72,11 @@ class GameTimeController extends Controller
         $items=Ride::where('park_id',$id)->get();
         return view('admin.game_times.index',compact('items'));
     }
+    public function all_rides($park_id,$park_time_id)
+    {
+        $items=Ride::where('park_id',$park_id)->get();
+        return view('admin.game_times.index',compact('items','park_time_id'));
+    }
 
     /**
      * Show the form for editing the specified resource.

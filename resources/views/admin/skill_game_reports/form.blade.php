@@ -268,6 +268,10 @@
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
 
                            </td>
+                           <input type="hidden" name="park_id[]" id="park-id" value="{{$park_id}}">
+                       <input type="hidden" name="park_time_id[]" id="park-time-id" value="{{$park_time_id}}">
+
+
                        </tr>
                    </tbody>
                </table>
@@ -287,6 +291,7 @@
             const question = [];
             const comment = [];
             const answer = [];
+
             $('.answer').each(function () {
                 if($(this).change){
                     answer.push($(this).val());
@@ -300,7 +305,8 @@
             $('.comment').each(function () {
                 comment.push($(this).val());
             });
-
+            var park_id = $("#park-id").val();
+            var park_time_id = $("#park-time-id").val();
             $.ajax({
                 url: "{{ route('admin.skill_game_reports.store') }}",
                 type: 'POST',
@@ -308,7 +314,9 @@
                     "_token":"{{ csrf_token() }}",
                     answer: answer,
                     question: question,
-                    comment: comment
+                    comment: comment,
+                    park_id: park_id,
+                    park_time_id: park_time_id
                 },
                 success: function(response)
                 {

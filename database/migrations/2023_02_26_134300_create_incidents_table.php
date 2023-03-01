@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ride_id')->nullable()->constrained('rides');
             $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->date('date')->nullable();
+            $table->foreignId('park_time_id')->nullable()->constrained('park_times');
+            $table->time('time')->nullable();
             $table->longText('comment')->nullable();
             $table->timestamps();
             $table->softDeletes();

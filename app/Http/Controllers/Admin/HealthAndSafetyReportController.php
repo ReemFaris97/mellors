@@ -36,7 +36,12 @@ class HealthAndSafetyReportController extends Controller
         $incidents=Incident::where('date',Carbon::now()->format('Y-m-d'))->count();
         return view('admin.health_and_safety_reports.add',compact('incidents'));
     }
-
+    
+    public function add_health_and_safety_report($park_id,$park_time_id)
+    {
+        $incidents=Incident::where('date',Carbon::now()->format('Y-m-d'))->count();
+        return view('admin.health_and_safety_reports.add',compact('incidents','park_id','park_time_id'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -45,13 +50,15 @@ class HealthAndSafetyReportController extends Controller
      */
     public function store(Request $request)
     {
-//      dd($request->all());
+      //dd($request->all());
 
        foreach ($request->question as $key=>$value){
            $list= new HealthAndSafetyReport();
            $list->question=$request->question[$key];
            $list->answer=$request->answer[$key];
            $list->comment=$request->comment[$key];
+           $list->park_id=$request->park_id;
+           $list->park_time_id=$request->park_time_id;
            $list->date=Carbon::now()->format('Y-m-d');
            $list->user_id=auth()->user()->id;
            $list->save();

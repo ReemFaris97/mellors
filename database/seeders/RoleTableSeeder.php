@@ -49,6 +49,38 @@ class RoleTableSeeder extends Seeder
                     'created_at' => NULL,
                     'updated_at' => NULL,
                 ),
+            4 => 
+               array (
+                'id' => 5,
+                'name' => 'Skill Games ',
+                'guard_name' => 'web',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ), 
+            5 => 
+            array (
+             'id' => 6,
+             'name' => 'Maintenance ',
+             'guard_name' => 'web',
+             'created_at' => NULL,
+             'updated_at' => NULL,
+         ), 
+            6 => 
+            array (
+            'id' => 7,
+            'name' => 'Health & Safety ',
+            'guard_name' => 'web',
+            'created_at' => NULL,
+            'updated_at' => NULL,
+        ), 
+        7 => 
+        array (
+        'id' => 8,
+        'name' => 'Ride & Ops ',
+        'guard_name' => 'web',
+        'created_at' => NULL,
+        'updated_at' => NULL,
+    ),   
         ));
     }
 }

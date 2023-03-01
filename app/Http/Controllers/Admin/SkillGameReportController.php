@@ -38,7 +38,12 @@ class SkillGameReportController extends Controller
             ->where('date',Carbon::now()->format('Y-m-d'))->count();
         return view('admin.skill_game_reports.add',compact('complaints'));
     }
-
+    public function add_skill_game_report($park_id,$park_time_id)
+    { 
+         $complaints=CustomerFeedbacks::where('type','Complaint')
+        ->where('date',Carbon::now()->format('Y-m-d'))->count();
+    return view('admin.skill_game_reports.add',compact('complaints','park_id','park_time_id'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -47,13 +52,15 @@ class SkillGameReportController extends Controller
      */
     public function store(Request $request)
     {
-//      dd($request->all());
+      dd($request->all());
 
        foreach ($request->question as $key=>$value){
            $list= new SkillGameReport();
            $list->question=$request->question[$key];
            $list->answer=$request->answer[$key];
            $list->comment=$request->comment[$key];
+           $list->park_id=$request->park_id[$key];
+           $list->park_time_id=$request->park_time_id[$key];
            $list->date=Carbon::now()->format('Y-m-d');
            $list->user_id=auth()->user()->id;
            $list->save();

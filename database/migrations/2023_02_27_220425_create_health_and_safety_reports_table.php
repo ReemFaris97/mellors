@@ -20,6 +20,8 @@ return new class extends Migration
             $table->longText('comment')->nullable();
             $table->date('date');
             $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->foreignId('park_id')->nullable()->constrained('parks');
+            $table->foreignId('park_time_id')->nullable()->constrained('park_times');
             $table->timestamps();
             $table->softDeletes();
         });

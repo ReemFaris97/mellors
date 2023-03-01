@@ -25,7 +25,10 @@
                                 Park
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                              Edit open and  close time
+                              Edit Time Slot
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                              Add Incident Report
                             </th>
 
                         </tr>
@@ -41,10 +44,14 @@
                                 <td>{{ $item->park->name }}</td>
                                 <td>
                                     <a href="{{ route('admin.game_times.edit', $item) }}"
-                                           class="btn btn-info">Edit</a>
+                                           class="btn btn-info">Edit </a>
 
                                 </td>
+                                <td>
+                                    <a href="{{url('add_incident_report/'.$item->id.'/'.$park_time_id)}}"
+                                           class="btn btn-info">Add </a>
 
+                                </td>
                             </tr>
 
                         @endforeach

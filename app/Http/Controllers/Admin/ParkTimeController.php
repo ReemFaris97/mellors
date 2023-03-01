@@ -35,7 +35,8 @@ class ParkTimeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    
+     public function create()
     {
         if (auth()->user()->hasRole('Super Admin')){
             $parks=Park::pluck('name','id')->toArray();

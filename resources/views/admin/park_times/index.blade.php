@@ -32,11 +32,18 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Close Time
                             </th>
+                           
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                duration_time
+                            </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Daily Entrance Count
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                duration_time
+                                Reports
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                           All Rides
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
@@ -53,7 +60,6 @@
                                 <td>{{ $item->date }}</td>
                                 <td>{{ $item->start }}</td>
                                 <td>{{ $item->close_date }}</td>
-                                <td>{{ $item->end }}</td>
                                 <td>{{ $item->end }}</td>
                                 <td>{{ $item->duration_time }}</td>
                                 <td>
@@ -94,15 +100,33 @@
                                 {!!Form::open( ['route' => ['admin.park_times.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                    <a href="{{ route('admin.game_times.show', $item->parks->id) }}"
-                                       class="btn btn-info">Edit Ride Time Slot</a>
-
+                                @if(auth()->user()->can('role-list'))
+                                   <a href="{{url('add_health_and_safety_report/'.$item->parks->id.'/'.$item->id)}}">
+                                        <button type="button" class="btn btn-info"> 
+                                            Add H&S Report </button>
+                                    </a>
+                                    @endif
+                                    @if(auth()->user()->can('role-list'))
+                                   <a href="{{url('add_skill_game_report/'.$item->parks->id.'/'.$item->id)}}">
+                                        <button type="button" class="btn btn-info"> 
+                                            Add Skill Game Report </button>
+                                    </a>
+                                   @endif
+                                </td>
+                                <td>
+                                    <a href="{{ url('all-rides/'.$item->parks->id.'/'.$item->id) }}"
+                                       class="btn btn-info">All Rides</a>
+                                </td>
+                                <td>
                                     <a href="{{ route('admin.park_times.edit', $item) }}"
                                        class="btn btn-info">Edit Park Time Slot</a>
 
                                     <a href="{{url('game-all-times/'.$item->parks->id)}}">
-                                        <button type="button" class="btn btn-info"> Rides with different time slot </button>
+                                        <button type="button" class="btn btn-info"> 
+                                            Rides with different time slot </button>
                                     </a>
+                                 
+                                    
                                     <a class="btn btn-danger" data-name="{{ $item->name }}"
                                        data-url="{{ route('admin.park_times.destroy', $item) }}"
                                        onclick="delete_form(this)">

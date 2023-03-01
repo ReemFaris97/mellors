@@ -11,10 +11,14 @@ class Incident extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'ride_id','comment','date','user_id'
+        'ride_id','comment','park_time_id','user_id','time'
     ];
-    public function rides()
+    public function ride()
     {
         return $this->belongsTo(Ride::class,'ride_id')->withDefault();
+    }
+    public function park_time()
+    {
+        return $this->belongsTo(ParkTime::class,'park_time_id')->withDefault();
     }
 }

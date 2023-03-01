@@ -56,7 +56,7 @@ class PreopeningListController extends Controller
      */
     public function store(Request $request)
     {
-//      dd($request->all());
+//     dd($request->all());
 
        foreach ($request->inspection_list_id as $key=>$value){
            $preopening_list= new PreopeningList();

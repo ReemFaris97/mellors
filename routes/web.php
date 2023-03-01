@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::resource('park_times','Admin\ParkTimeController');//done
     Route::resource('game_times','Admin\GameTimeController');//done
     Route::PATCH('daily_entrance_count', 'Admin\ParkTimeController@add_daily_entrance_count')->name('park_times.daily_entrance_count');
+    Route::get('/all-rides/{park_id}/{time_slot_id}','Admin\GameTimeController@all_rides');
 
     Route::get('/game-all-times/{id}','Admin\GameTimeController@all_times');
 
@@ -79,8 +80,12 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
     Route::get('rides-status','Admin\ReportsController@rideStatus')->name('reports.rideStatus');
 
     Route::resource('incidents','Admin\IncidentController');
+    Route::get('/add_incident_report/{ride_id}/{park_time_id}','Admin\IncidentController@add_incident_report');
     //Route::resource('questions','Admin\QuestionController');
     Route::resource('health_and_safety_reports','Admin\HealthAndSafetyReportController');
-    Route::resource('skill_game_reports','Admin\SkillGameReportController');
+    Route::get('/add_health_and_safety_report/{park_id}/{time_slot_id}','Admin\HealthAndSafetyReportController@add_health_and_safety_report');
 
+    Route::resource('skill_game_reports','Admin\SkillGameReportController');
+    Route::get('/add_skill_game_report/{park_id}/{time_slot_id}','Admin\SkillGameReportController@add_skill_game_report');
+    
 });
