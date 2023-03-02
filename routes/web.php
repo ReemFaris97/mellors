@@ -87,5 +87,8 @@ Route::group(['middleware' => 'auth','as'=>'admin.'], function () {
 
     Route::resource('skill_game_reports','Admin\SkillGameReportController');
     Route::get('/add_skill_game_report/{park_id}/{time_slot_id}','Admin\SkillGameReportController@add_skill_game_report');
+   
+    Route::resource('maintenance_reports','Admin\MaintenanceReportController');
+    Route::get('/add_maintenance_report/{park_id}/{time_slot_id}','Admin\MaintenanceReportController@add_maintenace_report');
     
 });

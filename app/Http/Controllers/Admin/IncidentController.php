@@ -50,7 +50,9 @@ class IncidentController extends Controller
      */
     public function store(IncidentRequest $request)
     {
-        Incident::create($request->validated());
+        $data=$request->validated();
+        $data['user_id']=auth()->user()->id;
+        Incident::create($data);
         alert()->success('Incident Report Added successfully !');
         return redirect()->route('admin.incidents.index');
     }

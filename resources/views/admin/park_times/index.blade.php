@@ -43,7 +43,7 @@
                                 Reports
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                           All Rides
+                           All Rides Operations
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
@@ -112,10 +112,16 @@
                                             Add Skill Game Report </button>
                                     </a>
                                    @endif
+                                   @if(auth()->user()->can('role-list'))
+                                   <a href="{{url('add_maintenance_report/'.$item->parks->id.'/'.$item->id)}}">
+                                        <button type="button" class="btn btn-info"> 
+                                            Add Maintenance Report </button>
+                                    </a>
+                                   @endif
                                 </td>
                                 <td>
                                     <a href="{{ url('all-rides/'.$item->parks->id.'/'.$item->id) }}"
-                                       class="btn btn-info">All Rides</a>
+                                       class="btn btn-info">All Rides </a>
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.park_times.edit', $item) }}"
