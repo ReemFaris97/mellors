@@ -74,7 +74,7 @@ class MaintenanceReportController extends Controller
         $listr->date=Carbon::now()->format('Y-m-d');
         $listr->save();
     }
-        return response()->json(['success'=>'Health And Safety Report Added successfully']);
+        return response()->json(['success'=>'Maintenance Report Added successfully']);
 
 //        alert()->success('Preopening List Added successfully !');
 //        return redirect()->back();

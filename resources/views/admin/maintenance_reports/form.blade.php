@@ -256,7 +256,7 @@
                 success: function(response)
                 {
                     if(response.success){
-                        alert('Skill Games Report Added successfully');
+                        alert('Maintenance Report Added successfully');
                     }else {
                         console.log('error');
                     }

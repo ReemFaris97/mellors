@@ -52,15 +52,15 @@ class SkillGameReportController extends Controller
      */
     public function store(Request $request)
     {
-      dd($request->all());
+     // dd($request->all());
 
        foreach ($request->question as $key=>$value){
            $list= new SkillGameReport();
            $list->question=$request->question[$key];
            $list->answer=$request->answer[$key];
            $list->comment=$request->comment[$key];
-           $list->park_id=$request->park_id[$key];
-           $list->park_time_id=$request->park_time_id[$key];
+           $list->park_id=$request->park_id;
+           $list->park_time_id=$request->park_time_id;
            $list->date=Carbon::now()->format('Y-m-d');
            $list->user_id=auth()->user()->id;
            $list->save();
