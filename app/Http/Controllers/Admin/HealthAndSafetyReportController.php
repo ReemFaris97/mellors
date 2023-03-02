@@ -33,13 +33,13 @@ class HealthAndSafetyReportController extends Controller
      */
     public function create()
     {
-        $incidents=Incident::where('date',Carbon::now()->format('Y-m-d'))->count();
+        $incidents=Incident::where('Date(“created_at”)',Carbon::now()->format('Y-m-d'))->count();
         return view('admin.health_and_safety_reports.add',compact('incidents'));
     }
     
     public function add_health_and_safety_report($park_id,$park_time_id)
     {
-        $incidents=Incident::where('date',Carbon::now()->format('Y-m-d'))->count();
+        $incidents=Incident::whereDate(("created_at"),Carbon::now()->format('Y-m-d'))->count();
         return view('admin.health_and_safety_reports.add',compact('incidents','park_id','park_time_id'));
     }
     /**
