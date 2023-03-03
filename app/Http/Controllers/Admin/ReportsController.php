@@ -13,13 +13,12 @@ class ReportsController extends Controller
     public function rideStatus()
     {
 
-        $now = Carbon::now()->format('H:i:s');
         $rides = DB::table('rides')
             ->join('parks', 'parks.id', '=', 'rides.park_id')
-            ->leftJoin('park_times', function ($join) use ($now) {
+            ->leftJoin('park_times', function ($join) {
                 $join->on('park_times.park_id', '=', 'parks.id');
             })
-            ->leftJoin('ride_stoppages', function ($join) use ($now) {
+            ->leftJoin('ride_stoppages', function ($join) {
                 $join->on('ride_stoppages.ride_id', '=', 'rides.id');
             })
             ->select([

@@ -16,8 +16,8 @@ class TechReportsController extends Controller
      */
     public function index()
     {
-        $items=TechReport::where('date',Carbon::now()->format('Y-m-d'))->get();
-        return view('admin.tech_reports.index',compact('items'));
+        $items = TechReport::where('date', Carbon::now()->format('Y-m-d'))->get();
+        return view('admin.tech_reports.index', compact('items'));
     }
 
     /**
@@ -30,32 +30,34 @@ class TechReportsController extends Controller
 
         return view('admin.tech_reports.add');
     }
-    public function add_tech_report($park_id,$park_time_id)
+
+    public function add_tech_report($park_id, $park_time_id)
     {
-        return view('admin.tech_reports.add',compact('park_id','park_time_id'));
+        return view('admin.tech_reports.add', compact('park_id', 'park_time_id'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         // dd($request->all());
 
-        foreach ($request->question as $key=>$value){
-            $list= new TechReport();
-            $list->question=$request->question[$key];
-            $list->answer=$request->answer[$key];
-            $list->comment=$request->comment[$key];
-            $list->park_id=$request->park_id;
-            $list->park_time_id=$request->park_time_id;
-            $list->date=Carbon::now()->format('Y-m-d');
-            $list->user_id=auth()->user()->id;
+        foreach ($request->question as $key => $value) {
+            $list = new TechReport();
+            $list->question = $request->question[$key];
+            $list->answer = $request->answer[$key];
+            $list->comment = $request->comment[$key];
+            $list->park_id = $request->park_id;
+            $list->park_time_id = $request->park_time_id;
+            $list->date = Carbon::now()->format('Y-m-d');
+            $list->user_id = auth()->user()->id;
             $list->save();
         }
-        return response()->json(['success'=>'Tech Report Added successfully']);
+        return response()->json(['success' => 'Tech Report Added successfully']);
 
 //        alert()->success('Preopening List Added successfully !');
 //        return redirect()->back();
@@ -64,7 +66,7 @@ class TechReportsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -73,6 +75,7 @@ class TechReportsController extends Controller
         return view('admin.tech_reports.edit');
 
     }
+
     public function show($id)
     {
 
@@ -83,8 +86,8 @@ class TechReportsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, SkillGameReport $list)
@@ -92,16 +95,17 @@ class TechReportsController extends Controller
 
         return redirect()->route('admin.preopening_lists.index');
     }
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $preopening_list=SkillGameReport::find($id);
-        if ($preopening_list){
+        $preopening_list = SkillGameReport::find($id);
+        if ($preopening_list) {
 
             $preopening_list->delete();
             alert()->success('Preopening List deleted successfully');
