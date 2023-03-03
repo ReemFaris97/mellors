@@ -28,10 +28,12 @@ class Ride extends Model
     {
         return $this->belongsTo(Park::class, 'park_id', 'id')->withDefault()->withTrashed();
     }
+
     public function zone()
     {
         return $this->belongsTo(Zone::class, 'zone_id', 'id')->withDefault()->withTrashed();
     }
+
     public function category()
     {
         return $this->belongsTo(GameCategory::class, 'game_cat_id', 'id')->withDefault()->withTrashed();
@@ -41,8 +43,14 @@ class Ride extends Model
     {
         return $this->belongsToMany(InspectionList::class, 'ride_inspection_lists');
     }
+
     public function preopening_list()
     {
         return $this->belongsToMany(InspectionList::class, 'preopening_lists');
+    }
+
+    public function rideStoppages()
+    {
+        return $this->hasMany(RideStoppages::class, 'ride_id', 'id');
     }
 }

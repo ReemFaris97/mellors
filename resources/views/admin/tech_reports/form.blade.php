@@ -12,7 +12,7 @@
                     <thead>
                     <tr role="row">
                         <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                            colspan="1" aria-sort="ascending"> Tech report
+                            colspan="1" aria-sort="ascending"> Questions
                         </th>
                         <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                             colspan="1" aria-sort="ascending">Answer
@@ -50,7 +50,7 @@
                            </td>
                            <td>
                                <label>
-                                   <input type="number" name="answer[]" class="answer" value="">
+                                   <input type="number" name="answer[]" class="answer" value="{{$data['rsr_count']}}">
                                </label>
                            </td>
                            <td>
@@ -67,7 +67,7 @@
                            </td>
                            <td>
                                <label>
-                                   <input type="number" name="answer[]" class="answer" value="">
+                                   <input type="number" name="answer[]" class="answer" value="{{$data['ride_down_all_day']}}">
                                </label>
                            </td>
                            <td>
@@ -83,7 +83,7 @@
                            </td>
                            <td>
                                <label>
-                                   <input type="number" name="answer[]" class="answer" value="">
+                                   <input type="number" name="answer[]" class="answer" value="{{$data['ride_due_to_maintenance']}}">
                                </label>
                            </td>
                            <td>
@@ -126,7 +126,7 @@
                        </tr>
                    <tr>
                        <td>
-                           How Many ?
+                           How many rides have delayed opening?
                            <input type="hidden" name="question[]" class="question" value="How many rides have delayed opening?">
 
                        </td>

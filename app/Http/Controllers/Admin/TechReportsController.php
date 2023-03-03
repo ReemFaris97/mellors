@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Park;
+use App\Models\Ride;
+use App\Models\RsrReport;
 use App\Models\TechReport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,11 +19,12 @@ class TechReportsController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->hasRole('Super Admin')){
-            $parks=Park::pluck('name','id')->all();
-        }else{
-            $parks=auth()->user()->parks->pluck('name','id')->all();
-        }        return view('admin.tech_reports.index',compact('parks'));
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+        } else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
+        }
+        return view('admin.tech_reports.index', compact('parks'));
     }
 
 
@@ -38,7 +41,16 @@ class TechReportsController extends Controller
 
     public function add_tech_report($park_id, $park_time_id)
     {
-        return view('admin.tech_reports.add', compact('park_id', 'park_time_id'));
+        $data = [];
+        $data['rsr_count'] = RsrReport::whereDate('created_at', Carbon::today())->count();
+        $data['ride_down_all_day'] = Ride::whereHas('rideStoppages', function ($query) {
+            $query->whereDate('created_at', Carbon::today())->where('type', 'all_day');
+        })->count();
+        $data['ride_due_to_maintenance'] = Ride::whereHas('rideStoppages', function ($query) {
+            $query->whereDate('created_at', Carbon::today());
+        })->count();
+
+        return view('admin.tech_reports.add', compact('data', 'park_id', 'park_time_id'));
     }
 
     /**
@@ -50,11 +62,11 @@ class TechReportsController extends Controller
     public function store(Request $request)
     {
         $dateExists = TechReport::where([
-            ['park_time_id',$request['park_time_id']],
+            ['park_time_id', $request['park_time_id']],
             ['park_id', $request['park_id']]
         ])->first();
-        if ($dateExists){
-            return response()->json(['error'=>'Tech Report Report Already Exist !']);
+        if ($dateExists) {
+            return response()->json(['error' => 'Tech Report Report Already Exist !']);
         }
         // dd($request->all());
 
@@ -74,19 +86,21 @@ class TechReportsController extends Controller
 //        alert()->success('Preopening List Added successfully !');
 //        return redirect()->back();
     }
-    public function search(Request $request){
+
+    public function search(Request $request)
+    {
         $park_id = $request->input('park_id');
         $date = $request->input('date');
         $items = TechReport::query()
-            ->where('park_id',$park_id)
+            ->where('park_id', $park_id)
             ->Where('date', $date)
             ->get();
-            if (auth()->user()->hasRole('Super Admin')){
-                $parks=Park::pluck('name','id')->all();
-            }else{
-                $parks=auth()->user()->parks->pluck('name','id')->all();
-            }
-        return view('admin.tech_reports.index', compact('items','parks','date'));
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+        } else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
+        }
+        return view('admin.tech_reports.index', compact('items', 'parks', 'date'));
     }
 
     /**
