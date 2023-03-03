@@ -22,19 +22,16 @@
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Capacity
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Park Name
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Zone
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 status
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                stoppage category
+                                Ride Notes
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                rideSroppageDescription
                             </th>
                         </tr>
                         </thead>
@@ -45,11 +42,10 @@
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->capacity_one_cycle }}</td>
-                                <td>{{ $item->park->name }}</td>
-                                <td>{{ $item->zone->name }}</td>
-                                <td> closed</td>
-                                <td> Stoppage Category</td>
+                                <td>{{ $item->parkName }}</td>
+                                <td> {{$item->available}}</td>
+                                <td> {{$item->ride_notes}}</td>
+                                <td> {{$item->rideSroppageDescription}}</td>
                             </tr>
 
                         @endforeach
