@@ -216,7 +216,7 @@
             <li><a href="{{route('admin.health_and_safety_reports.index')}}">Health & safety</a></li>
             <li><a href="{{route('admin.ride-ops-reports.index')}}"> Ride Ops</a></li>
             <li><a href="{{route('admin.maintenance_reports.index')}}"> Maintenance</a></li>
-            <li><a href="{{route('admin.tech-reports.index')}}"> Teach Services</a></li>
+            <li><a href="{{route('admin.tech-reports.index')}}"> Teachnical Services</a></li>
             <li><a href="{{route('admin.skill_game_reports.index')}}"> Skill Games</a></li>
             <li><a href="{{route('admin.health_and_safety_reports.index')}}"> Duty Summary</a></li>
         </ul>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Park;
 use App\Models\TechReport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,9 +17,13 @@ class TechReportsController extends Controller
      */
     public function index()
     {
-        $items = TechReport::where('date', Carbon::now()->format('Y-m-d'))->get();
-        return view('admin.tech_reports.index', compact('items'));
+        if (auth()->user()->hasRole('Super Admin')){
+            $parks=Park::pluck('name','id')->all();
+        }else{
+            $parks=auth()->user()->parks->pluck('name','id')->all();
+        }        return view('admin.tech_reports.index',compact('parks'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -44,6 +49,13 @@ class TechReportsController extends Controller
      */
     public function store(Request $request)
     {
+        $dateExists = TechReport::where([
+            ['park_time_id',$request['park_time_id']],
+            ['park_id', $request['park_id']]
+        ])->first();
+        if ($dateExists){
+            return response()->json(['error'=>'Tech Report Report Already Exist !']);
+        }
         // dd($request->all());
 
         foreach ($request->question as $key => $value) {
@@ -61,6 +73,20 @@ class TechReportsController extends Controller
 
 //        alert()->success('Preopening List Added successfully !');
 //        return redirect()->back();
+    }
+    public function search(Request $request){
+        $park_id = $request->input('park_id');
+        $date = $request->input('date');
+        $items = TechReport::query()
+            ->where('park_id',$park_id)
+            ->Where('date', $date)
+            ->get();
+            if (auth()->user()->hasRole('Super Admin')){
+                $parks=Park::pluck('name','id')->all();
+            }else{
+                $parks=auth()->user()->parks->pluck('name','id')->all();
+            }
+        return view('admin.tech_reports.index', compact('items','parks','date'));
     }
 
     /**

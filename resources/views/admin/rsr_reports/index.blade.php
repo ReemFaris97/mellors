@@ -45,11 +45,14 @@
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->rides->name }}</td>
                                 <td>{{ $item->type=='with_stoppages'?'With Stoppages':'Without Stoppages' }}</td>
-                                <td>
-                                    @if($item->status=='approved')
-                                <span style="background-color:#a5dc86">Verified</span>
-                                    @else
-                                        Pending
+                               
+                                 <td>
+                                 @if($item->status=='pending')
+                                  <a href="{{url('rsr_reports/'.$item->id.'/approve')}}"
+                                  class="btn btn-xs btn-danger"><i class="fa fa-check"></i> Approve</a>
+                                  @endif
+                                  @if($item->status=='approved')
+                                <span>Verified</span>
                                     @endif
                                 </td>
                                 <td>{{ $item->created_by->name }}</td>
@@ -61,7 +64,10 @@
                                         <a href="{{ route('admin.rsr_reports.show', $item) }}"
                                            class="btn btn-primary">Show</a>
                                     @endif
-
+                                    @if(auth()->user()->can('rsr_reports-edit'))
+                                    <a href="{{ route('admin.rsr_reports.edit', $item->id) }}"
+                                    class="btn btn-success">Edit</a>
+                                    @endif
                                     @if(auth()->user()->can('rsr_reports-delete'))
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.rsr_reports.destroy', $item) }}"

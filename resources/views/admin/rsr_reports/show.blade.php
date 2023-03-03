@@ -78,16 +78,8 @@
                     <td  style="border-color: #0b0b0b">{{ $rsrReport->date }}</td>
                 </tr>
                 <tr>
-                    @if($rsrReport->status=='pending')
-                    <td>
-                        <a href="{{url('rsr_reports/'.$rsrReport->id.'/approve')}}"
-                           class="btn btn-xs btn-success"><i class="fa fa-check"></i> Approve</a>
-                    </td>
-                    @endif
-                    <td>
-                        <a href="{{ route('admin.rsr_reports.edit', $rsrReport) }}"
-                           class="btn btn-xs btn-success">Edit</a>
-                    </td>
+                   
+                   
                 </tr>
                 </tbody>
                 </table>
