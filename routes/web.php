@@ -82,20 +82,25 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::resource('incidents', 'Admin\IncidentController');
     Route::get('/add_incident_report/{ride_id}/{park_time_id}', 'Admin\IncidentController@add_incident_report');
     //Route::resource('questions','Admin\QuestionController');
+    
     Route::resource('health_and_safety_reports', 'Admin\HealthAndSafetyReportController');
     Route::get('/add_health_and_safety_report/{park_id}/{time_slot_id}', 'Admin\HealthAndSafetyReportController@add_health_and_safety_report');
-    Route::get('/search_health_and_safety/', 'Admin\HealthAndSafetyReportController@search')->name('searchHealthAndSafety');
+    Route::get('/search_health_and_safety/', 'Admin\HealthAndSafetyReportController@search')->name('searchHealthAndSafetyReport');
 
     Route::resource('skill_game_reports', 'Admin\SkillGameReportController');
     Route::get('/add_skill_game_report/{park_id}/{time_slot_id}', 'Admin\SkillGameReportController@add_skill_game_report');
+    Route::get('/search_skill_game_reports/', 'Admin\SkillGameReportController@search')->name('searchSkillGameReport');
 
     Route::resource('maintenance_reports', 'Admin\MaintenanceReportController');
     Route::get('/add_maintenance_report/{park_id}/{time_slot_id}', 'Admin\MaintenanceReportController@add_maintenace_report');
+    Route::get('/search_maintenance_reports/', 'Admin\MaintenanceReportController@search')->name('searchMaintenanceReport');
 
     Route::resource('tech-reports', 'Admin\TechReportsController');
     Route::get('/add-tech-report/{park_id}/{time_slot_id}', 'Admin\TechReportsController@add_tech_report');
+    Route::get('/search_tech_reports/', 'Admin\TechReportsController@search')->name('searchTechReport');
 
     Route::resource('ride-ops-reports', 'Admin\RideOpsReportsController');
     Route::get('/add-ride-ops-report/{park_id}/{time_slot_id}', 'Admin\RideOpsReportsController@add_ride_ops_report');
+    Route::get('/search_ride_ops_reports/', 'Admin\RideOpsReportsController@search')->name('searchOpsReport');
 
 });

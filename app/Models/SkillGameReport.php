@@ -13,4 +13,8 @@ class SkillGameReport extends Model
     protected $fillable = [
         'question','answer','comment','date','user_id','park_time_id','park_id'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

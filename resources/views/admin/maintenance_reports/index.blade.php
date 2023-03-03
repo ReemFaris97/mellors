@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="card-box">
-    <form action="{{url('/search_tech_reports')}}" method="GET">
+    <form action="{{url('/search_maintenance_reports')}}" method="GET">
 
 @csrf
 
@@ -36,18 +36,15 @@
                                 colspan="1" aria-sort="ascending">ID
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Technical Daily report
+                                Maintenance Daily report
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                            Answer                           
-                             </th>
+                           Answer
+                                   </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Comment
                             </th>
 
-                            {{--<th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">--}}
-                                {{--Process--}}
-                            {{--</th>--}}
                         </tr>
                         </thead>
 
