@@ -21,7 +21,7 @@ class ParkTimeController extends Controller
     {
         if (auth()->user()->hasRole('Super Admin')) {
 
-            $items= ParkTime::get();
+            $items= ParkTime::where('date', date('Y-m-d'))->get();
         }
         else{
             $parks=auth()->user()->parks->all();

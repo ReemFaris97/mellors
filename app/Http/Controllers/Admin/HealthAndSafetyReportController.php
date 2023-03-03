@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\InspectionList\PreopeningListRequest;
 use App\Models\InspectionList;
+use App\Models\Park;
 use App\Models\PreopeningList;
 use App\Models\Ride;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +23,12 @@ class HealthAndSafetyReportController extends Controller
      */
     public function index()
     {
-        $items=HealthAndSafetyReport::where('date',Carbon::now()->format('Y-m-d'))->get();
-       return view('admin.health_and_safety_reports.index',compact('items'));
+        if (auth()->user()->hasRole('Super Admin')){
+            $parks=Park::pluck('name','id')->all();
+        }else{
+            $parks=auth()->user()->parks->pluck('name','id')->all();
+        }
+       return view('admin.health_and_safety_reports.index',compact('parks'));
     }
 
     /**
@@ -50,6 +55,14 @@ class HealthAndSafetyReportController extends Controller
      */
     public function store(Request $request)
     {
+        $dateExists = HealthAndSafetyReport::where([
+            ['park_time_id',$request['park_time_id']],
+            ['park_id', $request['park_id']]
+        ])->first();
+        if ($dateExists){
+            return response()->json(['error'=>'Health And Safety Report Already Exist !']);
+        }
+
       //dd($request->all());
 
        foreach ($request->question as $key=>$value){
@@ -68,7 +81,20 @@ class HealthAndSafetyReportController extends Controller
 //        alert()->success('Preopening List Added successfully !');
 //        return redirect()->back();
     }
-
+    public function search(Request $request){
+        $park_id = $request->input('park_id');
+        $date = $request->input('date');
+        $items = HealthAndSafetyReport::query()
+            ->where('park_id',$park_id)
+            ->Where('date', $date)
+            ->get();
+            if (auth()->user()->hasRole('Super Admin')){
+                $parks=Park::pluck('name','id')->all();
+            }else{
+                $parks=auth()->user()->parks->pluck('name','id')->all();
+            }
+        return view('admin.health_and_safety_reports.index', compact('items','parks','date'));
+    }
     /**
      * Show the form for editing the specified resource.
      *

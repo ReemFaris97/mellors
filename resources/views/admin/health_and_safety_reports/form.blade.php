@@ -484,6 +484,8 @@
                     if(response.success){
                         alert('Health And Safety Report Added successfully');
                     }else {
+                        alert('Health And Safety Report Already Exist !');
+
                         console.log('error');
                     }
 

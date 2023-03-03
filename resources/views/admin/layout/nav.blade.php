@@ -207,5 +207,21 @@
     </li>
 @endif
 
+@if(auth()->user()->can('rides-list')|| auth()->user()->can('rides-create'))
+
+    <li class="has_sub">
+        <a href="javascript:void(0);" class="waves-effect"><i
+                class="zmdi zmdi-playstation"></i><span>Duty Report </span> <span class="menu-arrow"></span></a>
+        <ul class="list-unstyled">
+            <li><a href="{{route('admin.health_and_safety_reports.index')}}">Health & safety</a></li>
+            <li><a href="{{route('admin.ride-ops-reports.index')}}"> Ride Ops</a></li>
+            <li><a href="{{route('admin.maintenance_reports.index')}}"> Maintenance</a></li>
+            <li><a href="{{route('admin.tech-reports.index')}}"> Teach Services</a></li>
+            <li><a href="{{route('admin.skill_game_reports.index')}}"> Skill Games</a></li>
+            <li><a href="{{route('admin.health_and_safety_reports.index')}}"> Duty Summary</a></li>
+        </ul>
+    </li>
+@endif
+
 
 

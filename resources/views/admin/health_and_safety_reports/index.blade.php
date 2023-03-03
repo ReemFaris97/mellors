@@ -7,9 +7,25 @@
 @section('content')
 
     <div class="card-box">
-        <a href="{{ route('admin.health_and_safety_reports.create')}}">
-            <button type="button" class="btn btn-info">Add New Health And Safety Report </button>
-        </a>
+    <form action="{{url('/search_health_and_safety')}}" method="GET">
+
+@csrf
+
+<div class="form-group">
+    <label for="last_name">Select Park</label>
+    {!! Form::select('park_id',$parks,null, array('class' => 'form-control')) !!}
+</div>
+<div class="form-group">
+    <label for="middle_name">Date </label>
+    {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
+</div>
+<div class="col-xs-12">
+    <div class="input-group-btn">
+        <button type="submit" class="btn btn-primary save_btn waves-effect">Show</button>
+    </div>
+</div>
+{!!Form::close() !!}
+
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">
@@ -23,7 +39,7 @@
                                 Health and Safety Daily report
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Answer
+                                {{$date}}
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Comment
@@ -36,6 +52,7 @@
                         </thead>
 
                         <tbody>
+                        @if(isset($items))
 
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
@@ -43,28 +60,21 @@
                                 <td>{{ $item->question }}</td>
                                 <td>{{ $item->answer }}</td>
                                 <td>{!! $item->comment !!}</td>
-                                {{--{!!Form::open( ['route' => ['admin.preopening_lists.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}--}}
-                                {{--{!!Form::close() !!}--}}
-                                {{--<td>--}}
-                                    {{--@if(auth()->user()->can('preopening_lists-edit'))--}}
-                                        {{--<a href="{{ route('admin.preopening_lists.edit', $item) }}"--}}
-                                           {{--class="btn btn-info">Edit</a>--}}
-                                    {{--@endif--}}
-                                        {{--@if(auth()->user()->can('preopening_lists-delete'))--}}
-
-                                        {{--<a class="btn btn-danger" data-name="{{ $item->name }}"--}}
-                                           {{--data-url="{{ route('admin.preopening_lists.destroy', $item) }}"--}}
-                                           {{--onclick="delete_form(this)">--}}
-                                            {{--Delete--}}
-                                        {{--</a>--}}
-                                        {{--@endif--}}
-
-                                {{--</td>--}}
-
+                             
                             </tr>
 
                         @endforeach
-
+                        <tfoot>
+                        <tr role="row" class="odd" id="row-{{ $items[0]->id }}">
+                        <td tabindex="0" class="sorting_1">{{ $items[0]->id }}</td>
+                                <td>    Completed By
+                                </td>
+                                <td>{{$items[0]->user->name}}</td>
+                            </tr>
+                            
+                            
+                        </tfoot>
+                        @endif
                         </tbody>
                     </table>
 
