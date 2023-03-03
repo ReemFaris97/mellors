@@ -20,7 +20,8 @@ class ParkTimeController extends Controller
     public function index()
     {
         if (auth()->user()->hasRole('Super Admin')) {
-            $items= ParkTime::where('date', date('Y-m-d'))->get();
+
+            $items= ParkTime::get();
         }
         else{
             $parks=auth()->user()->parks->all();
@@ -35,7 +36,7 @@ class ParkTimeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
      public function create()
     {
         if (auth()->user()->hasRole('Super Admin')){

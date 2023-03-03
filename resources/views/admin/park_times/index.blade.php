@@ -32,7 +32,7 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Close Time
                             </th>
-                           
+
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 duration_time
                             </th>
@@ -102,20 +102,28 @@
                                 <td>
                                 @if(auth()->user()->can('role-list'))
                                    <a href="{{url('add_health_and_safety_report/'.$item->parks->id.'/'.$item->id)}}">
-                                        <button type="button" class="btn btn-info"> 
-                                            Add H&S Report </button>
+                                        <button type="button" class="btn btn-info">
+                                          H&S </button>
                                     </a>
                                     @endif
                                     @if(auth()->user()->can('role-list'))
                                    <a href="{{url('add_skill_game_report/'.$item->parks->id.'/'.$item->id)}}">
-                                        <button type="button" class="btn btn-info"> 
-                                            Add Skill Game Report </button>
+                                        <button type="button" class="btn btn-info">SkillGames </button>
                                     </a>
                                    @endif
                                    @if(auth()->user()->can('role-list'))
                                    <a href="{{url('add_maintenance_report/'.$item->parks->id.'/'.$item->id)}}">
-                                        <button type="button" class="btn btn-info"> 
-                                            Add Maintenance Report </button>
+                                        <button type="button" class="btn btn-info">Maintenance</button>
+                                    </a>
+                                   @endif
+                                    @if(auth()->user()->can('role-list'))
+                                   <a href="{{url('add-tech-report/'.$item->parks->id.'/'.$item->id)}}">
+                                        <button type="button" class="btn btn-info">Tech</button>
+                                    </a>
+                                   @endif
+                                    @if(auth()->user()->can('role-list'))
+                                   <a href="{{url('add-ride-ops-report/'.$item->parks->id.'/'.$item->id)}}">
+                                        <button type="button" class="btn btn-info">Ride Ops</button>
                                     </a>
                                    @endif
                                 </td>
@@ -128,11 +136,11 @@
                                        class="btn btn-info">Edit Park Time Slot</a>
 
                                     <a href="{{url('game-all-times/'.$item->parks->id)}}">
-                                        <button type="button" class="btn btn-info"> 
+                                        <button type="button" class="btn btn-info">
                                             Rides with different time slot </button>
                                     </a>
-                                 
-                                    
+
+
                                     <a class="btn btn-danger" data-name="{{ $item->name }}"
                                        data-url="{{ route('admin.park_times.destroy', $item) }}"
                                        onclick="delete_form(this)">
