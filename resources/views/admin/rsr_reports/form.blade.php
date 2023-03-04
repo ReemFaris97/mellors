@@ -16,10 +16,9 @@
             <div class="form-group form-float">
                 <label class="form-label">Ride</label>
                 <div class="form-line">
-                    <select class="form-control js-example-basic-single ms ride" id="ride" name="ride_id"
-                            data-live-search=true required>
-                        <option disabled> choose Park First</option>
-                    </select>
+                {!! Form::select('ride_id',@$rides?$rides:[],null, array('class' => 'form-control ride','id'=>'ride','placeholder'=>'Choose Park First')) !!}
+
+                 
                     @error('ride_id')
                     <div class="invalid-feedback" style="color: #ef1010">
                         {{ $message }}

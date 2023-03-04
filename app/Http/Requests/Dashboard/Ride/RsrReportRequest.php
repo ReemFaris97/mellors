@@ -33,8 +33,6 @@ class RsrReportRequest extends FormRequest
             'date'=>'nullable',
             'type'=>'nullable',
 
-
-
         ];
     }
 }

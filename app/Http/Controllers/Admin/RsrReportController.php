@@ -99,7 +99,8 @@ class RsrReportController extends Controller
     {
         $rsrReport=RsrReport::findorfail($id);
         $rides=Ride::pluck('name','id')->all();
-        return view('admin.rsr_reports.edit',compact('rsrReport','rides'));
+        $parks=Park::pluck('name','id')->toArray();
+        return view('admin.rsr_reports.edit',compact('rsrReport','rides','parks'));
     }
     public function show($id)
     {

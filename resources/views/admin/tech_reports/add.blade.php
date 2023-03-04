@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-  Add New Skill games Report
+  Add New Tech Report
 @endsection
 
 @section('content')
