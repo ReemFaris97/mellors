@@ -93,7 +93,7 @@ class HealthAndSafetyReportController extends Controller
             }else{
                 $parks=auth()->user()->parks->pluck('name','id')->all();
             }
-        return view('admin.health_and_safety_reports.index', compact('items','parks','date'));
+        return view('admin.health_and_safety_reports.index', compact('items','parks'));
     }
     /**
      * Show the form for editing the specified resource.

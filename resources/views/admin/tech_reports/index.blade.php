@@ -58,19 +58,32 @@
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->question }}</td>
-                                <td>{{ $item->answer }}</td>
+                                <td>@if($item->answer == "yes")
+                                <label style="background-color: aquamarine;">Yes</label>
+                                    @elseif($item->answer == "no")
+                                    <label style="background-color: red; font-weight: bold;">No</label>
+                                    @else
+                                    {{ $item->answer }}
+                                    @endif
+                                </td>
                                 <td>{!! $item->comment !!}</td>
                              
                             </tr>
 
                         @endforeach
                         <tfoot>
-                        <tr role="row" class="odd" id="row-{{ $items[0]->id }}">
-                        <td tabindex="0" class="sorting_1">{{ $items[0]->id }}</td>
+                        <tr role="row" class="odd" id="row-{{ 1}}">
+                        <td tabindex="0" class="sorting_1">{{ 1 }}</td>
                                 <td>    Completed By
                                 </td>
-                                <td>{{$items[0]->user->name}}</td>
-                            </tr>
+                                @forelse($items as $item)
+                                <td>{{$item->user->name}}
+                                    @break
+                                </td>
+                                @empty
+                                <td>Not found</td>
+                                @endforelse
+                        </tr>
                             
                             
                         </tfoot>

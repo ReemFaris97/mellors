@@ -84,7 +84,7 @@ class RideOpsReportsController extends Controller
             }else{
                 $parks=auth()->user()->parks->pluck('name','id')->all();
             }
-        return view('admin.ride_ops_reports.index', compact('items','parks','date'));
+        return view('admin.ride_ops_reports.index', compact('items','parks'));
     }
  
     /**

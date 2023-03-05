@@ -258,6 +258,8 @@
                     if(response.success){
                         alert('Maintenance Report Added successfully');
                     }else {
+                        alert('Maintenance Report Already Exist !');
+
                         console.log('error');
                     }
 

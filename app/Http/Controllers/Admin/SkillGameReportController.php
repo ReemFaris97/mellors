@@ -94,7 +94,7 @@ class SkillGameReportController extends Controller
         } else {
             $parks = auth()->user()->parks->pluck('name', 'id')->all();
         }
-        return view('admin.skill_game_reports.index', compact('items', 'parks', 'date'));
+        return view('admin.skill_game_reports.index', compact('items', 'parks'));
     }
 
     /**
