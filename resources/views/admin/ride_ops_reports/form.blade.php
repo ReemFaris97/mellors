@@ -237,6 +237,9 @@
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
+                           <input type="hidden" name="park_id[]" id="park-id" value="{{$park_id}}">
+                       <input type="hidden" name="park_time_id[]" id="park-time-id" value="{{$park_time_id}}">
+
 
                        </td>
                    </tr>
@@ -289,8 +292,10 @@
                 success: function(response)
                 {
                     if(response.success){
-                        alert('Tech Report Added successfully');
+                        alert('Ride Ops Report Added successfully');
                     }else {
+                        alert('Ride Ops Report Already Exist !');
+
                         console.log('error');
                     }
 

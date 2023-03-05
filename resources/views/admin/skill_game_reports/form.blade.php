@@ -324,6 +324,8 @@
                     if(response.success){
                         alert('Skill Games Report Added successfully');
                     }else {
+                        alert('Skill Games Report Already Exist !');
+
                         console.log('error');
                     }
 

@@ -102,7 +102,7 @@ class MaintenanceReportController extends Controller
             }else{
                 $parks=auth()->user()->parks->pluck('name','id')->all();
             }
-        return view('admin.maintenance_reports.index', compact('items','parks','date'));
+        return view('admin.maintenance_reports.index', compact('items','parks'));
     }
  
     /**

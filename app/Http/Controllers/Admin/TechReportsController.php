@@ -66,7 +66,7 @@ class TechReportsController extends Controller
             ['park_id', $request['park_id']]
         ])->first();
         if ($dateExists) {
-            return response()->json(['error' => 'Tech Report Report Already Exist !']);
+            return response()->json(['error' => 'Tech Report Already Exist !']);
         }
         // dd($request->all());
 
@@ -100,7 +100,7 @@ class TechReportsController extends Controller
         } else {
             $parks = auth()->user()->parks->pluck('name', 'id')->all();
         }
-        return view('admin.tech_reports.index', compact('items', 'parks', 'date'));
+        return view('admin.tech_reports.index', compact('items', 'parks'));
     }
 
     /**
