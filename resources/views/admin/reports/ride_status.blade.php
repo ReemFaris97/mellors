@@ -43,7 +43,7 @@
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->parkName }}</td>
-                                <td> {{$item->available}}</td>
+                                <td> {{$item->available ?? ""}}</td>
                                 <td> {{$item->ride_notes}}</td>
                                 <td> {{$item->rideSroppageDescription}}</td>
                             </tr>

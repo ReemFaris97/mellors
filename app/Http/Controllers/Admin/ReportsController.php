@@ -41,6 +41,11 @@ class ReportsController extends Controller
                     $ride->rideSroppageDescription='';
                 }
 
+            }else{
+
+                $ride->available='closed';
+                $ride->ride_notes='out of park time slot ';
+                $ride->rideSroppageDescription='';
             }
         }
         return view('admin.reports.ride_status', compact('rides'));
