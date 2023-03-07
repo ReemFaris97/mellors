@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Park;
+use App\Models\RedFlag;
 use App\Models\RideOpsReport;
 use App\Models\TechReport;
 use Carbon\Carbon;
@@ -66,6 +67,17 @@ class RideOpsReportsController extends Controller
             $list->date=Carbon::now()->format('Y-m-d');
             $list->user_id=auth()->user()->id;
             $list->save();
+        }
+        foreach ($request->ride as $key=>$value){
+            $listrf= new RedFlag();
+            if($request->ride[$key] != null){
+            $listrf->ride=$request->ride[$key];
+            $listrf->issue=$request->issue[$key];
+            $listrf->park_time_id=$request->park_time_id;
+            $listrf->type='ride_ops';
+            $listrf->date=Carbon::now()->format('Y-m-d');
+            $listrf->save();
+            }
         }
         return response()->json(['success'=>'Ride Ops Report Added successfully']);
 

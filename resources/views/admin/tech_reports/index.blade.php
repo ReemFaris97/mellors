@@ -72,8 +72,8 @@
 
                         @endforeach
                         <tfoot>
-                        <tr role="row" class="odd" id="row-{{ 1}}">
-                        <td tabindex="0" class="sorting_1">{{ 1 }}</td>
+                        <tr role="row" class="odd" id="row-{{ 1 }}">
+                        <td tabindex="0" class="sorting_1">{{ 1}}</td>
                                 <td>    Completed By
                                 </td>
                                 @forelse($items as $item)
@@ -83,9 +83,7 @@
                                 @empty
                                 <td>Not found</td>
                                 @endforelse
-                        </tr>
-                            
-                            
+                            </tr>
                         </tfoot>
                         @endif
                         </tbody>

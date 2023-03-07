@@ -91,10 +91,12 @@
                                     colspan="1" aria-sort="ascending">Images
                         </th></tr></thead>
                     <tr>
-                        @foreach($images as $image)
-                        <td style="border-color: #0b0b0b"><img class="img-responsive center-block"
-                                 style="width:300px;height: 300px"
-                                 src="{{url('../storage/app/public/'.$image->image)}}"/>
+                  
+                        @foreach($images as $item)
+                        <td style="border-color: #0b0b0b">
+                        <a download href="{{ $item->image }}"> 
+                            <img class="img-preview" src="{{ $item->image }}" 
+                            style="height: 300px; width: 300px"></a>
                         </td>
                             @endforeach
                     </tr>

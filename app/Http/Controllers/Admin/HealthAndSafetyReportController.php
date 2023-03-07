@@ -9,10 +9,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\InspectionList\PreopeningListRequest;
 use App\Models\InspectionList;
 use App\Models\Park;
+use App\Models\ParkTime;
 use App\Models\PreopeningList;
+use App\Models\RedFlag;
 use App\Models\Ride;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Validation\Rules\Exists;
 
 class HealthAndSafetyReportController extends Controller
 {
@@ -63,7 +66,7 @@ class HealthAndSafetyReportController extends Controller
             return response()->json(['error'=>'Health And Safety Report Already Exist !']);
         }
 
-      //dd($request->all());
+     // dd($request->all());
 
        foreach ($request->question as $key=>$value){
            $list= new HealthAndSafetyReport();
@@ -76,24 +79,39 @@ class HealthAndSafetyReportController extends Controller
            $list->user_id=auth()->user()->id;
            $list->save();
        }
+
+       foreach ($request->ride as $key=>$value){
+        $listrf= new RedFlag();
+        if($request->ride[$key] != null){
+        $listrf->ride=$request->ride[$key];
+        $listrf->issue=$request->issue[$key];
+        $listrf->park_time_id=$request->park_time_id;
+        $listrf->type='h&s';
+        $listrf->date=Carbon::now()->format('Y-m-d');
+        $listrf->save();
+        }
+    }
         return response()->json(['success'=>'Health And Safety Report Added successfully']);
 
 //        alert()->success('Preopening List Added successfully !');
 //        return redirect()->back();
     }
     public function search(Request $request){
-        $park_id = $request->input('park_id');
-        $date = $request->input('date');
-        $items = HealthAndSafetyReport::query()
-            ->where('park_id',$park_id)
-            ->Where('date', $date)
-            ->get();
+        $parkTime = ParkTime::query()
+            ->where('park_id',$request->input('park_id'))
+            ->Where('date', $request->input('date'))
+            ->first();
             if (auth()->user()->hasRole('Super Admin')){
                 $parks=Park::pluck('name','id')->all();
             }else{
                 $parks=auth()->user()->parks->pluck('name','id')->all();
             }
-        return view('admin.health_and_safety_reports.index', compact('items','parks'));
+            if($parkTime){
+            $items=HealthAndSafetyReport::where('park_time_id',$parkTime->id)->get();
+            $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','h&s')->get();
+            return view('admin.health_and_safety_reports.index', compact('items','parks','redFlags'));
+        }else
+        return view('admin.health_and_safety_reports.index', compact('parks'));
     }
     /**
      * Show the form for editing the specified resource.

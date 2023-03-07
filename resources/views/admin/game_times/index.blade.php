@@ -44,13 +44,14 @@
                                 <td>{{ $item->park->name }}</td>
                                 <td>
                                     <a href="{{ route('admin.game_times.edit', $item) }}"
-                                           class="btn btn-info">Edit </a>
+                                           class="btn btn-info">Edit Time Slot</a>
 
                                 </td>
                                 <td>
                                     <a href="{{url('add_incident_report/'.$item->id.'/'.$park_time_id)}}"
-                                           class="btn btn-info">Add </a>
-
+                                           class="btn btn-primary">Add Incident Report</a>
+                                   <a href="{{url('add_accident_report/'.$item->id.'/'.$park_time_id)}}"
+                                           class="btn btn-primary">Add Accident Report</a>
                                 </td>
                             </tr>
 

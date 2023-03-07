@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Incident\IncidentRequest;
-use App\Models\Incident;
+use App\Models\Accident;
 use App\Models\Park;
 use App\Models\Ride;
 use Carbon\Carbon;
 
-class IncidentController extends Controller
+class AccidentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +19,8 @@ class IncidentController extends Controller
      */
     public function index()
     {
-        $items=Incident::whereDate('created_at',Carbon::now()->format('Y-m-d'))->get();
-       return view('admin.incidents.index',compact('items'));
+        $items=Accident::whereDate('created_at',Carbon::now()->format('Y-m-d'))->get();
+       return view('admin.accidents.index',compact('items'));
     }
 
     /**
@@ -30,17 +30,13 @@ class IncidentController extends Controller
      */
     public function create()
     {
-//        $parks=auth()->user()->parks->all();
-//        foreach ($parks as $park){
-//            $parkRides=$park->rides->pluck('name','id')->all();
-//        }
         $rides=Ride::pluck('name','id')->all();
         return view('admin.incidents.add',compact('rides'));
     }
     
-    public function add_incident_report($ride_id,$park_time_id)
+    public function add_accident_report($ride_id,$park_time_id)
     {
-        return view('admin.incidents.add',compact('ride_id','park_time_id'));
+        return view('admin.accidents.add',compact('ride_id','park_time_id'));
     }
     /**
      * Store a newly created resource in storage.
@@ -52,9 +48,9 @@ class IncidentController extends Controller
     {
         $data=$request->validated();
         $data['user_id']=auth()->user()->id;
-        Incident::create($data);
-        alert()->success('Incident Report Added successfully !');
-        return redirect()->route('admin.incidents.index');
+        Accident::create($data);
+        alert()->success('Accident Report Added successfully !');
+        return redirect()->route('admin.accidents.index');
     }
 
     /**
@@ -65,7 +61,7 @@ class IncidentController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.incidents.edit')->with('incident',Incident::find($id));
+        return view('admin.accidents.edit')->with('accident',Accident::find($id));
 
     }
 
@@ -76,13 +72,13 @@ class IncidentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(IncidentRequest $request, Incident $incident)
+    public function update(IncidentRequest $request, Accident $accident)
     {
-        $incident->update($request->validated());
-        $incident->save();
+        $accident->update($request->validated());
+        $accident->save();
 
-        alert()->success('Incident Report updated successfully !');
-        return redirect()->route('admin.incidents.index');
+        alert()->success('Accident Report updated successfully !');
+        return redirect()->route('admin.accidents.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -92,13 +88,13 @@ class IncidentController extends Controller
      */
     public function destroy($id)
     {
-        $incident=Incident::find($id);
-        if ($incident){
-            $incident->delete();
-            alert()->success('Incident Report deleted successfully');
+        $accident=Accident::find($id);
+        if ($accident){
+            $accident->delete();
+            alert()->success('Accident Report deleted successfully');
             return back();
         }
-        alert()->error('Incident Report not found');
-        return redirect()->route('admin.incidents.index');
+        alert()->error('Accident Report not found');
+        return redirect()->route('admin.accidents.index');
     }
 }

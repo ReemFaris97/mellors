@@ -83,6 +83,10 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::get('/add_incident_report/{ride_id}/{park_time_id}', 'Admin\IncidentController@add_incident_report');
     //Route::resource('questions','Admin\QuestionController');
     
+    Route::resource('accidents', 'Admin\AccidentController');
+    Route::get('/add_accident_report/{ride_id}/{park_time_id}', 'Admin\AccidentController@add_accident_report');
+   
+
     Route::resource('health_and_safety_reports', 'Admin\HealthAndSafetyReportController');
     Route::get('/add_health_and_safety_report/{park_id}/{time_slot_id}', 'Admin\HealthAndSafetyReportController@add_health_and_safety_report');
     Route::get('/search_health_and_safety/', 'Admin\HealthAndSafetyReportController@search')->name('searchHealthAndSafetyReport');

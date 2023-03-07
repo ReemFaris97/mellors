@@ -11,6 +11,7 @@ use App\Http\Requests\Dashboard\InspectionList\PreopeningListRequest;
 use App\Models\InspectionList;
 use App\Models\Park;
 use App\Models\PreopeningList;
+use App\Models\RedFlag;
 use App\Models\Ride;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -75,6 +76,17 @@ class SkillGameReportController extends Controller
             $list->date = Carbon::now()->format('Y-m-d');
             $list->user_id = auth()->user()->id;
             $list->save();
+        }
+        foreach ($request->ride as $key=>$value){
+            $listrf= new RedFlag();
+            if($request->ride[$key] != null){
+            $listrf->ride=$request->ride[$key];
+            $listrf->issue=$request->issue[$key];
+            $listrf->park_time_id=$request->park_time_id;
+            $listrf->type='skill_games';
+            $listrf->date=Carbon::now()->format('Y-m-d');
+            $listrf->save();
+            }
         }
         return response()->json(['success' => 'Skill Games Report Added successfully']);
 

@@ -274,6 +274,111 @@
 
 
                        </tr>
+                       <tr>
+                            <td colspan="4">
+                                 <label style="background-color: red;">Red Flags</label>
+                        </td>
+                        </tr>
+                        <tr>
+                           <td>
+                             1
+                           </td>
+                           <td>
+                               <label>
+                               {!! Form::text('ride[]',null, array('class' => 'form-control ride')) !!}
+                               </label>
+                           </td>
+                           <td>
+                           {!! Form::textArea('issue[]',null, array('class' => 'form-control issue summernote')) !!}
+
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                             2
+                           </td>
+                           <td>
+                               <label>
+                               {!! Form::text('ride[]',null, array('class' => 'form-control ride')) !!}
+                               </label>
+                           </td>
+                           <td>
+                           {!! Form::textArea('issue[]',null, array('class' => 'form-control issue summernote')) !!}
+
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                             3
+                           </td>
+                           <td>
+                               <label>
+                               {!! Form::text('ride[]',null, array('class' => 'form-control ride')) !!}
+                               </label>
+                           </td>
+                           <td>
+                           {!! Form::textArea('issue[]',null, array('class' => 'form-control issue summernote')) !!}
+
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                             4
+                           </td>
+                           <td>
+                               <label>
+                               {!! Form::text('ride[]',null, array('class' => 'form-control ride')) !!}
+                               </label>
+                           </td>
+                           <td>
+                           {!! Form::textArea('issue[]',null, array('class' => 'form-control issue summernote')) !!}
+
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                             5
+                           </td>
+                           <td>
+                               <label>
+                               {!! Form::text('ride[]',null, array('class' => 'form-control ride')) !!}
+                               </label>
+                           </td>
+                           <td>
+                           {!! Form::textArea('issue[]',null, array('class' => 'form-control issue summernote')) !!}
+
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                             6
+                           </td>
+                           <td>
+                               <label>
+                               {!! Form::text('ride[]',null, array('class' => 'form-control ride')) !!}
+                               </label>
+                           </td>
+                           <td>
+                           {!! Form::textArea('issue[]',null, array('class' => 'form-control issue summernote')) !!}
+
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                             7
+                           </td>
+                           <td>
+                               <label>
+                               {!! Form::text('ride[]',null, array('class' => 'form-control ride')) !!}
+                               </label>
+                           </td>
+                           <td>
+                               {!! Form::textArea('issue[]',null, array('class' => 'form-control issue summernote')) !!}
+
+                           </td>
+                       </tr>
+
+
                    </tbody>
                </table>
 
@@ -292,7 +397,9 @@
             const question = [];
             const comment = [];
             const answer = [];
-
+            const ride = [];
+            const issue = [];
+           
             $('.answer').each(function () {
                 if($(this).change){
                     answer.push($(this).val());
@@ -306,6 +413,12 @@
             $('.comment').each(function () {
                 comment.push($(this).val());
             });
+            $('.ride').each(function () {
+                ride.push($(this).val());
+            });
+            $('.issue').each(function () {
+                issue.push($(this).val());
+            });
             var park_id = $("#park-id").val();
             var park_time_id = $("#park-time-id").val();
             $.ajax({
@@ -317,7 +430,9 @@
                     question: question,
                     comment: comment,
                     park_id: park_id,
-                    park_time_id: park_time_id
+                    park_time_id: park_time_id,
+                    ride: ride,
+                    issue: issue
                 },
                 success: function(response)
                 {

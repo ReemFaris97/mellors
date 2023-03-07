@@ -11,6 +11,7 @@ use App\Models\InspectionList;
 use App\Models\MaintenanceReport;
 use App\Models\Park;
 use App\Models\PreopeningList;
+use App\Models\RedFlag;
 use App\Models\Ride;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -84,6 +85,17 @@ class MaintenanceReportController extends Controller
         $listr->park_time_id=$request->park_time_id;
         $listr->date=Carbon::now()->format('Y-m-d');
         $listr->save();
+    }
+    foreach ($request->ride as $key=>$value){
+        $listrf= new RedFlag();
+        if($request->ride[$key] != null){
+        $listrf->ride=$request->ride[$key];
+        $listrf->issue=$request->issue[$key];
+        $listrf->park_time_id=$request->park_time_id;
+        $listrf->type='maintenance';
+        $listrf->date=Carbon::now()->format('Y-m-d');
+        $listrf->save();
+        }
     }
         return response()->json(['success'=>'Maintenance Report Added successfully']);
 

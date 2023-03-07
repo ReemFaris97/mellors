@@ -72,21 +72,18 @@
 
                         @endforeach
                         <tfoot>
-                        @forelse($items as $item)
-
-                        <tr role="row" class="odd" id="{{ $item->id }}">
-                        <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
+                        <tr role="row" class="odd" id="row-{{ 1 }}">
+                        <td tabindex="0" class="sorting_1">{{ 1}}</td>
                                 <td>    Completed By
                                 </td>
+                                @forelse($items as $item)
                                 <td>{{$item->user->name}}
                                     @break
                                 </td>
                                 @empty
                                 <td>Not found</td>
                                 @endforelse
-                      </tr>
-                            
-                            
+                            </tr>
                         </tfoot>
                         @endif
                         </tbody>

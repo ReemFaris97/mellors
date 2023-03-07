@@ -1,14 +1,16 @@
 @extends('admin.layout.app')
 
 @section('title')
-Incident Reports
+Accident Reports
 @endsection
 
 @section('content')
 
     <div class="card-box">
-         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-          <div class="row">
+
+
+        <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="row">
                 <div class="col-sm-12">
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                         <thead>
@@ -20,7 +22,7 @@ Incident Reports
                                 Ride
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Incident Time
+                            Accident Time
                             </th><th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Description
                             </th>
@@ -38,15 +40,13 @@ Incident Reports
                                 <td>{{ $item->ride->name }}</td>
                                 <td>{{ $item->time }}</td>
                                 <td>{!!  $item->comment !!} </td>
-                                {!!Form::open( ['route' => ['admin.incidents.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::open( ['route' => ['admin.accidents.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                    {{--@if(auth()->user()->can('incidents-edit'))--}}
-                                        {{--<a href="{{ route('admin.incidents.edit', $item) }}"--}}
-                                           {{--class="btn btn-info">Edit</a>--}}
-                                    {{--@endif--}}
+                                        <!-- <a href="{{ route('admin.accidents.edit', $item) }}"
+                                           class="btn btn-info">Edit</a> -->
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                           data-url="{{ route('admin.incidents.destroy', $item) }}"
+                                           data-url="{{ route('admin.accidents.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>

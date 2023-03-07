@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('red_flags', function (Blueprint $table) {
+        Schema::create('accidents', function (Blueprint $table) {
             $table->id();
-            $table->text('ride')->nullable();
-            $table->longText('issue')->nullable();
-            $table->enum('type',['h&s','tech','maintenance','skill_games','ride_ops'])->default('h&s');
+            $table->foreignId('ride_id')->nullable()->constrained('rides');
+            $table->foreignId('user_id')->nullable()->constrained('users');
             $table->foreignId('park_time_id')->nullable()->constrained('park_times');
-            $table->date('date');
+            $table->time('time')->nullable();
+            $table->longText('comment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('red_flags');
+        Schema::dropIfExists('accidents');
     }
 };
