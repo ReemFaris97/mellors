@@ -49,7 +49,7 @@
                         </thead>
 
                         <tbody>
-                        @if(isset($items))
+                      @if(isset($items))
 
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
@@ -66,36 +66,23 @@
                                 <td>{!! $item->comment !!}</td>
                              
                             </tr>
+                        @endforeach
 
-                        @endforeach
-                        @endif
-                        @if(isset($redFlags)
-                      <label style="background-color: red;">Red Flags</label>
-                        @foreach($redFlags as $item)                        
-                        <tr role="row" class="odd" id="row-{{ $item->id }}">
-                            <td tabindex="0" class="sorting_1">#</td>            
-                            <td>{{$item->ride}}</td>
-                            <td>{{$item->issue}}</td>
-                        </tr>
-                        @endforeach
-                        @endif
                         <tfoot>
-                        
+                        <tr role="row" class="odd" id="row-{{ 1 }}">
+                                <td tabindex="0" class="sorting_1">{{ 1 }}</td>
+                                <td>    Completed By  </td>
                                 @forelse($items as $item)
-                                <tr role="row" class="odd" id="row-{{ $item->id}}">
-                                  <td tabindex="0" class="sorting_1">#</td>
-                                  <td>    Completed By
-                                  </td>
-                                  <td>{{$item->user->name}}
+                                <td>{{$item->user->name}}
                                     @break
-                                  </td>
-                                </tr>
+                                </td>
                                 @empty
-                                <tr>
-                                   <td>Not found</td>
-                                </tr>
+                                <td>Not found</td>
                                 @endforelse
+                       </tr>
                         </tfoot>
+                        @endif
+
                         </tbody>
                     </table>
 

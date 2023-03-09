@@ -100,28 +100,28 @@
                                 {!!Form::open( ['route' => ['admin.park_times.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                @if(auth()->user()->can('role-list'))
+                                @if(auth()->user()->can('health_and_safety_reports-create'))
                                    <a href="{{url('add_health_and_safety_report/'.$item->parks->id.'/'.$item->id)}}">
                                         <button type="button" class="btn btn-info">
                                           H&S </button>
                                     </a>
                                     @endif
-                                    @if(auth()->user()->can('role-list'))
+                                    @if(auth()->user()->can('skill_game_reports-create'))
                                    <a href="{{url('add_skill_game_report/'.$item->parks->id.'/'.$item->id)}}">
                                         <button type="button" class="btn btn-info">SkillGames </button>
                                     </a>
                                    @endif
-                                   @if(auth()->user()->can('role-list'))
+                                   @if(auth()->user()->can('maintenance_reports-create'))
                                    <a href="{{url('add_maintenance_report/'.$item->parks->id.'/'.$item->id)}}">
                                         <button type="button" class="btn btn-info">Maintenance</button>
                                     </a>
                                    @endif
-                                    @if(auth()->user()->can('role-list'))
+                                    @if(auth()->user()->can('tech-reports-create'))
                                    <a href="{{url('add-tech-report/'.$item->parks->id.'/'.$item->id)}}">
                                         <button type="button" class="btn btn-info">Tech</button>
                                     </a>
                                    @endif
-                                    @if(auth()->user()->can('role-list'))
+                                    @if(auth()->user()->can('ride-ops-reports-create'))
                                    <a href="{{url('add-ride-ops-report/'.$item->parks->id.'/'.$item->id)}}">
                                         <button type="button" class="btn btn-info">Ride Ops</button>
                                     </a>
