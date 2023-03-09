@@ -33,7 +33,7 @@ body {
 html {
   position: relative;
   min-height: 100%;
-  background: #ebeff2;
+  background: #f9f6f1;
 }
 h1,
 h2,
@@ -137,6 +137,10 @@ a:focus {
   font-weight: 600;
   line-height: 16px;
   margin-bottom: 8px;
+}
+:root {
+  --btncColor:#d0b280;
+  --secondary: #552e11;
 }
 /* =============
    Helper clasess
@@ -565,7 +569,8 @@ a:focus {
   color: #ff5b5b !important;
 }
 .text-muted {
-  color: #98a6ad !important;
+  color:var(--secondary);
+  font-size: 15px !important;
 }
 .text-primary {
   color: #188ae2 !important;
@@ -961,7 +966,7 @@ textarea.form-control {
   color: #71b6f9;
 }
 .has-success .form-control {
-  border-color: #10c469;
+  border-color: var(--btncColor);
   box-shadow: none !important;
 }
 .has-warning .form-control {
@@ -1226,11 +1231,4 @@ pre {
     margin-top: 0;
   }
 }
-.pull-right,
-.navbar-right {
-  float: left !important;
-}
-.pull-left,
-.navbar-left {
-  float: right !important;
-}
+

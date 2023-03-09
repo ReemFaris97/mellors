@@ -48,15 +48,16 @@
 :root {
     --black: #000000;
     --primary: #327039; /*green*/
-    --secondary: #000000;
+    --secondary: #552e11;
     --blublack: #2b578de6;
     --grey: #00000029;
     --greyBg: #FBFBFB;
     --greyBrdr: #DBDBDB;
+    --btncColor:#d0b280
 }
 /**************** Basic Style *****************************/
 body {
-    background: var(--greyBg);
+    background: #f9f6f1;
     color: var(--blublack);
     direction: ltr;
 
@@ -78,7 +79,7 @@ a:focus {
     color: var(--secondary);
 }
 .left.side-menu {
-    background: var(--blublack);
+    background: var(--btncColor);
 }
 .pro-user-name.ml-1 {
     color: var(--greyBg);
@@ -96,7 +97,7 @@ a:focus {
     border-top-color: var(--secondary);
 }
 .navbar-default{
-    background-color:var(--blublack);
+    background-color:var(--btncColor);
 }
 .page-title , .button-menu-mobile{
     color: var(--greyBg);
@@ -113,7 +114,7 @@ a:focus {
     color: var(--greyBg);
 }
 #sidebar-menu > ul > li > a {
-    color: var(--greyBg);
+    color: var(--secondary);
     background-color: transparent;
 }
 #sidebar-menu > ul > li > a:active,
@@ -152,7 +153,7 @@ a:focus {
     color: #fff;
 }
 .btn-primary {
-    background-color: var(--blublack) !important;
+    background-color: #d0b280 !important ;
     border-color: var(--blublack) !important;
 }
 .btn-primary:hover,

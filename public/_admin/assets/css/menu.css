@@ -4,6 +4,9 @@ Author: CoderThemes
 Email: coderthemes@gmail.com
 File: Menu
 */
+:root {
+  --btncColor:#d0b280
+}
 .topbar {
   left: 0px;
   position: fixed;
