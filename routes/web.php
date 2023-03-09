@@ -107,3 +107,6 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::get('/search_ride_ops_reports/', 'Admin\RideOpsReportsController@search')->name('searchOpsReport');
 
 });
+/* Route::get('/', function () {
+    return view('welcome');
+}); */

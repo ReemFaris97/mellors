@@ -53,7 +53,7 @@
     --grey: #00000029;
     --greyBg: #FBFBFB;
     --greyBrdr: #DBDBDB;
-    --btncColor:#d0b280
+    --themeColor:#d0b280
 }
 /**************** Basic Style *****************************/
 body {
@@ -79,7 +79,7 @@ a:focus {
     color: var(--secondary);
 }
 .left.side-menu {
-    background: var(--btncColor);
+    background: var(--themeColor);
 }
 .pro-user-name.ml-1 {
     color: var(--greyBg);
@@ -97,7 +97,7 @@ a:focus {
     border-top-color: var(--secondary);
 }
 .navbar-default{
-    background-color:var(--btncColor);
+    background-color:var(--themeColor);
 }
 .page-title , .button-menu-mobile{
     color: var(--greyBg);
@@ -158,8 +158,8 @@ a:focus {
 }
 .btn-primary:hover,
 .btn-primary:focus {
-    background-color: var(--black) !important;
-    border-color: var(--black) !important;
+    background-color: var(--secondary) !important;
+    border-color: var(--secondary) !important;
     color: #fff;
 }
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
@@ -257,7 +257,7 @@ a.dropdown-item.notify-item {
     display: table;
 }
 .logo_im{
-    width: 60px;
+    width: 100px;
     object-fit: contain;
 }
 /*********** LOGIN *************************************/
@@ -327,4 +327,51 @@ body.authentication-bg {
     .dataTables_wrapper .dataTables_filter {
         text-align: center!important;
     }
+}
+
+/* =================== modfication ==================== */
+.content-input-fontawsome{
+    display: flex;
+    align-items: center;
+}
+.content-input-fontawsome span{
+    margin-right: 5px;
+    font-size: 16px;
+    color: var(--themeColor);
+}
+.btn-block {
+    width: 60%;
+    margin: auto;
+}
+div.dataTables_filter, div.dataTables_paginate {
+    text-align: left;
+    margin: 12px auto;
+}
+.col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+    float: left;
+}
+.waves-ripple {
+    background-color: #552e110f !important;
+}
+.navbar-left {
+    float: left!important;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+   
+    border: 0;
+}
+.tabsLinkDuty{
+
+}
+.tabsLinkDuty > li {
+    margin-bottom: 0;
+}
+.tabsLinkDuty > li > a  {
+    text-decoration: none;
+    background-color: #d0b28045;
+    border: 0 !important;
+}
+.tabsLinkDuty > li > a:focus, .tabsLinkDuty > li > a:hover , .tabsLinkDuty > li.active > a ,  .tabsLinkDuty > li.active > a:hover { 
+   border: 0 !important;
+    background-color: var(--themeColor);
 }
