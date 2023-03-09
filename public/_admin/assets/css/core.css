@@ -139,7 +139,7 @@ a:focus {
   margin-bottom: 8px;
 }
 :root {
-  --btncColor:#d0b280;
+  --themeColor:#d0b280;
   --secondary: #552e11;
 }
 /* =============
@@ -966,7 +966,7 @@ textarea.form-control {
   color: #71b6f9;
 }
 .has-success .form-control {
-  border-color: var(--btncColor);
+  border-color: var(--themeColor);
   box-shadow: none !important;
 }
 .has-warning .form-control {
