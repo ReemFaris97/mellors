@@ -15,7 +15,7 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissions = [
 
-               [
+/*                [
                   'name' => 'role-list',
                   'guard_name' => 'web',
                   'title' => 'roles List',
@@ -499,6 +499,175 @@ class PermissionsTableSeeder extends Seeder
                 'guard_name' => 'web',
                 'title' => 'delete rsr_reports',
                 'route_name' => 'admin.rsr_reports.destroy'
+            ],
+         */
+            [
+                'name' => 'incidents-list',
+                'guard_name' => 'web',
+                'title' => 'incidents list',
+                'route_name' => 'admin.incidents.index,admin.incidents.show'
+            ],
+            [
+                'name' => 'incidents-create',
+                'guard_name' => 'web',
+                'title' => 'add incidents',
+                'route_name' => 'admin.incidents.create,admin.incidents.store'
+            ],
+            [
+                'name' => 'incidents-edit',
+                'guard_name' => 'web',
+                'title' => 'update incidents',
+                'route_name' => 'admin.incidents.edit,admin.incidents.update'
+            ],
+            [
+                'name' => 'incidents-delete',
+                'guard_name' => 'web',
+                'title' => 'delete incidents',
+                'route_name' => 'admin.incidents.destroy'
+            ],
+            [
+                'name' => 'accidents-list',
+                'guard_name' => 'web',
+                'title' => 'accidents list',
+                'route_name' => 'admin.accidents.index,admin.accidents.show'
+            ],
+            [
+                'name' => 'accidents-create',
+                'guard_name' => 'web',
+                'title' => 'add accidents',
+                'route_name' => 'admin.accidents.create,admin.accidents.store'
+            ],
+            [
+                'name' => 'accidents-edit',
+                'guard_name' => 'web',
+                'title' => 'update accidents',
+                'route_name' => 'admin.accidents.edit,admin.accidents.update'
+            ],
+            [
+                'name' => 'accidents-delete',
+                'guard_name' => 'web',
+                'title' => 'delete accidents',
+                'route_name' => 'admin.accidents.destroy'
+            ],
+            [
+                'name' => 'health_and_safety_reports-list',
+                'guard_name' => 'web',
+                'title' => 'health_and_safety_reports list',
+                'route_name' => 'admin.health_and_safety_reports.index,admin.health_and_safety_reports.show'
+            ],
+            [
+                'name' => 'health_and_safety_reports-create',
+                'guard_name' => 'web',
+                'title' => 'add health_and_safety_reports',
+                'route_name' => 'admin.health_and_safety_reports.create,admin.health_and_safety_reports.store'
+            ],
+            [
+                'name' => 'health_and_safety_reports-edit',
+                'guard_name' => 'web',
+                'title' => 'update health_and_safety_reports',
+                'route_name' => 'admin.health_and_safety_reports.edit,admin.health_and_safety_reports.update'
+            ],
+            [
+                'name' => 'health_and_safety_reports-delete',
+                'guard_name' => 'web',
+                'title' => 'delete health_and_safety_reports',
+                'route_name' => 'admin.health_and_safety_reports.destroy'
+            ],
+            [
+                'name' => 'skill_game_reports-list',
+                'guard_name' => 'web',
+                'title' => 'skill_game_reports list',
+                'route_name' => 'admin.skill_game_reports.index,admin.skill_game_reports.show'
+            ],
+            [
+                'name' => 'skill_game_reports-create',
+                'guard_name' => 'web',
+                'title' => 'add skill_game_reports',
+                'route_name' => 'admin.skill_game_reports.create,admin.skill_game_reports.store'
+            ],
+            [
+                'name' => 'skill_game_reports-edit',
+                'guard_name' => 'web',
+                'title' => 'update skill_game_reports',
+                'route_name' => 'admin.skill_game_reports.edit,admin.skill_game_reports.update'
+            ],
+            [
+                'name' => 'skill_game_reports-delete',
+                'guard_name' => 'web',
+                'title' => 'delete skill_game_reports',
+                'route_name' => 'admin.skill_game_reports.destroy'
+            ],
+            [
+                'name' => 'maintenance_reports-list',
+                'guard_name' => 'web',
+                'title' => 'maintenance_reports list',
+                'route_name' => 'admin.maintenance_reports.index,admin.maintenance_reports.show'
+            ],
+            [
+                'name' => 'maintenance_reports-create',
+                'guard_name' => 'web',
+                'title' => 'add maintenance_reports',
+                'route_name' => 'admin.maintenance_reports.create,admin.maintenance_reports.store'
+            ],
+            [
+                'name' => 'maintenance_reports-edit',
+                'guard_name' => 'web',
+                'title' => 'update maintenance_reports',
+                'route_name' => 'admin.maintenance_reports.edit,admin.maintenance_reports.update'
+            ],
+            [
+                'name' => 'maintenance_reports-delete',
+                'guard_name' => 'web',
+                'title' => 'delete maintenance_reports',
+                'route_name' => 'admin.maintenance_reports.destroy'
+            ],
+            [
+                'name' => 'tech-reports-list',
+                'guard_name' => 'web',
+                'title' => 'tech-reports list',
+                'route_name' => 'admin.tech-reports.index,admin.tech-reports.show'
+            ],
+            [
+                'name' => 'tech-reports-create',
+                'guard_name' => 'web',
+                'title' => 'add tech-reports',
+                'route_name' => 'admin.tech-reports.create,admin.tech-reports.store'
+            ],
+            [
+                'name' => 'tech-reports-edit',
+                'guard_name' => 'web',
+                'title' => 'update tech-reports',
+                'route_name' => 'admin.tech-reports.edit,admin.tech-reports.update'
+            ],
+            [
+                'name' => 'tech-reports-delete',
+                'guard_name' => 'web',
+                'title' => 'delete tech-reports',
+                'route_name' => 'admin.tech-reports.destroy'
+            ],
+            [
+                'name' => 'ride-ops-reports-list',
+                'guard_name' => 'web',
+                'title' => 'ride-ops-reports list',
+                'route_name' => 'admin.ride-ops-reports.index,admin.ride-ops-reports.show'
+            ],
+            [
+                'name' => 'ride-ops-reports-create',
+                'guard_name' => 'web',
+                'title' => 'add ride-ops-reports',
+                'route_name' => 'admin.ride-ops-reports.create,admin.ride-ops-reports.store'
+            ],
+            [
+                'name' => 'ride-ops-reports-edit',
+                'guard_name' => 'web',
+                'title' => 'update ride-ops-reports',
+                'route_name' => 'admin.ride-ops-reports.edit,admin.ride-ops-reports.update'
+            ],
+            [
+                'name' => 'ride-ops-reports-delete',
+                'guard_name' => 'web',
+                'title' => 'delete ride-ops-reports',
+                'route_name' => 'admin.ride-ops-reports.destroy'
             ],
 
 

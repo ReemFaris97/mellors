@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Park;
+use App\Models\ParkTime;
 use App\Models\RedFlag;
 use App\Models\Ride;
 use App\Models\RsrReport;
@@ -25,7 +26,7 @@ class TechReportsController extends Controller
         } else {
             $parks = auth()->user()->parks->pluck('name', 'id')->all();
         }
-        return view('admin.tech_reports.index', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks'));
     }
 
 
@@ -101,18 +102,21 @@ class TechReportsController extends Controller
 
     public function search(Request $request)
     {
-        $park_id = $request->input('park_id');
-        $date = $request->input('date');
-        $items = TechReport::query()
-            ->where('park_id', $park_id)
-            ->Where('date', $date)
-            ->get();
-        if (auth()->user()->hasRole('Super Admin')) {
-            $parks = Park::pluck('name', 'id')->all();
-        } else {
-            $parks = auth()->user()->parks->pluck('name', 'id')->all();
-        }
-        return view('admin.tech_reports.index', compact('items', 'parks'));
+        $parkTime = ParkTime::query()
+            ->where('park_id',$request->input('park_id'))
+            ->Where('date', $request->input('date'))
+            ->first();
+            if (auth()->user()->hasRole('Super Admin')){
+                $parks=Park::pluck('name','id')->all();
+            }else{
+                $parks=auth()->user()->parks->pluck('name','id')->all();
+            }
+            if($parkTime){
+            $items=TechReport::where('park_time_id',$parkTime->id)->get();
+            $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','tech')->get();
+            return view('admin.reports.duty_report', compact('items','parks','redFlags'));
+        }else
+        return view('admin.reports.duty_report', compact('parks'));
     }
 
     /**

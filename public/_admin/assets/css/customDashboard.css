@@ -375,3 +375,51 @@ div.dataTables_filter, div.dataTables_paginate {
    border: 0 !important;
     background-color: var(--themeColor);
 }
+.Rides tr td , .Rides tr th{
+    background-color: #d9e2f3 ;
+    text-align: left;
+}
+.Health.health1 tr td , .Health.health1 tr th{
+    background-color:#ffe598 !important;
+    
+}
+.TechServices tr td , .TechServices tr th{
+    background-color:#d9e2f3 !important
+}
+
+.Maintenance tr td , .Maintenance tr th{
+    background-color:#dac8fd !important
+}
+.SkillGames tr td , .SkillGames tr th{
+    background-color:#d0cece !important
+}
+.redFlag tr td , .redFlag tr th{
+    background-color:#fbe4d5 !important
+}
+tr th {
+    text-align: left;
+    font-weight: bold;
+    color: #000;
+    font-size: 15px;
+}
+.mt-4 {
+    margin-top: 16px;
+}
+.mt-5{
+    margin-top: 20px;
+}
+.redFlags {
+    font-weight: bold;
+}
+.tableRedFlag td{
+    color:red ;
+}
+.align-center{
+    text-align: center !important;
+}
+td.yes.yesImportant{
+    background-color: #c6efce !important;
+}
+td.no.noImportant{
+    background-color: #ffc7ce !important;
+}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Park;
+use App\Models\ParkTime;
 use App\Models\RedFlag;
 use App\Models\RideOpsReport;
 use App\Models\TechReport;
@@ -23,7 +24,7 @@ class RideOpsReportsController extends Controller
             $parks=Park::pluck('name','id')->all();
         }else{
             $parks=auth()->user()->parks->pluck('name','id')->all();
-        }        return view('admin.ride_ops_reports.index',compact('parks'));
+        }        return view('admin.reports.duty_report',compact('parks'));
     }
 
     /**
@@ -85,18 +86,21 @@ class RideOpsReportsController extends Controller
 //        return redirect()->back();
     }
     public function search(Request $request){
-        $park_id = $request->input('park_id');
-        $date = $request->input('date');
-        $items = RideOpsReport::query()
-            ->where('park_id',$park_id)
-            ->Where('date', $date)
-            ->get();
-            if (auth()->user()->hasRole('Super Admin')){
-                $parks=Park::pluck('name','id')->all();
-            }else{
-                $parks=auth()->user()->parks->pluck('name','id')->all();
-            }
-        return view('admin.ride_ops_reports.index', compact('items','parks'));
+        $parkTime = ParkTime::query()
+        ->where('park_id',$request->input('park_id'))
+        ->Where('date', $request->input('date'))
+        ->first();
+        if (auth()->user()->hasRole('Super Admin')){
+            $parks=Park::pluck('name','id')->all();
+        }else{
+            $parks=auth()->user()->parks->pluck('name','id')->all();
+        }
+        if($parkTime){
+        $items=RideOpsReport::where('park_time_id',$parkTime->id)->get();
+        $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','ride_ops')->get();
+        return view('admin.reports.duty_report', compact('items','parks','redFlags'));
+    }else
+        return view('admin.reports.duty_report', compact('parks'));
     }
  
     /**

@@ -75,38 +75,39 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::post('get-sub-stoppages-categories', 'Admin\GeneralController@getSubStoppageCategories')->name('getSubStoppageCategories');
     Route::get('get_park_rides', 'Admin\GeneralController@getParkRides')->name('getParkRides');
 
-    Route::resource('rsr_reports', 'Admin\RsrReportController');
+    Route::resource('rsr_reports', 'Admin\RsrReportController');//done
     Route::get('rsr_reports/{id}/approve', 'Admin\RsrReportController@approve');
     Route::get('add_rsr_stoppage_report/{id}', 'Admin\RsrReportController@addRsrStoppageReport');
 
     Route::get('rides-status', 'Admin\ReportsController@rideStatus')->name('reports.rideStatus');
 
-    Route::resource('incidents', 'Admin\IncidentController');
-    Route::get('/add_incident_report/{ride_id}/{park_time_id}', 'Admin\IncidentController@add_incident_report');
+    Route::resource('incidents', 'Admin\IncidentController');//done
+    Route::get('/add_incident_report/{ride_id}/{park_time_id}', 'Admin\IncidentController@add_incident_report')->name('addIncidentReport');
     //Route::resource('questions','Admin\QuestionController');
     
-    Route::resource('accidents', 'Admin\AccidentController');
-    Route::get('/add_accident_report/{ride_id}/{park_time_id}', 'Admin\AccidentController@add_accident_report');
+    Route::resource('accidents', 'Admin\AccidentController');//done
+    Route::get('/add_accident_report/{ride_id}/{park_time_id}', 'Admin\AccidentController@add_accident_report')->name('addAccidentReport');
    
-
-    Route::resource('health_and_safety_reports', 'Admin\HealthAndSafetyReportController');
-    Route::get('/add_health_and_safety_report/{park_id}/{time_slot_id}', 'Admin\HealthAndSafetyReportController@add_health_and_safety_report');
+    Route::resource('health_and_safety_reports', 'Admin\HealthAndSafetyReportController');//done
+    Route::get('/add_health_and_safety_report/{park_id}/{time_slot_id}', 'Admin\HealthAndSafetyReportController@add_health_and_safety_report')->name('addHealthAndSafetyReport');
     Route::get('/search_health_and_safety/', 'Admin\HealthAndSafetyReportController@search')->name('searchHealthAndSafetyReport');
 
-    Route::resource('skill_game_reports', 'Admin\SkillGameReportController');
-    Route::get('/add_skill_game_report/{park_id}/{time_slot_id}', 'Admin\SkillGameReportController@add_skill_game_report');
+    Route::resource('skill_game_reports', 'Admin\SkillGameReportController');//done
+    Route::get('/add_skill_game_report/{park_id}/{time_slot_id}', 'Admin\SkillGameReportController@add_skill_game_report')->name('addSkillGameReport');
     Route::get('/search_skill_game_reports/', 'Admin\SkillGameReportController@search')->name('searchSkillGameReport');
 
-    Route::resource('maintenance_reports', 'Admin\MaintenanceReportController');
-    Route::get('/add_maintenance_report/{park_id}/{time_slot_id}', 'Admin\MaintenanceReportController@add_maintenace_report');
+    Route::resource('maintenance_reports', 'Admin\MaintenanceReportController');//done
+    Route::get('/add_maintenance_report/{park_id}/{time_slot_id}', 'Admin\MaintenanceReportController@add_maintenace_report')->name('addMaintenanceReport');
     Route::get('/search_maintenance_reports/', 'Admin\MaintenanceReportController@search')->name('searchMaintenanceReport');
 
-    Route::resource('tech-reports', 'Admin\TechReportsController');
-    Route::get('/add-tech-report/{park_id}/{time_slot_id}', 'Admin\TechReportsController@add_tech_report');
+    Route::resource('tech-reports', 'Admin\TechReportsController');//done
+    Route::get('/add-tech-report/{park_id}/{time_slot_id}', 'Admin\TechReportsController@add_tech_report')->name('addTechReport');
     Route::get('/search_tech_reports/', 'Admin\TechReportsController@search')->name('searchTechReport');
 
-    Route::resource('ride-ops-reports', 'Admin\RideOpsReportsController');
-    Route::get('/add-ride-ops-report/{park_id}/{time_slot_id}', 'Admin\RideOpsReportsController@add_ride_ops_report');
+    Route::resource('ride-ops-reports', 'Admin\RideOpsReportsController');//done
+    Route::get('/add-ride-ops-report/{park_id}/{time_slot_id}', 'Admin\RideOpsReportsController@add_ride_ops_report')->name('addOpsReport');
     Route::get('/search_ride_ops_reports/', 'Admin\RideOpsReportsController@search')->name('searchOpsReport');
+    
+    Route::resource('duty-report', 'Admin\RideOpsReportsController');
 
 });
