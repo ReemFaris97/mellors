@@ -8,11 +8,11 @@ Duty Report
 
 <div class="card-box">
     <ul class="nav nav-tabs tabsLinkDuty">
-        <li class="{{ (request()->is('ride-ops-reports')) ? 'active' : '' }}"><a data-toggle="tab" href="#Ride">Ride Ops</a></li>
-        <li class="{{ (request()->is('health_and_safety_reports')) ? 'active' : '' }}"><a data-toggle="tab" href="#Health">Health & safety </a></li>
-        <li class="{{ (request()->is('maintenance_reports')) ? 'active' : '' }}"><a data-toggle="tab" href="#Maintenance"> Maintenance</a></li>
-        <li class="{{ (request()->is('tech-reports')) ? 'active' : '' }}"><a data-toggle="tab" href="#Teachnical"> Teachnical Services</a></li>
-        <li class="{{ (request()->is('skill_game_reports')) ? 'active' : '' }}"><a data-toggle="tab" href="#Skill"> Skill Games</a></li>
+        <li class="{{ (request()->is('search_ride_ops_reports*')) ? 'active' : '' }}"><a data-toggle="tab" href="#Ride">Ride Ops</a></li>
+        <li class="{{ (request()->is('search_health_and_safety*')) ? 'active' : '' }}"><a data-toggle="tab" href="#Health">Health & safety </a></li>
+        <li class="{{ (request()->is('search_maintenance_reports*')) ? 'active' : '' }}"><a data-toggle="tab" href="#Maintenance"> Maintenance</a></li>
+        <li class="{{ (request()->is('search_tech_reports*')) ? 'active' : '' }}"><a data-toggle="tab" href="#Teachnical"> Teachnical Services</a></li>
+        <li class="{{ (request()->is('search_skill_game_reports*')) ? 'active' : '' }}"><a data-toggle="tab" href="#Skill"> Skill Games</a></li>
         <li class="{{ (request()->is('summery')) ? 'active' : '' }}"><a data-toggle="tab" href="#Duty"> Duty Summary</a></li>
     </ul>
 
