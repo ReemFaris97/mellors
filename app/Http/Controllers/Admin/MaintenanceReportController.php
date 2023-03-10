@@ -30,7 +30,7 @@ class MaintenanceReportController extends Controller
             $parks=Park::pluck('name','id')->all();
         }else{
             $parks=auth()->user()->parks->pluck('name','id')->all();
-        }       return view('admin.maintenance_reports.index',compact('parks'));
+        }       return view('admin.reports.duty_report',compact('parks'));
     }
 
     /**
@@ -116,9 +116,9 @@ class MaintenanceReportController extends Controller
         if($parkTime){
         $items=MaintenanceReport::where('park_time_id',$parkTime->id)->get();
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','maintenance')->get();
-        return view('admin.maintenance_reports.index', compact('items','parks','redFlags'));
+        return view('admin.reports.duty_report', compact('items','parks','redFlags'));
     }else
-        return view('admin.maintenance_reports.index', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks'));
     }
  
     /**

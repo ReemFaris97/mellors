@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-Health And Safety Reports
+Ride Ops Reports
 @endsection
 
 @section('content')
@@ -10,8 +10,8 @@ Health And Safety Reports
 
 <div class="card-box">
     <ul class="nav nav-tabs tabsLinkDuty">
-        <li class="active"><a data-toggle="tab" href="#Health">Health & safety</a></li>
-        <li><a data-toggle="tab" href="#Ride"> Ride Ops</a></li>
+        <li class="active"><a data-toggle="tab" href="#Ride"> Ride Ops</a></li>
+        <li><a data-toggle="tab" href="#Health">Health & safety</a></li>
         <li><a data-toggle="tab" href="#Maintenance"> Maintenance</a></li>
         <li><a data-toggle="tab" href="#Teachnical"> Teachnical Services</a></li>
         <li><a data-toggle="tab" href="#Skill"> Skill Games</a></li>
@@ -19,7 +19,7 @@ Health And Safety Reports
     </ul>
 
     <div class="tab-content tabsContentDuty">
-        <div id="Health" class="tab-pane fade in active">
+        <div id="Ride" class="tab-pane fade in active">
             <form action="{{url('/search_ride_ops_reports')}}" method="GET">
 
                 @csrf
@@ -118,7 +118,7 @@ Health And Safety Reports
                 </div>
 
         </div>
-        <div id="Ride" class="tab-pane fade">
+        <div id="Health" class="tab-pane fade">
             <h3>Menu 2</h3>
             <p>Some content in menu 2.</p>
         </div>

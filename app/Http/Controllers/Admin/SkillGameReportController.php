@@ -30,7 +30,7 @@ class SkillGameReportController extends Controller
             $parks=Park::pluck('name','id')->all();
         }else{
             $parks=auth()->user()->parks->pluck('name','id')->all();
-        }        return view('admin.skill_game_reports.index', compact('parks'));
+        }        return view('admin.reports.duty_report', compact('parks'));
     }
 
     /**
@@ -108,9 +108,9 @@ class SkillGameReportController extends Controller
         if($parkTime){
         $items=SkillGameReport::where('park_time_id',$parkTime->id)->get();
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','skill_games')->get();
-        return view('admin.skill_game_reports.index', compact('items','parks','redFlags'));
+        return view('admin.reports.duty_report', compact('items','parks','redFlags'));
     }else
-        return view('admin.skill_game_reports.index', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks'));
     }
 
     /**

@@ -26,7 +26,7 @@ class TechReportsController extends Controller
         } else {
             $parks = auth()->user()->parks->pluck('name', 'id')->all();
         }
-        return view('admin.tech_reports.index', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks'));
     }
 
 
@@ -114,9 +114,9 @@ class TechReportsController extends Controller
             if($parkTime){
             $items=TechReport::where('park_time_id',$parkTime->id)->get();
             $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','tech')->get();
-            return view('admin.health_and_safety_reports.index', compact('items','parks','redFlags'));
+            return view('admin.reports.duty_report', compact('items','parks','redFlags'));
         }else
-        return view('admin.tech_reports.index', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks'));
     }
 
     /**

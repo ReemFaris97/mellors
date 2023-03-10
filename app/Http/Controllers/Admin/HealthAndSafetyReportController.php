@@ -31,7 +31,7 @@ class HealthAndSafetyReportController extends Controller
         }else{
             $parks=auth()->user()->parks->pluck('name','id')->all();
         }
-       return view('admin.health_and_safety_reports.index',compact('parks'));
+       return view('admin.reports.duty_report.index',compact('parks'));
     }
 
     /**
@@ -109,9 +109,9 @@ class HealthAndSafetyReportController extends Controller
             if($parkTime){
             $items=HealthAndSafetyReport::where('park_time_id',$parkTime->id)->get();
             $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','h&s')->get();
-            return view('admin.health_and_safety_reports.index', compact('items','parks','redFlags'));
+            return view('admin.reports.duty_report.index', compact('items','parks','redFlags'));
         }else
-        return view('admin.health_and_safety_reports.index', compact('parks'));
+        return view('admin.reports.duty_report.index', compact('parks'));
     }
     /**
      * Show the form for editing the specified resource.
