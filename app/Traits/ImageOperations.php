@@ -56,6 +56,12 @@ trait ImageOperations
         //   if ($request->has('file')) {
         //            $this->Gallery($request, new ProjectGallery(), ['project_id' => $project->id]);
         //        }
+
+
+//        $data=[
+//            'file',
+//            'comment'
+//        ];
     }
 
 

@@ -1,19 +1,19 @@
 @extends('admin.layout.app')
 
 @section('title')
-Duty Report 
+Duty Report
 @endsection
 
 @section('content')
 
 <div class="card-box">
     <ul class="nav nav-tabs tabsLinkDuty">
-        <li class="active"><a data-toggle="tab" href="#Ride">Ride Ops</a></li>
-        <li><a data-toggle="tab" href="#Health">Health & safety </a></li>
-        <li><a data-toggle="tab" href="#Maintenance"> Maintenance</a></li>
-        <li><a data-toggle="tab" href="#Teachnical"> Teachnical Services</a></li>
-        <li><a data-toggle="tab" href="#Skill"> Skill Games</a></li>
-        <li><a data-toggle="tab" href="#Duty"> Duty Summary</a></li>
+        <li class="{{ (request()->is('ride-ops-reports')) ? 'active' : '' }}"><a data-toggle="tab" href="#Ride">Ride Ops</a></li>
+        <li class="{{ (request()->is('health_and_safety_reports')) ? 'active' : '' }}"><a data-toggle="tab" href="#Health">Health & safety </a></li>
+        <li class="{{ (request()->is('maintenance_reports')) ? 'active' : '' }}"><a data-toggle="tab" href="#Maintenance"> Maintenance</a></li>
+        <li class="{{ (request()->is('tech-reports')) ? 'active' : '' }}"><a data-toggle="tab" href="#Teachnical"> Teachnical Services</a></li>
+        <li class="{{ (request()->is('skill_game_reports')) ? 'active' : '' }}"><a data-toggle="tab" href="#Skill"> Skill Games</a></li>
+        <li class="{{ (request()->is('summery')) ? 'active' : '' }}"><a data-toggle="tab" href="#Duty"> Duty Summary</a></li>
     </ul>
 
     <div class="tab-content tabsContentDuty">
@@ -115,7 +115,7 @@ Duty Report
 
         <div id="Teachnical" class="tab-pane fade">
         <form action="{{url('/search_tech_reports')}}" method="GET">
-            @csrf 
+            @csrf
             @include('admin.reports.form')
             {!!Form::close() !!}
             <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">

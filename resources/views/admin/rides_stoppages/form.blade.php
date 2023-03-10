@@ -89,7 +89,7 @@
         </div>
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
-            {{ $message }}
+{{--            {{ $message }}--}}
         </div>
         @enderror
     </div>
@@ -152,8 +152,14 @@
 
         <div class="form-group">
         <label for="name"> Upload  Images </label>
+{{--            {!! Form::textarea("comment[1]",null,['class'=>'form-control','placeholder'=>'add image comment'])!!}--}}
         {!! Form::file('file[]' , ["class" => "form-control  file_upload_preview","multiple" => "multiple","data-preview-file-type" => "text" ]) !!}
+
     </div>
+
+{{--        <div class="col-xs-12  contentbtn">--}}
+{{--            <button class="btn btn-primary waves-effect" type="button">Upload another image</button>--}}
+{{--        </div>--}}
     @endif
 
     <div class="col-xs-12 aligne-center contentbtn">
