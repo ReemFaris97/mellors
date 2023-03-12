@@ -1,14 +1,5 @@
-@extends('admin.layout.app')
-
-@section('title')
-Customer Feedbacks
-@endsection
-
-@section('content')
 
 <div class="card-box">
-
-
 
     <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
         <div class="row">
@@ -163,26 +154,27 @@ Customer Feedbacks
                         </tr>
                     </thead>
                     <tbody>
+                        @if(isset($techData))
                         <tr>
                             <td tabindex="0" class="sorting_1">How many rides delayed opening </td>
-                            <td class="yes align-center">yes</td>
+                            <td class="yes align-center">0</td>
                             <td>How many rides are down due to maintence </td>
-                            <td class="no align-center">0</td>
+                            <td class="no align-center">{{$techData['rides down due to maintenance']}}</td>
                         </tr>
                         <tr>
                             <td tabindex="0" class="sorting_1">How many rides down all day</td>
-                            <td class="yes align-center">yes</td>
+                            <td class="yes align-center">{{$techData['rides down all day']}}</td>
                             <td>How many down waiting on parts </td>
-                            <td class="no align-center">0</td>
+                            <td class="no align-center">{{$techData['rides awaiting parts']}}</td>
                         </tr>
 
                         <tr>
                             <td tabindex="0" class="sorting_1"> </td>
                             <td class="yes align-center">3</td>
                             <td>How many rides waiting on approvals </td>
-                            <td class="yes align-center">2</td>
+                            <td class="yes align-center">{{$techData['rides awaiting approvals']}}</td>
                         </tr>
-
+                        @endif
                     </tbody>
                 </table>
 
@@ -264,8 +256,6 @@ Customer Feedbacks
     </div>
 </div>
 
-
-@endsection
 
 
 @section(' footer') @include('admin.datatable.scripts') @endsection

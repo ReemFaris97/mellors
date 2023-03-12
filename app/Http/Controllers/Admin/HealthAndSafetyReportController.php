@@ -31,7 +31,7 @@ class HealthAndSafetyReportController extends Controller
         }else{
             $parks=auth()->user()->parks->pluck('name','id')->all();
         }
-       return view('admin.reports.duty_report.index',compact('parks'));
+       return view('admin.reports.duty_report',compact('parks'));
     }
 
     /**
@@ -47,7 +47,7 @@ class HealthAndSafetyReportController extends Controller
     
     public function add_health_and_safety_report($park_id,$park_time_id)
     {
-        $incidents=Incident::whereDate(("created_at"),Carbon::now()->format('Y-m-d'))->count();
+        $incidents=Incident::where(("park_time_id"),$park_time_id)->count();
         return view('admin.health_and_safety_reports.add',compact('incidents','park_id','park_time_id'));
     }
     /**
@@ -109,9 +109,9 @@ class HealthAndSafetyReportController extends Controller
             if($parkTime){
             $items=HealthAndSafetyReport::where('park_time_id',$parkTime->id)->get();
             $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','h&s')->get();
-            return view('admin.reports.duty_report.index', compact('items','parks','redFlags'));
+            return view('admin.reports.duty_report', compact('items','parks','redFlags'));
         }else
-        return view('admin.reports.duty_report.index', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks'));
     }
     /**
      * Show the form for editing the specified resource.

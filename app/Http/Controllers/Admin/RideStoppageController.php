@@ -96,7 +96,6 @@ class RideStoppageController extends Controller
 
     public function update(RideStoppageRequest $request,$id)
     {
-        dd($request);
         $item = RideStoppages::findOrFail($id);
         $data=$request->validated();
         if ($request->has('description') && $request->ride_status == "stopped"){

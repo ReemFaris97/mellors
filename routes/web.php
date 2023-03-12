@@ -107,6 +107,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::resource('ride-ops-reports', 'Admin\RideOpsReportsController');//done
     Route::get('/add-ride-ops-report/{park_id}/{time_slot_id}', 'Admin\RideOpsReportsController@add_ride_ops_report')->name('addOpsReport');
     Route::get('/search_ride_ops_reports/', 'Admin\RideOpsReportsController@search')->name('searchOpsReport');
+    Route::get('/search_duty_summary_reports/', 'Admin\DutySummaryController@search')->name('searchDutySummaryReport');
     
     Route::resource('duty-report', 'Admin\RideOpsReportsController');
 

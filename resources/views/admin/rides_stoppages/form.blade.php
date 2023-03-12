@@ -152,8 +152,8 @@
 
         <div class="form-group">
         <label for="name"> Upload  Images </label>
-        {!! Form::textarea("comment[]",null,['class'=>'form-control comment','placeholder'=>'add image comment'])!!}
-        {!! Form::file('file[]' , ["class" => "form-control file file_upload_preview","multiple" => "multiple","data-preview-file-type" => "text" ]) !!}
+        {!! Form::textarea("comment[]",null,['class'=>'form-control comment',"id"=>"comment",'placeholder'=>'add image comment'])!!}
+        {!! Form::file('file[]' , ["class" => "form-control file file_upload_preview","id"=>"file","multiple" => "multiple","data-preview-file-type" => "text" ]) !!}
 
     </div>
 
@@ -216,31 +216,22 @@
 
             $('.comment').each(function () {
                 comment.push($(this).val());
+                $(this).val('');
+
             });
             $('.file').each(function () {
                 file.push($(this).val());
-            });
-            $.ajax({
-                url: "{{ route('admin.rides-stoppages.store') }}",
-                type: 'POST',
-                data:{
-                    "_token":"{{ csrf_token() }}",
-                    file: file,
-                    comment: comment
-                   
-                },
-                success: function(response)
-                {
-                    if(response.success){
-                        alert('Ride Ops Report Added successfully');
-                    }else {
-                        alert('Ride Ops Report Already Exist !');
-                        console.log('error');
-                    }
+                $(this).val('');
 
-                }
             });
 
+        $('.save_btn').on('click',function (e) {
+            $("#comment").empty().append(comment);
+            $("#file").empty().append(file);
+
+        });
+
+           
         });
     });
     </script>
