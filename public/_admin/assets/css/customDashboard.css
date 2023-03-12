@@ -423,3 +423,37 @@ td.yes.yesImportant{
 td.no.noImportant{
     background-color: #ffc7ce !important;
 }
+.yes.yesImportant .card-box{
+    background-color: #c6efce !important;
+}
+.no.noImportant .card-box{
+    background-color: #ffc7ce !important;
+}
+.bold{
+    font-weight: bold;
+}
+.contentRide{
+    padding: 20px;
+    box-shadow: 0 0px 8px 0 rgb(0 0 0 / 6%), 0 1px 0px 0 rgb(0 0 0 / 2%);
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    background-clip: padding-box;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+textarea.editTextArea {
+    width: 100%;
+    background-color: yellow;
+}
+.yelloBack{
+    background-color: yellow;
+    padding: 0 10px;
+}
+.tableDates th{
+    background-color: #cccc;
+
+}
+.tableDates tr td{
+    background-color: #fff;
+}
