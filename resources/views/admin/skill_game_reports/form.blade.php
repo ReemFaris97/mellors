@@ -62,7 +62,7 @@
                        <tr>
                            <td>
                                HB staff unavailable ?
-                               <input type="hidden" name="question[]" class="question" value="Any first aids required for Customers?">
+                               <input type="hidden" name="question[]" class="question" value="HB staff unavailable?">
 
                            </td>
                            <td>
@@ -158,7 +158,7 @@
                    </tr>
                        <tr>
                            <td>
-                                Any Credit card issues  ?
+                                Any Credit card machine issues  ?
                                <input type="hidden" name="question[]" class="question" value="Any Credit card issues?">
 
                            </td>
