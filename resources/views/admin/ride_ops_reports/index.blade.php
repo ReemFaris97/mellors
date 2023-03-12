@@ -1,13 +1,8 @@
 @extends('admin.layout.app')
-
 @section('title')
 Ride Ops Reports
 @endsection
-
 @section('content')
-
-
-
 <div class="card-box">
     <ul class="nav nav-tabs tabsLinkDuty">
         <li class="active"><a data-toggle="tab" href="#Ride"> Ride Ops</a></li>

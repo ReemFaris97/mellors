@@ -152,14 +152,14 @@
 
         <div class="form-group">
         <label for="name"> Upload  Images </label>
-{{--            {!! Form::textarea("comment[1]",null,['class'=>'form-control','placeholder'=>'add image comment'])!!}--}}
-        {!! Form::file('file[]' , ["class" => "form-control  file_upload_preview","multiple" => "multiple","data-preview-file-type" => "text" ]) !!}
+        {!! Form::textarea("comment[]",null,['class'=>'form-control comment',"id"=>"comment",'placeholder'=>'add image comment'])!!}
+        {!! Form::file('file[]' , ["class" => "form-control file file_upload_preview","id"=>"file","multiple" => "multiple","data-preview-file-type" => "text" ]) !!}
 
     </div>
 
-{{--        <div class="col-xs-12  contentbtn">--}}
-{{--            <button class="btn btn-primary waves-effect" type="button">Upload another image</button>--}}
-{{--        </div>--}}
+        <div class="col-xs-12  contentbtn">
+           <button class="btn btn-primary save_btn waves-effect" type="button">Upload another image</button>
+        </div>
     @endif
 
     <div class="col-xs-12 aligne-center contentbtn">
@@ -207,5 +207,33 @@
 
 
 </script>
+<script>
+    $(document).ready(function () {
+        $('.save_btn').on('click',function (e) {
+            e.preventDefault();
+            const file = [];
+            const comment = [];           
+
+            $('.comment').each(function () {
+                comment.push($(this).val());
+                $(this).val('');
+
+            });
+            $('.file').each(function () {
+                file.push($(this).val());
+                $(this).val('');
+
+            });
+
+        $('.save_btn').on('click',function (e) {
+            $("#comment").empty().append(comment);
+            $("#file").empty().append(file);
+
+        });
+
+           
+        });
+    });
+    </script>
 @endpush
 
