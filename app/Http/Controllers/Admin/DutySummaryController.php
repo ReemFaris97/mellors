@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Accident;
 use App\Models\HealthAndSafetyReport;
+use App\Models\Incident;
+use App\Models\MaintenanceReport;
 use App\Models\Park;
 use App\Models\ParkTime;
 use App\Models\RedFlag;
 use App\Models\Ride;
 use App\Models\RideOpsReport;
 use App\Models\RsrReport;
+use App\Models\SkillGameReport;
 use App\Models\TechReport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -76,12 +80,38 @@ class DutySummaryController extends Controller
                 $techData['rides awaiting approvals'] = TechReport::query()->where('park_time_id',$parkTime->id)
                 ->where('question','How many rides awaiting on approvals?')->pluck('answer')->first();
 /* dd($techData);
- */             $healthData = [];
-                $healthData['incidents'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
-                ->where('question','How many rides down all day?')->pluck('answer')->first();   
+ */             
+                $healthData = [];
+                $healthData['incidents'] =Incident::where('park_time_id',$parkTime->id)->count();
+                $healthData['accidents'] =Accident::where('park_time_id',$parkTime->id)->count();
 
+                $maintenanceData = [];
+                $maintenanceData['Any concerns found during routine maintenace'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any concerns found during routine maintenace?')->pluck('answer')->first();
+                $maintenanceData['Any evacuations during operation'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any evacuations during operation?')->pluck('answer')->first();
+                $maintenanceData['Any issues with Maintenance App'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any issues with Maintenance App?')->pluck('answer')->first();
+                $maintenanceData['Any issues with Maintenance App'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any issues with Maintenance App?')->pluck('answer')->first();
 
-            return view('admin.reports.duty_report', compact('techData','parks'));
+                $skillGameData = [];
+                $skillGameData['Any staff shortages'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any HB staff shortages?')->pluck('answer')->first();
+                $skillGameData['HB staff unavailable?'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','HB staff unavailable?')->pluck('answer')->first();
+                $skillGameData['Any Card reader issues?'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any Card reader issues?')->pluck('answer')->first();
+                $skillGameData['Any Credit card issues?'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any Credit card issues?')->pluck('answer')->first();
+                $skillGameData['Any incidents with staff?'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any incidents with staff?')->pluck('answer')->first();
+                $skillGameData['Any theft?'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any theft?')->pluck('answer')->first();
+                $skillGameData['Any complaints received?'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any complaints received?')->pluck('answer')->first();
+                
+            return view('admin.reports.duty_report', compact('techData','maintenanceData','skillGameData','healthData','parks'));
         }else
         return view('admin.reports.duty_report', compact('parks'));
     }

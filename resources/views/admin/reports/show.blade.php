@@ -1,3 +1,7 @@
+@if(request()->is('search_duty_summary_reports*')) 
+@include('admin.reports.summery')
+@else
+
 <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                     <div class="row">
                         <div class="col-sm-12">
@@ -75,3 +79,4 @@
                     </div>
 
                 </div>
+@endif

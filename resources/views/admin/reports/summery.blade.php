@@ -1,10 +1,66 @@
 
 <div class="card-box">
 
+<<<<<<< HEAD:resources/views/summery.blade.php
+
+
+    <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
+=======
     <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+>>>>>>> b06335b0435dec631c1a80720cee3d90fc8b0be5:resources/views/admin/reports/summery.blade.php
         <div class="row">
             <div class="col-sm-12">
-                <table id="datatable-buttons " class="table table-striped table-bordered dt-responsive nowrap Rides">
+                <table id="datatable-buttons "
+                    class="table table-striped table-bordered  tableDates dt-responsive nowrap dayMonth">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                aria-sort="ascending">Day/Month/Year
+                            </th>
+                            <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                                Opening Time:
+                            </th>
+                            <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                                Closing Time :
+                            </th>
+                            <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                                Duty Manager: :
+                            </th>
+                            <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                                Weather: :
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td tabindex="0" class="sorting_1">22/1/2023 <span class="yelloBack">friday</span> </td>
+                            <td class=" align-center">8 am</td>
+                            <td>5 pm </td>
+                            <td class=" align-center">Asmaa</td>
+                            <td class="">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                Suscipit, possimus.</td>
+                        </tr>
+                        <tr>
+                            <td tabindex="0" class="sorting_1">23/1/2023 <span class="yelloBack ">sunday</span> </td>
+                            <td class=" align-center">8 am</td>
+                            <td>5 pm </td>
+                            <td class=" align-center">amir</td>
+                            <td class="">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                Suscipit, possimus.</td>
+                        </tr>
+
+
+
+
+
+
+
+                    </tbody>
+                </table>
+
+                <table id="datatable-buttons "
+                    class="table table-striped table-bordered dt-responsive nowrap mt-5 Rides">
                     <thead>
                         <tr role="row">
                             <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
@@ -249,7 +305,13 @@
                     </table>
 
                 </div>
-
+                <div class='mt-4'>
+                    <h4 class='redFlags'>Duty Manager general comments on today's operations:</h4>
+                    <textarea class="editTextArea" name="" id="" rows="10"></textarea>
+                </div>
+                <div class='mt-4'>
+                    <span class="bold">Report completed by </span> <span class="yelloBack"> asmaa</span>
+                </div>
             </div>
         </div>
 
