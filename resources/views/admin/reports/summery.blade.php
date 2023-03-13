@@ -275,6 +275,8 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @if(isset($maintenanceData))
+
                         <tr>
                             <td tabindex="0" class="sorting_1">Any concerns found during routine maintenace </td>
                             <td class="{{($maintenanceData['Any concerns found during routine maintenace'] == 0) ? 'yes align-center' : 'no align-center'}}">
@@ -290,6 +292,7 @@
                             <td>Any new PM added to Maintenance app </td>
                             <td class="no align-center">0</td>
                         </tr>
+                        @endif
                     </tbody>
                 </table>
 
