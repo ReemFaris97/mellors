@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\Dashboard\Ride\RideStoppageRequest;
 
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RideStoppageController extends Controller
@@ -58,6 +59,7 @@ class RideStoppageController extends Controller
      */
     public function store(RideStoppageRequest $request)
     {
+        \DB::beginTransaction();
         $data=$request->validated();
         $ride=Ride::findOrFail($data['ride_id']);
         $time=$ride->park->parkTimes->first();
@@ -66,9 +68,10 @@ class RideStoppageController extends Controller
         $data['time']=Carbon::now()->toTimeString();
         $data['opened_date']=Carbon::now()->format('Y-m-d');
         $stoppage=RideStoppages::create($data);
-        if ($request->has('file')) {
+        if ($request->has('images')) {
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' =>$stoppage->id]);
         }
+        DB::commit();
         alert()->success('Ride Added successfully !');
         return redirect()->route('admin.rides-stoppages.index');
     }
@@ -131,5 +134,11 @@ class RideStoppageController extends Controller
         }
         alert()->error('Row not found');
         return redirect()->route('admin.rides-stoppages.index');
+    }
+
+    public function getImage(Request $request)
+    {
+        $x = $request->trCount;
+        return view('admin.rides_stoppages.append_images', compact('x'));
     }
 }

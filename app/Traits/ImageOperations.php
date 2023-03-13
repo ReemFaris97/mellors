@@ -19,7 +19,7 @@ trait ImageOperations
 
     public function getImageAttribute($image)
     {
-        if (is_null($image)or $image=='')
+        if (is_null($image) or $image == '')
             return asset('_admin/assets/images/logo.png');
         else
 
@@ -45,30 +45,14 @@ trait ImageOperations
 
     public function Gallery($request, $model, $item)
     {
-        if ($request->hasFile('file')) {
-            foreach ($request['file'] as $key => $image) {
-                $imageName = $path = \Storage::disk('public')->putFile('photos', $image);
-                $model->create(['image' => $imageName] + $item);
-            }
+        foreach ($request['images'] as $key => $image) {
+            $imageName = $path = \Storage::disk('public')->putFile('photos', $image['file']);
+            $model->create(['image' => $imageName, 'comment' => $image['comment']] + $item);
+
         }
 
-        // How to Use
-        //   if ($request->has('file')) {
-        //            $this->Gallery($request, new ProjectGallery(), ['project_id' => $project->id]);
-        //        }
 
-
-//        $data=[
-//            'file',
-//            'comment'
-//        ];
     }
-
-
-
-
-
-
 
 
 }

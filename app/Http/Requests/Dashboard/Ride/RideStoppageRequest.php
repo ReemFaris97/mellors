@@ -34,7 +34,7 @@ class RideStoppageRequest extends FormRequest
             'down_minutes'=>'nullable',
             'user_id'=>'required',
             'description'=>'nullable',
-            'file'=>'nullable'
+            'images.*'=>'nullable'
         ];
     }
 }

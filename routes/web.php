@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::Post('upload-rides-with-excel', 'Admin\RidesController@uploadExcleFile')->name('uploadExcleFile');
     Route::resource('rides-stoppages', 'Admin\RideStoppageController');//done
     Route::Post('upload-stoppages-with-excel', 'Admin\RideStoppageController@uploadStoppagesExcleFile')->name('uploadStoppagesExcleFile');
+    Route::Post('get-images', 'Admin\RideStoppageController@getImage')->name('getImage');
     Route::resource('rides-cycles', 'Admin\RideCyclesController');//done
     Route::Post('upload-cycles-with-excel', 'Admin\RideCyclesController@uploadCycleExcleFile')->name('uploadCycleExcleFile');
 
@@ -84,10 +85,10 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::resource('incidents', 'Admin\IncidentController');//done
     Route::get('/add_incident_report/{ride_id}/{park_time_id}', 'Admin\IncidentController@add_incident_report')->name('addIncidentReport');
     //Route::resource('questions','Admin\QuestionController');
-    
+
     Route::resource('accidents', 'Admin\AccidentController');//done
     Route::get('/add_accident_report/{ride_id}/{park_time_id}', 'Admin\AccidentController@add_accident_report')->name('addAccidentReport');
-   
+
     Route::resource('health_and_safety_reports', 'Admin\HealthAndSafetyReportController');//done
     Route::get('/add_health_and_safety_report/{park_id}/{time_slot_id}', 'Admin\HealthAndSafetyReportController@add_health_and_safety_report')->name('addHealthAndSafetyReport');
     Route::get('/search_health_and_safety/', 'Admin\HealthAndSafetyReportController@search')->name('searchHealthAndSafetyReport');
@@ -108,7 +109,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::get('/add-ride-ops-report/{park_id}/{time_slot_id}', 'Admin\RideOpsReportsController@add_ride_ops_report')->name('addOpsReport');
     Route::get('/search_ride_ops_reports/', 'Admin\RideOpsReportsController@search')->name('searchOpsReport');
     Route::get('/search_duty_summary_reports/', 'Admin\DutySummaryController@search')->name('searchDutySummaryReport');
-    
+
     Route::resource('duty-report', 'Admin\RideOpsReportsController');
 
 });
