@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Models;
+use App\Traits\ImageOperations;
 
 use Illuminate\Database\Eloquent\Model;
 
 
 class CustomerFeedbackImage extends Model
 {
+    use ImageOperations;
+
     protected $table = 'customer_feedback_images';
 
     protected $fillable = [

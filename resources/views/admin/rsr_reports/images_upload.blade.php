@@ -21,7 +21,7 @@
                 var trCount = $('#images_table tr').length;
                 $.ajax({
                     type: "post",
-                    url: "{{route('admin.getImage')}}",
+                    url: "{{route('admin.getRsrImage')}}",
                     data: {'_token': "{{@csrf_token()}}",'trCount':trCount},
                     success: function (data) {
                         $("#images_table").append(data);

@@ -182,6 +182,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Infinety\Alerts\AlertServiceProvider::class,
+        RakibDevs\Weather\WeatherServiceProvider::class,
+
 
         /*
          * Package Service Providers...
@@ -210,6 +212,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Weather' => RakibDevs\Weather\Weather::class,	
+
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

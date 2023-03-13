@@ -32,6 +32,7 @@ class RsrReportRequest extends FormRequest
             'conclusion'=>'required',
             'date'=>'nullable',
             'type'=>'nullable',
+            'images.*'=>'nullable'
 
         ];
     }

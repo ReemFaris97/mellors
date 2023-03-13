@@ -93,13 +93,11 @@
             </div>
         </div>
 
+       
         <div class="form-group">
-            <label for="name"> Upload RSR Report Images  </label>
-        {!! Form::file('file[]',[
-                                  "class"=>"form-control  file_upload_preview",
-                                  "multiple" => "multiple",
-                                  "data-preview-file-type"=>"text"
-                                              ]) !!}
+            <label for="name"> Upload Images </label>
+
+            @include('admin.rsr_reports.images_upload');
         </div>
         @if(isset($id))
          <input type="hidden" name="stoppage_id" value="{{$id}}">

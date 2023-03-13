@@ -79,6 +79,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::resource('rsr_reports', 'Admin\RsrReportController');//done
     Route::get('rsr_reports/{id}/approve', 'Admin\RsrReportController@approve');
     Route::get('add_rsr_stoppage_report/{id}', 'Admin\RsrReportController@addRsrStoppageReport');
+    Route::Post('get-rsr-images', 'Admin\RsrReportController@getImage')->name('getRsrImage');
 
     Route::get('rides-status', 'Admin\ReportsController@rideStatus')->name('reports.rideStatus');
 

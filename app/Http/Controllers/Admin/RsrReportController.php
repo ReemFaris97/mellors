@@ -12,7 +12,7 @@ use App\Models\RsrReportsImages;
 use Illuminate\Support\Facades\Auth;
 
 use App\Traits\ImageOperations;
-
+use Illuminate\Support\Facades\DB;
 
 class RsrReportController extends Controller
 {
@@ -61,6 +61,8 @@ class RsrReportController extends Controller
      */
     public function store(RsrReportRequest $request)
     {
+        
+        \DB::beginTransaction();
         $rsrReport = new RsrReport();
         $rsrReport->ride_id = $request->input('ride_id');
         $rsrReport->park_id = $request->input('park_id');
@@ -78,9 +80,11 @@ class RsrReportController extends Controller
         }
         $rsrReport->save();
         $rsr_report_id=$rsrReport->id;
-           if ($request->has('file')) {
+           if ($request->has('images')) {
                $this->Gallery($request, new RsrReportsImages(), ['rsr_report_id' =>$rsr_report_id]);
                 }
+         DB::commit();
+
         if ($request->has('stoppage_id')) {
             alert()->success('RSR Report For Stoppage Added successfully !');
             return redirect()->back();
@@ -167,5 +171,11 @@ class RsrReportController extends Controller
         $rsr->save();
         alert()->success('RSR Report Approved successfully !');
         return redirect()->route('admin.rsr_reports.index');
+    }
+
+    public function getImage(Request $request)
+    {
+        $x = $request->trCount;
+        return view('admin.rsr_reports.append_images', compact('x'));
     }
 }

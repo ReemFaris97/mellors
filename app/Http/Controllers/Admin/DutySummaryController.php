@@ -17,6 +17,8 @@ use App\Models\SkillGameReport;
 use App\Models\TechReport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use RakibDevs\Weather\Weather;
+
 
 class DutySummaryController extends Controller
 {
@@ -70,7 +72,12 @@ class DutySummaryController extends Controller
                 $parks=auth()->user()->parks->pluck('name','id')->all();
             }
             if($parkTime){
-                $techData = [];
+                $wt = new Weather();
+                $info= $wt->getCurrentByCity('Jeddah'); 
+/*                  return $info;
+ */                  $techData = [];
+                $techData['How many rides have delayed opening?'] = TechReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many rides have delayed opening?')->pluck('answer')->first();
                 $techData['rides down all day'] = TechReport::query()->where('park_time_id',$parkTime->id)
                 ->where('question','How many rides down all day?')->pluck('answer')->first();
                 $techData['rides down due to maintenance'] = TechReport::query()->where('park_time_id',$parkTime->id)
@@ -79,8 +86,7 @@ class DutySummaryController extends Controller
                 ->where('question','How many rides are down due to awaiting parts?')->pluck('answer')->first();
                 $techData['rides awaiting approvals'] = TechReport::query()->where('park_time_id',$parkTime->id)
                 ->where('question','How many rides awaiting on approvals?')->pluck('answer')->first();
-/* dd($techData);
- */             
+             
                 $healthData = [];
                 $healthData['incidents'] =Incident::where('park_time_id',$parkTime->id)->count();
                 $healthData['accidents'] =Accident::where('park_time_id',$parkTime->id)->count();
@@ -111,7 +117,27 @@ class DutySummaryController extends Controller
                 $skillGameData['Any complaints received?'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
                 ->where('question','Any complaints received?')->pluck('answer')->first();
                 
-            return view('admin.reports.duty_report', compact('techData','maintenanceData','skillGameData','healthData','parks'));
+                $ridesData = [];
+                $ridesData['How many unavailable?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many unavailable?')->pluck('answer')->first();
+                $ridesData['How many rides have Breakdowns?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many rides have Breakdowns?')->pluck('answer')->first();
+                $ridesData['How many Evacuations?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many Evacuations?')->pluck('answer')->first();
+                $ridesData['How many stoppages?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many stoppages?')->pluck('answer')->first();
+                $ridesData['How many swipper Issues?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many swipper Issues?')->pluck('answer')->first();
+
+                $ridesRedFlag=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','ride_ops')->get();
+                $healthRedFlag=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','h&s')->get();
+                $skillRedFlag=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','skill_games')->get();
+                $maintenanceRedFlag=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','maintenance')->get();
+                $techRedFlag=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','tech')->get();
+            
+                return view('admin.reports.duty_report', compact('parkTime','techData','ridesData','maintenanceData',
+                'skillGameData','healthData','parks','ridesRedFlag','healthRedFlag',
+                'skillRedFlag','maintenanceRedFlag','techRedFlag','info'));
         }else
         return view('admin.reports.duty_report', compact('parks'));
     }

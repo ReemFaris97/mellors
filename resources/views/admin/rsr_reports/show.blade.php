@@ -85,21 +85,30 @@
                 </table>
                 @if(isset($images))
                 <table  style="border-color: #0b0b0b" class="table table-striped table-bordered dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                        <th  class="sorting_asc" style="text-align: center; border-color: #0b0b0b;" tabindex="0"  aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1" aria-sort="ascending">Image
+                        </th>
+                        <th  class="sorting_asc" style="text-align: center; border-color: #0b0b0b;" tabindex="0"  aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1" aria-sort="ascending">Comment
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                    <tbody>
-                    <thead><tr><th  class="sorting_asc" style="text-align: center; border-color: #0b0b0b;" tabindex="0"  aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1" aria-sort="ascending">Images
-                        </th></tr></thead>
-                    <tr>
-                  
                         @foreach($images as $item)
+                        <tr>
+
                         <td style="border-color: #0b0b0b">
                         <a download href="{{ $item->image }}"> 
                             <img class="img-preview" src="{{ $item->image }}" 
                             style="height: 300px; width: 300px"></a>
                         </td>
+                        <td style="border-color: #0b0b0b">
+                        {{ $item->comment }}</td>
+                        </tr>
                             @endforeach
-                    </tr>
                     </tbody>
                 </table>
                     @endif

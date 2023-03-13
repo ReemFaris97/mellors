@@ -146,8 +146,8 @@
                        </tr>
                    <tr>
                        <td>
-                           How many unavailable?
-                           <input type="hidden" name="question[]" class="question" value="How many unavailable?">
+                           How many unavailable rides?
+                           <input type="hidden" name="question[]" class="question" value="How many unavailable rides?">
 
                        </td>
                        <td>
@@ -227,7 +227,7 @@
                    <tr>
                        <td>
                            How many swipper Issues?
-                           <input type="hidden" name="question[]" class="question" value="How many stoppages?">
+                           <input type="hidden" name="question[]" class="question" value="How many swipper Issues?">
 
                        </td>
                        <td>
@@ -301,7 +301,6 @@
                            </td>
                            <td>
                            {!! Form::textArea('issue[]',null, array('class' => 'form-control issue summernote')) !!}
-
                            </td>
                        </tr>
                        <tr>
