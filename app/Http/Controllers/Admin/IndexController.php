@@ -19,6 +19,7 @@ class IndexController extends Controller
     public function __invoke(Request $request)
     {
         $rides = DB::table('rides')
+            ->groupBy('rides.id')
             ->join('parks', 'parks.id', '=', 'rides.park_id')
             ->leftJoin('park_times', function ($join) {
                 $join->on('park_times.park_id', '=', 'parks.id');
@@ -33,6 +34,7 @@ class IndexController extends Controller
                 DB::raw('ride_stoppages.ride_status as stoppageRideStatus,ride_stoppages.ride_notes,ride_stoppages.description as rideSroppageDescription'),
 
             ])->get();
+
         foreach ($rides as $ride) {
             $now = Carbon::now();
             $start = Carbon::createFromTimeString($ride->start);
