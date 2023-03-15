@@ -56,17 +56,15 @@
                     @endforeach
                     <tr role="row" class="odd">
                         <td colspan="4" tabindex=" 0" class="sorting_1 redflagTd">
-                            <h3>red flags</h3>
+                            <h3>Red Flags</h3>
                             <ul>
+                                @if(isset($redFlags))
+                                @foreach($redFlags as $item)
                                 <li>
-                                    reflag 1
+                                {{$item->ride}} :{!! $item->issue !!}
                                 </li>
-                                <li>
-                                    reflag 1
-                                </li>
-                                <li>
-                                    reflag 1
-                                </li>
+                                @endforeach
+                                @endif
                             </ul>
                         </td>
                         <td style="display: none;"></td>
@@ -74,6 +72,7 @@
                         <td style="display: none;"></td>
 
                     </tr>
+                    
                 <tfoot>
                     <tr role="row" class="odd" id="row-{{ 1 }}">
                         <td tabindex="0" class="sorting_1">{{ 1}}</td>

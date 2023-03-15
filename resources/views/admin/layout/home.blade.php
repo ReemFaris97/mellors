@@ -37,7 +37,7 @@ Main Page
                 </div>
                 <div class="col-lg-2 col-md-6 yes cardGame">
                     <div class="card-box">
-                        <h4 class="header-title m-t-0 m-b-30">game2</h4>
+                        <h4 class="header-title m-t-0 m-b-30">game6</h4>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@ Main Page
     </div>
     <div class="col-lg-4 col-xs-12">
         <div class='contentRide'>
-            <h2>flags</h2>
+            <h2>Park Hours</h2>
             <div class="row">
                 <div class="col-lg-4 col-md-6  cardGame">
                     <div class="card-box">

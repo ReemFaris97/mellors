@@ -12,7 +12,7 @@
                                 aria-sort="ascending" style="text-align: center;">
                                 @if(isset($parkTime))
                                 {{$parkTime->parks->name}}
-                                @endif
+                                @endif  - Duty Manager Report
                             </th>
                         </tr>
                         <tr role="row">
