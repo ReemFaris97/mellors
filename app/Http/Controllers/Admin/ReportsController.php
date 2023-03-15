@@ -14,6 +14,7 @@ class ReportsController extends Controller
     {
 
         $rides = DB::table('rides')
+            ->groupBy('rides.id')
             ->join('parks', 'parks.id', '=', 'rides.park_id')
             ->leftJoin('park_times', function ($join) {
                 $join->on('park_times.park_id', '=', 'parks.id');
