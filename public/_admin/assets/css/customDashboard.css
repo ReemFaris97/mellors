@@ -457,3 +457,6 @@ textarea.editTextArea {
 .tableDates tr td{
     background-color: #fff;
 }
+td.redflagTd{
+    background-color: #ffc7ce !important;
+}
