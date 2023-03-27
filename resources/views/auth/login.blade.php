@@ -29,14 +29,14 @@
                     @csrf
                     <div class="form-group ">
                         <div class='content-input-fontawsome'>
-                            <span class="fas fa-envelope"></span>
+                            <span class="fas fa-envelope iconInput"></span>
                             <input type="email" name="email" class="form-control" placeholder="Email" required>
                         </div>
 
                     </div>
                     <div class="form-group">
-                        <div class='content-input-fontawsome'>
-                            <span class="fas fa-lock"></span>
+                        <div class='content-input-fontawsome '>
+                            <span class="fas fa-lock iconInput"></span>
                             <input type="password" name="password" class="form-control" placeholder="Password" required>
                         </div>
 
