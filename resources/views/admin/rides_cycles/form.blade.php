@@ -3,7 +3,7 @@
     <div class="form-group">
         <label class="col-lg-12">Ride :</label></label>
         <div class="col-lg-6">
-            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control col-lg-6')) !!}
+            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control col-lg-6 select2')) !!}
             @error('ride_id')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
@@ -14,7 +14,7 @@
     <div class="form-group">
         <label class="col-lg-12">Parks :</label></label>
         <div class="col-lg-6">
-            {!! Form::select('park_id', $parks,null, array('class' => 'form-control col-lg-6')) !!}
+            {!! Form::select('park_id', $parks,null, array('class' => 'form-control col-lg-6 select2')) !!}
             @error('park_id')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
@@ -26,7 +26,7 @@
     <div class="form-group stoppageCategory ">
         <label class="col-lg-12">Operator :</label></label>
         <div class="col-lg-6">
-            {!! Form::select('user_id', $users,null, array('class' => 'form-control col-lg-6','placeholder'=>'CHOOSE Operators')) !!}
+            {!! Form::select('user_id', $users,null, array('class' => 'form-control col-lg-6 select2','placeholder'=>'CHOOSE Operators')) !!}
             @error('user_id')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}

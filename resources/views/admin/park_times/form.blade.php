@@ -6,7 +6,7 @@
             Park :</label>
         </div>
         <div class="col-lg-6">
-            {!! Form::select('park_id', $parks,null, array('class' => 'form-control col-lg-6')) !!}
+            {!! Form::select('park_id', $parks,null, array('class' => 'form-control col-lg-6 select2')) !!}
         </div>
     </div>
     <div class="form-group">

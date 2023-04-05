@@ -17,7 +17,7 @@
         <div class="form-group">
             <label class="col-md-3 control-label">Stoppage Main Category :</label>
             <div class="col-xs-12 col-md-9">
-                {!! Form::select('stopage_category_id', $main_categories,null, array('class' => 'form-control')) !!}
+                {!! Form::select('stopage_category_id', $main_categories,null, array('class' => 'form-control select2')) !!}
             </div>
         </div>
     </div>

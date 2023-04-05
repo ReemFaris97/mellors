@@ -14,10 +14,10 @@
 </div>
 </div>
     <div class="col-xs-12">
-        <div class="form-group">
-            <label class="col-md-3 control-label">Branch :</label>
-            <div class="col-xs-12 col-md-9">
-                {!! Form::select('branch_id', $branches,null, array('class' => 'form-control')) !!}
+        <div class="form-group form-float">
+            <label class="form-label">Branch :</label>
+            <div class="form-line">
+                {!! Form::select('branch_id', $branches,null, array('class' => 'form-control select2')) !!}
             </div>
         </div>
     </div>

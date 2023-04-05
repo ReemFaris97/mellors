@@ -4,7 +4,7 @@
         <div class="form-group form-float">
             <label class="form-label">Ride</label>
             <div class="form-line">
-                {!! Form::select('ride_id', $rides,null, array('class' => 'form-control')) !!}
+                {!! Form::select('ride_id', $rides,null, array('class' => 'form-control select2')) !!}
                 @error('ride_id')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}

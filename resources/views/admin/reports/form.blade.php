@@ -1,6 +1,6 @@
                 <div class="form-group">
                     <label for="last_name">Select Park</label>
-                    {!! Form::select('park_id',$parks,null, array('class' => 'form-control')) !!}
+                    {!! Form::select('park_id',$parks,null, array('class' => 'form-control select2')) !!}
                 </div>
                 <div class="form-group">
                     <label for="middle_name">Date </label>

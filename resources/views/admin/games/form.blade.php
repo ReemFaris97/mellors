@@ -32,7 +32,7 @@
         <div class="form-group form-float">
             <label class="form-label">Park</label>
             <div class="form-line">
-                {!! Form::select('park_id', $parks,null, array('class' => 'form-control park_id','placeholder'=>'Choose Park Name')) !!}
+                {!! Form::select('park_id', $parks,null, array('class' => 'form-control select2 park_id','placeholder'=>'Choose Park Name')) !!}
                 @error('park_id')
                 <div class="invalid-feedback" style="color: #ef1010">
 {{--                    {{ $message }}--}}
@@ -47,7 +47,7 @@
             <div class="form-line">
 {{--                {!! Form::select('zone_id', $zones,null, array('class' => 'form-control zone_id')) !!}--}}
 
-                <select class="form-control js-example-basic-single ms zone_id" id="zone_id" name="zone_id"
+                <select class="form-control js-example-basic-single ms select2 zone_id" id="zone_id" name="zone_id"
                         data-live-search=true required>
                     <option disabled> choose Park First</option>
 
@@ -65,7 +65,7 @@
         <div class="form-group form-float">
             <label class="form-label">Ride Category</label>
             <div class="form-line">
-                {!! Form::select('game_cat_id', $game_cats,null, array('class' => 'form-control')) !!}
+                {!! Form::select('game_cat_id', $game_cats,null, array('class' => 'form-control select2')) !!}
                 @error('game_cat_id')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}

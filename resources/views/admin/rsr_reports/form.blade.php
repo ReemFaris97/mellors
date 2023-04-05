@@ -4,7 +4,7 @@
         <div class="form-group form-float">
             <label class="form-label">Park</label>
             <div class="form-line">
-                {!! Form::select('park_id',@$parks?$parks:[],null, array('class' => 'form-control','id'=>'park','placeholder'=>'Choose Park')) !!}
+                {!! Form::select('park_id',@$parks?$parks:[],null, array('class' => 'form-control select2','id'=>'park','placeholder'=>'Choose Park')) !!}
                 @error('park_id')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
@@ -16,7 +16,7 @@
             <div class="form-group form-float">
                 <label class="form-label">Ride</label>
                 <div class="form-line">
-                {!! Form::select('ride_id',@$rides?$rides:[],null, array('class' => 'form-control ride','id'=>'ride','placeholder'=>'Choose Park First')) !!}
+                {!! Form::select('ride_id',@$rides?$rides:[],null, array('class' => 'form-control ride select2','id'=>'ride','placeholder'=>'Choose Park First')) !!}
 
                  
                     @error('ride_id')
