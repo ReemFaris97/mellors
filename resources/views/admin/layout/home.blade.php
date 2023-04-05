@@ -5,34 +5,30 @@
 @stop
 
 @section('content')
-<div class="row">
-    <div class="col-lg-8 col-xs-12">
-        <div class='contentRide'>
-            <h2>Ride Status</h2>
-            <div class="row">
-                <div class="col-lg-2 col-md-6 yes cardGame">
-                    <div class="card-box">
-                        <h4 class="header-title m-t-0 m-b-30">game1</h4>
-                    </div>
+    <div class="row">
+        <div class="col-lg-8 col-xs-12">
+            <div class='contentRide'>
+                <h2>Rides Status</h2>
+                <div class="row">
+                    @foreach ($rides as $ride )
+                        @if ($ride->available == "active")
+                            <div class="col-lg-2 col-md-6 yes cardGame">
+                                <div class="card-box">
+                                    <h4 class="header-title m-t-0 m-b-30">{{$ride->name}}</h4>
+                                </div>
+                            </div>
+                        @elseif($ride->available == "stopped" || "closed")
+                            <div class="col-lg-2 col-md-6 no cardGame">
+                                <div class="card-box">
+                                    <h4 class="header-title m-t-0 m-b-30">{{$ride->name}}</h4>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
-                <div class="col-lg-2 col-md-6 yes cardGame">
-                    <div class="card-box">
-                        <h4 class="header-title m-t-0 m-b-30">game2</h4>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 no cardGame">
-                    <div class="card-box">
-                        <h4 class="header-title m-t-0 m-b-30">game3</h4>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 no cardGame">
-                    <div class="card-box">
-                        <h4 class="header-title m-t-0 m-b-30">game4</h4>
-                    </div>
-                </div>
+            
 
             </div>
-
         </div>
         <div class="col-lg-4 col-xs-12">
             <div class='contentRide'>

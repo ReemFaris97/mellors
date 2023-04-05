@@ -12,7 +12,7 @@
                                 aria-sort="ascending" style="text-align: center;">
                                 @if(isset($parkTime))
                                 {{$parkTime->parks->name}}
-                                @endif  - Duty Manager Report
+                                @endif  - Duty Report
                             </th>
                         </tr>
                         <tr role="row">
@@ -25,9 +25,7 @@
                             <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
                                 Closing Time :
                             </th>
-                            <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
-                                Duty Manager: :
-                            </th>
+                            
                             <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
                                 Weather: :
                             </th>
@@ -37,11 +35,15 @@
                     <tbody>
                         @if(isset($parkTime))
                         <tr>
-                            <td tabindex="0" class="sorting_1">{{$parkTime->date}}<span class="yelloBack">friday</span> </td>
+                            <td tabindex="0" class="sorting_1">{{$parkTime->date}}
+                                <!-- <span class="yelloBack">friday</span> --> </td>
                             <td class=" align-center">{{$parkTime->start}}</td>
                             <td>{{$parkTime->end}}</td>
-                            <td class=" align-center">Asmaa</td>
-                            <td class="">weather data</td>
+                            <td class="">  
+                             @if(isset($info))
+                             {{$info->weather[0]->main}}-{{$info->weather[0]->description}}-{{$info->main->temp}} ْ -Windspeed avg {{$info->wind->speed}}km/h
+                             @endif
+                            </td>
                         </tr>
                         @endif
                     </tbody>
