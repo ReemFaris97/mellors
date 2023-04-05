@@ -45,7 +45,7 @@ html {
     opacity: unset !important;
 }
 </style>
-<link href="{{asset('_admin/assets/css/customDashboard.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('_admin/assets/plugins/multiselect/css/multi-select.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('_admin/assets/plugins/select2/dist/css/select2.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('_admin/assets/plugins/select2/dist/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
+
+<link href="{{asset('_admin/assets/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('_admin/assets/css/customDashboard.css')}}" rel="stylesheet" type="text/css">

@@ -1,5 +1,5 @@
 <script>
-    var resizefunc = [];
+var resizefunc = [];
 </script>
 
 <!-- jQuery  -->
@@ -38,7 +38,6 @@
 <script src="{{asset('_admin/assets/summernote.js')}}"></script>
 
 
+
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 <script src="{{asset('_admin/assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
-
-

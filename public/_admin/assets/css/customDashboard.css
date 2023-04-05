@@ -330,10 +330,10 @@ body.authentication-bg {
 }
 
 /* =================== modfication ==================== */
-.content-input-fontawsome{
+/* .content-input-fontawsome{
     display: flex;
     align-items: center;
-}
+} */
 .content-input-fontawsome span{
     margin-right: 5px;
     font-size: 16px;
@@ -459,4 +459,42 @@ textarea.editTextArea {
 }
 td.redflagTd{
     background-color: #ffc7ce !important;
+}
+.content-input-fontawsome{
+    position: relative;
+}
+.iconInput{
+    position: absolute;
+
+}
+.iconInput {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    z-index: 9;
+}
+.content-input-fontawsome input{
+    text-indent: 13px;
+}
+span.select2{
+    border: 1px solid #E3E3E3;
+    padding: 7px 12px;
+    border-radius: 4px;
+    color: #565656;
+    padding: 7px 12px;
+    height: 38px;
+}
+span.select2.select2-container.select2-container--bootstrap {
+    direction: ltr !important;
+}
+.select2-results__option[aria-selected] {
+    text-align: left;
+    color: #565656;
+}
+.select2-search--dropdown .select2-search__field {
+    text-align: left;
+}
+.select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered {
+    padding-right: 0px;
+    padding-left: 0px;
 }
