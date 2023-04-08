@@ -3,7 +3,7 @@
 Duty Report 
 @endsection
 @section('content')
-<div class="card-box">
+<div class="card-box ">
     <ul class="nav nav-tabs tabsLinkDuty">
         <li class="{{ (request()->is('search_ride_ops_reports*')) ? 'active' : '' }}"><a data-toggle="tab" href="#Ride">Ride Ops</a></li>
         <li class="{{ (request()->is('search_health_and_safety*')) ? 'active' : '' }}"><a data-toggle="tab" href="#Health">Health & safety </a></li>

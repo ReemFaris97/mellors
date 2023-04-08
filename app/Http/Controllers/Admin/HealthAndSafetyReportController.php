@@ -7,6 +7,7 @@ use App\Models\Incident;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\InspectionList\PreopeningListRequest;
+use App\Models\Accident;
 use App\Models\InspectionList;
 use App\Models\Park;
 use App\Models\ParkTime;
@@ -48,7 +49,8 @@ class HealthAndSafetyReportController extends Controller
     public function add_health_and_safety_report($park_id,$park_time_id)
     {
         $incidents=Incident::where(("park_time_id"),$park_time_id)->count();
-        return view('admin.health_and_safety_reports.add',compact('incidents','park_id','park_time_id'));
+        $accidents=Accident::where(("park_time_id"),$park_time_id)->count();
+        return view('admin.health_and_safety_reports.add',compact('accidents','incidents','park_id','park_time_id'));
     }
     /**
      * Store a newly created resource in storage.
@@ -73,6 +75,7 @@ class HealthAndSafetyReportController extends Controller
            $list->question=$request->question[$key];
            $list->answer=$request->answer[$key];
            $list->comment=$request->comment[$key];
+           $list->color=$request->color[$key];
            $list->park_id=$request->park_id;
            $list->park_time_id=$request->park_time_id;
            $list->date=Carbon::now()->format('Y-m-d');

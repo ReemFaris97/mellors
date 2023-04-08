@@ -41,18 +41,11 @@
                     <tr role="row" class="odd" id="row-{{ $item->id }}">
                         <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                         <td>{{ $item->question }}</td>
-                        <td>@if($item->answer == "yes")
-                            <label style="background-color: aquamarine;">Yes</label>
-                            @elseif($item->answer == "no")
-                            <label style="background-color: red; font-weight: bold;">No</label>
-                            @else
-                            {{ $item->answer }}
-                            @endif
-                        </td>
-                        <td>{{ $item->comment }}</td>
-
+                        <td class="{{$item->color}}  align-center">
+                        {{ $item->answer }}
+                       </td>
+                        <td>{!! $item->comment !!}</td>
                     </tr>
-
                     @endforeach
                     <tr role="row" class="odd">
                         <td colspan="4" tabindex=" 0" class="sorting_1 redflagTd">

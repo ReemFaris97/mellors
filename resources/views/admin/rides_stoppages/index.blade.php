@@ -81,8 +81,22 @@
                                 <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->date }}</td>
                                 <td>{{ $item->time }}</td>
-                                <td>{{ $item->ride_status }}</td>
-                                <td>{{ $item->stoppage_status }}</td>
+                                <td>
+                                @if($item->ride_status=='stopped')
+                                <span class="btn btn-xs btn-danger">Stopped</a>
+                                  @else
+                                  <span class="btn btn-xs btn-success">Active</a>
+                                @endif
+                                </td>
+                                <td>
+                                @if($item->stoppage_status=='pending')
+                                <span class="btn btn-xs btn-primary">Pending</a>
+                                  @elseif($item->stoppage_status=='working')
+                                  <span class="btn btn-xs btn-danger">Working</a>
+                                  @else
+                                  <span class="btn btn-xs btn-success">Done</a>
+                                @endif
+                                </td>
                                 <td>{{ $item->stopageSubCategory->name ?? "name" }}</td>
                                 <td>{{ $item->ride_notes }}</td>
                                 <td>{{ $item->opened_date }}</td>
