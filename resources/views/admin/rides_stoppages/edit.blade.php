@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box">
-                <h4 class="header-title m-t-0 m-b-30">Add Stoppage Notes</h4>
+                <h4 class="header-title m-t-0 m-b-30">Update Stoppage Notes</h4>
                 <a class="input-group-btn" href="{{route('admin.rides-stoppages.index')}}">
                     <button type="button" class="btn waves-effect waves-light btn-primary">back</button>
                 </a>
