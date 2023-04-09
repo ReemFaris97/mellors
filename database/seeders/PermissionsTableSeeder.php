@@ -15,7 +15,7 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissions = [
 
-/*                [
+               [
                   'name' => 'role-list',
                   'guard_name' => 'web',
                   'title' => 'roles List',
@@ -500,7 +500,7 @@ class PermissionsTableSeeder extends Seeder
                 'title' => 'delete rsr_reports',
                 'route_name' => 'admin.rsr_reports.destroy'
             ],
-         */
+         
             [
                 'name' => 'incidents-list',
                 'guard_name' => 'web',

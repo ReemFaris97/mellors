@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::table('ride_stoppages', function (Blueprint $table) {
             $table->longText('description')->after('down_minutes')->nullable();
-            $table->enum('stoppage_status',['pending','in_maintenance','done'])->after('description')->nullable();
         });
     }
 
