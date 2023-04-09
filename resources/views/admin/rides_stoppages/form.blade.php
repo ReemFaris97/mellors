@@ -1,9 +1,16 @@
 <div class="row">
+<<<<<<< HEAD
     <div class="col-lg-6">
         <label class="block">Ride :</label></label>
         <div class=" ">
             {!! Form::select('ride_id', $rides,null, array('class' => 'form-control ','placeholder'=>'choose
             ride')) !!}
+=======
+    <div class="form-group">
+        <label class="col-lg-12">Ride :</label></label>
+        <div class="col-lg-6">
+            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control col-lg-6 select2','placeholder'=>'choose ride')) !!}
+>>>>>>> 5af2e98c04c28607534c63ba91f77156d6e172d6
         </div>
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
@@ -12,11 +19,18 @@
         @enderror
     </div>
 
+<<<<<<< HEAD
     <div class="col-lg-6 stoppageCategory ">
         <label class="block">Operator :</label>
         <div class="">
             {!! Form::select('user_id', $users,null, array('class' => 'form-control ','placeholder'=>'Choose
             Operators')) !!}
+=======
+    <div class="form-group stoppageCategory ">
+        <label class="col-lg-12">Operator :</label>
+        <div class="col-lg-6">
+            {!! Form::select('user_id', $users,null, array('class' => 'form-control col-lg-6 select2','placeholder'=>'Choose Operators')) !!}
+>>>>>>> 5af2e98c04c28607534c63ba91f77156d6e172d6
         </div>
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
@@ -25,11 +39,18 @@
         @enderror
     </div>
 
+<<<<<<< HEAD
     <div class="col-lg-6  stoppageCategory ">
         <label class="block">Ride Status :</label>
         <div class="">
             {!! Form::select('ride_status', ["stopped"=>'stopped',"active"=>'active'],null, array('class' =>
             'form-control ','placeholder'=>'Ride Status')) !!}
+=======
+    <div class="form-group stoppageCategory ">
+        <label class="col-lg-12">Ride Status :</label>
+        <div class="col-lg-6">
+            {!! Form::select('ride_status', ["stopped"=>'stopped',"active"=>'active'],null, array('class' => 'form-control col-lg-6 select2','placeholder'=>'Ride Status')) !!}
+>>>>>>> 5af2e98c04c28607534c63ba91f77156d6e172d6
         </div>
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
@@ -85,6 +106,20 @@
         @enderror
     </div>
 
+<<<<<<< HEAD
+=======
+    <div class="form-group ">
+        <label class="col-lg-12">Type :</label>
+        <div class="col-lg-6">
+            {!! Form::select('type', ['all_day'=>'all_day','time_slot'=>'time_slot'],null, array('class' => 'form-control col-lg-6 stoppageType select2','placeholder'=>'Stoppage type')) !!}
+        </div>
+        @error('type')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
+>>>>>>> 5af2e98c04c28607534c63ba91f77156d6e172d6
 
     <div class="form-group downTime hidden">
         <label class="col-lg-12">Down Time :</label>

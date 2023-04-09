@@ -11,7 +11,7 @@ class MaintenanceReport extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'question','answer','comment','date','user_id','park_time_id','park_id'
+        'question','answer','comment','date','user_id','park_time_id','park_id','color'
     ];
     public function user()
     {

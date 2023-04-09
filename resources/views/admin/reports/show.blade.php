@@ -41,32 +41,23 @@
                     <tr role="row" class="odd" id="row-{{ $item->id }}">
                         <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                         <td>{{ $item->question }}</td>
-                        <td>@if($item->answer == "yes")
-                            <label style="background-color: aquamarine;">Yes</label>
-                            @elseif($item->answer == "no")
-                            <label style="background-color: red; font-weight: bold;">No</label>
-                            @else
-                            {{ $item->answer }}
-                            @endif
-                        </td>
-                        <td>{{ $item->comment }}</td>
-
+                        <td class="{{$item->color}}  align-center">
+                        {{ $item->answer }}
+                       </td>
+                        <td>{!! $item->comment !!}</td>
                     </tr>
-
                     @endforeach
                     <tr role="row" class="odd">
                         <td colspan="4" tabindex=" 0" class="sorting_1 redflagTd">
-                            <h3>red flags</h3>
+                            <h3>Red Flags</h3>
                             <ul>
+                                @if(isset($redFlags))
+                                @foreach($redFlags as $item)
                                 <li>
-                                    reflag 1
+                                {{$item->ride}} :{!! $item->issue !!}
                                 </li>
-                                <li>
-                                    reflag 1
-                                </li>
-                                <li>
-                                    reflag 1
-                                </li>
+                                @endforeach
+                                @endif
                             </ul>
                         </td>
                         <td style="display: none;"></td>
@@ -74,6 +65,7 @@
                         <td style="display: none;"></td>
 
                     </tr>
+<<<<<<< HEAD
                     <tr role="row" class="odd">
                         <td colspan="1" tabindex=" 0" class="sorting_1 redflagTd">
 
@@ -83,6 +75,9 @@
                         <td style="display: none;"></td>
 
                     </tr>
+=======
+                    
+>>>>>>> 5af2e98c04c28607534c63ba91f77156d6e172d6
                 <tfoot>
                     <tr role="row" class="odd" id="row-{{ 1 }}">
                         <td tabindex="0" class="sorting_1">{{ 1}}</td>

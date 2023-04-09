@@ -36,6 +36,13 @@
                                    <option value="no">No</option>
                                </select>
                            </label>
+                           <label>
+                          <select name="color[]" id="color_id" class="form-control color">
+                                       <option disabled> Choose...</option>
+                                       <option value="yes" style="background-color: green;" >green</option>
+                                       <option value="no" style="background-color: red;">red</option>
+                                   </select>
+                          </label>
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -52,6 +59,13 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="{{$data['rsr_count']}}">
                                </label>
+                               <label>
+                          <select name="color[]" id="color_id" class="form-control color">
+                                       <option disabled> Choose...</option>
+                                       <option value="yes" style="background-color: green;" >green</option>
+                                       <option value="no" style="background-color: red;">red</option>
+                                   </select>
+                          </label>
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -69,6 +83,13 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="{{$data['ride_down_all_day']}}">
                                </label>
+                               <label>
+                          <select name="color[]" id="color_id" class="form-control color">
+                                       <option disabled> Choose...</option>
+                                       <option value="yes" style="background-color: green;" >green</option>
+                                       <option value="no" style="background-color: red;">red</option>
+                                   </select>
+                          </label>
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -85,6 +106,13 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="{{$data['ride_due_to_maintenance']}}">
                                </label>
+                               <label>
+                          <select name="color[]" id="color_id" class="form-control color">
+                                       <option disabled> Choose...</option>
+                                       <option value="yes" style="background-color: green;" >green</option>
+                                       <option value="no" style="background-color: red;">red</option>
+                                   </select>
+                          </label>
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -101,6 +129,13 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="">
                                </label>
+                               <label>
+                          <select name="color[]" id="color_id" class="form-control color">
+                                       <option disabled> Choose...</option>
+                                       <option value="yes" style="background-color: green;" >green</option>
+                                       <option value="no" style="background-color: red;">red</option>
+                                   </select>
+                          </label>
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -118,6 +153,13 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="">
                                </label>
+                               <label>
+                          <select name="color[]" id="color_id" class="form-control color">
+                                       <option disabled> Choose...</option>
+                                       <option value="yes" style="background-color: green;" >green</option>
+                                       <option value="no" style="background-color: red;">red</option>
+                                   </select>
+                          </label>
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -134,6 +176,13 @@
                            <label>
                                <input type="number" name="answer[]" class="answer" value="">
                            </label>
+                           <label>
+                          <select name="color[]" id="color_id" class="form-control color">
+                                       <option disabled> Choose...</option>
+                                       <option value="yes" style="background-color: green;" >green</option>
+                                       <option value="no" style="background-color: red;">red</option>
+                                   </select>
+                          </label>
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -144,8 +193,8 @@
                        </td>
                    </tr>
                    <tr>
-                            <td colspan="4">
-                                 <label style="background-color: red;">Red Flags</label>
+                        <td colspan="4" tabindex=" 0" class="sorting_1 redflagTd">
+                            <h3>Red Flags</h3>
                         </td>
                         </tr>
                         <tr>
@@ -218,34 +267,7 @@
 
                            </td>
                        </tr>
-                       <tr>
-                           <td>
-                             6
-                           </td>
-                           <td>
-                               <label>
-                               {!! Form::text('ride[]',null, array('class' => 'form-control ride')) !!}
-                               </label>
-                           </td>
-                           <td>
-                           {!! Form::textArea('issue[]',null, array('class' => 'form-control issue summernote')) !!}
-
-                           </td>
-                       </tr>
-                       <tr>
-                           <td>
-                             7
-                           </td>
-                           <td>
-                               <label>
-                               {!! Form::text('ride[]',null, array('class' => 'form-control ride')) !!}
-                               </label>
-                           </td>
-                           <td>
-                               {!! Form::textArea('issue[]',null, array('class' => 'form-control issue summernote')) !!}
-
-                           </td>
-                       </tr>
+                
 
 
                    </tbody>
@@ -268,6 +290,7 @@
             const answer = [];
             const ride = [];
             const issue = [];
+            const color = [];
            
 
             $('.answer').each(function () {
@@ -289,6 +312,9 @@
             $('.issue').each(function () {
                 issue.push($(this).val());
             });
+            $('.color').each(function () {
+                color.push($(this).val());
+            });
             var park_id = $("#park-id").val();
             var park_time_id = $("#park-time-id").val();
             $.ajax({
@@ -302,7 +328,9 @@
                     park_id: park_id,
                     park_time_id: park_time_id,
                     ride: ride,
-                    issue: issue
+                    issue: issue,
+                    color: color
+
                 },
                 success: function(response)
                 {

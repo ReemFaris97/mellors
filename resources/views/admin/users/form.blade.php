@@ -168,15 +168,6 @@ $("#branch").change(function() {
     });
 });
 </script>
-<script src="{{asset('_admin/assets/js/select2.min.js')}}">
-</script>
 
-<script>
-$(".select2").select2({
-    tagsl: true,
-    // dropdownParent: $('#modal), // if select in modal
-    theme: "bootstrap",
-});
-</script>
 
 @endpush

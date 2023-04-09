@@ -72,7 +72,7 @@ class RideStoppageController extends Controller
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' =>$stoppage->id]);
         }
         DB::commit();
-        alert()->success('Ride Added successfully !');
+        alert()->success('Ride Stoppage Added successfully !');
         return redirect()->route('admin.rides-stoppages.index');
     }
 

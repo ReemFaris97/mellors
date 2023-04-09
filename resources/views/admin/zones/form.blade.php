@@ -17,14 +17,13 @@
 
     <div class="form-group">
         <label >Branch :</label>
-        {!! Form::select('branch_id', @$branches?$branches:null,null, array('class' => 'form-control','id'=>'branch')) !!}
-    </div>
+        {!! Form::select('branch_id', @$branches?$branches:null,null, array('class' => 'form-control select2','id'=>'branch')) !!}
     </div>
     <div class="form-group">
         <label > Park :</label>
-        {!! Form::select('park_id',@$parks?$parks:null,null, array('class' => 'form-control','id'=>'park')) !!}
+        {!! Form::select('park_id',@$parks?$parks:null,null, array('class' => 'form-control select2','id'=>'park')) !!}
     </div>
-
+    </div>
 
 <div class="col-xs-12 aligne-center contentbtn">
     <button class="btn btn-primary waves-effect" type="submit">Save</button>

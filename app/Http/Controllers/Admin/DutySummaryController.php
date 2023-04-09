@@ -74,8 +74,7 @@ class DutySummaryController extends Controller
             if($parkTime){
                 $wt = new Weather();
                 $info= $wt->getCurrentByCity('Jeddah'); 
-/*                  return $info;
- */                  $techData = [];
+                $techData = [];
                 $techData['How many rides have delayed opening?'] = TechReport::query()->where('park_time_id',$parkTime->id)
                 ->where('question','How many rides have delayed opening?')->pluck('answer')->first();
                 $techData['rides down all day'] = TechReport::query()->where('park_time_id',$parkTime->id)

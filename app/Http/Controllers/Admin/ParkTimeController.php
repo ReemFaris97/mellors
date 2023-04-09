@@ -9,6 +9,7 @@ use App\Http\Requests\Dashboard\ParkTime\EntranceCountRequest;
 use App\Models\Park;
 use App\Models\ParkTime;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ParkTimeController extends Controller
 {
@@ -20,7 +21,7 @@ class ParkTimeController extends Controller
     public function index()
     {
         if (auth()->user()->hasRole('Super Admin')) {
-            $items = ParkTime::where('date', date('Y-m-d'))->get();
+            $items = ParkTime::where('date', Carbon::now()->format('Y-m-d'))->get();
         } else {
             $parks = auth()->user()->parks->all();
             $items = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
