@@ -7,6 +7,7 @@ File: Menu
 :root {
   --themeColor:#d0b280;
   --secondary: #552e11;
+  --secondary2: #ffead1;
 }
 .topbar {
   left: 0px;
@@ -71,11 +72,11 @@ File: Menu
 }
 
 .user-box h5 a {
-  color:var(--secondary);
+  color:var(--secondary2);
   font-size: 20px;
 }
 i.zmdi.zmdi-power {
-  color:var(--secondary);
+  color:var(--secondary2);
   font-size: 20px;
 }
 .user-box .user-status {
@@ -274,7 +275,7 @@ i.zmdi.zmdi-power {
   transform: translate(0, 0);
 }
 #sidebar-menu ul li .menu-arrow:before {
-  content: '\f2fa';
+  content: '\f2fb';
 }
 #sidebar-menu ul li a.subdrop .menu-arrow {
   -ms-transform: rotate(-90deg);
@@ -407,7 +408,7 @@ i.zmdi.zmdi-power {
 #wrapper.enlarged .left.side-menu .label {
   position: absolute;
   top: 5px;
-  leftt: 30px;
+  left: 30px;
   text-indent: 0;
   display: block !important;
   padding: .2em .6em .3em !important;

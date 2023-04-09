@@ -7,7 +7,23 @@
 @section('content')
 
     <div class="card-box">
+    <form action="{{url('/search_park_times')}}" method="GET">
 
+@csrf
+<div class="form-group">
+    <label for="middle_name">Date </label>
+    {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
+</div>
+<!-- <div class="form-group">
+    <label for="last_name">Select Ride</label>
+    {!! Form::select('park_id',auth()->user()->parks->pluck('name', 'id')->toArray(),null, array('class' => 'form-control')) !!}
+</div> -->
+<div class="col-xs-12">
+    <div class="input-group-btn">
+        <button type="submit" class="btn btn-outline-info">Show</button>
+    </div>
+</div>
+{!!Form::close() !!}
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">

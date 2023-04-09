@@ -65,7 +65,19 @@
                         <td style="display: none;"></td>
 
                     </tr>
+<<<<<<< HEAD
+                    <tr role="row" class="odd">
+                        <td colspan="1" tabindex=" 0" class="sorting_1 redflagTd">
+
+                        </td>
+                        <td colspan="3"></td>
+                        <td style="display: none;"></td>
+                        <td style="display: none;"></td>
+
+                    </tr>
+=======
                     
+>>>>>>> 5af2e98c04c28607534c63ba91f77156d6e172d6
                 <tfoot>
                     <tr role="row" class="odd" id="row-{{ 1 }}">
                         <td tabindex="0" class="sorting_1">{{ 1}}</td>

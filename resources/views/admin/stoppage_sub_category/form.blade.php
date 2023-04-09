@@ -14,9 +14,9 @@
 </div>
 </div>
     <div class="col-xs-12">
-        <div class="form-group">
-            <label class="col-md-3 control-label">Stoppage Main Category :</label>
-            <div class="col-xs-12 col-md-9">
+        <div class="form-group form-float">
+            <label class=" form-label">Stoppage Main Category :</label>
+            <div class="form-line">
                 {!! Form::select('stopage_category_id', $main_categories,null, array('class' => 'form-control select2')) !!}
             </div>
         </div>

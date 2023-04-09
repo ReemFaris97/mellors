@@ -53,12 +53,7 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Notes
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Opened_Date
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Date Time
-                            </th>
+                           
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Down Times
                             </th>
@@ -76,8 +71,8 @@
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->ride->name }}</td>
                                 <td>{{ $item->ride->id }}</td>
-                                <td>{{ $item->ride->number_of_seats ?? "" }}</td>
-                                <td>{{ $item->user->phone?? "" }}</td>
+                                <td>{{ $item->number_of_seats?? "" }}</td>
+                                <td>{{ $item->user->user_number??"" }}</td>
                                 <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->date }}</td>
                                 <td>{{ $item->time }}</td>
@@ -99,8 +94,6 @@
                                 </td>
                                 <td>{{ $item->stopageSubCategory->name ?? "name" }}</td>
                                 <td>{{ $item->ride_notes }}</td>
-                                <td>{{ $item->opened_date }}</td>
-                                <td>{{ $item->date_time }}</td>
                                 <td>{{ $item->down_minutes }}</td>
                                 {!!Form::open( ['route' => ['admin.rides-stoppages.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}

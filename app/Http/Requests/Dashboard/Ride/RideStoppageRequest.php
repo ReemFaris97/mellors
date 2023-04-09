@@ -29,6 +29,7 @@ class RideStoppageRequest extends FormRequest
             'ride_status'=>'required',
             'stopage_sub_category_id'=>'required',
             'ride_notes'=>'nullable',
+            'number_of_seats'=>'nullable',
             'opened_date'=>'nullable',
             'date_time'=>'nullable',
             'down_minutes'=>'nullable',

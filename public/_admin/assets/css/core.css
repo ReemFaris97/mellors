@@ -141,6 +141,7 @@ a:focus {
 :root {
   --themeColor:#d0b280;
   --secondary: #552e11;
+  --secondary2: #ffead1;
 }
 /* =============
    Helper clasess
@@ -572,6 +573,9 @@ a:focus {
   color:var(--secondary);
   font-size: 15px !important;
 }
+li.text-muted.menu-title{
+  color:var(--secondary2);
+}
 .text-primary {
   color: #188ae2 !important;
 }
@@ -646,8 +650,8 @@ textarea.form-control {
   border-radius: 3px;
 }
 .form-horizontal .form-group {
-  margin-left: -10px;
-  margin-right: -10px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 .form-control-feedback {
   line-height: 38px !important;

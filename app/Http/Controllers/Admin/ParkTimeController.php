@@ -24,7 +24,9 @@ class ParkTimeController extends Controller
             $items = ParkTime::where('date', Carbon::now()->format('Y-m-d'))->get();
         } else {
             $parks = auth()->user()->parks->all();
-            $items = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
+            $items = ParkTime::where('date', date('Y-m-d'))
+            ->wherein('park_id', $parks)
+            ->get();
         }
 
         return view('admin.park_times.index', compact('items'));
@@ -73,7 +75,13 @@ class ParkTimeController extends Controller
         return redirect()->route('admin.park_times.index');
     }
 
-
+    public function search(Request $request){
+        $date = $request->input('date');
+        $items = ParkTime::query()
+            ->Where('date', $date)
+            ->get();
+        return view('admin.park_times.index', compact('items'));
+    }
     /**
      * Display the specified resource.
      *

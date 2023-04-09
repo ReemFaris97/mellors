@@ -1,49 +1,24 @@
 /**************** Fonts *****************************/
+
 @font-face {
-    font-family: "fa-solid-900";
-    src: url("../fonts/fa-solid-900.woff2");
-    src: url("../fonts/fa-solid-900.eot") format("embedded-opentype"),
-        url("../fonts/fa-solid-900.ttf") format("truetype"),
-        url("../fonts/fa-solid-900.woff") format("woff"),
-        url("../fonts/fa-solid-900.svg") format("svg");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "fa-brands-400";
-    src: url("../fonts/fa-brands-400.woff2");
-    src: url("../fonts/fa-brands-400.eot") format("embedded-opentype"),
-        url("../fonts/fa-brands-400.ttf") format("truetype"),
-        url("../fonts/fa-brands-400.woff") format("woff"),
-        url("../fonts/fa-brands-400.svg") format("svg");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "fa-regular-400";
-    src: url("../fonts/fa-regular-400.woff2");
-    src: url("../fonts/fa-regular-400.eot") format("embedded-opentype"),
-        url("../fonts/fa-regular-400.ttf") format("truetype"),
-        url("../fonts/fa-regular-400.woff") format("woff"),
-        url("../fonts/fa-regular-400.svg") format("svg");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "glyphicons-halflings-regular";
-    src: url("../fonts/glyphicons-halflings-regular.woff2");
-    src: url("../fonts/glyphicons-halflings-regular.eot")
-            format("embedded-opentype"),
-        url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"),
-        url("../fonts/glyphicons-halflings-regular.woff") format("woff"),
-        url("../fonts/glyphicons-halflings-regular.svg") format("svg");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
+    font-family: "Nunito_Sans";
+    src: url(../fonts/Nunito_Sans/NunitoSans-Regular.ttf);
+  }
+  
+  @font-face {
+    font-family: "Nunito_Sans_bold";
+    src: url(../fonts/Nunito_Sans/NunitoSans-SemiBold.ttf);
+  }
+  
+  @font-face {
+    font-family: "NunitoSans_Bold";
+    src: url(../fonts/Rubik/static/NunitoSans-Bold.ttf);
+  }
+  
+  @font-face {
+    font-family: "Merriweather";
+    src: url(../fonts/Merriweather/Merriweather-Regular.ttf);
+  }
 /*************** Colors *******************/
 :root {
     --black: #000000;
@@ -53,7 +28,8 @@
     --grey: #00000029;
     --greyBg: #FBFBFB;
     --greyBrdr: #DBDBDB;
-    --themeColor:#d0b280
+    --themeColor:#a2743c;
+    --secondary2: #ffead1;
 }
 /**************** Basic Style *****************************/
 body {
@@ -61,6 +37,9 @@ body {
     color: var(--blublack);
     direction: ltr;
 
+}
+.block{
+    display: block;
 }
 
 .left-side-menu,
@@ -100,7 +79,7 @@ a:focus {
     background-color:var(--themeColor);
 }
 .page-title , .button-menu-mobile{
-    color: var(--greyBg);
+    color: var(--secondary2);
 }
 .button-menu-mobile:hover ,
 .button-menu-mobile:focus {
@@ -114,7 +93,7 @@ a:focus {
     color: var(--greyBg);
 }
 #sidebar-menu > ul > li > a {
-    color: var(--secondary);
+    color: #ffead1;
     background-color: transparent;
 }
 #sidebar-menu > ul > li > a:active,
@@ -122,15 +101,15 @@ a:focus {
 #sidebar-menu > ul > li > a:hover,
 #sidebar-menu > ul > li > a.active, 
 #sidebar-menu > ul > li.active > a {
-    color: var(--secondary) !important;
+    color: #ffead1 !important;
     border-right: 3px solid var(--secondary);
 }
 #sidebar-menu .subdrop {
     border-right: 3px solid var(--secondary);
-    color: var(--secondary) !important;
+    color:#ffead1!important;
 }
 .user-box ul li a:hover, #sidebar-menu ul ul li.active a, #sidebar-menu ul ul a:hover {
-    color: var(--secondary);
+    color: #ffead1;
 }
 .label-purple {
     background-color: var(--primary) ;
@@ -498,3 +477,7 @@ span.select2.select2-container.select2-container--bootstrap {
     padding-right: 0px;
     padding-left: 0px;
 }
+body {
+    font-family: "Nunito_Sans";
+
+  }
