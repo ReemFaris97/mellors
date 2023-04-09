@@ -58,6 +58,7 @@ class CustomerFeedbackController extends Controller
      */
     public function store(CustomerFeedbackRequest $request)
     {
+        return $request;
         $cf = new CustomerFeedbacks();
         $cf->comment = $request->input('comment');
         $cf-> type = $request->input('type');
@@ -65,8 +66,8 @@ class CustomerFeedbackController extends Controller
         $cf->ride_id = $request->input('ride_id');
         $cf->save();
         $customer_feedback_id=$cf->id;
-           if ($request->has('file')) {
-                    $this->Gallery($request, new CustomerFeedbackImage(), ['customer_feedback_id' =>$customer_feedback_id]);
+           if ($request->has('image')) {
+                    $this->GallerySingleImage($request, new CustomerFeedbackImage(), ['customer_feedback_id' =>$customer_feedback_id]);
                 }
         alert()->success('Customer Feedback  Added successfully !');
         return redirect()->route('admin.customer_feedbacks.index');

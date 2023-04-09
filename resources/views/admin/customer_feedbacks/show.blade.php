@@ -31,10 +31,10 @@
                                 @foreach ($images as $item)
                                     <div class="col-sm-3">
                                         <div class="flex-img">
-                                            <a download href="{{ url('../storage/app/public/'.$item->image)}}">
-                                                <img class="img-preview"
-                                                     src="{{ url('../storage/app/public/'.$item->image) }}" style="height: 200px; width: 200px"></a>
-                                        </div>
+                                        <a download href="{{ $item->image }}"> 
+                            <img class="img-preview" src="{{ $item->image }}" 
+                            style="height: 300px; width: 300px"></a>
+                                    </div>
                                     </div>
                                 @endforeach
                             </div>

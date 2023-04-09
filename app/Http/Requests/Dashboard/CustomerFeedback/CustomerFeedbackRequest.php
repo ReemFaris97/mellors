@@ -28,7 +28,9 @@ class CustomerFeedbackRequest extends FormRequest
             'comment' => 'required',
             'ride_id' => 'required',
             'date' => 'required',
-            'type' => 'required'
+            'type' => 'required',
+            'image' => 'nullable'
+            
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
