@@ -88,6 +88,7 @@ class RideStoppageController extends Controller
     public function edit($id)
     {
         $item = RideStoppages::findOrFail($id);
+        $ride_status=$item->ride_status;
         $rides = Ride::pluck('name', 'id')->all();;
         $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
         $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
@@ -101,11 +102,11 @@ class RideStoppageController extends Controller
     {
         $item = RideStoppages::findOrFail($id);
         $data=$request->validated();
-        if ($request->has('description') && $request->ride_status == "stopped"){
+/*         if ($request->has('description') && $request->ride_status == "stopped"){
             $data['stoppage_status']="working";
         }elseif ($request->ride_status == "active"){
             $data['stoppage_status']="done";
-        }
+        } */
 
         $item->update($data);
 

@@ -37,6 +37,8 @@
         </div>
         @enderror
     </div>
+    
+
     <div class="col-lg-6  stoppageSubCategory">
         <label class="block"> Number of Seats :</label>
         <div class="">
@@ -134,14 +136,18 @@
         </div>
     </div>
     <br><br><br>
-    <div class="form-group stoppageReason">
-        <label class="col-lg-12">Stoppage description :</label>
-        <div class="col-lg-12">
-            {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>'Stoppage description'])!!}
+    <div class="col-lg-6  stoppageCategory ">
+        <label class="block">Change Stoppage Status :</label>
+        <div class="">
+            {!! Form::select('stoppage_status', ["working"=>'Working',"done"=>'Done'],null, array('class' =>
+            'form-control ','placeholder'=>'Stoppage Status')) !!}
         </div>
+        @error('name')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
     </div>
-
-    <br><br><br>
     <div class="col-lg-12 form-group stoppageReason">
         <label class="">Ride Notes :</label>
         <div class="">
@@ -160,7 +166,7 @@
         @if (isset($album))
         <div class="form-group">
             <label class="form-label">Images :</label>
-            <div class="form-line row">
+            <div class="row">
                 @foreach ($album as $item)
                 <div class="col-lg-12">
                     <div class="flex-img">
@@ -188,7 +194,6 @@
 
 
 
-    @push('scripts')
     @push('scripts')
     <script type="text/javascript">
     $('.mai_category').change(function() {
