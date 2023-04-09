@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 form-group">
         <label class="block">Ride :</label></label>
         <div class=" ">
             {!! Form::select('ride_id', $rides,null, array('class' => 'form-control ','placeholder'=>'choose
@@ -12,7 +12,7 @@
         @enderror
     </div>
 
-    <div class="col-lg-6 stoppageCategory ">
+    <div class="col-lg-6 form-group stoppageCategory ">
         <label class="block">Operator :</label>
         <div class="">
             {!! Form::select('user_id', $users,null, array('class' => 'form-control ','placeholder'=>'Choose
@@ -25,7 +25,7 @@
         @enderror
     </div>
 
-    <div class="col-lg-6  stoppageCategory ">
+    <div class="col-lg-6 form-group stoppageCategory ">
         <label class="block">Ride Status :</label>
         <div class="">
             {!! Form::select('ride_status', ["stopped"=>'stopped',"active"=>'active'],null, array('class' =>
@@ -37,16 +37,16 @@
         </div>
         @enderror
     </div>
-    
 
-    <div class="col-lg-6  stoppageSubCategory">
+
+    <div class="col-lg-6 form-group  stoppageSubCategory">
         <label class="block"> Number of Seats :</label>
         <div class="">
             {!! Form::number('number_of_seats',null,['class'=>'form-control','placeholder'=>'Number of Seats'])!!}
         </div>
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
+            {{ $message }}
         </div>
         @enderror
     </div>
@@ -85,7 +85,18 @@
         </div>
         @enderror
     </div>
-
+    <div class="col-lg-6 form-group  stoppageCategory ">
+        <label class="block">Change Stoppage Status :</label>
+        <div class="">
+            {!! Form::select('stoppage_status', ["working"=>'Working',"done"=>'Done'],null, array('class' =>
+            'form-control ','placeholder'=>'Stoppage Status')) !!}
+        </div>
+        @error('name')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
     <div class="form-group downTime hidden">
         <label class="col-lg-12">Down Time :</label>
         <div class="col-lg-6">
@@ -106,10 +117,10 @@
                 {!! Form::time('time_slot_start',null,['class'=>'form-control']) !!}
                 @if ($errors->has('start'))
                 <span class="help-block">
-                <span class="help-block">
-                    <strong>{{ $errors->first('start') }}</strong>
-                </span>
-                @endif
+                    <span class="help-block">
+                        <strong>{{ $errors->first('start') }}</strong>
+                    </span>
+                    @endif
             </div>
         </div>
         <div class="form-group">
@@ -120,10 +131,10 @@
                 {!! Form::date('time_slot_end',null,['class'=>'form-control']) !!}
                 @if ($errors->has('close_date'))
                 <span class="help-block">
-                <span class="help-block">
-                    <strong>{{ $errors->first('close_date') }}</strong>
-                </span>
-                @endif
+                    <span class="help-block">
+                        <strong>{{ $errors->first('close_date') }}</strong>
+                    </span>
+                    @endif
             </div>
         </div>
     </div>
@@ -136,18 +147,7 @@
         </div>
     </div>
     <br><br><br>
-    <div class="col-lg-6  stoppageCategory ">
-        <label class="block">Change Stoppage Status :</label>
-        <div class="">
-            {!! Form::select('stoppage_status', ["working"=>'Working',"done"=>'Done'],null, array('class' =>
-            'form-control ','placeholder'=>'Stoppage Status')) !!}
-        </div>
-        @error('name')
-        <div class="invalid-feedback" style="color: #ef1010">
-            {{ $message }}
-        </div>
-        @enderror
-    </div>
+
     <div class="col-lg-12 form-group stoppageReason">
         <label class="">Ride Notes :</label>
         <div class="">
@@ -160,7 +160,7 @@
         @enderror
     </div>
 
-    
+
 
     <div class="form-group">
         @if (isset($album))
