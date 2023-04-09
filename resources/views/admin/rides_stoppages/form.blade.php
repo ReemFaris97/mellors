@@ -1,17 +1,9 @@
 <div class="row">
-<<<<<<< HEAD
     <div class="col-lg-6">
         <label class="block">Ride :</label></label>
         <div class=" ">
             {!! Form::select('ride_id', $rides,null, array('class' => 'form-control ','placeholder'=>'choose
             ride')) !!}
-=======
-    <div class="col-lg-6">
-        <label class="block">Ride :</label></label>
-        <div class=" ">
-            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control ','placeholder'=>'choose
-            ride')) !!}
->>>>>>> 5af2e98c04c28607534c63ba91f77156d6e172d6
         </div>
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
@@ -91,7 +83,6 @@
         </div>
         @enderror
     </div>
->>>>>>> 5af2e98c04c28607534c63ba91f77156d6e172d6
 
     <div class="form-group downTime hidden">
         <label class="col-lg-12">Down Time :</label>
