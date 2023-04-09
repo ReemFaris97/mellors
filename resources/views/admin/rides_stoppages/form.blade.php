@@ -1,9 +1,17 @@
 <div class="row">
+<<<<<<< HEAD
     <div class="col-lg-6">
         <label class="block">Ride :</label></label>
         <div class=" ">
             {!! Form::select('ride_id', $rides,null, array('class' => 'form-control ','placeholder'=>'choose
             ride')) !!}
+=======
+    <div class="col-lg-6">
+        <label class="block">Ride :</label></label>
+        <div class=" ">
+            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control ','placeholder'=>'choose
+            ride')) !!}
+>>>>>>> 5af2e98c04c28607534c63ba91f77156d6e172d6
         </div>
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
@@ -83,6 +91,7 @@
         </div>
         @enderror
     </div>
+>>>>>>> 5af2e98c04c28607534c63ba91f77156d6e172d6
 
     <div class="form-group downTime hidden">
         <label class="col-lg-12">Down Time :</label>
@@ -104,6 +113,7 @@
                 {!! Form::time('time_slot_start',null,['class'=>'form-control']) !!}
                 @if ($errors->has('start'))
                 <span class="help-block">
+                <span class="help-block">
                     <strong>{{ $errors->first('start') }}</strong>
                 </span>
                 @endif
@@ -117,6 +127,7 @@
                 {!! Form::date('time_slot_end',null,['class'=>'form-control']) !!}
                 @if ($errors->has('close_date'))
                 <span class="help-block">
+                <span class="help-block">
                     <strong>{{ $errors->first('close_date') }}</strong>
                 </span>
                 @endif
@@ -124,6 +135,13 @@
         </div>
     </div>
     @if(auth()->user()->hasRole('Technical') || auth()->user()->hasRole('Super Admin'))
+    <br><br><br>
+    <div class="form-group stoppageReason">
+        <label class="col-lg-12">Stoppage description :</label>
+        <div class="col-lg-12">
+            {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>'Stoppage description'])!!}
+        </div>
+    </div>
     <br><br><br>
     <div class="form-group stoppageReason">
         <label class="col-lg-12">Stoppage description :</label>
@@ -179,6 +197,7 @@
 
 
 
+    @push('scripts')
     @push('scripts')
     <script type="text/javascript">
     $('.mai_category').change(function() {
