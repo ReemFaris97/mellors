@@ -53,18 +53,15 @@
     <div class="col-lg-6 form-group stoppageSubCategory ">
         <label class="col-lg-12">Stoppage Reasons Main Category :</label>
         <div class="">
-            {!! Form::select('', $stopage_category,null, array('class' => 'select2 form-control
+            {!! Form::select('',@$stopage_category?$stopage_category:[],null, array('class' => 'select2 form-control
             mai_category','placeholder'=>'Stoppage main Category')) !!}
         </div>
     </div>
     <div class="col-lg-6 form-group stoppageSubCategory ">
         <label class="block">Stoppage Sub Category :</label>
         <div class="">
-            <select class="select2 form-control js-example-basic-single ms subCategory" id="subCategory"
-                name="stopage_sub_category_id" data-live-search=true required>
-                <option disabled> choose Main Category First</option>
-
-            </select>
+        {!! Form::select('stopage_sub_category_id',@$stopage_sub_category?$stopage_sub_category:[],null, array('class' => 'select2 form-control 
+            js-example-basic-single ms subCategory','placeholder'=>'choose Main Category First')) !!}
             @error('name')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
@@ -164,7 +161,6 @@
 
     <div class="form-group">
         @if (isset($album))
-        <div class="form-group">
             <label class="form-label">Images :</label>
             <div class="row">
                 @foreach ($album as $item)
@@ -177,7 +173,6 @@
                 </div>
                 @endforeach
             </div>
-        </div>
         @endif
     </div>
 
