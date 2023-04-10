@@ -87,14 +87,14 @@
                                 @if($item->stoppage_status=='pending')
                                 <span class="btn btn-xs btn-primary">Pending</a>
                                   @elseif($item->stoppage_status=='working')
-                                  <span class="btn btn-xs btn-danger">Working</a>
+                                  <span class="btn btn-xs btn-danger">Working On it</a>
                                   @else
                                   <span class="btn btn-xs btn-success">Done</a>
                                 @endif
                                 </td>
                                 <td>{{ $item->stopageSubCategory->name ?? "name" }}</td>
                                 <td>{{ $item->ride_notes }}</td>
-                                <td>{{ $item->down_minutes }}</td>
+                                <td>{{ $item->down_minutes?? "Stop All Day" }}</td>
                                 {!!Form::open( ['route' => ['admin.rides-stoppages.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>

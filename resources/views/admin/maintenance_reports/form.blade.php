@@ -295,8 +295,7 @@
                            </td>
                            <td>
                           <label>
-                          open
-                              <input type="hidden" name="status[]" class="status" value="open">
+                          {!! Form::text('status[]',null, array('class' => 'form-control status')) !!}
                           </label>
                            </td>
                            <td>
@@ -309,9 +308,6 @@
                    </tbody>
                </table>
                </div>
-
-
-
     
                <div class="col-xs-12 aligne-center contentbtn">
         <button class="btn btn-primary save_btn waves-effect" type="submit">Save</button>

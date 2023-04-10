@@ -82,10 +82,12 @@
         </div>
         @enderror
     </div>
+    
+    @if(auth()->user()->hasRole('Technical')|| auth()->user()->hasRole('Super Admin'))
     <div class="col-lg-6 form-group  stoppageCategory ">
         <label class="block">Change Stoppage Status :</label>
         <div class="">
-            {!! Form::select('stoppage_status', ["working"=>'Working',"done"=>'Done'],null, array('class' =>
+            {!! Form::select('stoppage_status', ["pending"=>'Pending',"working"=>'Working on it',"done"=>'Done'],null, array('class' =>
             'form-control ','placeholder'=>'Stoppage Status')) !!}
         </div>
         @error('name')
@@ -94,6 +96,7 @@
         </div>
         @enderror
     </div>
+    @endif
     <div class="form-group downTime hidden">
         <label class="col-lg-12">Down Time :</label>
         <div class="col-lg-6">
