@@ -42,8 +42,8 @@
                         <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                         <td>{{ $item->question }}</td>
                         <td class="{{$item->color}}  align-center">
-                        {{ $item->answer }}
-                       </td>
+                            {{ $item->answer }}
+                        </td>
                         <td>{!! $item->comment !!}</td>
                     </tr>
                     @endforeach
@@ -54,7 +54,7 @@
                                 @if(isset($redFlags))
                                 @foreach($redFlags as $item)
                                 <li>
-                                {{$item->ride}} :{!! $item->issue !!}
+                                    {{$item->ride}} :{!! $item->issue !!}
                                 </li>
                                 @endforeach
                                 @endif
@@ -65,7 +65,6 @@
                         <td style="display: none;"></td>
 
                     </tr>
-<<<<<<< HEAD
                     <tr role="row" class="odd">
                         <td colspan="1" tabindex=" 0" class="sorting_1 redflagTd">
 
@@ -75,9 +74,6 @@
                         <td style="display: none;"></td>
 
                     </tr>
-=======
-                    
->>>>>>> 5af2e98c04c28607534c63ba91f77156d6e172d6
                 <tfoot>
                     <tr role="row" class="odd" id="row-{{ 1 }}">
                         <td tabindex="0" class="sorting_1">{{ 1}}</td>

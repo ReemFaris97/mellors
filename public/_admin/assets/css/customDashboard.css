@@ -339,8 +339,12 @@ div.dataTables_filter, div.dataTables_paginate {
    
     border: 0;
 }
-.tabsLinkDuty{
-
+.tabsLinkDuty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    border-bottom: 0;
 }
 .tabsLinkDuty > li {
     margin-bottom: 0;
@@ -483,4 +487,46 @@ body {
   }
   span.select2.select2-container.select2-container--bootstrap{
     width: 100% !important;
+    background-color: #fff;
   }
+  .formSection{
+    background-color: #f2eadd;
+    padding: 7px;
+    margin-bottom: 15px;
+  }
+  .mtButton{
+    margin-top: 20px;
+  }
+  .tab-content {
+
+    border-top: 2px solid #eeeeee;
+}
+.datatableTabs{
+    margin-top: 15px;
+}
+div#datatable-buttons_filter {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    margin: 0;
+}
+table.dataTable {
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #f8f8f8;
+    margin-top: 15px;
+}
+table.dataTable td{
+    background: #f8f8f8
+}
+@media (max-width: 1450px) {}
+
+@media (max-width: 1050px) {}
+@media (max-width: 767px) {
+    div#datatable-buttons_filter {
+        position: relative;
+        right: unset;
+        top: 0;
+        margin: 0;
+    }
+}
