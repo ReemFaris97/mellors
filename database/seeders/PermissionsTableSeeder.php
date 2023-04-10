@@ -671,7 +671,6 @@ class PermissionsTableSeeder extends Seeder
             ],
 
 
-
         ];
         \DB::table('permissions')->insert($permissions);
     }

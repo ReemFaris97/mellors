@@ -49,10 +49,15 @@ trait ImageOperations
             $imageName = $path = \Storage::disk('public')->putFile('photos', $image['file']);
             $model->create(['image' => $imageName, 'comment' => $image['comment']] + $item);
 
+        } 
+    }
+    public function GallerySingleImage($request, $model, $item)
+    {
+        foreach ($request['image'] as $key => $image) {
+            $imageName = $path = \Storage::disk('public')->putFile('photos', $image);
+            $model->create(['image' => $imageName] + $item);
         }
 
-        
-    }
 
-
+}
 }
