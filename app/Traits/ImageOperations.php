@@ -36,7 +36,7 @@ trait ImageOperations
     {
         if (!empty($filename)) {
             $base_url = url('/');
-            return $base_url . '/storage/' . $filename;
+            return $base_url . '/../storage/app/public/' . $filename;
         } else {
             return '';
         }
@@ -51,11 +51,12 @@ trait ImageOperations
 
         } 
     }
-    public function GallerySingleImage($request, $model, $item)
+    public function Images($request, $model, $item)
     {
         foreach ($request['image'] as $key => $image) {
             $imageName = $path = \Storage::disk('public')->putFile('photos', $image);
             $model->create(['image' => $imageName] + $item);
+
         }
 
 

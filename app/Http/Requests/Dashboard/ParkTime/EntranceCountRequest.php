@@ -25,7 +25,9 @@ class EntranceCountRequest extends FormRequest
     {
         if ($this->getMethod() == 'PATCH') {
             $rules = [
-                'daily_entrance_count'=>'required'
+                'daily_entrance_count'=>'required',
+                'general_comment'=>'nullable'
+                
             ];
         }
         return $rules;

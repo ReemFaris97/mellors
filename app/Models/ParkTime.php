@@ -9,7 +9,7 @@ class ParkTime extends Model
 {
 
     protected $fillable = [
-        'start','end','park_id','date','daily_entrance_count','close_date','duration_time'
+        'start','end','park_id','date','daily_entrance_count','close_date','duration_time','general_comment'
     ];
 
     public function parks()

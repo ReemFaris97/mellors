@@ -110,7 +110,7 @@ class RideStoppageController extends Controller
 
         $item->update($data);
 
-        if ($request->has('file')) {
+        if ($request->has('images')) {
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' =>$id]);
         }
         alert()->success('Ride Stoppage Updated successfully !');

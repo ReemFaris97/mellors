@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div class='contentRide'>
+    <!-- <div class='contentRide'>
         <div class="Description">
             <div class="contentDescription">
                 <h4 class="bold">title</h4>
@@ -71,7 +71,7 @@
             </div>
 
         </div>
-    </div>
+    </div> -->
     <div class=" row">
 
         <div class="col-lg-3 col-md-6">

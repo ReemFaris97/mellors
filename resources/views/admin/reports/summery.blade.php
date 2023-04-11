@@ -25,7 +25,9 @@
                             <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
                                 Closing Time :
                             </th>
-                            
+                            <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                            Number of Guest:
+                            </th>	
                             <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
                                 Weather: :
                             </th>
@@ -39,6 +41,7 @@
                                 <!-- <span class="yelloBack">friday</span> --> </td>
                             <td class=" align-center">{{$parkTime->start}}</td>
                             <td>{{$parkTime->end}}</td>
+                            <td>{{$parkTime->daily_entrance_count}}</td>
                             <td class="">  
                              @if(isset($info))
                              {{$info->weather[0]->main}}-{{$info->weather[0]->description}}-{{$info->main->temp}} ْ -Windspeed avg {{$info->wind->speed}}km/h
@@ -462,11 +465,13 @@
                 </div>
                 <div class='mt-4'>
                     <h4 class='redFlags'>Duty Manager general comments on today's operations:</h4>
-                    <textarea class="editTextArea" name="" id="" rows="10"></textarea>
+                    <textarea class="editTextArea" name="" id="" rows="10">
+                    @if(isset($parkTime))
+                       {!! $parkTime->general_comment !!}
+                       @endif
+                    </textarea>
                 </div>
-                <div class='mt-4'>
-                    <span class="bold">Report completed by </span> <span class="yelloBack"> asmaa</span>
-                </div>
+                
             </div>
         </div>
 

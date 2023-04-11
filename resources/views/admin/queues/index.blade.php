@@ -8,24 +8,32 @@ Show Queues On Selected Ride
 
     <div class="card-box">
         <a href="{{route('admin.queues.create')}}">
-            <button type="button" class="btn btn-info">Create New Queue</button>
+            <button type="button" class="btn btn-primary save_btn">Create New Queue</button>
         </a>
-        <form action="{{url('/search_queues')}}" method="GET">
+        <br><br>
+        <form class="formSection" action="{{url('/search_queues')}}" method="GET">
 
             @csrf
-            <div class="form-group">
-                <label for="middle_name">Date </label>
-                {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
-            </div>
-            <div class="form-group">
-                <label for="last_name">Select Ride</label>
-                {!! Form::select('ride_id', \App\Models\Ride::pluck('name','id')->all(),null, array('class' => 'form-control')) !!}
-            </div>
-            <div class="col-xs-12">
-                <div class="input-group-btn">
-                    <button type="submit" class="btn btn-outline-info">Show</button>
-                </div>
-            </div>
+
+     <div class="row">
+    <div class='col-md-5'>
+        <div class="form-group">
+            <label for="last_name">Select Ride</label>
+            {!! Form::select('ride_id', \App\Models\Ride::pluck('name','id')->all(),null, array('class' => 'form-control')) !!}
+        </div>
+    </div>
+    <div class='col-md-5'>
+        <div class="form-group">
+            <label for="middle_name">Date </label>
+            {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
+        </div>
+    </div>
+    <div class='col-md-2 mtButton'>
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-primary save_btn waves-effect">Show</button>
+        </div>
+    </div>
+</div>
             {!!Form::close() !!}
 
       {{--@if(isset($queues))--}}

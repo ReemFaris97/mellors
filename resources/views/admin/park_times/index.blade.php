@@ -7,20 +7,20 @@
 @section('content')
 
     <div class="card-box">
-    <form action="{{url('/search_park_times')}}" method="GET">
+    <form class="formSection" action="{{url('/search_park_times')}}" method="GET">
 
 @csrf
-<div class="form-group">
-    <label for="middle_name">Date </label>
-    {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
-</div>
-<!-- <div class="form-group">
-    <label for="last_name">Select Ride</label>
-    {!! Form::select('park_id',auth()->user()->parks->pluck('name', 'id')->toArray(),null, array('class' => 'form-control')) !!}
-</div> -->
-<div class="col-xs-12">
-    <div class="input-group-btn">
-        <button type="submit" class="btn btn-outline-info">Show</button>
+<div class="row">
+    <div class='col-md-8'>
+        <div class="form-group">
+            <label for="middle_name">Date </label>
+            {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
+        </div>
+    </div>
+    <div class='col-md-2 mtButton'>
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-primary save_btn waves-effect">Show</button>
+        </div>
     </div>
 </div>
 {!!Form::close() !!}
@@ -50,7 +50,7 @@
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                duration_time
+                                Duration Time
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Daily Entrance Count
@@ -88,18 +88,28 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title" id="defaultModalLabel">
-                                                        Add Daily Entrance Count</h4>
+                                                        Additional Options</h4>
                                                 </div>
                                                 <div class="modal-body">
 
                                                     {!!Form::model($item , ['route' => ['admin.park_times.daily_entrance_count' , $item->id],'id' => 'ClientStore', 'method' => 'PATCH','enctype'=>"multipart/form-data"]) !!}
-                                                    <label class="form-label"> </label>
+                                                    <label class="form-label">Add Daily Entrance Count </label>
                                                     <div class="form-line">
                                                         {!! Form::number('daily_entrance_count', null, ['class' => 'form-control']) !!}
 
                                                         @if ($errors->has('daily_entrance_count'))
                                                             <span class="help-block">
                                                               <strong>{{ $errors->first('daily_entrance_count') }}</strong>
+                                                                </span>
+                                                        @endif
+                                                        <br><br>
+                                                        <label class="form-label">Add General Comment On Park </label>
+                                                       <div class="form-line">
+                                                        {!! Form::textArea('general_comment', null, ['class' => 'form-control summernote']) !!}
+
+                                                        @if ($errors->has('general_comment'))
+                                                            <span class="help-block">
+                                                              <strong>{{ $errors->first('general_comment') }}</strong>
                                                                 </span>
                                                         @endif
                                                         {!! Form::hidden('park_id', $item->id, ['class' => 'form-control']) !!}

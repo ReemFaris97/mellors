@@ -145,7 +145,9 @@ class ParkTimeController extends Controller
 
     public function add_daily_entrance_count(EntranceCountRequest $request, ParkTime $parkTime)
     {
-        $toUpdateColumns = ['daily_entrance_count' => $request['daily_entrance_count']];
+        $toUpdateColumns = ['daily_entrance_count' => $request['daily_entrance_count'],
+                            'general_comment' => $request['general_comment']
+                           ];
         $res = ParkTime::findOrFail($request->park_id);
         $res->fill($toUpdateColumns);
         $res->save();
