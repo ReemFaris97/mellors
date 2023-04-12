@@ -5,8 +5,6 @@
 
         <div class="form-group">
 
-
-
             <div class="row">
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                     <thead>
@@ -36,13 +34,7 @@
                                    <option value="no">No</option>
                                </select>
                            </label>
-                           <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                      
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -59,13 +51,7 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="{{$data['rsr_count']}}">
                                </label>
-                               <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -83,13 +69,7 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="{{$data['ride_down_all_day']}}">
                                </label>
-                               <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -106,13 +86,7 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="{{$data['ride_due_to_maintenance']}}">
                                </label>
-                               <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -129,13 +103,7 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="">
                                </label>
-                               <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -153,13 +121,7 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="">
                                </label>
-                               <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -176,13 +138,7 @@
                            <label>
                                <input type="number" name="answer[]" class="answer" value="">
                            </label>
-                           <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                      
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -273,6 +229,67 @@
                    </tbody>
                </table>
 
+               <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
+                    <thead>
+                    <tr>
+                    <td colspan="4" tabindex=" 0" class="sorting_1 redflagTd">
+                            <h3>Rides Dwon</h3>
+                        </td>
+                    </tr>
+                    <tr role="row">
+                       
+                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                            colspan="1" aria-sort="ascending"> Rides 
+                        </th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                            colspan="1" aria-sort="ascending">Is Down ?
+                        </th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                            colspan="1" aria-sort="ascending">Date Expected Open
+                        </th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                            colspan="1" aria-sort="ascending">Lead Name
+                        </th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                            colspan="1" aria-sort="ascending">Comments
+                        </th>
+                   </thead>
+                   <tbody>
+                   @foreach ($rides_down as $item)
+                            <tr role="row" class="odd" id="row-{{ $item->id }}">
+                            
+                           <td>
+                           {{$item->name }}
+                               <input type="hidden" name="ride_down_id[]" class="ride-down-id" value="{{ $item->id }}">
+
+                           </td>
+                           <td>
+                          <label>
+                                   <select name="is_down[]" id="is_down" class="form-control is-down">
+                                       <option disabled> Choose...</option>
+                                       <option value="no">No</option>
+                                       <option value="yes">Yes</option>
+                                   </select>
+                               
+                                </label>
+                           </td>
+                           <td>
+                               <label>
+                               {!! Form::date('date_expected_open[]',null, array('class' => 'form-control date-expected-open')) !!}
+                               </label>
+                           </td>
+                           <td>
+                               {!! Form::text('lead_name[]',null, array('class' => 'form-control lead-name')) !!}
+                           </td>
+                           <td>
+                               {!! Form::textArea('ride_down_comment[]',null, array('class' => 'form-control ride-down-comment summernote')) !!}
+                           </td>
+                       </tr>
+                        @endforeach
+
+                   </tbody>
+               </table>
+
     <div class="col-xs-12 aligne-center contentbtn">
         <button class="btn btn-primary save_btn waves-effect" type="submit">Save</button>
     </div>
@@ -290,7 +307,11 @@
             const answer = [];
             const ride = [];
             const issue = [];
-            const color = [];
+            const ride_down_id = [];
+            const is_down = [];
+            const lead_name = [];
+            const date = [];
+            const ride_down_comment = [];
            
 
             $('.answer').each(function () {
@@ -312,8 +333,20 @@
             $('.issue').each(function () {
                 issue.push($(this).val());
             });
-            $('.color').each(function () {
-                color.push($(this).val());
+            $('.ride-down-id').each(function () {
+                ride_down_id.push($(this).val());
+            });
+            $('.is-down').each(function () {
+                is_down.push($(this).val());
+            });
+            $('.date-expected-open').each(function () {
+                date.push($(this).val());
+            });
+            $('.lead-name').each(function () {
+                lead_name.push($(this).val());
+            });
+            $('.ride-down-comment').each(function () {
+                ride_down_comment.push($(this).val());
             });
             var park_id = $("#park-id").val();
             var park_time_id = $("#park-time-id").val();
@@ -328,18 +361,32 @@
                     park_id: park_id,
                     park_time_id: park_time_id,
                     ride: ride,
-                    issue: issue,
-                    color: color
+                    ride_down_id: ride_down_id,
+                    is_down: is_down,
+                    date: date,
+                    ride_down_comment: ride_down_comment,
+                    lead_name: lead_name
 
                 },
                 success: function(response)
                 {
                     if(response.success){
-                        alert('Tech Report Added successfully');
-                    }else {
-                        alert('Tech Report Report Already Exist !');
+                    swal({
+                         title: "Tech Report Added successfully",
+                         icon: "success",
+                         buttons: ["Ok"]
+                          }); 
+                          window.location.href = "{{route('admin.park_times.index')}}";
 
-                        console.log('error');
+                    }else {
+                        swal({
+                         title: "Tech Report Already Exist !",
+                         icon: "danger",
+                         buttons: ["Ok"],
+                         
+                          }); 
+                          window.location.href = "{{route('admin.park_times.index')}}";
+
                     }
 
                 }

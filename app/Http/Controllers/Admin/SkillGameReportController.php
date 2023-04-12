@@ -71,7 +71,6 @@ class SkillGameReportController extends Controller
             $list = new SkillGameReport();
             $list->question = $request->question[$key];
             $list->answer = $request->answer[$key];
-            $list->color=$request->color[$key];           
             $list->comment = $request->comment[$key];
             $list->park_id = $request->park_id;
             $list->park_time_id = $request->park_time_id;
@@ -90,6 +89,7 @@ class SkillGameReportController extends Controller
             $listrf->save();
             }
         }
+
         return response()->json(['success' => 'Skill Games Report Added successfully']);
 
         //        alert()->success('Preopening List Added successfully !');

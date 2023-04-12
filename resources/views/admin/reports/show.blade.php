@@ -47,17 +47,17 @@
                         <td>{!! $item->comment !!}</td>
                     </tr>
                     @endforeach
+                    @if(isset($redFlags))
+
                     <tr role="row" class="odd">
                         <td colspan="4" tabindex=" 0" class="sorting_1 redflagTd">
                             <h3>Red Flags</h3>
                             <ul>
-                                @if(isset($redFlags))
                                 @foreach($redFlags as $item)
                                 <li>
                                     {{$item->ride}} :{!! $item->issue !!}
                                 </li>
                                 @endforeach
-                                @endif
                             </ul>
                         </td>
                         <td style="display: none;"></td>
@@ -65,15 +65,8 @@
                         <td style="display: none;"></td>
 
                     </tr>
-                    <tr role="row" class="odd">
-                        <td colspan="1" tabindex=" 0" class="sorting_1 redflagTd">
+                    @endif
 
-                        </td>
-                        <td colspan="3"></td>
-                        <td style="display: none;"></td>
-                        <td style="display: none;"></td>
-
-                    </tr>
                 <tfoot>
                     <tr role="row" class="odd" id="row-{{ 1 }}">
                         <td tabindex="0" class="sorting_1">{{ 1}}</td>

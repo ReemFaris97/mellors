@@ -75,7 +75,6 @@ class HealthAndSafetyReportController extends Controller
            $list->question=$request->question[$key];
            $list->answer=$request->answer[$key];
            $list->comment=$request->comment[$key];
-           $list->color=$request->color[$key];
            $list->park_id=$request->park_id;
            $list->park_time_id=$request->park_time_id;
            $list->date=Carbon::now()->format('Y-m-d');

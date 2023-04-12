@@ -36,13 +36,7 @@
                                    <option value="no">No</option>
                                </select>
                            </label>
-                           <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                      
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -63,13 +57,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                               <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -91,13 +79,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                               <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -118,13 +100,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                               <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -145,13 +121,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                               <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -173,13 +143,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                               <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -196,13 +160,7 @@
                            <label>
                                <input type="number" name="answer[]" class="answer" value="">
                            </label>
-                           <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                      
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -219,13 +177,7 @@
                            <label>
                                <input type="number" name="answer[]" class="answer" value="">
                            </label>
-                           <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                      
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -242,13 +194,7 @@
                            <label>
                                <input type="number" name="answer[]" class="answer" value="">
                            </label>
-                           <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                      
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -265,13 +211,7 @@
                            <label>
                                <input type="number" name="answer[]" class="answer" value="">
                            </label>
-                           <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                      
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -288,13 +228,7 @@
                            <label>
                                <input type="number" name="answer[]" class="answer" value="">
                            </label>
-                           <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                      
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -311,13 +245,7 @@
                            <label>
                                <input type="number" name="answer[]" class="answer" value="">
                            </label>
-                           <label>
-                          <select name="color[]" id="color_id" class="form-control color">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes" style="background-color: green;" >green</option>
-                                       <option value="no" style="background-color: red;">red</option>
-                                   </select>
-                          </label>
+                                      
                        </td>
                        <td>
                            {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -422,8 +350,6 @@
             const answer = [];
             const ride = [];
             const issue = [];
-            const color = [];
-
 
             $('.answer').each(function () {
                 if($(this).change){
@@ -444,9 +370,7 @@
             $('.issue').each(function () {
                 issue.push($(this).val());
             });
-            $('.color').each(function () {
-                color.push($(this).val());
-            });
+          
             var park_id = $("#park-id").val();
             var park_time_id = $("#park-time-id").val();
             $.ajax({
@@ -460,9 +384,7 @@
                     park_id: park_id,
                     park_time_id: park_time_id,
                     ride: ride,
-                    issue: issue,
-                    color: color
-
+                    issue: issue
                 },
                 success: function(response)
                 {

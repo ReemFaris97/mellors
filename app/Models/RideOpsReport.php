@@ -9,7 +9,7 @@ class RideOpsReport extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'question','answer','comment','date','user_id','park_time_id','park_id','color'
+        'question','answer','comment','date','user_id','park_time_id','park_id'
     ];
     public function user()
     {

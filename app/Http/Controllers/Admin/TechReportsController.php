@@ -9,6 +9,7 @@ use App\Models\RedFlag;
 use App\Models\Ride;
 use App\Models\RsrReport;
 use App\Models\TechReport;
+use App\Models\TechRideDownReport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -51,8 +52,9 @@ class TechReportsController extends Controller
         $data['ride_due_to_maintenance'] = Ride::whereHas('rideStoppages', function ($query) {
             $query->whereDate('created_at', Carbon::today());
         })->count();
+        $rides_down=Ride::where('park_id',$park_id)->get();
 
-        return view('admin.tech_reports.add', compact('data', 'park_id', 'park_time_id'));
+        return view('admin.tech_reports.add', compact('rides_down','data', 'park_id', 'park_time_id'));
     }
 
     /**
@@ -63,7 +65,8 @@ class TechReportsController extends Controller
      */
     public function store(Request $request)
     {
-        $dateExists = TechReport::where([
+/*         dd($request);
+ */        $dateExists = TechReport::where([
             ['park_time_id', $request['park_time_id']],
             ['park_id', $request['park_id']]
         ])->first();
@@ -77,13 +80,26 @@ class TechReportsController extends Controller
             $list->question = $request->question[$key];
             $list->answer = $request->answer[$key];
             $list->comment = $request->comment[$key];
-            $list->color=$request->color[$key];
             $list->park_id = $request->park_id;
             $list->park_time_id = $request->park_time_id;
             $list->date = Carbon::now()->format('Y-m-d');
             $list->user_id = auth()->user()->id;
             $list->save();
         }
+        $tech_report_id=$list->id;
+        foreach ($request->ride_down_id as $key=>$value){
+         $listr= new TechRideDownReport();
+         if($request->is_down[$key]=='yes'){
+         $listr->ride_down_id=$request->ride_down_id[$key];
+         $listr->lead_name=$request->lead_name[$key];
+         $listr->comment=$request->ride_down_comment[$key];
+         $listr->tech_report_id=$tech_report_id;
+         $listr->park_time_id=$request->park_time_id;
+         $listr->date_expected_open=$request->date[$key];
+         $listr->save();
+         }
+     }
+
         foreach ($request->ride as $key=>$value){
             $listrf= new RedFlag();
             if($request->ride[$key] != null){
