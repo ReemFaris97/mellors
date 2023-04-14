@@ -531,6 +531,26 @@ td .btn-info {
     background-color: #a2743c !important;
     border-color: #a2743c !important;
 }
+.bold{
+    font-weight: bold;
+}
+.contentP-comment {
+    border: 1px solid #bbbaba;
+    padding: 5px 10px;
+    color: #727272;
+}
+span.textTitle {
+    color: #727272;
+}
+.title {
+    color: #a2743c;
+    font-size: 17px;
+}
+img.img-preview{
+    height: 100px !important;
+    width: 200px !important;
+    object-fit: contain  
+}
 /* ============== responsive =================*/
 @media (max-width: 1450px) {}
 
