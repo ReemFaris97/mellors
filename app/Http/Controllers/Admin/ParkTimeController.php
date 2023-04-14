@@ -44,9 +44,7 @@ class ParkTimeController extends Controller
             $parks = Park::pluck('name', 'id')->toArray();
         } else {
             $parks = auth()->user()->parks->pluck('name', 'id')->toArray();
-        }
-
-
+        }                                               
         return view('admin.park_times.add', compact('parks'));
     }
 

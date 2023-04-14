@@ -59,7 +59,7 @@
                                 Reports
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                All Rides Operations
+                                 Rides Operations
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process

@@ -1,3 +1,4 @@
+@if(request()->is('search_duty_summary_reports*'))
 
 <div class="card-box">
 
@@ -478,7 +479,7 @@
     </div>
 </div>
 
-
+@endif
 
 @section(' footer') @include('admin.datatable.scripts') @endsection
 @push('scripts')

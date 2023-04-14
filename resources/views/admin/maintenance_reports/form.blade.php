@@ -347,11 +347,22 @@
                 success: function(response)
                 {
                     if(response.success){
-                        alert('Maintenance Report Added successfully');
-                    }else {
-                        alert('Maintenance Report Already Exist !');
+                    swal({
+                         title: "Maintenance Report Added successfully",
+                         icon: "success",
+                         buttons: ["Ok"]
+                          }); 
+                          window.location.href = "{{route('admin.park_times.index')}}";
 
-                        console.log('error');
+                    }else {
+                        swal({
+                         title: "Maintenance Report Already Exist !",
+                         icon: "danger",
+                         buttons: ["Ok"],
+                         
+                          }); 
+                          window.location.href = "{{route('admin.park_times.index')}}";
+
                     }
 
                 }

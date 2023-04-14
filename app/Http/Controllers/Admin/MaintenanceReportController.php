@@ -115,9 +115,21 @@ class MaintenanceReportController extends Controller
             $parks=auth()->user()->parks->pluck('name','id')->all();
         }
         if($parkTime){
-        $items=MaintenanceReport::where('park_time_id',$parkTime->id)->get();
+            $maintenance['a'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Are all rides working for operations?')->first();
+            $maintenance['b'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any concerns found during routine maintenace?')->first();
+            $maintenance['c'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any new routine preventative maintenance checks added to Opera?')->first();
+            $maintenance['d'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any issues with Maintenance App?')->first();
+            $maintenance['e'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any evacuations during operation?')->first();
+            $maintenance['f'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Additionl comments?')->first();
+            
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','maintenance')->get();
-        return view('admin.reports.duty_report', compact('items','parks','redFlags'));
+        return view('admin.reports.duty_report', compact('maintenance','parks','redFlags'));
     }else
         return view('admin.reports.duty_report', compact('parks'));
     }

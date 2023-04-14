@@ -44,7 +44,7 @@
                        <tr>
                            <td>
                                How many RSR's submitted today?
-                               <input type="hidden" name="question[]" class="question" value="How many RSR's submitted today?">
+                               <input type="hidden" name="question[]" class="question" value="How many RSR submitted today?">
 
                            </td>
                            <td>

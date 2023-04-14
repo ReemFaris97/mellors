@@ -351,6 +351,27 @@
                        </tr>
                        <tr>
                            <td>
+                           Has a training attendance register been taken?        
+                           <input type="hidden" name="question[]" class="question" value="Has a training attendance register been taken?">
+
+                           </td>
+                           <td>
+                               <label>
+                                   <select name="answer[]" id="answer_id" class="form-control answer">
+                                       <option disabled> Choose...</option>
+                                       <option value="yes">Yes</option>
+                                       <option value="no">No</option>
+                                   </select>
+                               </label>
+                                          
+                           </td>
+                           <td>
+                               {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
+
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
                                Was any training programmes undertaken ?
                                <input type="hidden" name="question[]" class="question" value="Was any training programmes undertaken?">
 
@@ -389,7 +410,27 @@
 
                            </td>
                        </tr>
+                       <tr>
+                           <td>
+                           Has a training attendance register been taken?        
+                           <input type="hidden" name="question[]" class="question" value="Has a training attendance register been taken?">
 
+                           </td>
+                           <td>
+                               <label>
+                                   <select name="answer[]" id="answer_id" class="form-control answer">
+                                       <option disabled> Choose...</option>
+                                       <option value="yes">Yes</option>
+                                       <option value="no">No</option>
+                                   </select>
+                               </label>
+                                          
+                           </td>
+                           <td>
+                               {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
+
+                           </td>
+                       </tr>
                        <tr>
                            <td>
                                Has the training been inputed into the LMS system (Frog) ?
@@ -593,11 +634,22 @@
                 success: function(response)
                 {
                     if(response.success){
-                        alert('Health And Safety Report Added successfully');
-                    }else {
-                        alert('Health And Safety Report Already Exist !');
+                    swal({
+                         title: "Health and Safety Report Added successfully",
+                         icon: "success",
+                         buttons: ["Ok"]
+                          }); 
+                          window.location.href = "{{route('admin.park_times.index')}}";
 
-                        console.log('error');
+                    }else {
+                        swal({
+                         title: "Health And Safety Report Already Exist !",
+                         icon: "danger",
+                         buttons: ["Ok"],
+                         
+                          }); 
+                          window.location.href = "{{route('admin.park_times.index')}}";
+
                     }
 
                 }

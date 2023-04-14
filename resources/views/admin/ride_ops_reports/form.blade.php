@@ -51,11 +51,8 @@
                            </td>
                            <td>
                                <label>
-                                   <select name="answer[]" id="answer_id" class="form-control answer">
-                                       <option disabled> Choose...</option>
-                                       <option value="yes">Yes</option>
-                                       <option value="no">No</option>
-                                   </select>
+                               <input type="number" name="answer[]" class="answer" value="">
+
                                </label>
                                           
                            </td>
@@ -389,11 +386,22 @@
                 success: function(response)
                 {
                     if(response.success){
-                        alert('Ride Ops Report Added successfully');
-                    }else {
-                        alert('Ride Ops Report Already Exist !');
+                    swal({
+                         title: "Ride Ops Report Added successfully",
+                         icon: "success",
+                         buttons: ["Ok"]
+                          }); 
+                          window.location.href = "{{route('admin.park_times.index')}}";
 
-                        console.log('error');
+                    }else {
+                        swal({
+                         title: "Ride Ops Report Already Exist !",
+                         icon: "danger",
+                         buttons: ["Ok"],
+                         
+                          }); 
+                          window.location.href = "{{route('admin.park_times.index')}}";
+
                     }
 
                 }
