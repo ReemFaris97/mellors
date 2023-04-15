@@ -89,12 +89,13 @@ class TechReportsController extends Controller
         $tech_report_id=$list->id;
         foreach ($request->ride_down_id as $key=>$value){
          $listr= new TechRideDownReport();
-         if($request->ride_down_id == 'yes')
+         if($request->is_down == 'yes')
          $listr->ride_down_id=$request->ride_down_id[$key];
          $listr->lead_name=$request->lead_name[$key];
          $listr->comment=$request->ride_down_comment[$key];
          $listr->tech_report_id=$tech_report_id;
          $listr->park_time_id=$request->park_time_id;
+         $listr->date = Carbon::now()->format('Y-m-d');
          $listr->date_expected_open=$request->date[$key];
          $listr->save();
      }
@@ -144,8 +145,9 @@ class TechReportsController extends Controller
                 $tech['g'] = TechReport::query()->where('park_time_id',$parkTime->id)
                 ->where('question','How many rides have delayed opening?')->first();
 
+                $techRideDown=TechRideDownReport::query()->where('park_time_id',$parkTime->id)->get();
             $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','tech')->get();
-            return view('admin.reports.duty_report', compact('tech','parks','redFlags'));
+            return view('admin.reports.duty_report', compact('tech','parks','redFlags','techRideDown'));
         }else
         return view('admin.reports.duty_report', compact('parks'));
     }

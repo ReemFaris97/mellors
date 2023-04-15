@@ -128,8 +128,9 @@ class MaintenanceReportController extends Controller
             $maintenance['f'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
             ->where('question','Additionl comments?')->first();
             
+        $maintenanceRideStatus=MaintenanceRideStatusReport::query()->where('park_time_id',$parkTime->id)->get();
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','maintenance')->get();
-        return view('admin.reports.duty_report', compact('maintenance','parks','redFlags'));
+        return view('admin.reports.duty_report', compact('maintenance','parks','redFlags','maintenanceRideStatus'));
     }else
         return view('admin.reports.duty_report', compact('parks'));
     }
