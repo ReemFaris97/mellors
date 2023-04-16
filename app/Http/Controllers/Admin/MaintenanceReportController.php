@@ -71,7 +71,6 @@ class MaintenanceReportController extends Controller
            $list->question=$request->question[$key];
            $list->answer=$request->answer[$key];
            $list->comment=$request->comment[$key];
-           $list->color=$request->color[$key];
            $list->park_id=$request->park_id;
            $list->park_time_id=$request->park_time_id;
            $list->date=Carbon::now()->format('Y-m-d');
@@ -116,9 +115,22 @@ class MaintenanceReportController extends Controller
             $parks=auth()->user()->parks->pluck('name','id')->all();
         }
         if($parkTime){
-        $items=MaintenanceReport::where('park_time_id',$parkTime->id)->get();
+            $maintenance['a'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Are all rides working for operations?')->first();
+            $maintenance['b'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any concerns found during routine maintenace?')->first();
+            $maintenance['c'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any new routine preventative maintenance checks added to Opera?')->first();
+            $maintenance['d'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any issues with Maintenance App?')->first();
+            $maintenance['e'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any evacuations during operation?')->first();
+            $maintenance['f'] = MaintenanceReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Additionl comments?')->first();
+            
+        $maintenanceRideStatus=MaintenanceRideStatusReport::query()->where('park_time_id',$parkTime->id)->get();
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','maintenance')->get();
-        return view('admin.reports.duty_report', compact('items','parks','redFlags'));
+        return view('admin.reports.duty_report', compact('maintenance','parks','redFlags','maintenanceRideStatus'));
     }else
         return view('admin.reports.duty_report', compact('parks'));
     }

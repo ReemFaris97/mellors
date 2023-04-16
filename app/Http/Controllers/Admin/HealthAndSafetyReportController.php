@@ -75,7 +75,6 @@ class HealthAndSafetyReportController extends Controller
            $list->question=$request->question[$key];
            $list->answer=$request->answer[$key];
            $list->comment=$request->comment[$key];
-           $list->color=$request->color[$key];
            $list->park_id=$request->park_id;
            $list->park_time_id=$request->park_time_id;
            $list->date=Carbon::now()->format('Y-m-d');
@@ -100,6 +99,7 @@ class HealthAndSafetyReportController extends Controller
 //        return redirect()->back();
     }
     public function search(Request $request){
+        $health=[];
         $parkTime = ParkTime::query()
             ->where('park_id',$request->input('park_id'))
             ->Where('date', $request->input('date'))
@@ -110,9 +110,58 @@ class HealthAndSafetyReportController extends Controller
                 $parks=auth()->user()->parks->pluck('name','id')->all();
             }
             if($parkTime){
-            $items=HealthAndSafetyReport::where('park_time_id',$parkTime->id)->get();
+            $health=HealthAndSafetyReport::where('park_time_id',$parkTime->id)->get();
+            $health['a'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many incident reports were created?')->first();
+            $health['b'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many witness statements were taken?')->first();
+            $health['c'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many near misses/accidents were reported?')->first();
+            $health['d'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any first aids required for Staff?')->first();
+            $health['e'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any first aids required for Customers?')->first();
+            $health['f'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Have we had any abnormal evacuations? (time, medics etc)?')->first();
+            $health['g'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','HSE Obsevation report completed?')->first();
+            $health['h'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any regulatory bodies visited the site i.e. police , ambulance , EHO etc?')->first();
+            $health['i'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Has TUV undertaken any equipment inspections (harness, chains etc) or any assessments on plant been done?')->first();
+            $health['j'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Has the information above been stored and uploaded to the server?')->first();
+            $health['k'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any trip or fall hazard reported?')->first();
+            $health['l'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any report of ill heath (COVID 19) etc?')->first();
+            $health['m'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Do we require any medical supplies for the first aid bags?')->first();
+            $health['n'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many permits have been completed?')->first();
+            $health['o'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Staff team on duty including times:')->first();
+            $health['p'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any training/toolbox talks undertaken with the staff?')->first();
+            $health['q'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Has a training attendance register been taken?')->first();
+           
+            $health['r'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Was any training programmes undertaken?')->first();
+            $health['s'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many staff were trained (training programmes)?')->first();
+            $health['t'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Has a training attendance register been taken?')->first();
+           
+            $health['u'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Has the training been inputed into the LMS system (Frog)?')->first();
+            $health['v'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many Competency Assessments were undertaken?')->first();
+            $health['w'] = HealthAndSafetyReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Additional comments:')->first();
+
             $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','h&s')->get();
-            return view('admin.reports.duty_report', compact('items','parks','redFlags'));
+            return view('admin.reports.duty_report', compact('health','parks','redFlags'));
         }else
         return view('admin.reports.duty_report', compact('parks'));
     }

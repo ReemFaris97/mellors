@@ -71,7 +71,6 @@ class SkillGameReportController extends Controller
             $list = new SkillGameReport();
             $list->question = $request->question[$key];
             $list->answer = $request->answer[$key];
-            $list->color=$request->color[$key];           
             $list->comment = $request->comment[$key];
             $list->park_id = $request->park_id;
             $list->park_time_id = $request->park_time_id;
@@ -90,6 +89,7 @@ class SkillGameReportController extends Controller
             $listrf->save();
             }
         }
+
         return response()->json(['success' => 'Skill Games Report Added successfully']);
 
         //        alert()->success('Preopening List Added successfully !');
@@ -97,6 +97,7 @@ class SkillGameReportController extends Controller
     }
     public function search(Request $request)
     {
+        $skillgame=[];
         $parkTime = ParkTime::query()
         ->where('park_id',$request->input('park_id'))
         ->Where('date', $request->input('date'))
@@ -107,9 +108,35 @@ class SkillGameReportController extends Controller
             $parks=auth()->user()->parks->pluck('name','id')->all();
         }
         if($parkTime){
-        $items=SkillGameReport::where('park_time_id',$parkTime->id)->get();
+                 $skillgame['a'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any HB staff shortages?')->first();
+                $skillgame['b'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','HB staff late?')->first();
+                $skillgame['c'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','HB staff unavailable?')->first();
+                $skillgame['d'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any incidents with staff?')->first();
+                $skillgame['e'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any theft?')->first();
+                $skillgame['f'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any Card reader issues?')->first();
+                $skillgame['g'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How Many Card reader issues?')->first();
+                $skillgame['h'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any Credit card issues?')->first();
+                $skillgame['i'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How Many Credit card issues?')->first();
+                $skillgame['j'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any complaints received?')->first();
+                $skillgame['k'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How Many complaints received?')->first();
+                $skillgame['l'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Any uniform issues?')->first();
+                $skillgame['m'] = SkillGameReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Additionl comments ( hows the day been ? Any isssues / Observations? )?')->first();
+                
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','skill_games')->get();
-        return view('admin.reports.duty_report', compact('items','parks','redFlags'));
+        return view('admin.reports.duty_report', compact('skillgame','parks','redFlags'));
     }else
         return view('admin.reports.duty_report', compact('parks'));
     }

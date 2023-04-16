@@ -59,7 +59,7 @@
                                 Reports
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                All Rides Operations
+                                 Rides Operations
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
@@ -79,8 +79,8 @@
                                 <td>{{ $item->end }}</td>
                                 <td>{{ $item->duration_time }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-info waves-effect m-r-20" data-toggle="modal"
-                                            data-target="#modal-{{ $item->id }}">Add Daily Entrance Count
+                                    <button type="button" class="btn btn-info waves-effect " data-toggle="modal"
+                                            data-target="#modal-{{ $item->id }}"><i class="fa fa-plus"></i> Add
                                     </button>
                                     <div class="modal fade" id="modal-{{ $item->id }}" tabindex="-1" aria-hidden="true"
                                          role="dialog">

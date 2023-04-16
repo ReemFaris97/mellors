@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+@if(request()->is('search_duty_summary_reports*'))
+
+>>>>>>> b7044f94c091e2a5d8000e85b83b28a13cee30f4
 <div class="card-box">
 
     <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -508,7 +513,7 @@
     </div>
 </div>
 
-
+@endif
 
 @section(' footer') @include('admin.datatable.scripts') @endsection
 @push('scripts')

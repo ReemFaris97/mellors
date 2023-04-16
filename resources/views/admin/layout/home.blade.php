@@ -29,6 +29,7 @@ Main Page
 
 
         </div>
+<<<<<<< HEAD
     </div>
     <div class="col-lg-4 col-xs-12">
         <div class='contentRide'>
@@ -40,6 +41,24 @@ Main Page
                         <h4 class="header-title m-t-0 m-b-15">{{ $time->parks->name }}</h4>
                         <p> {{ $time->duration_time?? 0 ." minute" }}</p>
                     </div>
+=======
+        <div class="col-lg-4 col-xs-12">
+            <div class='contentRide'>
+                <h2>Park Hours</h2>
+                <div class="row">
+                    @foreach($park_times as $time )
+                    <a href="{{route('admin.park_times.index')}}">
+                        <div class="col-lg-4 col-md-6  cardGame">
+                            <div class="card-box">
+                                <h4 class="header-title m-t-0 m-b-30">{{ $time->parks->name }}</h4>
+                                <p> {{ $time->duration_time?? 0 ." minute" }}</p>
+                            </div>
+                        </div>
+                        </a>
+                    @endforeach
+
+
+>>>>>>> b7044f94c091e2a5d8000e85b83b28a13cee30f4
                 </div>
                 @endforeach
 

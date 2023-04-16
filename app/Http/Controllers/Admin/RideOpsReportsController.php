@@ -62,7 +62,6 @@ class RideOpsReportsController extends Controller
             $list= new RideOpsReport();
             $list->question=$request->question[$key];
             $list->answer=$request->answer[$key];
-            $list->color=$request->color[$key];           
             $list->comment=$request->comment[$key];
             $list->park_id=$request->park_id;
             $list->park_time_id=$request->park_time_id;
@@ -87,6 +86,7 @@ class RideOpsReportsController extends Controller
 //        return redirect()->back();
     }
     public function search(Request $request){
+        $rideops=[];
         $parkTime = ParkTime::query()
         ->where('park_id',$request->input('park_id'))
         ->Where('date', $request->input('date'))
@@ -97,10 +97,35 @@ class RideOpsReportsController extends Controller
             $parks=auth()->user()->parks->pluck('name','id')->all();
         }
         if($parkTime){
-        $items=RideOpsReport::where('park_time_id',$parkTime->id)->get();
+
+            $rideops['a'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Is weather monitoring equipment working correctly?')->first();
+            $rideops['b'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Number of complaints received?')->first();
+            $rideops['c'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any medical assistance required?')->first();
+            $rideops['d'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','Any issues with ride scanners?')->first();
+            $rideops['e'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','HOE Staff Late?')->first();
+            $rideops['f'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','HOE Staff Unavailable?')->first();
+            $rideops['g'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many unavailable rides?')->first();
+            $rideops['h'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many Breakdowns?')->first();
+            $rideops['i'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many rides have Breakdowns?')->first();
+            $rideops['j'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many Evacuations?')->first();
+            $rideops['k'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many stoppages?')->first();
+            $rideops['l'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+            ->where('question','How many swipper Issues?')->first();
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','ride_ops')->get();
-        return view('admin.reports.duty_report', compact('items','parks','redFlags'));
+        return view('admin.reports.duty_report', compact('rideops','parks','redFlags'));
     }else
+
         return view('admin.reports.duty_report', compact('parks'));
     }
  

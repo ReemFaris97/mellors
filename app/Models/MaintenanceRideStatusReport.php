@@ -11,6 +11,12 @@ class MaintenanceRideStatusReport extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'ride_id','status','comment','date','park_time_id','maintenance_report_id'
+        'ride_id','status','comment','date','park_id','maintenance_report_id'
     ];
+
+    public function ride()
+    {
+        return $this->belongsTo(Ride::class,'ride_id')->withDefault();
+    }
+
 }

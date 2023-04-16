@@ -204,7 +204,7 @@
                 '_token': "{{ @csrf_token() }}"
             },
             success: function(data) {
-                var options = '<option disabled>choose Zone</option>';
+                var options = '<option disabled>Choose Main Category</option>';
                 $.each(data.subCategory, function(key, value) {
                     options += '<option value="' + value.id + '">' + value.name +
                         '</option>';

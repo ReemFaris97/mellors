@@ -9,6 +9,7 @@ use App\Models\RedFlag;
 use App\Models\Ride;
 use App\Models\RsrReport;
 use App\Models\TechReport;
+use App\Models\TechRideDownReport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -51,8 +52,9 @@ class TechReportsController extends Controller
         $data['ride_due_to_maintenance'] = Ride::whereHas('rideStoppages', function ($query) {
             $query->whereDate('created_at', Carbon::today());
         })->count();
+        $rides_down=Ride::where('park_id',$park_id)->get();
 
-        return view('admin.tech_reports.add', compact('data', 'park_id', 'park_time_id'));
+        return view('admin.tech_reports.add', compact('rides_down','data', 'park_id', 'park_time_id'));
     }
 
     /**
@@ -63,7 +65,8 @@ class TechReportsController extends Controller
      */
     public function store(Request $request)
     {
-        $dateExists = TechReport::where([
+/*         dd($request);
+ */        $dateExists = TechReport::where([
             ['park_time_id', $request['park_time_id']],
             ['park_id', $request['park_id']]
         ])->first();
@@ -77,13 +80,26 @@ class TechReportsController extends Controller
             $list->question = $request->question[$key];
             $list->answer = $request->answer[$key];
             $list->comment = $request->comment[$key];
-            $list->color=$request->color[$key];
             $list->park_id = $request->park_id;
             $list->park_time_id = $request->park_time_id;
             $list->date = Carbon::now()->format('Y-m-d');
             $list->user_id = auth()->user()->id;
             $list->save();
         }
+        $tech_report_id=$list->id;
+        foreach ($request->ride_down_id as $key=>$value){
+         $listr= new TechRideDownReport();
+         if($request->is_down == 'yes')
+         $listr->ride_down_id=$request->ride_down_id[$key];
+         $listr->lead_name=$request->lead_name[$key];
+         $listr->comment=$request->ride_down_comment[$key];
+         $listr->tech_report_id=$tech_report_id;
+         $listr->park_time_id=$request->park_time_id;
+         $listr->date = Carbon::now()->format('Y-m-d');
+         $listr->date_expected_open=$request->date[$key];
+         $listr->save();
+     }
+
         foreach ($request->ride as $key=>$value){
             $listrf= new RedFlag();
             if($request->ride[$key] != null){
@@ -103,6 +119,7 @@ class TechReportsController extends Controller
 
     public function search(Request $request)
     {
+        $tech=[];
         $parkTime = ParkTime::query()
             ->where('park_id',$request->input('park_id'))
             ->Where('date', $request->input('date'))
@@ -113,9 +130,24 @@ class TechReportsController extends Controller
                 $parks=auth()->user()->parks->pluck('name','id')->all();
             }
             if($parkTime){
-            $items=TechReport::where('park_time_id',$parkTime->id)->get();
+                $tech['a'] = TechReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Was ride availabilty reports submitted on time?')->first();
+                $tech['b'] = TechReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many RSR submitted today?')->first();
+                $tech['c'] = TechReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many rides down all day?')->first();
+                $tech['d'] = TechReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many rides are down due to maintenance?')->first();
+                $tech['e'] = TechReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many rides are down due to awaiting parts?')->first();
+                $tech['f'] = TechReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many rides awaiting on approvals?')->first();
+                $tech['g'] = TechReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many rides have delayed opening?')->first();
+
+                $techRideDown=TechRideDownReport::query()->where('park_time_id',$parkTime->id)->get();
             $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','tech')->get();
-            return view('admin.reports.duty_report', compact('items','parks','redFlags'));
+            return view('admin.reports.duty_report', compact('tech','parks','redFlags','techRideDown'));
         }else
         return view('admin.reports.duty_report', compact('parks'));
     }
