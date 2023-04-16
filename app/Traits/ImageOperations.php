@@ -36,8 +36,11 @@ trait ImageOperations
     {
         if (!empty($filename)) {
             $base_url = url('/');
-            return $base_url . '/../storage/app/public/' . $filename;
-        } else {
+/*             return $base_url . '/../storage/app/public/' . $filename;
+ */        
+               return $base_url . '/storage/' . $filename;
+
+} else {
             return '';
         }
 

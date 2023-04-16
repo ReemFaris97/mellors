@@ -258,8 +258,13 @@
 
                            </td>
                            <td>
+
                           <label>
-                          {!! Form::text('status[]',null, array('class' => 'form-control status')) !!}
+                               <select name="status[]" id="status" class="form-control status">
+                                   <option disabled> Choose...</option>
+                                   <option value="open">Open</option>
+                                   <option value="close">Close</option>
+                               </select>
                           </label>
                            </td>
                            <td>

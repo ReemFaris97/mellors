@@ -330,7 +330,7 @@
                    <tr role="row" class="odd" id="row-{{1}}">
                         <td tabindex="0" class="sorting_1">{{1 }}</td>
                         <td>{{$maintenance['a']->question ?? '  ' }}</td>
-                        <td class="{{($maintenance['a']->answer ?? '  '  == 'no') ? 'no' : 'yes'}} align-center" >
+                        <td class="{{($maintenance['a']->answer ?? '  '  == 'yes') ? 'yes' : 'no'}} align-center" >
                             {{ $maintenance['a']->answer ?? '  '  }}
                         </td>
                         <td>{!!$maintenance['a']->comment ?? '  '  !!}</td>
