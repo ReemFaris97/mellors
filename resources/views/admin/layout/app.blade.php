@@ -12,7 +12,17 @@
 </head>
 
 <body class="fixed-left">
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
 
+    </ul>
     <div id="wrapper">
         <!-- Top Bar Start -->
         <div class="topbar">
@@ -91,10 +101,11 @@
                 @yield('content')
             </div>
         </div>
-        <footer class="footer text-right">
-            Mellors entertainment saudi
-        </footer>
+
     </div>
+    <footer class="footer text-right">
+        Mellors entertainment saudi
+    </footer>
     @include('admin.layout.scripts')
     @include('sweetalert::alert')
     @yield('footer')
@@ -119,12 +130,12 @@
     });
     </script>
     <script>
-$(".select2").select2({
-    tagsl: true,
-    // dropdownParent: $('#modal), // if select in modal
-    theme: "bootstrap",
-});
-</script>
+    $(".select2").select2({
+        tagsl: true,
+        // dropdownParent: $('#modal), // if select in modal
+        theme: "bootstrap",
+    });
+    </script>
 </body>
 
 </html>

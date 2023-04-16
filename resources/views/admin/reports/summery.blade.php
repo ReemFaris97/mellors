@@ -1,4 +1,3 @@
-
 <div class="card-box">
 
     <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -7,28 +6,34 @@
                 <table id="datatable-buttons "
                     class="table table-striped table-bordered  tableDates dt-responsive nowrap dayMonth">
                     <thead>
-                    <tr role="row">
-                            <th colspan="5" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                aria-sort="ascending" style="text-align: center;">
+                        <tr role="row">
+                            <th colspan="5" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons"
+                                rowspan="1" aria-sort="ascending" style="text-align: center;">
                                 @if(isset($parkTime))
                                 {{$parkTime->parks->name}}
-                                @endif  - Duty Report
+                                @endif - Duty Report
                             </th>
                         </tr>
                         <tr role="row">
                             <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                aria-sort="ascending">Day/Month/Year
+                                aria-sort="ascending">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                Day/Month/Year
                             </th>
                             <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                                <i class="fa-solid fa-clock"></i>
                                 Opening Time:
                             </th>
                             <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                                <i class="fa-solid fa-circle-xmark"></i>
                                 Closing Time :
                             </th>
                             <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
-                            Number of Guest:
-                            </th>	
+                                <i class="fa-solid fa-users"></i>
+                                Number of Guest:
+                            </th>
                             <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                                <i class="fa-solid fa-cloud-sun-rain"></i>
                                 Weather: :
                             </th>
 
@@ -38,14 +43,16 @@
                         @if(isset($parkTime))
                         <tr>
                             <td tabindex="0" class="sorting_1">{{$parkTime->date}}
-                                <!-- <span class="yelloBack">friday</span> --> </td>
+                                <!-- <span class="yelloBack">friday</span> -->
+                            </td>
                             <td class=" align-center">{{$parkTime->start}}</td>
                             <td>{{$parkTime->end}}</td>
                             <td>{{$parkTime->daily_entrance_count}}</td>
-                            <td class="">  
-                             @if(isset($info))
-                             {{$info->weather[0]->main}}-{{$info->weather[0]->description}}-{{$info->main->temp}} ْ -Windspeed avg {{$info->wind->speed}}km/h
-                             @endif
+                            <td class="">
+                                @if(isset($info))
+                                {{$info->weather[0]->main}}-{{$info->weather[0]->description}}-{{$info->main->temp}} ْ
+                                -Windspeed avg {{$info->wind->speed}}km/h
+                                @endif
                             </td>
                         </tr>
                         @endif
@@ -73,49 +80,57 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if(isset($ridesData))
+                        @if(isset($ridesData))
 
                         <tr>
                             <td tabindex="0" class="sorting_1">Were all rides available today </td>
-                            <td class="{{($ridesData['How many unavailable?'] == '0') ? 'yes align-center' : 'no align-center'}}">
-                            {{($ridesData['How many unavailable?'] == '0') ? 'yes' : 'no'}}
+                            <td
+                                class="{{($ridesData['How many unavailable?'] == '0') ? 'yes align-center' : 'no align-center'}}">
+                                {{($ridesData['How many unavailable?'] == '0') ? 'yes' : 'no'}}
                             </td>
                             <td>How many unavailable </td>
-                            <td class="{{($ridesData['How many unavailable?'] == '0') ? 'yes align-center' : 'no align-center'}}">
-                            {{$ridesData['How many unavailable?']}}
+                            <td
+                                class="{{($ridesData['How many unavailable?'] == '0') ? 'yes align-center' : 'no align-center'}}">
+                                {{$ridesData['How many unavailable?']}}
                             </td>
                         </tr>
                         <tr>
-                        <td tabindex="0" class="sorting_1">Were there any ride breakdowns </td>
-                            <td class="{{($ridesData['How many rides have Breakdowns?'] == '0') ? 'yes align-center' : 'no align-center'}}">
-                            {{($ridesData['How many rides have Breakdowns?'] == '0') ? 'no' : 'yes'}}
+                            <td tabindex="0" class="sorting_1">Were there any ride breakdowns </td>
+                            <td
+                                class="{{($ridesData['How many rides have Breakdowns?'] == '0') ? 'yes align-center' : 'no align-center'}}">
+                                {{($ridesData['How many rides have Breakdowns?'] == '0') ? 'no' : 'yes'}}
                             </td>
                             <td>How many breakdowns </td>
-                            <td class="{{($ridesData['How many rides have Breakdowns?'] == '0') ? 'yes align-center' : 'no align-center'}}">
-                            {{$ridesData['How many rides have Breakdowns?']}}
+                            <td
+                                class="{{($ridesData['How many rides have Breakdowns?'] == '0') ? 'yes align-center' : 'no align-center'}}">
+                                {{$ridesData['How many rides have Breakdowns?']}}
                             </td>
                         </tr>
                         <td tabindex="0" class="sorting_1">Any Evacuations </td>
-                            <td class="{{($ridesData['How many Evacuations?'] == '0') ? 'yes align-center' : 'no align-center'}}">
+                        <td
+                            class="{{($ridesData['How many Evacuations?'] == '0') ? 'yes align-center' : 'no align-center'}}">
                             {{($ridesData['How many Evacuations?'] == '0') ? 'no' : 'yes'}}
-                            </td>
-                            <td>How many evacuations </td>
-                            <td class="{{($ridesData['How many Evacuations?'] == '0') ? 'yes align-center' : 'no align-center'}}">
+                        </td>
+                        <td>How many evacuations </td>
+                        <td
+                            class="{{($ridesData['How many Evacuations?'] == '0') ? 'yes align-center' : 'no align-center'}}">
                             {{$ridesData['How many Evacuations?']}}
-                            </td>
+                        </td>
                         </tr>
                         <tr>
-                        <td tabindex="0" class="sorting_1">Were there any stoppages? </td>
-                            <td class="{{($ridesData['How many stoppages?'] == '0') ? 'yes align-center' : 'no align-center'}}">
-                            {{($ridesData['How many stoppages?'] == '0') ? 'no' : 'yes'}}
+                            <td tabindex="0" class="sorting_1">Were there any stoppages? </td>
+                            <td
+                                class="{{($ridesData['How many stoppages?'] == '0') ? 'yes align-center' : 'no align-center'}}">
+                                {{($ridesData['How many stoppages?'] == '0') ? 'no' : 'yes'}}
                             </td>
                             <td>How many of these stoppages were for Swiper issues? </td>
-                            <td class="{{($ridesData['How many swipper Issues?'] == '0') ? 'no align-center' : 'no align-center'}}">
-                            {{$ridesData['How many swipper Issues?']}}
+                            <td
+                                class="{{($ridesData['How many swipper Issues?'] == '0') ? 'no align-center' : 'no align-center'}}">
+                                {{$ridesData['How many swipper Issues?']}}
                             </td>
                         </tr>
 
-                    @endif
+                        @endif
 
                     </tbody>
                 </table>
@@ -140,38 +155,45 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if(isset($skillGameData))
+                        @if(isset($skillGameData))
                         <tr>
                             <td tabindex="0" class="sorting_1">Any shortage in staff</td>
-                            <td class="{{($skillGameData['Any staff shortages']== 'yes') ? 'no align-center' : 'yes align-center'}}">
-                            {{$skillGameData['Any staff shortages']}}</td>
+                            <td
+                                class="{{($skillGameData['Any staff shortages']== 'yes') ? 'no align-center' : 'yes align-center'}}">
+                                {{$skillGameData['Any staff shortages']}}</td>
                             <td>How many staff unavailable </td>
-                            <td class="{{($skillGameData['HB staff unavailable?'] == 'yes') ? 'no align-center' : 'yes align-center'}}">
-                            {{$skillGameData['HB staff unavailable?']}}</td>
+                            <td
+                                class="{{($skillGameData['HB staff unavailable?'] == 'yes') ? 'no align-center' : 'yes align-center'}}">
+                                {{$skillGameData['HB staff unavailable?']}}</td>
                         </tr>
                         <tr>
                             <td tabindex="0" class="sorting_1">Any card reader issues </td>
-                            <td class="{{($skillGameData['Any Card reader issues?']== 'yes') ? 'no align-center' : 'yes align-center'}}">
-                            {{$skillGameData['Any Card reader issues?']}}</td>
+                            <td
+                                class="{{($skillGameData['Any Card reader issues?']== 'yes') ? 'no align-center' : 'yes align-center'}}">
+                                {{$skillGameData['Any Card reader issues?']}}</td>
                             <td>Any Credit card machine issues </td>
-                            <td class="{{($skillGameData['Any Credit card issues?']== 'yes') ? 'no align-center' : 'yes align-center'}}">
-                            {{$skillGameData['Any Credit card issues?']}}</td>
+                            <td
+                                class="{{($skillGameData['Any Credit card issues?']== 'yes') ? 'no align-center' : 'yes align-center'}}">
+                                {{$skillGameData['Any Credit card issues?']}}</td>
                         </tr>
                         <tr>
                             <td tabindex="0" class="sorting_1">Any incidents with staff </td>
-                            <td class="{{($skillGameData['Any incidents with staff?']== 'yes') ? 'no align-center' : 'yes align-center'}}">
-                            {{$skillGameData['Any incidents with staff?']}}</td>
+                            <td
+                                class="{{($skillGameData['Any incidents with staff?']== 'yes') ? 'no align-center' : 'yes align-center'}}">
+                                {{$skillGameData['Any incidents with staff?']}}</td>
                             <td>Any theft? </td>
-                            <td class="{{($skillGameData['Any theft?']== 'yes') ? 'no align-center' : 'yes align-center'}}">
-                            {{$skillGameData['Any theft?']}}</td>  
-                       </tr>
-                       <tr>
+                            <td
+                                class="{{($skillGameData['Any theft?']== 'yes') ? 'no align-center' : 'yes align-center'}}">
+                                {{$skillGameData['Any theft?']}}</td>
+                        </tr>
+                        <tr>
                             <td tabindex="0" class="sorting_1">Any complaints received?</td>
-                            <td class="{{($skillGameData['Any complaints received?']== 'yes') ? 'no align-center' : 'yes align-center'}}">
-                            {{$skillGameData['Any complaints received?']}}</td> 
+                            <td
+                                class="{{($skillGameData['Any complaints received?']== 'yes') ? 'no align-center' : 'yes align-center'}}">
+                                {{$skillGameData['Any complaints received?']}}</td>
                             <td></td>
                             <td></td>
-                       </tr>
+                        </tr>
                         @endif
                     </tbody>
                 </table>
@@ -196,16 +218,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if(isset($healthData))
+                        @if(isset($healthData))
                         <tr>
                             <td tabindex="0" class="sorting_1">Any incident reports created </td>
                             <td class="{{($healthData['incidents'] == 0) ? 'yes align-center' : 'no align-center'}}">
-                            {{$healthData['incidents']}}</td>
+                                {{$healthData['incidents']}}</td>
                             <td>Any near misses / accidents reported </td>
                             <td class="{{($healthData['accidents'] == 0) ? 'yes align-center' : 'no align-center'}}">
-                            {{$healthData['accidents']}}</td>
+                                {{$healthData['accidents']}}</td>
                         </tr>
-                    @endif
+                        @endif
                     </tbody>
                 </table>
 
@@ -232,26 +254,31 @@
                         @if(isset($techData))
                         <tr>
                             <td tabindex="0" class="sorting_1">How many rides delayed opening </td>
-                            <td class="{{($techData['How many rides have delayed opening?'] == 0) ? 'yes align-center' : 'no align-center'}}">
-                            {{$techData['How many rides have delayed opening?']}}</td>
+                            <td
+                                class="{{($techData['How many rides have delayed opening?'] == 0) ? 'yes align-center' : 'no align-center'}}">
+                                {{$techData['How many rides have delayed opening?']}}</td>
                             <td>How many rides are down due to maintence </td>
-                            <td class="{{($techData['rides down due to maintenance'] == 0) ? 'yes align-center' : 'no align-center'}}">
+                            <td
+                                class="{{($techData['rides down due to maintenance'] == 0) ? 'yes align-center' : 'no align-center'}}">
                                 {{$techData['rides down due to maintenance']}}</td>
                         </tr>
                         <tr>
                             <td tabindex="0" class="sorting_1">How many rides down all day</td>
-                            <td class="{{($techData['rides down all day'] == 0) ? 'yes align-center' : 'no align-center'}}">
-                            {{$techData['rides down all day']}}</td>
+                            <td
+                                class="{{($techData['rides down all day'] == 0) ? 'yes align-center' : 'no align-center'}}">
+                                {{$techData['rides down all day']}}</td>
                             <td>How many down waiting on parts </td>
-                            <td class="{{($techData['rides awaiting parts'] == 0) ? 'yes align-center' : 'no align-center'}}">
-                            {{$techData['rides awaiting parts']}}</td>
+                            <td
+                                class="{{($techData['rides awaiting parts'] == 0) ? 'yes align-center' : 'no align-center'}}">
+                                {{$techData['rides awaiting parts']}}</td>
 
                         </tr>
 
                         <tr>
                             <td>How many rides waiting on approvals </td>
-                            <td class="{{($techData['rides awaiting approvals'] == 0) ? 'yes align-center' : 'no align-center'}}">
-                            {{$techData['rides awaiting approvals']}}</td>
+                            <td
+                                class="{{($techData['rides awaiting approvals'] == 0) ? 'yes align-center' : 'no align-center'}}">
+                                {{$techData['rides awaiting approvals']}}</td>
                             <td tabindex="0" class="sorting_1"> </td>
                             <td></td>
                         </tr>
@@ -280,20 +307,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if(isset($maintenanceData))
+                        @if(isset($maintenanceData))
 
                         <tr>
                             <td tabindex="0" class="sorting_1">Any concerns found during routine maintenace </td>
-                            <td class="{{($maintenanceData['Any concerns found during routine maintenace'] == 0) ? 'yes align-center' : 'no align-center'}}">
+                            <td
+                                class="{{($maintenanceData['Any concerns found during routine maintenace'] == 0) ? 'yes align-center' : 'no align-center'}}">
                                 {{$maintenanceData['Any concerns found during routine maintenace']}}</td>
                             <td>Any issues with Maintenance app </td>
-                            <td class="{{($maintenanceData['Any issues with Maintenance App'] == 'yes') ? 'no align-center' : 'yes align-center'}}">
-                            {{$maintenanceData['Any issues with Maintenance App']}}</td>
+                            <td
+                                class="{{($maintenanceData['Any issues with Maintenance App'] == 'yes') ? 'no align-center' : 'yes align-center'}}">
+                                {{$maintenanceData['Any issues with Maintenance App']}}</td>
                         </tr>
                         <tr>
                             <td tabindex="0" class="sorting_1">Any evacuations during operation </td>
-                            <td class="{{($maintenanceData['Any evacuations during operation'] == 'no') ? 'yes align-center' : 'no align-center'}}">
-                            {{$maintenanceData['Any evacuations during operation']}}</td>
+                            <td
+                                class="{{($maintenanceData['Any evacuations during operation'] == 'no') ? 'yes align-center' : 'no align-center'}}">
+                                {{$maintenanceData['Any evacuations during operation']}}</td>
                             <td>Any new PM added to Maintenance app </td>
                             <td class="no align-center">0</td>
                         </tr>
@@ -357,7 +387,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @if(isset($maintenanceRedFlag))
+                            @if(isset($maintenanceRedFlag))
                             @foreach($maintenanceRedFlag as $item)
                             <tr>
                                 <td tabindex="0" class="sorting_1">{{$item->ride}}</td>
@@ -387,7 +417,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @if(isset($healthRedFlag))
+                            @if(isset($healthRedFlag))
                             @foreach($healthRedFlag as $item)
                             <tr>
                                 <td tabindex="0" class="sorting_1">{{$item->ride}}</td>
@@ -418,7 +448,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @if(isset($skillRedFlag))
+                            @if(isset($skillRedFlag))
                             @foreach($skillRedFlag as $item)
                             <tr>
                                 <td tabindex="0" class="sorting_1">{{$item->ride}}</td>
@@ -449,8 +479,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                        
-                        @if(isset($techRedFlag))
+
+                            @if(isset($techRedFlag))
                             @foreach($techRedFlag as $item)
                             <tr>
                                 <td tabindex="0" class="sorting_1">{{$item->ride}}</td>
@@ -471,7 +501,7 @@
                        @endif
                     </textarea>
                 </div>
-                
+
             </div>
         </div>
 
