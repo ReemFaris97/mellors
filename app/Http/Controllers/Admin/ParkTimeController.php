@@ -27,6 +27,8 @@ class ParkTimeController extends Controller
             $items = ParkTime::where('date', date('Y-m-d'))
             ->wherein('park_id', $parks)
             ->get();
+
+            
         }
 
         return view('admin.park_times.index', compact('items'));

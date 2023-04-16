@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    Add Stoppage Operation
+    Add New Ride
 @endsection
 
 @section('content')

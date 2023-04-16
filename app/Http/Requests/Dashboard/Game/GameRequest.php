@@ -27,15 +27,16 @@ class GameRequest extends FormRequest
         $rules= [
             'name' => 'required|string',
             'description' => 'nullable',
-            'park_id' => 'required',
+            'park_id' => 'nullable',
             'capacity_one_cycle' => 'required',
             'one_cycle_duration_seconds' => 'nullable',
             'ride_cycle_mins' => 'nullable',
-            'is_flow' => 'required',
-            'ride_price' => 'required',
+            'is_flow' => 'nullable',
+            'ride_price' => 'nullable',
             'ride_price_vip' => 'nullable',
             'game_cat_id' => 'required',
-            'zone_id' => 'required'
+            'zone_id' => 'nullable',
+            'theoretical_number'=>'nullable'
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
@@ -49,7 +50,9 @@ class GameRequest extends FormRequest
                 'price' => 'nullable',
                 'price_vip' => 'nullable',
                 'game_cat_id' => 'nullable',
-                'zone_id' => 'nullable'
+                'zone_id' => 'nullable',
+                'theoretical_number'=>'nullable'
+
             ];
         }
         return $rules;

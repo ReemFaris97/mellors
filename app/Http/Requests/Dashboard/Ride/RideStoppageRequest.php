@@ -26,7 +26,6 @@ class RideStoppageRequest extends FormRequest
 //        dd("ggg");
         return [
             'ride_id'=>'required',
-            'ride_status'=>'required',
             'stoppage_status'=>'nullable',
             'stopage_sub_category_id'=>'required',
             'ride_notes'=>'nullable',
@@ -36,7 +35,9 @@ class RideStoppageRequest extends FormRequest
             'down_minutes'=>'nullable',
             'user_id'=>'required',
             'description'=>'nullable',
-            'images.*'=>'nullable'
+            'type'=>'required',
+            'images.*'=>'nullable',
+            'date'=>'nullable'
         ];
     }
 }

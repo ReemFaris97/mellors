@@ -12,7 +12,7 @@
         @enderror
     </div>
 
-    <div class="col-lg-6 form-group stoppageCategory ">
+    <div class="col-lg-6 form-group  ">
         <label class="block">Operator :</label>
         <div class="">
             {!! Form::select('user_id', $users,null, array('class' => 'form-control ','placeholder'=>'Choose
@@ -25,7 +25,7 @@
         @enderror
     </div>
 
-    <div class="col-lg-6 form-group stoppageCategory ">
+<!--     <div class="col-lg-6 form-group stoppageCategory ">
         <label class="block">Ride Status :</label>
         <div class="">
             {!! Form::select('ride_status', ["stopped"=>'stopped',"active"=>'active'],null, array('class' =>
@@ -37,7 +37,7 @@
         </div>
         @enderror
     </div>
-
+ -->
 
     <div class="col-lg-6 form-group  stoppageSubCategory">
         <label class="block"> Number of Seats :</label>
@@ -83,9 +83,9 @@
         @enderror
     </div>
     
-    @if(auth()->user()->hasRole('Technical')|| auth()->user()->hasRole('Super Admin'))
-    <div class="col-lg-6 form-group  stoppageCategory ">
-        <label class="block">Change Stoppage Status :</label>
+<!--     @if(auth()->user()->hasRole('Technical')|| auth()->user()->hasRole('Super Admin'))
+ -->    <div class="col-lg-6 form-group  stoppageCategory ">
+        <label class="block">Stoppage Status :</label>
         <div class="">
             {!! Form::select('stoppage_status', ["pending"=>'Pending',"working"=>'Working on it',"done"=>'Done'],null, array('class' =>
             'form-control ','placeholder'=>'Stoppage Status')) !!}
@@ -96,8 +96,8 @@
         </div>
         @enderror
     </div>
-    @endif
-    <div class="form-group downTime hidden">
+<!--     @endif
+ -->    <div class="form-group downTime hidden">
         <label class="col-lg-12">Down Time :</label>
         <div class="col-lg-6">
             {!! Form::number('down_minutes',null,['class'=>'form-control','placeholder'=>'Down Time'])!!}
@@ -107,6 +107,21 @@
             {{--            {{ $message }}--}}
         </div>
         @enderror
+    </div>
+    <div class="form-group">
+            <div class="col-lg-12">
+                {!! Form::label('Stoppage Start Date') !!}
+            </div>
+            <div class="col-lg-6">
+                {!! Form::date('date',null,['class'=>'form-control']) !!}
+                @if ($errors->has('date'))
+                <span class="help-block">
+                    <span class="help-block">
+                        <strong>{{ $errors->first('date') }}</strong>
+                    </span>
+                    @endif
+            </div>
+        </div>
     </div>
     <div class="timeSlot hidden">
         <div class="form-group">
@@ -123,7 +138,8 @@
                     @endif
             </div>
         </div>
-        <div class="form-group">
+    </div>
+<!--         <div class="form-group">
             <div class="col-lg-12">
                 {!! Form::label('Close Date') !!}
             </div>
@@ -137,7 +153,7 @@
                     @endif
             </div>
         </div>
-    </div>
+    </div> -->
     @if(auth()->user()->hasRole('Technical') || auth()->user()->hasRole('Super Admin'))
     <br><br><br>
     <div class="form-group stoppageReason">

@@ -28,7 +28,7 @@
     </div>
 
 
-    <div class="col-xs-12">
+ <!--    <div class="col-xs-12">
         <div class="form-group form-float">
             <label class="form-label">Park</label>
             <div class="form-line">
@@ -59,7 +59,7 @@
                 @enderror
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="col-xs-12">
         <div class="form-group form-float">
@@ -76,7 +76,7 @@
     </div>
     <div class="col-xs-12">
         <div class="form-group form-float">
-            <label class="form-label">Capacity</label>
+            <label class="form-label">Capacity One Cycle</label>
             <div class="form-line">
                 {!! Form::number("capacity_one_cycle",null,['class'=>'form-control','placeholder'=>' capacity'])!!}
                 @error('capacity_one_cycle')
@@ -89,7 +89,7 @@
     </div>
     <div class="col-xs-12">
         <div class="form-group form-float">
-            <label class="form-label">Cycle duration per second</label>
+            <label class="form-label">Cycle duration /second</label>
             <div class="form-line">
                 {!! Form::number("one_cycle_duration_seconds",null,['class'=>'form-control','placeholder'=>' cycle duration per second'])!!}
                 @error('one_cycle_duration_seconds')
@@ -102,7 +102,7 @@
     </div>
     <div class="col-xs-12">
         <div class="form-group form-float">
-            <label class="form-label">Cycle duration load unload / minutes</label>
+            <label class="form-label">Cycle duration load unload /minutes</label>
             <div class="form-line">
                 {!! Form::number("ride_cycle_mins",null,['class'=>'form-control','placeholder'=>'cycle duration load nload minutes'])!!}
                 @error('ride_cycle_mins')
@@ -140,6 +140,19 @@
     </div>
     <div class="col-xs-12">
         <div class="form-group form-float">
+            <label class="form-label">Theoretical Number</label>
+            <div class="form-line">
+                {!! Form::number("theoretical_number",null,['class'=>'form-control','placeholder'=>'Theoretical Number'])!!}
+                @error('theoretical_number')
+                <div class="invalid-feedback" style="color: #ef1010">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group form-float">
             <label class="form-label">Price</label>
             <div class="form-line">
                 {!! Form::number("ride_price",null,['class'=>'form-control','placeholder'=>'ride_price'])!!}
@@ -151,9 +164,10 @@
             </div>
         </div>
     </div>
+
     <div class="col-xs-12">
         <div class="form-group form-float">
-            <label class="form-label">Price vip</label>
+            <label class="form-label">Price Fast Track</label>
             <div class="form-line">
                 {!! Form::number("ride_price_vip",null,['class'=>'form-control','placeholder'=>'ride_price_vip'])!!}
                 @error('ride_price_vip')
@@ -163,7 +177,7 @@
                 @enderror
             </div>
         </div>
-    </div>
+    </div> 
 
 
     <div class="col-xs-12 aligne-center contentbtn">

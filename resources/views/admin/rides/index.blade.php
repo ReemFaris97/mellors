@@ -22,7 +22,9 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Name
                             </th>
-
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Theoretical Number
+                            </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Capacity
                             </th>
@@ -39,7 +41,7 @@
                                 Ride Price
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride Price VIP
+                                Ride Fast Track 
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                Date
@@ -66,6 +68,7 @@
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
+                                <td>{{ $item->theoretical_number }}</td>
                                 <td>{{ $item->capacity_one_cycle }}</td>
                                 <td>{{ $item->one_cycle_duration_seconds ?? "" }}</td>
                                 <td>{{ $item->ride_cycle_mins?? "" }}</td>

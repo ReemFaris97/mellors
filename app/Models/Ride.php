@@ -21,7 +21,8 @@ class Ride extends Model
         'date',
         'zone_id',
         'park_id',
-        'game_cat_id'
+        'game_cat_id',
+        'theoretical_number'
     ];
 
     public function park()

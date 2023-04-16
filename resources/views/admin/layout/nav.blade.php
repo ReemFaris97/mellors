@@ -147,10 +147,11 @@
 @if(auth()->user()->can('rides-list')|| auth()->user()->can('rides-create'))
 
 <li class="has_sub">
-    <a href="javascript:void(0);" class="waves-effect"><i class="fa-solid fa-database"></i><span>Rides Data </span>
+    <a href="javascript:void(0);" class="waves-effect"><i class="fa-solid fa-database"></i><span>Rides </span>
         <span class="menu-arrow"></span></a>
     <ul class="list-unstyled">
-        <li><a href="{{route('admin.rides.index')}}">All Rides</a></li>
+    <li><a href="{{route('admin.rides.index')}}">All Rides</a></li>
+    <li><a href="{{route('admin.rides.create')}}">Add New Rides</a></li>
     </ul>
 </li>
 @endif
@@ -177,7 +178,7 @@
         @can('rsr_reports-list')
         <li><a href="{{route('admin.rsr_reports.index')}}">All RSR Reports</a></li>
         @endcan
-        @can('rsr_reports-list')
+        @can('rsr_reports-create')
         <li><a href="{{route('admin.rsr_reports.create')}}">Add RSR Report Witout Stoppage</a></li>
         @endcan
     </ul>

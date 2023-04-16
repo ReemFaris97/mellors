@@ -61,9 +61,9 @@ class RideStoppageController extends Controller
     {
         \DB::beginTransaction();
         $data=$request->validated();
-        $ride=Ride::findOrFail($data['ride_id']);
+/*         $ride=Ride::findOrFail($data['ride_id']);
         $time=$ride->park->parkTimes->first();
-        $data['date']=$time->date;
+        $data['date']=$time->date; */
         $data['ride_status']="stopped";
         $data['time']=Carbon::now()->toTimeString();
         $data['opened_date']=Carbon::now()->format('Y-m-d');
@@ -102,12 +102,16 @@ class RideStoppageController extends Controller
     {
         $item = RideStoppages::findOrFail($id);
         $data=$request->validated();
-/*         if ($request->has('description') && $request->ride_status == "stopped"){
+/*         if ( $data['stoppage_status']="working" && $request->ride_status == "stopped"){
             $data['stoppage_status']="working";
         }elseif ($request->ride_status == "active"){
             $data['stoppage_status']="done";
         } */
-
+        if ( $data['stoppage_status']="working" || $data['stoppage_status']="pending"){
+            $data['ride_status']="stopped";
+        }else{
+            $data['ride_status']="active";
+        } 
         $item->update($data);
 
         if ($request->has('images')) {
