@@ -29,27 +29,28 @@ Main Page
 
 
         </div>
-        <div class="col-lg-4 col-xs-12">
-            <div class='contentRide'>
-                <h2>Park Hours</h2>
-                <div class="row">
-                    @foreach($park_times as $time )
-                    <a href="{{route('admin.park_times.index')}}">
-                        <div class="col-lg-4 col-md-6  cardGame">
-                            <div class="card-box">
-                                <h4 class="header-title m-t-0 m-b-30">{{ $time->parks->name }}</h4>
-                                <p> {{ $time->duration_time?? 0 ." minute" }}</p>
-                                <p> {{ $time->date }} || {{$time->start}} - {{ $time->end }}</p>
-                            </div>
+    </div>
+    <div class="col-lg-4 col-xs-12">
+        <div class='contentRide'>
+            <h2>Park Hours</h2>
+            <div class="row">
+                @foreach($park_times as $time )
+                <a href="{{route('admin.park_times.index')}}">
+                    <div class="col-lg-4 col-md-6  cardGame">
+                        <div class="card-box">
+                            <h4 class="header-title m-t-0 m-b-30">{{ $time->parks->name }}</h4>
+                            <p> {{ $time->duration_time?? 0 ." minute" }}</p>
+                            <p> {{ $time->date }} || {{$time->start}} - {{ $time->end }}</p>
                         </div>
-                        </a>
-                    @endforeach
-                </div>
-
+                    </div>
+                </a>
+                @endforeach
             </div>
+
         </div>
     </div>
 </div>
+
 
 <!-- <div class='contentRide'>
         <div class="Description">
