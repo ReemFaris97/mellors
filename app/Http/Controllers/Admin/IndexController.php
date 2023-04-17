@@ -38,7 +38,7 @@ class IndexController extends Controller
         foreach ($rides as $ride) {
             $now = Carbon::now();
             $start = Carbon::createFromTimeString($ride->start);
-            $end = Carbon::createFromTimeString($ride->end)->addDay();
+            $end = Carbon::createFromTimeString($ride->end);
             if ($now->between($start, $end)) {
                 if ($ride->stoppageRideStatus != null) {
                     $ride->available = $ride->stoppageRideStatus;
