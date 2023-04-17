@@ -39,6 +39,7 @@ Main Page
                             <div class="card-box">
                                 <h4 class="header-title m-t-0 m-b-30">{{ $time->parks->name }}</h4>
                                 <p> {{ $time->duration_time?? 0 ." minute" }}</p>
+                                <p> {{ $time->date }} || {{$time->start}} - {{ $time->end }}</p>
                             </div>
                         </div>
                         </a>
