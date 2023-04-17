@@ -209,6 +209,7 @@
 
 
     @push('scripts')
+
     <script type="text/javascript">
     $('.mai_category').change(function() {
         var val = $(this).val();

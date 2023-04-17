@@ -95,6 +95,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::resource('health_and_safety_reports', 'Admin\HealthAndSafetyReportController');//done
     Route::get('/add_health_and_safety_report/{park_id}/{time_slot_id}', 'Admin\HealthAndSafetyReportController@add_health_and_safety_report')->name('addHealthAndSafetyReport');
     Route::get('/search_health_and_safety/', 'Admin\HealthAndSafetyReportController@search')->name('searchHealthAndSafetyReport');
+    Route::get('/cheack_health/', 'Admin\HealthAndSafetyReportController@cheackHealth')->name('cheackHealth');
 
     Route::resource('skill_game_reports', 'Admin\SkillGameReportController');//done
     Route::get('/add_skill_game_report/{park_id}/{time_slot_id}', 'Admin\SkillGameReportController@add_skill_game_report')->name('addSkillGameReport');

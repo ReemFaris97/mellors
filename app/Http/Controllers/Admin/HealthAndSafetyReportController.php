@@ -173,13 +173,8 @@ class HealthAndSafetyReportController extends Controller
      */
     public function edit($id)
     {
-        $item=PreopeningList::find($id);
-        $zone_id=$item->zone_id;
-        $list = explode(",",$item->inspection_list);
-        $rides=Ride::where('zone_id',$item->zone_id)->pluck('name','id')->all();
-        $item=PreopeningList::find($id);
-        $inspections=InspectionList::all();
-        return view('admin.preopening_lists.edit',compact('rides','list','zone_id','item','inspections'));
+        $item=HealthAndSafetyReport::where('park_time_id',$id)->get();
+        return view('admin.health_and_safety_reports.edit',compact('item','id'));
 
     }
     public function show($id)
@@ -229,5 +224,10 @@ class HealthAndSafetyReportController extends Controller
         }
         alert()->error('Preopening List not found');
         return redirect()->route('admin.preopening_lists.index');
+    }
+    public function cheackHealth(Request $request)
+    {
+        $item=HealthAndSafetyReport::where('park_time_id',$request->park_time_id)->first();
+        return response()->json(['item' => $item]);
     }
 }

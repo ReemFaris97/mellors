@@ -71,6 +71,7 @@
 
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
+                                <input type="hidden" name="park_time_id" id="park-time-id" class="park-time-id" value="{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->parks->name }}</td>
                                 <td>{{ $item->date }}</td>
@@ -131,8 +132,13 @@
                 <td>
                     @if(auth()->user()->can('health_and_safety_reports-create'))
                         <a href="{{url('add_health_and_safety_report/'.$item->parks->id.'/'.$item->id)}}">
-                            <button type="button" class="btn btn-info">
-                                H&S
+                            <button type="button" class="add btn btn-info">
+                            <i class="fa fa-plus"></i> H&S
+                            </button>
+                        </a>
+                        <a href="{{route('admin.health_and_safety_reports.edit', $item)}}">
+                            <button type="button" class="edit btn btn-success hidden">
+                            <i class="fa fa-edit"></i> H&S
                             </button>
                         </a>
                     @endif
@@ -191,6 +197,39 @@
 
 @endsection
 @push('scripts')
+<script type="text/javascript">
+    $(document).ready(function(){
+        var park_time_id = $("#park-time-id").val();
+         console.log(park_time_id);
+         $.ajax({
+                url: "{{ route('admin.cheackHealth')}}",
+                type: 'GET',
+                data:{
+                    "_token":"{{ csrf_token() }}",
+                    park_time_id: park_time_id
+                   
+                },
+                success: function(data)
+                {
+                    if(data.status !== undefined){
+                        console.log(data);
+                        $('.edit').addClass('hidden');
+                        $('.add').removeClass('hidden');
+
+                    }else{
+                        console.log('aaaaaaaaaaaaaaaaa');
+                        $('.edit').removeClass('hidden');
+                        $('.add').addClass('hidden');
+
+                    }
+
+
+                }
+            });
+});
+</script>
+
+
     <script type="text/javascript">
         $("#ClientStore").popover({
             title: '<h4>Add Daily Entrance Count</h4>',
