@@ -47,7 +47,6 @@ class RideStoppageController extends Controller
         $rides = Ride::pluck('name', 'id')->all();;
         $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
         $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
-        $users = User::pluck('name', 'id')->toArray();
         return view('admin.rides_stoppages.add', compact('stopage_category', 'rides', 'stopage_sub_category', 'users'));
     }
 
@@ -64,6 +63,7 @@ class RideStoppageController extends Controller
 /*         $ride=Ride::findOrFail($data['ride_id']);
         $time=$ride->park->parkTimes->first();
         $data['date']=$time->date; */
+        $data['user_id']= auth()->user()->id;
         $data['ride_status']="stopped";
         $data['time']=Carbon::now()->toTimeString();
         $data['opened_date']=Carbon::now()->format('Y-m-d');
@@ -111,7 +111,7 @@ class RideStoppageController extends Controller
             $data['ride_status']="stopped";
         }else{
             $data['ride_status']="active";
-        } 
+        }
         $item->update($data);
 
         if ($request->has('images')) {

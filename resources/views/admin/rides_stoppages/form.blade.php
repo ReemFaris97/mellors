@@ -12,6 +12,7 @@
         @enderror
     </div>
 
+<<<<<<< HEAD
     <div class="col-lg-12 form-group  ">
         <label class="block">Operator :</label>
         <div class="">
@@ -24,6 +25,20 @@
         </div>
         @enderror
     </div>
+=======
+{{--    <div class="col-lg-6 form-group  ">--}}
+{{--        <label class="block">Operator :</label>--}}
+{{--        <div class="">--}}
+{{--            {!! Form::select('user_id', $users,null, array('class' => 'form-control ','placeholder'=>'Choose--}}
+{{--            Operators')) !!}--}}
+{{--        </div>--}}
+{{--        @error('name')--}}
+{{--        <div class="invalid-feedback" style="color: #ef1010">--}}
+{{--            {{ $message }}--}}
+{{--        </div>--}}
+{{--        @enderror--}}
+{{--    </div>--}}
+>>>>>>> 245d8fba8638ab80fdae89aa85efeb058982d732
 
     <!--     <div class="col-lg-6 form-group stoppageCategory ">
         <label class="block">Ride Status :</label>
@@ -39,6 +54,7 @@
     </div>
  -->
 
+<<<<<<< HEAD
     <div class="col-lg-12 form-group  stoppageSubCategory">
         <label class="block"> Number of Seats :</label>
         <div class="">
@@ -51,6 +67,20 @@
         @enderror
     </div>
     <div class="col-lg-12 form-group stoppageSubCategory ">
+=======
+{{--    <div class="col-lg-6 form-group  stoppageSubCategory">--}}
+{{--        <label class="block"> Number of Seats :</label>--}}
+{{--        <div class="">--}}
+{{--            {!! Form::number('number_of_seats',null,['class'=>'form-control','placeholder'=>'Number of Seats'])!!}--}}
+{{--        </div>--}}
+{{--        @error('name')--}}
+{{--        <div class="invalid-feedback" style="color: #ef1010">--}}
+{{--            {{ $message }}--}}
+{{--        </div>--}}
+{{--        @enderror--}}
+{{--    </div>--}}
+    <div class="col-lg-6 form-group stoppageSubCategory ">
+>>>>>>> 245d8fba8638ab80fdae89aa85efeb058982d732
         <label class="col-lg-12">Stoppage Reasons Main Category :</label>
         <div class="">
             {!! Form::select('',@$stopage_category?$stopage_category:[],null, array('class' => 'select2 form-control
@@ -60,8 +90,12 @@
     <div class="col-lg-12 form-group stoppageSubCategory ">
         <label class="block">Stoppage Sub Category :</label>
         <div class="">
+<<<<<<< HEAD
             {!! Form::select('stopage_sub_category_id',@$stopage_sub_category?$stopage_sub_category:[],null,
             array('class' => 'select2 form-control
+=======
+        {!! Form::select('stopage_sub_category_id',@$stopage_sub_category?$stopage_sub_category:[],null, array('class' => 'select2 form-control
+>>>>>>> 245d8fba8638ab80fdae89aa85efeb058982d732
             js-example-basic-single ms subCategory','placeholder'=>'choose Main Category First')) !!}
             @error('name')
             <div class="invalid-feedback" style="color: #ef1010">
@@ -84,9 +118,14 @@
         @enderror
     </div>
 
+<<<<<<< HEAD
     <!--     @if(auth()->user()->hasRole('Technical')|| auth()->user()->hasRole('Super Admin'))
  -->
     <div class="col-lg-12 form-group  stoppageCategory ">
+=======
+<!--     @if(auth()->user()->hasRole('Technical')|| auth()->user()->hasRole('Super Admin'))
+ -->    <div class="col-lg-6 form-group  stoppageCategory ">
+>>>>>>> 245d8fba8638ab80fdae89aa85efeb058982d732
         <label class="block">Stoppage Status :</label>
         <div class="">
             {!! Form::select('stoppage_status', ["pending"=>'Pending',"working"=>'Working on it',"done"=>'Done'],null,
@@ -233,6 +272,7 @@ $('.mai_category').change(function() {
             $("#subCategory").empty().append(options);
         }
     });
+<<<<<<< HEAD
 });
 
 $('.stoppageType').change(function() {
@@ -249,3 +289,7 @@ $('.stoppageType').change(function() {
 });
 </script>
 @endpush
+=======
+    </script>
+    @endpush
+>>>>>>> 245d8fba8638ab80fdae89aa85efeb058982d732
