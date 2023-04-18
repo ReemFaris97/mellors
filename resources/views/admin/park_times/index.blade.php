@@ -136,7 +136,7 @@
                             <i class="fa fa-plus"></i> H&S
                             </button>
                         </a>
-                        <a href="{{route('admin.health_and_safety_reports.edit', $item)}}">
+                        <a href="{{url('edit_health_and_safety_report/'.$item->id)}}">
                             <button type="button" class="edit btn btn-success hidden">
                             <i class="fa fa-edit"></i> H&S
                             </button>

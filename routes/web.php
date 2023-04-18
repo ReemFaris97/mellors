@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
 
     Route::get('/game-all-times/{id}', 'Admin\GameTimeController@all_times');
 
-    Route::resource('game_cats', 'Admin\GameCategoryController');//done
+    Route::resource('ride_types', 'Admin\RideTypeController');
     Route::resource('games', 'Admin\GameController');//done
 
     //operation
@@ -91,9 +91,10 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
 
     Route::resource('accidents', 'Admin\AccidentController');//done
     Route::get('/add_accident_report/{ride_id}/{park_time_id}', 'Admin\AccidentController@add_accident_report')->name('addAccidentReport');
-
+    
     Route::resource('health_and_safety_reports', 'Admin\HealthAndSafetyReportController');//done
     Route::get('/add_health_and_safety_report/{park_id}/{time_slot_id}', 'Admin\HealthAndSafetyReportController@add_health_and_safety_report')->name('addHealthAndSafetyReport');
+    Route::get('/edit_health_and_safety_report/{time_slot_id}', 'Admin\HealthAndSafetyReportController@edit_health_and_safety_report')->name('editHealthAndSafetyReport');
     Route::get('/search_health_and_safety/', 'Admin\HealthAndSafetyReportController@search')->name('searchHealthAndSafetyReport');
     Route::get('/cheack_health/', 'Admin\HealthAndSafetyReportController@cheackHealth')->name('cheackHealth');
 

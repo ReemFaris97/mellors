@@ -2,9 +2,9 @@
 <div class="row">
 <div class="col-xs-12">
 <div class="form-group form-float">
-    <label class="form-label">Game Category </label>
+    <label class="form-label">Ride Type  </label>
     <div class="form-line">
-        {!! Form::text("name",null,['class'=>'form-control','placeholder'=>'Game Category'])!!}
+        {!! Form::text("name",null,['class'=>'form-control','placeholder'=>'Ride Type '])!!}
         @error('name')
         <div class="invalid-feedback" style="color: #ef1010">
             {{ $message }}

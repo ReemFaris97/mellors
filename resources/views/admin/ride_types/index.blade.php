@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-Game Category
+Ride Types 
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@ Game Category
                                 colspan="1" aria-sort="ascending">ID
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Game Category
+                            Ride Type 
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
@@ -32,17 +32,17 @@ Game Category
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
-                                {!!Form::open( ['route' => ['admin.game_cats.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::open( ['route' => ['admin.ride_types.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                    @if(auth()->user()->can('game_cats-edit'))
-                                        <a href="{{ route('admin.game_cats.edit', $item) }}"
+                                    @if(auth()->user()->can('ride_types-edit'))
+                                        <a href="{{ route('admin.ride_types.edit', $item) }}"
                                            class="btn btn-info">Edit</a>
                                     @endif
-                                        @if(auth()->user()->can('game_cats-delete'))
+                                        @if(auth()->user()->can('ride_types-delete'))
 
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                           data-url="{{ route('admin.game_cats.destroy', $item) }}"
+                                           data-url="{{ route('admin.ride_types.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>

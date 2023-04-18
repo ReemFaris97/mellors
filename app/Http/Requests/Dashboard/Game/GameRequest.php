@@ -23,35 +23,39 @@ class GameRequest extends FormRequest
      */
     public function rules()
     {
-
+        
         $rules= [
             'name' => 'required|string',
             'description' => 'nullable',
             'park_id' => 'nullable',
             'capacity_one_cycle' => 'required',
-            'one_cycle_duration_seconds' => 'nullable',
+            'one_cycle_duration_seconds' => 'required',
             'ride_cycle_mins' => 'nullable',
-            'is_flow' => 'nullable',
             'ride_price' => 'nullable',
-            'ride_price_vip' => 'nullable',
-            'game_cat_id' => 'required',
+            'ride_price_ft' => 'nullable',
+            'ride_cat' => 'required',
+            'ride_type_id' => 'required',
             'zone_id' => 'nullable',
-            'theoretical_number'=>'nullable'
+            'theoretical_number'=>'nullable',
+            'minimum_height_requirement'=>'nullable',
+            'number_of_seats'=>'nullable'
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
-                'name'=>'nullable',
+                'name' => 'nullable',
                 'description' => 'nullable',
                 'park_id' => 'nullable',
-                'capacity' => 'nullable',
-                'cycle_duration_per_second' => 'nullable',
-                'cycle_duration_load_unload_minutes' => 'nullable',
-                'is_flow' => 'nullable',
-                'price' => 'nullable',
-                'price_vip' => 'nullable',
-                'game_cat_id' => 'nullable',
+                'capacity_one_cycle' => 'nullable',
+                'one_cycle_duration_seconds' => 'nullable',
+                'ride_cycle_mins' => 'nullable',
+                'ride_price' => 'nullable',
+                'ride_price_ft' => 'nullable',
+                'ride_cat' => 'nullable',
+                'ride_type_id' => 'nullable',
                 'zone_id' => 'nullable',
-                'theoretical_number'=>'nullable'
+                'theoretical_number'=>'nullable',
+                'minimum_height_requirement'=>'nullable',
+                'number_of_seats'=>'nullable'
 
             ];
         }

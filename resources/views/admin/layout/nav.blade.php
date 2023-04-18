@@ -119,13 +119,13 @@
 </ul>
 </li>
 @endif
-@if(auth()->user()->can('game_cats-list')|| auth()->user()->can('game_cats-create'))
+@if(auth()->user()->can('ride_types-list')|| auth()->user()->can('ride_types-create'))
 <li class="has_sub">
-    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-list"></i><span>Rides Category </span>
+    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-list"></i><span>Ride Types </span>
         <span class="menu-arrow"></span></a>
     <ul class="list-unstyled">
-        <li><a href="{{route('admin.game_cats.index')}}">All categories</a></li>
-        <li><a href="{{route('admin.game_cats.create')}}">Add new category</a></li>
+        <li><a href="{{route('admin.ride_types.index')}}">All Ride Types</a></li>
+        <li><a href="{{route('admin.ride_types.create')}}">Add Ride Type</a></li>
 
     </ul>
 </li>

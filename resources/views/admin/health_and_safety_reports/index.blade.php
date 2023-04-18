@@ -7,24 +7,6 @@
 @section('content')
 
     <div class="card-box">
-    <form action="{{url('/search_health_and_safety')}}" method="GET">
-
-@csrf
-
-<div class="form-group">
-    <label for="last_name">Select Park</label>
-    {!! Form::select('park_id',$parks,null, array('class' => 'form-control',"required")) !!}
-</div>
-<div class="form-group">
-    <label for="middle_name">Date </label>
-    {!! Form::date('date',null,['class'=>'form-control','id'=>'date',"required"]) !!}
-</div>
-<div class="col-xs-12">
-    <div class="input-group-btn">
-        <button type="submit" class="btn btn-primary save_btn waves-effect">Show</button>
-    </div>
-</div>
-{!!Form::close() !!}
 
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4">
             <div class="row">
@@ -44,7 +26,9 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Comment
                             </th>
-
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Process
+                            </th>
                         </tr>
                         </thead>
 
@@ -55,32 +39,29 @@
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->question }}</td>
-                                <td>@if($item->answer == "yes")
-                                <label style="background-color: aquamarine;">Yes</label>
-                                    @elseif($item->answer == "no")
-                                    <label style="background-color: red; font-weight: bold;">No</label>
-                                    @else
-                                    {{ $item->answer }}
-                                    @endif
-                                </td>                                
+                                <td>{{$item->answer }}                            
                                 <td>{!! $item->comment !!}</td>
-                             
+                                {!!Form::open( ['route' => ['admin.health_and_safety_reports.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
+                                <td>
+                                    @if(auth()->user()->can('health_and_safety_reports-edit'))
+                                        <a href="{{ route('admin.health_and_safety_reports.edit', $item) }}"
+                                           class="btn btn-info">Edit</a>
+                                    @endif
+                                        @if(auth()->user()->can('health_and_safety_reports-delete'))
+
+                                        <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                           data-url="{{ route('admin.health_and_safety_reports.destroy', $item) }}"
+                                           onclick="delete_form(this)">
+                                            Delete
+                                        </a>
+                                        @endif
+
+                                </td>
+
                             </tr>
                         @endforeach
 
-                        <tfoot>
-                        <tr role="row" class="odd" id="row-{{ 1 }}">
-                                <td tabindex="0" class="sorting_1">{{ 1 }}</td>
-                                <td>    Completed By  </td>
-                                @forelse($items as $item)
-                                <td>{{$item->user->name}}
-                                    @break
-                                </td>
-                                @empty
-                                <td>Not found</td>
-                                @endforelse
-                       </tr>
-                        </tfoot>
                         @endif
 
                         </tbody>
