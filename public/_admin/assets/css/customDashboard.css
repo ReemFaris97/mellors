@@ -640,8 +640,8 @@ img.img-preview{
 
 .circles li:nth-child(5){
     left: 65%;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     animation-delay: 0s;
 }
 
@@ -697,6 +697,22 @@ img.img-preview{
        
     }
 
+}
+
+
+
+
+
+
+.fixed-left-void .content-page{
+    margin-left: 0;
+
+}
+.editbtnInCenter{
+    text-align: center;
+}
+.editbtnInCenter button{
+    min-width: 120px;
 }
 /* ============== responsive =================*/
 @media (max-width: 1450px) {}
