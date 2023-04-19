@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('rides', function (Blueprint $table) {
-            //
+            $table->dropColumn(['is_flow','ride_category','date','ride_price_vip']);
         });
     }
 
@@ -26,7 +26,6 @@ return new class extends Migration
     public function down()
     {
         Schema::table('rides', function (Blueprint $table) {
-            $table->dropColumn(['is_flow', 'game_cat_id','ride_category','date','ride_price_vip']);
         });
     }
 };

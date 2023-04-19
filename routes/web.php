@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::Post('get-images', 'Admin\RideStoppageController@getImage')->name('getImage');
     Route::resource('rides-cycles', 'Admin\RideCyclesController');//done
     Route::Post('upload-cycles-with-excel', 'Admin\RideCyclesController@uploadCycleExcleFile')->name('uploadCycleExcleFile');
+    Route::get('/search_ride_cycle/', 'Admin\RideCyclesController@search')->name('searchRideCycle');
 
     Route::resource('queues', 'Admin\QueueController');//done
     Route::Post('upload-queues-with-excel', 'Admin\QueueController@uploadQueueExcleFile')->name('uploadQueueExcleFile');

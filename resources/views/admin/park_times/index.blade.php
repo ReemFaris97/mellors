@@ -211,15 +211,16 @@
                 },
                 success: function(data)
                 {
-                    if(data.status !== undefined){
-                        console.log(data);
-                        $('.edit').addClass('hidden');
-                        $('.add').removeClass('hidden');
+                    if (!data){   
+                        console.log('doneeeeeeeeeeee');
+                        $('.edit').removeClass('hidden');
+                        $('.add').addClass('hidden');
 
                     }else{
                         console.log('aaaaaaaaaaaaaaaaa');
-                        $('.edit').removeClass('hidden');
-                        $('.add').addClass('hidden');
+                        $('.edit').addClass('hidden');
+
+                        $('.add').removeClass('hidden');
 
                     }
 
