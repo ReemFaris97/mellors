@@ -12,18 +12,18 @@
         @enderror
     </div>
 
-{{--    <div class="col-lg-6 form-group  ">--}}
-{{--        <label class="block">Operator :</label>--}}
-{{--        <div class="">--}}
-{{--            {!! Form::select('user_id', $users,null, array('class' => 'form-control ','placeholder'=>'Choose--}}
-{{--            Operators')) !!}--}}
-{{--        </div>--}}
-{{--        @error('name')--}}
-{{--        <div class="invalid-feedback" style="color: #ef1010">--}}
-{{--            {{ $message }}--}}
-{{--        </div>--}}
-{{--        @enderror--}}
-{{--    </div>--}}
+    <div class="col-lg-6 form-group  ">
+        <label class="block">Operator :</label>
+        <div class="">
+            {!! Form::select('user_id', $users,null, array('class' => 'form-control ','placeholder'=>'Choose
+            Operators')) !!}
+        </div>
+        @error('name')
+        <div class="invalid-feedback" style="color: #ef1010">
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
 
 <!--     <div class="col-lg-6 form-group stoppageCategory ">
         <label class="block">Ride Status :</label>

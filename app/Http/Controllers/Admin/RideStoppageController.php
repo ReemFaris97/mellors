@@ -63,7 +63,7 @@ class RideStoppageController extends Controller
 /*         $ride=Ride::findOrFail($data['ride_id']);
         $time=$ride->park->parkTimes->first();
         $data['date']=$time->date; */
-        $data['user_id']= auth()->user()->id;
+//        $data['user_id']= auth()->user()->id;
         $data['ride_status']="stopped";
         $data['time']=Carbon::now()->toTimeString();
         $data['opened_date']=Carbon::now()->format('Y-m-d');
