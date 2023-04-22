@@ -14,7 +14,7 @@
     <div class="form-group">
         <label class="col-lg-12">Parks :</label></label>
         <div class="col-lg-6">
-            {!! Form::select('park_id', $parks,null, array('class' => 'form-control col-lg-6 select2')) !!}
+            {!! Form::select('park_id', $parks,null, array('class' =>'form-control col-lg-6 select2')) !!}
             @error('park_id')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
@@ -23,24 +23,11 @@
         </div>
     </div>
 
-    <div class="form-group stoppageCategory ">
-        <label class="col-lg-12">Operator :</label></label>
-        <div class="col-lg-6">
-            {!! Form::select('user_id', $users,null, array('class' => 'form-control col-lg-6 select2','placeholder'=>'CHOOSE Operators')) !!}
-            @error('user_id')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-
-
     <div class="form-group">
-        <label class="col-lg-12">Seats filled :</label>
+        <label class="col-lg-12">Riders Count :</label>
         <div class="col-lg-6">
-            {!! Form::number("seats_filled",null,['class'=>'form-control','placeholder'=>'Seats filled '])!!}
-            @error('seats_filled')
+            {!! Form::number("riders_count",null,['class'=>'form-control','placeholder'=>'riders count '])!!}
+            @error('riders_count')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
             </div>
@@ -70,45 +57,11 @@
             @enderror
         </div>
     </div>
-
     <div class="form-group">
-        <label class="col-lg-12">cycle time minute:</label>
+        <label class="col-lg-12">Number Of Fast Track:</label>
         <div class="col-lg-6">
-            {!! Form::number("cycle_time_minute",null,['class'=>'form-control','placeholder'=>'cycle time minute'])!!}
-            @error('cycle_time_minute')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-lg-12">Ride price:</label>
-        <div class="col-lg-6">
-            {!! Form::number("ride_price",null,['class'=>'form-control','placeholder'=>'Ride price'])!!}
-            @error('ride_price')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-lg-12">Ride price:</label>
-        <div class="col-lg-6">
-            {!! Form::number("ride_price_vip",null,['class'=>'form-control','placeholder'=>'Ride price vip'])!!}
-            @error('ride_price_vip')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-lg-12">Ride price:</label>
-        <div class="col-lg-6">
-            {!! Form::number("ride_price_new",null,['class'=>'form-control','placeholder'=>'Ride price new'])!!}
-            @error('ride_price_new')
+            {!! Form::number("number_of_ft",null,['class'=>'form-control','placeholder'=>'Number Of Fast Track'])!!}
+            @error('number_of_ft')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
             </div>
@@ -117,10 +70,10 @@
     </div>
 
     <div class="form-group">
-        <label class="col-lg-12">Ride price vip New:</label>
+        <label class="col-lg-12">Cycle Duration /Second:</label>
         <div class="col-lg-6">
-            {!! Form::number("ride_price_vip_new",null,['class'=>'form-control','placeholder'=>'Ride price vip New'])!!}
-            @error('ride_price_vip_new')
+            {!! Form::number("duration_seconds",null,['class'=>'form-control','placeholder'=>'Cycle Duration'])!!}
+            @error('duration_seconds')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
             </div>
@@ -128,9 +81,9 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-lg-12">Sales:</label>
+        <label class="col-lg-12">Salles:</label>
         <div class="col-lg-6">
-            {!! Form::number("sales",null,['class'=>'form-control','placeholder'=>'Sales'])!!}
+            {!! Form::number("sales",null,['class'=>'form-control','placeholder'=>'Salles'])!!}
             @error('sales')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
@@ -138,39 +91,18 @@
             @enderror
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-lg-12"> Date :</label>
+       <div class="form-group">
+        <label class="col-lg-12">Cycle Start Time :</label>
         <div class="col-lg-6">
-            {!! Form::date("date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
-            @error('date')
+            {!! Form::datetimeLocal("start_time",null,['class'=>'form-control','placeholder'=>'Start Time'])!!}
+            @error('start_time')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
             </div>
             @enderror
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-lg-12">  Time :</label>
-        <div class="col-lg-6">
-            {!! Form::time("time",null,['class'=>'form-control','placeholder'=>'time'])!!}
-            @error('time')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-lg-12">Opened Date :</label>
-        <div class="col-lg-6">
-            {!! Form::date("opened_date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
-            @error('opened_date')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
+    
 
     <div class="col-xs-12 aligne-center contentbtn">
         <button class="btn btn-primary waves-effect" type="submit">Save</button>

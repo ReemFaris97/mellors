@@ -30,8 +30,7 @@
                            </td>
                            <td>
                           <label>
-                              {{$incidents}}
-                              <input type="hidden" name="answer[]" class="answer" value="{{$incidents}}">
+                              <input type="number" name="answer[]" class="answer" value="{{$incidents??''}}">
                           </label>
                                      
                            </td>
@@ -66,8 +65,7 @@
                            </td>
                            <td>
                                <label>
-                               {{$accidents}}
-                               <input type="hidden" name="answer[]" class="answer" value="{{$accidents}}">
+                               <input type="number" name="answer[]" class="answer" value="{{$accidents??''}}">
                                </label>
                                           
                            </td>
@@ -492,9 +490,7 @@
 
                            </td>
                        </tr>
-                       <input type="hidden" name="park_id[]" id="park-id" value="{{$park_id}}">
-                       <input type="hidden" name="park_time_id[]" id="park-time-id"
-                        value="{{$park_time_id}}">
+                    
                         <tr>
                         <td colspan="4" tabindex=" 0" class="sorting_1 redflagTd">
                             <h3>Red Flags</h3>

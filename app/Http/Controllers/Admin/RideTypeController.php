@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\GameCategory\GameCategoryRequest;
-use App\Models\GameCategory;
+use App\Http\Requests\Dashboard\RideType\RideTypeRequest;
+use App\Models\RideType;
 use Illuminate\Http\Request;
 
-class GameCategoryController extends Controller
+class RideTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class GameCategoryController extends Controller
      */
     public function index()
     {
-        $items=GameCategory::all();
-        return view('admin.game_cats.index',compact('items'));
+        $items=RideType::all();
+        return view('admin.ride_types.index',compact('items'));
     }
 
     /**
@@ -26,7 +26,7 @@ class GameCategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.game_cats.add');
+        return view('admin.ride_types.add');
     }
 
     /**
@@ -35,11 +35,11 @@ class GameCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(GameCategoryRequest $request)
+    public function store(RideTypeRequest $request)
     {
-        GameCategory::create($request->validated());
-        alert()->success('Game Category Added successfully !');
-        return redirect()->route('admin.game_cats.index');
+        RideType::create($request->validated());
+        alert()->success('Ride Type  Added successfully !');
+        return redirect()->route('admin.ride_types.index');
     }
 
     /**
@@ -50,7 +50,7 @@ class GameCategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.game_cats.edit')->with('game_cats',GameCategory::find($id));
+        return view('admin.ride_types.edit')->with('ride_types',RideType::find($id));
 
     }
 
@@ -61,14 +61,14 @@ class GameCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(GameCategoryRequest $request, $id)
+    public function update(RideTypeRequest $request, $id)
     {
-        $game_cats=GameCategory::find($id);
-        $game_cats->update($request->validated());
-        $game_cats->save();
+        $ride_types=RideType::find($id);
+        $ride_types->update($request->validated());
+        $ride_types->save();
 
-        alert()->success('Game Category updated successfully !');
-        return redirect()->route('admin.game_cats.index');
+        alert()->success('Ride Type updated successfully !');
+        return redirect()->route('admin.ride_types.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -78,14 +78,14 @@ class GameCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $game_cats=GameCategory::find($id);
-        if ($game_cats){
+        $ride_types=RideType::find($id);
+        if ($ride_types){
 
-            $game_cats->delete();
-            alert()->success('Game Category deleted successfully');
+            $ride_types->delete();
+            alert()->success('Ride Type deleted successfully');
             return back();
         }
-        alert()->error('Game Category not found');
-        return redirect()->route('admin.game_cats.index');
+        alert()->error('Ride Type  not found');
+        return redirect()->route('admin.ride_types.index');
     }
 }

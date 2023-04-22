@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RideCycles extends Model
 {
-    use HasFactory;
-    protected $guarded=[];
+    protected $fillable = [
+        'ride_id','park_id','user_id','riders_count','number_of_vip',
+        'number_of_ft','number_of_disabled','duration_seconds','sales','start_time','opened_date'
+    ];
 
     public function ride()
     {

@@ -10,6 +10,33 @@
         <a href="{{route('admin.rides-cycles.create')}}">
             <button type="button" class="btn btn-info">Create New Cycle</button>
         </a>
+
+        <br><br>
+        <form class="formSection" action="{{url('/search_ride_cycle')}}" method="GET">
+
+            @csrf
+
+     <div class="row">
+    <div class='col-md-5'>
+        <div class="form-group">
+            <label for="last_name">Select Ride</label>
+            {!! Form::select('ride_id', \App\Models\Ride::pluck('name','id')->all(),null, array('class' => 'form-control')) !!}
+        </div>
+    </div>
+    <div class='col-md-5'>
+        <div class="form-group">
+            <label for="middle_name">Date </label>
+            {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
+        </div>
+    </div>
+    <div class='col-md-2 mtButton'>
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-primary save_btn waves-effect">Show</button>
+        </div>
+    </div>
+</div>
+            {!!Form::close() !!}
+
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">
@@ -22,7 +49,6 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Name
                             </th>
-
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                Operator Name
                             </th>
@@ -30,37 +56,25 @@
                                Park Name
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Date
+                                Start Time
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Time
+                                Riders Count
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                seats_filled
+                                Number Of Vip
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                number_of_vip
+                                Number oF Disabled
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                number_of_disabled
+                                Number oF Fast Track
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Opened_Date
+                                Opened Date
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                cycle_time_minute
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                ride_price
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                ride_price_vip
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                ride_price New
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                ride_price_vip new
+                                Cycle Duration /Seconds
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 sales
@@ -80,17 +94,13 @@
                                 <td>{{ $item->ride->name }}</td>
                                 <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->ride->park->name ?? "" }}</td>
-                                <td>{{ $item->date }}</td>
-                                <td>{{ $item->time }}</td>
-                                <td>{{ $item->seats_filled }}</td>
-                                <td>{{ $item->number_of_vip }}</td>
-                                <td>{{ $item->number_of_disabled }}</td>
-                                <td>{{ $item->opened_Date }}</td>
-                                <td>{{ $item->cycle_time_minute }}</td>
-                                <td>{{ $item->ride_price }}</td>
-                                <td>{{ $item->ride_price_vip }}</td>
-                                <td>{{ $item->ride_price_new }}</td>
-                                <td>{{ $item->ride_price_vip_new }}</td>
+                                <td>{{ $item->start_time }}</td>
+                                <td>{{ $item->riders_count }}</td>
+                                <td>{{ $item->number_of_vip ??'0'}}</td>
+                                <td>{{ $item->number_of_disabled ??'0'}}</td>
+                                <td>{{ $item->number_of_ft??'0' }}</td>
+                                <td>{{ $item->opened_date }}</td>
+                                <td>{{ $item->duration_seconds }}</td>
                                 <td>{{ $item->sales }}</td>
                                 {!!Form::open( ['route' => ['admin.rides-cycles.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}

@@ -52,6 +52,11 @@ class HealthAndSafetyReportController extends Controller
         $accidents=Accident::where(("park_time_id"),$park_time_id)->count();
         return view('admin.health_and_safety_reports.add',compact('accidents','incidents','park_id','park_time_id'));
     }
+    public function edit_health_and_safety_report($park_time_id)
+    {
+        $items=HealthAndSafetyReport::where('park_time_id',$park_time_id)->get();
+        return view('admin.health_and_safety_reports.index',compact('items','park_time_id'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -173,20 +178,13 @@ class HealthAndSafetyReportController extends Controller
      */
     public function edit($id)
     {
-        $item=PreopeningList::find($id);
-        $zone_id=$item->zone_id;
-        $list = explode(",",$item->inspection_list);
-        $rides=Ride::where('zone_id',$item->zone_id)->pluck('name','id')->all();
-        $item=PreopeningList::find($id);
-        $inspections=InspectionList::all();
-        return view('admin.preopening_lists.edit',compact('rides','list','zone_id','item','inspections'));
+        $item=HealthAndSafetyReport::find($id);
+        return view('admin.health_and_safety_reports.edit',compact('item'));
 
     }
     public function show($id)
     {
-        $items=PreopeningList::where('zone_id',$id)->get();
-
-        return view('admin.preopening_lists.index',compact('items'));
+       
 
     }
 
@@ -197,20 +195,14 @@ class HealthAndSafetyReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PreopeningListRequest $request, PreopeningList $preopening_list)
+    public function update(Request $request, HealthAndSafetyReport $health)
     {
-        $preopening_list->update([
-        'ride_id'=>$request->validated('ride_id'),
-        'zone_id'=>$request->validated('zone_id'),
-        'user_id' =>$request->validated('user_id'),
-        'inspection_list'=>implode(',', (array) $request['inspection_list']),
-        'comment'=>$request->validated('comment'),
-        'date'=>$request->validated('date')
-        ]);
-        $preopening_list->save();
-
-        alert()->success('Preopening List updated successfully !');
-        return redirect()->route('admin.preopening_lists.index');
+        return $health;
+        $health->update($request->all());
+        $health->user_id=auth()->user()->id;
+        $health->save();
+        alert()->success('Health And Saftey Report updated successfully !');
+        return redirect()->route('admin.park_times.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -229,5 +221,10 @@ class HealthAndSafetyReportController extends Controller
         }
         alert()->error('Preopening List not found');
         return redirect()->route('admin.preopening_lists.index');
+    }
+    public function cheackHealth(Request $request)
+    {
+        $item=HealthAndSafetyReport::where('park_time_id',$request->park_time_id)->first();
+        return response()->json(['item' => $item]);
     }
 }

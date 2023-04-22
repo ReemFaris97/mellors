@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ParkTime\ParkTimeRequest;
 use App\Http\Requests\Dashboard\ParkTime\EntranceCountRequest;
+use App\Models\HealthAndSafetyReport;
 use App\Models\Park;
 use App\Models\ParkTime;
 use Illuminate\Http\Request;
@@ -28,9 +29,7 @@ class ParkTimeController extends Controller
             ->wherein('park_id', $parks)
             ->get();
 
-            
         }
-
         return view('admin.park_times.index', compact('items'));
     }
 

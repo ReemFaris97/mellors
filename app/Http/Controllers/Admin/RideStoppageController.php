@@ -44,10 +44,10 @@ class RideStoppageController extends Controller
      */
     public function create()
     {
-        $rides = Ride::pluck('name', 'id')->all();;
+        $rides = Ride::pluck('name','id')->all();
         $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
         $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
-        return view('admin.rides_stoppages.add', compact('stopage_category', 'rides', 'stopage_sub_category', 'users'));
+        return view('admin.rides_stoppages.add', compact('stopage_category', 'rides', 'stopage_sub_category'));
     }
 
     /**
