@@ -11,7 +11,8 @@ class Queue extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'start','end','ride_id','date','queue_minutes','park_id','user_id','seats_filled','queue_seconds','time','opened_date'
+        'ride_id','date','queue_minutes','park_id','user_id','current_queue_occupancy','opened_date','riders_count',
+        'current_wait_time','max_queue_capacity','start_time'
     ];
 
     public function ride()

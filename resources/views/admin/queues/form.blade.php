@@ -37,10 +37,10 @@
 
 
     <div class="form-group">
-        <label class="col-lg-12">Seats filled :</label>
+        <label class="col-lg-12">Opened Date :</label>
         <div class="col-lg-6">
-            {!! Form::number("seats_filled",null,['class'=>'form-control','placeholder'=>'Seats filled '])!!}
-            @error('seats_filled')
+            {!! Form::date("opened_date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
+            @error('opened_date')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
             </div>
@@ -49,32 +49,10 @@
     </div>
 
     <div class="form-group">
-        <label class="col-lg-12"> Date :</label>
+        <label class="col-lg-12">Queue Start Time :</label>
         <div class="col-lg-6">
-            {!! Form::date("date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
-            @error('date')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-lg-12">  Time :</label>
-        <div class="col-lg-6">
-            {!! Form::time("time",null,['class'=>'form-control','placeholder'=>'time'])!!}
-            @error('time')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-lg-12">Opened Date :</label>
-        <div class="col-lg-6">
-            {!! Form::date("opened_date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
-            @error('opened_date')
+            {!! Form::datetimeLocal("start_time",null,['class'=>'form-control','placeholder'=>'Start Time'])!!}
+            @error('start_time')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
             </div>
@@ -92,17 +70,53 @@
             @enderror
         </div>
     </div>
+
     <div class="form-group">
-        <label class="col-lg-12">  Queue seconds :</label>
+        <label class="col-lg-12">Rider count :</label>
         <div class="col-lg-6">
-            {!! Form::number("queue_seconds",null,['class'=>'form-control','placeholder'=>'Queue seconds'])!!}
-            @error('queue_seconds')
+            {!! Form::number("rider_count",null,['class'=>'form-control','placeholder'=>'rider count '])!!}
+            @error('rider_count')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
             </div>
             @enderror
         </div>
     </div>
+
+    <div class="form-group">
+        <label class="col-lg-12">Current wait time :</label>
+        <div class="col-lg-6">
+            {!! Form::number("current_wait_time",null,['class'=>'form-control','placeholder'=>'Current wait time'])!!}
+            @error('current_wait_time')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-12">Max Queue Capacity :</label>
+        <div class="col-lg-6">
+            {!! Form::number("max_queue_capacity",null,['class'=>'form-control','placeholder'=>'Max Queue Capacity'])!!}
+            @error('max_queue_capacity')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-12">Current Queue Occupancy :</label>
+        <div class="col-lg-6">
+            {!! Form::number("current_queue_occupancy",null,['class'=>'form-control','placeholder'=>'Current Queue Occupancy'])!!}
+            @error('current_queue_occupancy')
+            <div class="invalid-feedback" style="color: #ef1010">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+
     <div class="col-xs-12 aligne-center contentbtn">
         <button class="btn btn-primary waves-effect" type="submit">Save</button>
     </div>
