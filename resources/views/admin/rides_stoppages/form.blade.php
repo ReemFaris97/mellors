@@ -36,8 +36,10 @@
     <div class="col-lg-12 form-group stoppageSubCategory ">
         <label class="block">Stoppage Sub Category :</label>
         <div class="">
-            {!! Form::select('stopage_sub_category_id',@$stopage_sub_category?$stopage_sub_category:[],null, array('class' => 'select2 form-control
-                js-example-basic-single ms subCategory','placeholder'=>'choose Main Category First')) !!}
+            <select class="form-control js-example-basic-single ms select2 subCategory" id="subCategory" name="stopage_sub_category_id"
+                    data-live-search=true required>
+                <option disabled> choose Stoppage Reasons Main Category First</option>
+            </select>
             @error('stopage_sub_category_id')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
@@ -74,7 +76,8 @@
             </div>
             @enderror
         </div>
-        <!--     @endif
+        <!--
+    @endif
     -->
     <div class="form-group downTime hidden">
         <label class="col-lg-12">Down Time :</label>
@@ -129,7 +132,8 @@
         <span class="help-block">
             <strong>{{ $errors->first('close_date') }}</strong>
                     </span>
-                    @endif
+
+@endif
 </div>
 </div>
 </div> -->
@@ -155,7 +159,6 @@
     </div>
     @enderror
 </div>
-
 
 
 <div class="form-group">
@@ -189,7 +192,7 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $('.mai_category').change(function() {
+        $('.mai_category').change(function () {
             var val = $(this).val();
             $.ajax({
                 type: "post",
@@ -198,9 +201,9 @@
                     'stopage_category_id': val,
                     '_token': "{{ @csrf_token() }}"
                 },
-                success: function(data) {
+                success: function (data) {
                     var options = '<option disabled>Choose Main Category</option>';
-                    $.each(data.subCategory, function(key, value) {
+                    $.each(data.subCategory, function (key, value) {
                         options += '<option value="' + value.id + '">' + value.name +
                             '</option>';
 
@@ -210,7 +213,7 @@
             });
         });
 
-        $('.stoppageType').change(function() {
+        $('.stoppageType').change(function () {
             var val = $(this).val();
             console.log(val);
             if (val == "time_slot") {

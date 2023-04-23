@@ -53,7 +53,7 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Notes
                             </th>
-                           
+
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Down Times
                             </th>
@@ -71,16 +71,16 @@
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->ride->name }}</td>
                                 <td>{{ $item->ride->id }}</td>
-                                <td>{{ $item->number_of_seats?? "" }}</td>
+                                <td>{{ $item->ride->number_of_seats?? "" }}</td>
                                 <td>{{ $item->user->user_number??"" }}</td>
                                 <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->date }}</td>
                                 <td>{{ $item->time }}</td>
                                 <td>
                                 @if($item->ride_status=='stopped')
-                                <span class="btn btn-xs btn-danger">Stopped</a>
+                                <span class="btn btn-xs btn-danger">Stopped</span>
                                   @else
-                                  <span class="btn btn-xs btn-success">Active</a>
+                                  <span class="btn btn-xs btn-success">Active</span>
                                 @endif
                                 </td>
                                 <td>
