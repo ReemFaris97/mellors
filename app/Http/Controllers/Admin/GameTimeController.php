@@ -58,7 +58,7 @@ class GameTimeController extends Controller
 
         GameTime::create($request->validated());
         alert()->success('Time Slot Added Successfully to the Ride !');
-        return redirect()->route('admin.game_times.index');
+        return redirect()->route('admin.park_times.index');
     }
 
     /**
@@ -89,7 +89,6 @@ class GameTimeController extends Controller
         $park_id=Ride::where('id',$id)->pluck('park_id')->first();
         $time=ParkTime::where('park_id',$park_id)->where('date',date('Y-m-d'))->first();
         return view('admin.game_times.edit',compact('time','id','park_id'));
-
 
     }
 

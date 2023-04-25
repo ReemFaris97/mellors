@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    Parks open and close times
+    Parks Time Slot
 @endsection
 
 @section('content')
@@ -127,6 +127,7 @@
                                         </div>
                                     </div>
                 </div>
+</td>
                 {!!Form::open( ['route' => ['admin.park_times.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                 {!!Form::close() !!}
                 <td>
@@ -144,22 +145,46 @@
                     @endif
                     @if(auth()->user()->can('skill_game_reports-create'))
                         <a href="{{url('add_skill_game_report/'.$item->parks->id.'/'.$item->id)}}">
-                            <button type="button" class="btn btn-info">SkillGames</button>
+                            <button type="button" class="adds btn btn-info">
+                            <i class="fa fa-plus"></i> SkillGames</button>
+                        </a>
+                        <a href="{{url('edit_skill_game_report/'.$item->id)}}">
+                            <button type="button" class="edits btn btn-success hidden">
+                            <i class="fa fa-edit"></i> SkillGames
+                            </button>
                         </a>
                     @endif
                     @if(auth()->user()->can('maintenance_reports-create'))
                         <a href="{{url('add_maintenance_report/'.$item->parks->id.'/'.$item->id)}}">
-                            <button type="button" class="btn btn-info">Maintenance</button>
+                            <button type="button" class="addm btn btn-info">
+                            <i class="fa fa-plus"></i> Maintenance</button>
+                        </a>
+                        <a href="{{url('edit_maintenance_report/'.$item->id)}}">
+                            <button type="button" class="editm btn btn-success hidden">
+                            <i class="fa fa-edit"></i> Maintenance
+                            </button>
                         </a>
                     @endif
                     @if(auth()->user()->can('tech-reports-create'))
                         <a href="{{url('add-tech-report/'.$item->parks->id.'/'.$item->id)}}">
-                            <button type="button" class="btn btn-info">Tech</button>
+                            <button type="button" class="addt btn btn-info">
+                            <i class="fa fa-plus"></i> Tech</button>
+                        </a>
+                        <a href="{{url('edit_tech_report/'.$item->id)}}">
+                            <button type="button" class="editt btn btn-success hidden">
+                            <i class="fa fa-edit"></i> Tech
+                            </button>
                         </a>
                     @endif
                     @if(auth()->user()->can('ride-ops-reports-create'))
                         <a href="{{url('add-ride-ops-report/'.$item->parks->id.'/'.$item->id)}}">
-                            <button type="button" class="btn btn-info">Ride Ops</button>
+                            <button type="button" class="addr btn btn-info">
+                            <i class="fa fa-plus"></i> Ride Ops</button>
+                        </a>
+                        <a href="{{url('edit_ride_ops_report/'.$item->id)}}">
+                            <button type="button" class="editr btn btn-success hidden">
+                            <i class="fa fa-edit"></i> Ride Ops
+                            </button>
                         </a>
                     @endif
                 </td>
@@ -197,6 +222,18 @@
 
 @endsection
 @push('scripts')
+    <script type="text/javascript">
+        $("#ClientStore").popover({
+            title: '<h4>Add Daily Entrance Count</h4>',
+            container: 'body',
+            placement: 'bottom',
+            html: true,
+            content: function () {
+                return $('#popover-form').html();
+            }
+        });
+    </script>
+
 <script type="text/javascript">
     $(document).ready(function(){
         var park_time_id = $("#park-time-id").val();
@@ -211,15 +248,14 @@
                 },
                 success: function(data)
                 {
-                    if (!data){   
-                        console.log('doneeeeeeeeeeee');
+                    if (data.item != null){   
+                        console.log('aaaaaaaaaaaaaa');
                         $('.edit').removeClass('hidden');
                         $('.add').addClass('hidden');
 
                     }else{
-                        console.log('aaaaaaaaaaaaaaaaa');
+                        console.log('eeeeeeeeeeeeee');
                         $('.edit').addClass('hidden');
-
                         $('.add').removeClass('hidden');
 
                     }
@@ -230,18 +266,137 @@
 });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        var park_time_id = $("#park-time-id").val();
+         console.log(park_time_id);
+         $.ajax({
+                url: "{{ route('admin.cheackSkillGame')}}",
+                type: 'GET',
+                data:{
+                    "_token":"{{ csrf_token() }}",
+                    park_time_id: park_time_id
+                   
+                },
+                success: function(data)
+                {
+                    if (data.item != null){   
+                        console.log('aaaaaaaaaaaaaa');
+                        $('.edits').removeClass('hidden');
+                        $('.adds').addClass('hidden');
 
-    <script type="text/javascript">
-        $("#ClientStore").popover({
-            title: '<h4>Add Daily Entrance Count</h4>',
-            container: 'body',
-            placement: 'bottom',
-            html: true,
-            content: function () {
-                return $('#popover-form').html();
-            }
-        });
-    </script>
+                    }else{
+                        console.log('eeeeeeeeeeeeee');
+                        $('.edits').addClass('hidden');
+                        $('.adds').removeClass('hidden');
+
+                    }
+
+
+                }
+            });
+});
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var park_time_id = $("#park-time-id").val();
+         console.log(park_time_id);
+         $.ajax({
+                url: "{{ route('admin.cheackMaintenance')}}",
+                type: 'GET',
+                data:{
+                    "_token":"{{ csrf_token() }}",
+                    park_time_id: park_time_id
+                   
+                },
+                success: function(data)
+                {
+                    if (data.item != null){   
+                        console.log('aaaaaaaaaaaaaa');
+                        $('.editm').removeClass('hidden');
+                        $('.addm').addClass('hidden');
+
+                    }else{
+                        console.log('eeeeeeeeeeeeee');
+                        $('.editm').addClass('hidden');
+                        $('.addm').removeClass('hidden');
+
+                    }
+
+
+                }
+            });
+});
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var park_time_id = $("#park-time-id").val();
+         console.log(park_time_id);
+         $.ajax({
+                url: "{{ route('admin.cheackTech')}}",
+                type: 'GET',
+                data:{
+                    "_token":"{{ csrf_token() }}",
+                    park_time_id: park_time_id
+                   
+                },
+                success: function(data)
+                {
+                    if (data.item != null){   
+                        console.log('aaaaaaaaaaaaaa');
+                        $('.editt').removeClass('hidden');
+                        $('.addt').addClass('hidden');
+
+                    }else{
+                        console.log('eeeeeeeeeeeeee');
+                        $('.editt').addClass('hidden');
+                        $('.addt').removeClass('hidden');
+
+                    }
+
+
+                }
+            });
+});
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var park_time_id = $("#park-time-id").val();
+         console.log(park_time_id);
+         $.ajax({
+                url: "{{ route('admin.cheackRideOps')}}",
+                type: 'GET',
+                data:{
+                    "_token":"{{ csrf_token() }}",
+                    park_time_id: park_time_id
+                   
+                },
+                success: function(data)
+                {
+                    if (data.item != null){   
+                        console.log('aaaaaaaaaaaaaa');
+                        $('.editr').removeClass('hidden');
+                        $('.addr').addClass('hidden');
+
+                    }else{
+                        console.log('eeeeeeeeeeeeee');
+                        $('.editr').addClass('hidden');
+                        $('.addr').removeClass('hidden');
+
+                    }
+
+
+                }
+            });
+});
+</script>
+
 @endpush
 
 @section('footer')

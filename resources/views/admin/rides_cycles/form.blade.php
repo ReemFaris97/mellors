@@ -2,8 +2,8 @@
 <div class="row">
     <div class="form-group">
         <label class="col-lg-12">Ride :</label></label>
-        <div class="col-lg-6">
-            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control col-lg-6 select2')) !!}
+        <div class="">
+            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control    select2')) !!}
             @error('ride_id')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
@@ -13,8 +13,8 @@
     </div>
     <div class="form-group">
         <label class="col-lg-12">Parks :</label></label>
-        <div class="col-lg-6">
-            {!! Form::select('park_id', $parks,null, array('class' =>'form-control col-lg-6 select2')) !!}
+        <div class="">
+            {!! Form::select('park_id', $parks,null, array('class' =>'form-control    select2')) !!}
             @error('park_id')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
@@ -25,7 +25,7 @@
 
     <div class="form-group">
         <label class="col-lg-12">Riders Count :</label>
-        <div class="col-lg-6">
+        <div class="">
             {!! Form::number("riders_count",null,['class'=>'form-control','placeholder'=>'riders count '])!!}
             @error('riders_count')
             <div class="invalid-feedback" style="color: #ef1010">
@@ -36,7 +36,7 @@
     </div>
     <div class="form-group">
         <label class="col-lg-12">Number of vip:</label>
-        <div class="col-lg-6">
+        <div class="">
             {!! Form::number("number_of_vip",null,['class'=>'form-control','placeholder'=>'number of vip'])!!}
             @error('number_of_vip')
             <div class="invalid-feedback" style="color: #ef1010">
@@ -48,7 +48,7 @@
 
     <div class="form-group">
         <label class="col-lg-12">Number of disabled:</label>
-        <div class="col-lg-6">
+        <div class="  ">
             {!! Form::number("number_of_disabled",null,['class'=>'form-control','placeholder'=>'number of disabled'])!!}
             @error('number_of_disabled')
             <div class="invalid-feedback" style="color: #ef1010">
@@ -59,7 +59,7 @@
     </div>
     <div class="form-group">
         <label class="col-lg-12">Number Of Fast Track:</label>
-        <div class="col-lg-6">
+        <div class="  ">
             {!! Form::number("number_of_ft",null,['class'=>'form-control','placeholder'=>'Number Of Fast Track'])!!}
             @error('number_of_ft')
             <div class="invalid-feedback" style="color: #ef1010">
@@ -71,7 +71,7 @@
 
     <div class="form-group">
         <label class="col-lg-12">Cycle Duration /Second:</label>
-        <div class="col-lg-6">
+        <div class="  ">
             {!! Form::number("duration_seconds",null,['class'=>'form-control','placeholder'=>'Cycle Duration'])!!}
             @error('duration_seconds')
             <div class="invalid-feedback" style="color: #ef1010">
@@ -82,7 +82,7 @@
     </div>
     <div class="form-group">
         <label class="col-lg-12">Salles:</label>
-        <div class="col-lg-6">
+        <div class="  ">
             {!! Form::number("sales",null,['class'=>'form-control','placeholder'=>'Salles'])!!}
             @error('sales')
             <div class="invalid-feedback" style="color: #ef1010">
@@ -93,7 +93,7 @@
     </div>
        <div class="form-group">
         <label class="col-lg-12">Cycle Start Time :</label>
-        <div class="col-lg-6">
+        <div class="  ">
             {!! Form::datetimeLocal("start_time",null,['class'=>'form-control','placeholder'=>'Start Time'])!!}
             @error('start_time')
             <div class="invalid-feedback" style="color: #ef1010">

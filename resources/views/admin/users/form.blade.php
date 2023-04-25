@@ -117,16 +117,20 @@
     </div>
     @enderror
 </div>
+<!-- @if(isset($parks))
+<div class="form-group">
+    <label>User Parks:</label>
+    {!! Form::select('park_id[]',@$parks,null,array('class' => 'form-control
+    select2','multiple'=>""))
+    !!}
+</div>
+@endif -->
 <div class="form-group">
     <label>User Park (choose branch first):</label>
-    {!! Form::select('park_id[]',@$parks?$parks:[],null,array('class' => 'form-control
+    {!! Form::select('park_id[]',@$parks?$park[],null,array('class' => 'form-control
     select2','multiple'=>"",'id'=>'park'))
     !!}
-    @error('park_id')
-    <div class="invalid-feedback" style="color: #ef1010">
-        {{ $message }}
-    </div>
-    @enderror
+ 
 </div>
 <div class="form-group">
     <label>User Zone (choose branch first):</label>
@@ -156,6 +160,7 @@ $("#branch").change(function() {
         }
     });
 });
+
 </script>
 <script type="text/javascript">
 $("#branch").change(function() {

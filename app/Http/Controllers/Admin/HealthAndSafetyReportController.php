@@ -6,7 +6,6 @@ use App\Models\HealthAndSafetyReport;
 use App\Models\Incident;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\InspectionList\PreopeningListRequest;
 use App\Models\Accident;
 use App\Models\InspectionList;
 use App\Models\Park;
@@ -65,6 +64,8 @@ class HealthAndSafetyReportController extends Controller
      */
     public function store(Request $request)
     {
+/*         dd($request->all());
+ */
         $dateExists = HealthAndSafetyReport::where([
             ['park_time_id',$request['park_time_id']],
             ['park_id', $request['park_id']]
@@ -73,7 +74,6 @@ class HealthAndSafetyReportController extends Controller
             return response()->json(['error'=>'Health And Safety Report Already Exist !']);
         }
 
-     // dd($request->all());
 
        foreach ($request->question as $key=>$value){
            $list= new HealthAndSafetyReport();
@@ -195,12 +195,11 @@ class HealthAndSafetyReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HealthAndSafetyReport $health)
+    public function update(Request $request, HealthAndSafetyReport $healthAndSafetyReport)
     {
-        return $health;
-        $health->update($request->all());
-        $health->user_id=auth()->user()->id;
-        $health->save();
+        $healthAndSafetyReport->update($request->all());
+        $healthAndSafetyReport->user_id=auth()->user()->id;
+        $healthAndSafetyReport->save();
         alert()->success('Health And Saftey Report updated successfully !');
         return redirect()->route('admin.park_times.index');
     }
@@ -212,19 +211,20 @@ class HealthAndSafetyReportController extends Controller
      */
     public function destroy($id)
     {
-        $preopening_list=PreopeningList::find($id);
-        if ($preopening_list){
+        $item=HealthAndSafetyReport::find($id);
+        if ($item){
 
-            $preopening_list->delete();
-            alert()->success('Preopening List deleted successfully');
+            $item->delete();
+            alert()->success('This Question Deleted Successfully');
             return back();
         }
-        alert()->error('Preopening List not found');
-        return redirect()->route('admin.preopening_lists.index');
+        alert()->error('This Question not found');
+        return redirect()->route('admin.park_times.index');
     }
     public function cheackHealth(Request $request)
     {
         $item=HealthAndSafetyReport::where('park_time_id',$request->park_time_id)->first();
-        return response()->json(['item' => $item]);
+/*         dd($item);
+ */        return response()->json(['item' => $item]);
     }
 }

@@ -566,7 +566,8 @@
 
                            </td>
                        </tr>
-            
+                       <input type="hidden" name="park_id[]" id="park-id" value="{{$park_id}}">
+                       <input type="hidden" name="park_time_id[]" id="park-time-id" value="{{$park_time_id}}">
 
 
 

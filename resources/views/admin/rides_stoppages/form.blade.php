@@ -26,7 +26,7 @@
  -->
 
 
-    <div class="col-lg-6 form-group stoppageSubCategory ">
+    <div class="form-group stoppageSubCategory ">
         <label class="col-lg-12">Stoppage Reasons Main Category :</label>
         <div class="">
             {!! Form::select('',@$stopage_category?$stopage_category:[],null, array('class' => 'select2 form-control
@@ -66,7 +66,7 @@
         <div class="col-lg-12 form-group  stoppageCategory ">
             <label class="block">Stoppage Status :</label>
             <div class="">
-                {!! Form::select('stoppage_status', ["pending"=>'Pending',"working"=>'Working on it',"done"=>'Done'],null,
+                {!! Form::select('stoppage_status', ["pending"=>'Pending',"working"=>'Working On',"done"=>'Solved'],null,
                 array('class' =>
                 'form-control ','placeholder'=>'Stoppage Status')) !!}
             </div>

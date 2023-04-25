@@ -19,5 +19,4 @@
     <!-- end row -->
 @endsection
 @push('scripts')
-    {!! JsValidator::formRequest(\App\Http\Requests\Dashboard\InspectionList\PreopeningListRequest::class, '#form'); !!}
 @endpush

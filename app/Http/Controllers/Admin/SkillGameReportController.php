@@ -141,6 +141,16 @@ class SkillGameReportController extends Controller
         return view('admin.reports.duty_report', compact('parks'));
     }
 
+    public function show($id)
+    {
+
+        return view('admin.preopening_lists.index');
+    }
+    public function edit_skill_game_report($park_time_id)
+    {
+        $items=SkillGameReport::where('park_time_id',$park_time_id)->get();
+        return view('admin.skill_game_reports.index',compact('items','park_time_id'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -149,15 +159,10 @@ class SkillGameReportController extends Controller
      */
     public function edit($id)
     {
+        $item=SkillGameReport::find($id);
+        return view('admin.skill_game_reports.edit',compact('item'));
 
-        return view('admin.preopening_lists.edit');
     }
-    public function show($id)
-    {
-
-        return view('admin.preopening_lists.index');
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -165,11 +170,14 @@ class SkillGameReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SkillGameReport $list)
+    public function update(Request $request, SkillGameReport $skillGameReport)
     {
-
-        return redirect()->route('admin.preopening_lists.index');
-    }
+        $skillGameReport->update($request->all());
+        $skillGameReport->user_id=auth()->user()->id;
+        $skillGameReport->save();
+        alert()->success('skillGame Report updated successfully !');
+        return redirect()->route('admin.park_times.index');  
+      }
     /**
      * Remove the specified resource from storage.
      *
@@ -178,14 +186,21 @@ class SkillGameReportController extends Controller
      */
     public function destroy($id)
     {
-        $preopening_list = SkillGameReport::find($id);
-        if ($preopening_list) {
+        $item = SkillGameReport::find($id);
+        if ($item){
 
-            $preopening_list->delete();
-            alert()->success('Preopening List deleted successfully');
+            $item->delete();
+            alert()->success('This Question  deleted successfully');
             return back();
         }
-        alert()->error('Preopening List not found');
-        return redirect()->route('admin.preopening_lists.index');
+        alert()->error('This Question  not found');
+        return redirect()->route('admin.park_times.index');
+    }
+
+    public function cheackSkillGame(Request $request)
+    {
+        $item=SkillGameReport::where('park_time_id',$request->park_time_id)->first();
+/*         dd($item);
+ */        return response()->json(['item' => $item]);
     }
 }

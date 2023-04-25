@@ -53,7 +53,7 @@ class RideCyclesController extends Controller
         $data['user_id'] = auth()->user()->id;
         RideCycles::create($data);
         alert()->success('Ride Cycle Added successfully !');
-        return redirect()->route('admin.rides-cycles.index');
+        return redirect()->route('admin.rides_cycles.index');
 
     }
 

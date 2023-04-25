@@ -1,12 +1,12 @@
 @extends('admin.layout.app')
 
-@section('title','Update Park '.$time->parks->name)
+@section('title','Update Park Time Slot :'.$time->parks->name)
 
 @section('content')
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box">
-                <h4 class="header-title m-t-0 m-b-30">update park {{ $time->parks->name }} </h4>
+                <h4 class="header-title m-t-0 m-b-30">Update Park Time Slot : {{ $time->parks->name }} </h4>
                 <a class="input-group-btn" href="{{route('admin.park_times.index')}}">
                     <button type="button" class="btn waves-effect waves-light btn-primary">back</button>
                 </a>

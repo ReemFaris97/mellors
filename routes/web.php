@@ -101,19 +101,28 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
 
     Route::resource('skill_game_reports', 'Admin\SkillGameReportController');//done
     Route::get('/add_skill_game_report/{park_id}/{time_slot_id}', 'Admin\SkillGameReportController@add_skill_game_report')->name('addSkillGameReport');
+    Route::get('/edit_skill_game_report/{time_slot_id}', 'Admin\SkillGameReportController@edit_skill_game_report')->name('editSkillGameReport');
     Route::get('/search_skill_game_reports/', 'Admin\SkillGameReportController@search')->name('searchSkillGameReport');
+    Route::get('/cheack_skill_game/', 'Admin\SkillGameReportController@cheackSkillGame')->name('cheackSkillGame');
 
     Route::resource('maintenance_reports', 'Admin\MaintenanceReportController');//done
     Route::get('/add_maintenance_report/{park_id}/{time_slot_id}', 'Admin\MaintenanceReportController@add_maintenace_report')->name('addMaintenanceReport');
+    Route::get('/edit_maintenance_report/{time_slot_id}', 'Admin\MaintenanceReportController@edit_maintenance_report')->name('editMaintenanceReport');
     Route::get('/search_maintenance_reports/', 'Admin\MaintenanceReportController@search')->name('searchMaintenanceReport');
+    Route::get('/cheack_maintenance/', 'Admin\MaintenanceReportController@cheackMaintenance')->name('cheackMaintenance');
 
     Route::resource('tech-reports', 'Admin\TechReportsController');//done
     Route::get('/add-tech-report/{park_id}/{time_slot_id}', 'Admin\TechReportsController@add_tech_report')->name('addTechReport');
+    Route::get('/edit_tech_report/{time_slot_id}', 'Admin\TechReportsController@edit_tech_report')->name('editTechReport');
     Route::get('/search_tech_reports/', 'Admin\TechReportsController@search')->name('searchTechReport');
+    Route::get('/cheack_tech/', 'Admin\TechReportsController@cheackTech')->name('cheackTech');
 
     Route::resource('ride-ops-reports', 'Admin\RideOpsReportsController');//done
     Route::get('/add-ride-ops-report/{park_id}/{time_slot_id}', 'Admin\RideOpsReportsController@add_ride_ops_report')->name('addOpsReport');
+    Route::get('/edit_ride_ops_report/{time_slot_id}', 'Admin\RideOpsReportsController@edit_ride_ops_report')->name('editOpsReport');
     Route::get('/search_ride_ops_reports/', 'Admin\RideOpsReportsController@search')->name('searchOpsReport');
+    Route::get('/cheack_ride_ops/', 'Admin\RideOpsReportsController@cheackRideOps')->name('cheackRideOps');
+
     Route::get('/search_duty_summary_reports/', 'Admin\DutySummaryController@search')->name('searchDutySummaryReport');
 
     Route::resource('duty-report', 'Admin\RideOpsReportsController');
