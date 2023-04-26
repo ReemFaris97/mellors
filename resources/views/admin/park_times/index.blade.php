@@ -80,9 +80,15 @@
                                 <td>{{ $item->end }}</td>
                                 <td>{{ $item->duration_time }}</td>
                                 <td>
+                                    @if($item->daily_entrance_count ===null)
                                     <button type="button" class="btn btn-info waves-effect " data-toggle="modal"
                                             data-target="#modal-{{ $item->id }}"><i class="fa fa-plus"></i> Add
                                     </button>
+                                    @else
+                                    <button type="button" class="btn btn-success  " data-toggle="modal"
+                                            data-target="#modal-{{ $item->id }}"><i class="fa fa-edit"></i> Edit
+                                    </button>
+                                    @endif
                                     <div class="modal fade" id="modal-{{ $item->id }}" tabindex="-1" aria-hidden="true"
                                          role="dialog">
                                         <div class="modal-dialog modal-lg" role="document">
@@ -96,7 +102,7 @@
                                                     {!!Form::model($item , ['route' => ['admin.park_times.daily_entrance_count' ,
                                                          $item->id],'id' => 'ClientStore', 'method' => 'PATCH',
                                                          'enctype'=>"multipart/form-data"]) !!}
-                                                    <label class="form-label">Add Daily Entrance Count </label>
+                                                    <label class="form-label"> Daily Entrance Count </label>
                                                     <div class="form-line">
                                                         {!! Form::number('daily_entrance_count', null, ['class' => 'form-control']) !!}
 
@@ -106,7 +112,7 @@
                                                                 </span>
                                                         @endif
                                                         <br><br>
-                                                        <label class="form-label">Add General Comment On Park </label>
+                                                        <label class="form-label"> General Comment On Park </label>
                                                        <div class="form-line">
                                                         {!! Form::textArea('general_comment', null, ['class' => 'form-control summernote']) !!}
 
