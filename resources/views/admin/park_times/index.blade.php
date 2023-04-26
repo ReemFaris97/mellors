@@ -93,7 +93,9 @@
                                                 </div>
                                                 <div class="modal-body">
 
-                                                    {!!Form::model($item , ['route' => ['admin.park_times.daily_entrance_count' , $item->id],'id' => 'ClientStore', 'method' => 'PATCH','enctype'=>"multipart/form-data"]) !!}
+                                                    {!!Form::model($item , ['route' => ['admin.park_times.daily_entrance_count' ,
+                                                         $item->id],'id' => 'ClientStore', 'method' => 'PATCH',
+                                                         'enctype'=>"multipart/form-data"]) !!}
                                                     <label class="form-label">Add Daily Entrance Count </label>
                                                     <div class="form-line">
                                                         {!! Form::number('daily_entrance_count', null, ['class' => 'form-control']) !!}
@@ -126,8 +128,8 @@
                                             </div>
                                         </div>
                                     </div>
-                </div>
-</td>
+                                    </div>
+                                    </td>
                 {!!Form::open( ['route' => ['admin.park_times.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                 {!!Form::close() !!}
                 <td>

@@ -51,10 +51,8 @@
                             <td>{{$parkTime->end}}</td>
                             <td>{{$parkTime->daily_entrance_count}}</td>
                             <td class="">
-                                @if(isset($info))
-                                {{$info->weather[0]->main}}-{{$info->weather[0]->description}}-{{$info->main->temp}} ْ
-                                -Windspeed avg {{$info->wind->speed}}km/h
-                                @endif
+                                {{$parkTime->general_weather}} - {{$parkTime->description}} - {{$parkTime->temp}} ْ
+                                - Windspeed avg : {{$parkTime->windspeed_avg}}km/h
                             </td>
                         </tr>
                         @endif

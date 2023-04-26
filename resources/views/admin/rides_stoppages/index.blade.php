@@ -78,18 +78,18 @@
                                 <td>{{ $item->time }}</td>
                                 <td>
                                 @if($item->ride_status=='stopped')
-                                <span class="btn btn-xs btn-danger">Stopped</span>
+                                <span class=" btn-xs btn-danger">Stopped</span>
                                   @else
-                                  <span class="btn btn-xs btn-success">Active</span>
+                                  <span class=" btn-xs btn-success">Active</span>
                                 @endif
                                 </td>
                                 <td>
                                 @if($item->stoppage_status=='pending')
-                                <span class="btn btn-xs btn-primary">Pending</a>
+                                <span class=" btn-xs btn-primary">Pending
                                   @elseif($item->stoppage_status=='working')
-                                  <span class="btn btn-xs btn-danger">Working On it</a>
+                                  <span class=" btn-xs btn-danger">Working On
                                   @else
-                                  <span class="btn btn-xs btn-success">Done</a>
+                                  <span class=" btn-xs btn-success">Solved
                                 @endif
                                 </td>
                                 <td>{{ $item->stopageSubCategory->name ?? "name" }}</td>
