@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-Rides Status
+Rides availablility
 @endsection
 
 @section('content')
@@ -25,13 +25,13 @@ Rides Status
                                 Park Name
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                status
+                                Status
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Notes
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                rideSroppageDescription
+                                Ride Stoppage Description
                             </th>
                         </tr>
                     </thead>
@@ -43,7 +43,13 @@ Rides Status
                             <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->parkName }}</td>
-                            <td> {{$item->available ?? ""}}</td>
+                            <td> 
+                            @if($item->available=='closed')
+                                <span class=" btn-xs btn-danger">Closed</span>
+                                  @else
+                                  <span class=" btn-xs btn-success">Open</span>
+                                @endif
+                            </td>
                             <td> {{$item->ride_notes}}</td>
                             <td> {{$item->rideSroppageDescription}}</td>
                         </tr>

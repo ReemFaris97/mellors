@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    Customer Feedbacks
+    RSR Reports 
 @endsection
 
 @section('content')
@@ -39,11 +39,12 @@
                         </thead>
 
                         <tbody>
+                        @if(isset($items))
 
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
-                                <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                <td>{{ $item->rides->name }}</td>
+                                <td tabindex="0" class="sorting_1">{{ $loop->iteration}}</td>
+                                <td>{{ $item->rides->name??'' }}</td>
                                 <td>{{ $item->type=='with_stoppages'?'With Stoppages':'Without Stoppages' }}</td>
                                
                                  <td>
@@ -55,7 +56,7 @@
                                 <span>Verified</span>
                                     @endif
                                 </td>
-                                <td>{{ $item->created_by->name }}</td>
+                                <td>{{ $item->created_by->name ??''}}</td>
                                 <td>{{ $item->date }}</td>
                                 {!!Form::open( ['route' => ['admin.rsr_reports.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
@@ -81,7 +82,7 @@
                             </tr>
 
                         @endforeach
-
+@endif
                         </tbody>
                     </table>
 

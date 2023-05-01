@@ -8,10 +8,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box">
-                <h4 class="header-title m-t-0 m-b-30"> Show RSR Report</h4>
-
                 <table id="datatable-buttons" style="border-color: #0b0b0b" class="table table-striped table-bordered dt-responsive nowrap">
-
                     <thead>
                     <tr role="row">
                         <th  class="sorting_asc" style="text-align: center; border-color: #0b0b0b;" tabindex="0"  aria-controls="datatable-buttons" rowspan="1"
@@ -20,38 +17,38 @@
                    <tbody>
                     <tr>
                         <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                             colspan="1" aria-sort="ascending">Park Name :{{ $rsrReport->parks->name }}
+                             colspan="1" aria-sort="ascending">Park Name :  {{ $rsrReport->parks->name }}
                         </th>
                     </tr>
                     <tr>
                         <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                            colspan="1" aria-sort="ascending">Ride Name :{{ $rsrReport->rides->name }}
+                            colspan="1" aria-sort="ascending">Ride Name :  {{ $rsrReport->rides->name }}
                         </th>
                     </tr>
 
                     <tr>
                         <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                            colspan="1" aria-sort="ascending">Ride Performance Details:
+                            colspan="1" aria-sort="ascending">Ride Performance Details :
                         </th>
                     </tr>
                     <tr><td  style="border-color: #0b0b0b">{!! $rsrReport->ride_performance_details !!}</td></tr>
 
                     <tr>
                         <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                            colspan="1" aria-sort="ascending"> Ride Inspection/Observation:
+                            colspan="1" aria-sort="ascending"> Ride Inspection/Observation :
                         </th>
                     </tr>
                     <tr><td  style="border-color: #0b0b0b">{!!   $rsrReport->ride_inspection !!}</td></tr>
 
                     <tr>
                         <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                            colspan="1" aria-sort="ascending">Corrective Actions Taken:
+                            colspan="1" aria-sort="ascending">Corrective Actions Taken :
                         </th>
                     </tr>
                     <tr><td  style="border-color: #0b0b0b">{!!   $rsrReport->corrective_actions_taken!!}</td></tr>
                     <tr>
                         <th  style="border-color: #0b0b0b" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                            colspan="1" aria-sort="ascending">Conclusion/Recommendation:
+                            colspan="1" aria-sort="ascending">Conclusion / Recommendation :
                         </th>
                     </tr>
                     <tr><td  style="border-color: #0b0b0b">{!! $rsrReport->conclusion !!}</td></tr>
@@ -101,9 +98,9 @@
                         <tr>
 
                         <td style="border-color: #0b0b0b">
-                        <a download href="{{ $item->image }}"> 
+                         
                             <img class="img-preview" src="{{ $item->image }}" 
-                            style="height: 300px; width: 300px"></a>
+                            style="height: 300px; width: 300px">
                         </td>
                         <td style="border-color: #0b0b0b">
                         {{ $item->comment }}</td>
@@ -112,10 +109,13 @@
                     </tbody>
                 </table>
                     @endif
+                    <button onclick="window.print()" class=" btn btn-info"><i class="fa fa-print"></i>  Print</button>
 
             </div>
+
         </div><!-- end col -->
     </div>
+
     <!-- end row -->
 @endsection
 

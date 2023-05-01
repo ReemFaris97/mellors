@@ -10,6 +10,7 @@ use App\Models\HealthAndSafetyReport;
 use App\Models\Park;
 use App\Models\ParkTime;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 use Carbon\Carbon;
 use RakibDevs\Weather\Weather;
 
@@ -23,15 +24,15 @@ class ParkTimeController extends Controller
      */
     public function index()
     {
+        $times=[];
         if (auth()->user()->hasRole('Super Admin')) {
             $items = ParkTime::where('date', Carbon::now()->format('Y-m-d'))->get();
         } else {
-            $parks = auth()->user()->parks->all();
-            $items = ParkTime::where('date', date('Y-m-d'))
-            ->wherein('park_id', $parks)
-            ->get();
-
+            $parks = auth()->user()->parks->pluck('id');        
+            $items = ParkTime::where('date',Carbon::now()->format('Y-m-d'))
+            ->wherein('park_id', $parks)->get();
         }
+        //dd( $items);
         return view('admin.park_times.index', compact('items'));
     }
 

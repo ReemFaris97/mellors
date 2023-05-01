@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\InspectionList\RideInspectionListRequest;
 use App\Models\InspectionList;
 use App\Models\Ride;
+use Illuminate\Http\Request;
 use App\Models\RideInspectionList;
+use Carbon\Carbon;
 
 class RideInspectionListController extends Controller
 {
@@ -19,12 +21,18 @@ class RideInspectionListController extends Controller
     public function index()
     {
         if (auth()->user()->hasRole('Super Admin')) {
-            $items=Ride::all();
+            $rides=RideInspectionList::get();
         }else {
-            $zones = auth()->user()->zones->all();
-            $items=Ride::whereIn('zone_id',$zones)->get();
+            $zones = auth()->user()->zones->pluck('id');
+           // return $zones;
+            $rides=Ride::wherein('zone_id', $zones)->get();
+           // return  $rides;
+        /*     $items = RideInspectionList::whereDate('created_at',Carbon::now()->format('Y-m-d'))
+            ->wherein('ride_id', $rides)->get(); */
+           // return  $items;
+
         }
-       return view('admin.ride_inspection_lists.index',compact('items'));
+       return view('admin.ride_inspection_lists.index',compact('rides'));
     }
 
     /**
@@ -38,6 +46,23 @@ class RideInspectionListController extends Controller
         $rides=Ride::pluck('name','id')->toArray();
         return view('admin.ride_inspection_lists.add',compact('inspection_list','rides'));
     }
+    public function add_ride_inspection_lists ($ride_id)
+    {
+        $inspection_list=InspectionList::all();
+        return view('admin.ride_inspection_lists.add',compact('inspection_list','ride_id'));
+    }
+    
+    public function edit_ride_inspection_lists( $ride_id)
+    {
+        $ride=Ride::find($ride_id);
+        $list=RideInspectionList::where('ride_id',$ride_id)->pluck('inspection_list_id')->toArray();
+        $inspection_list=InspectionList::all();
+        $rides=Ride::pluck('name','id')->toArray();    
+//       return $list;
+        return view('admin.ride_inspection_lists.edit',compact('inspection_list','ride','list','ride_id'));
+
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -61,12 +86,7 @@ class RideInspectionListController extends Controller
      */
     public function edit( $id)
     {
-        $ride=Ride::find($id);
-        $list=RideInspectionList::where('ride_id',$id)->pluck('inspection_list_id')->toArray();
-        $inspection_list=InspectionList::all();
-        $rides=Ride::pluck('name','id')->toArray();
-//       return $list;
-        return view('admin.ride_inspection_lists.edit',compact('inspection_list','rides','list','ride'));
+       
 
     }
 
@@ -77,13 +97,13 @@ class RideInspectionListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RideInspectionListRequest $request, RideInspectionList $inspection_list)
+    public function update(RideInspectionListRequest $request, RideInspectionList $rideInspectionList)
     {
+        //return ($request);
         RideInspectionList::where('ride_id',$request->ride_id)->delete();
         $ride=Ride::find($request->ride_id);
         $ride->inspection_list()->sync($request['inspection_list_id']);
-
-        alert()->success('Ride Inspection element updated successfully !');
+        alert()->success('Ride Inspection List Updated Successfully !');
         return redirect()->route('admin.ride_inspection_lists.index');
     }
     /**
@@ -103,5 +123,12 @@ class RideInspectionListController extends Controller
         }
         alert()->error('department not found');
         return redirect()->route('admin.inspection_lists.index');
+    }
+
+    public function cheackRideInspectionList(Request $request)
+    {
+        $item=RideInspectionList::where('ride_id',$request->ride_id)->first();
+/*         dd($item);
+ */        return response()->json(['item' => $item]);
     }
 }

@@ -53,7 +53,7 @@
                                 Duration Time
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Daily Entrance Count
+                                Daily Entrance Count & General Comment
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Reports

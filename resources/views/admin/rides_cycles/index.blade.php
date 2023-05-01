@@ -90,7 +90,7 @@
 
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
-                                <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
+                                <td tabindex="0" class="sorting_1">{{$loop->iteration }}</td>
                                 <td>{{ $item->ride->name }}</td>
                                 <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->ride->park->name ?? "" }}</td>

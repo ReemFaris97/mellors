@@ -66,10 +66,19 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::get('/search_queues/', 'Admin\QueueController@search')->name('search');
 
     Route::resource('inspection_lists', 'Admin\InspectionListController');//done
+    
+
     Route::resource('preopening_lists', 'Admin\PreopeningListController');//done
     Route::get('/add_preopening_list_to_ride/{id}', 'Admin\PreopeningListController@add_preopening_list_to_ride');
-    Route::get('/zone_rides/{zone_id}', 'Admin\PreopeningListController@zone_rides');
+    Route::get('/edit_preopening_list/{ride_id}', 'Admin\PreopeningListController@edit_ride_preopening_list')->name('editPreopeningList');
+    Route::post('/update_preopening_list/{ride_id}', 'Admin\PreopeningListController@update_ride_preopening_list')->name('updatePreopeningList');
+    Route::get('/cheack_preopening_list/', 'Admin\PreopeningListController@cheackPreopeningList')->name('cheackPreopeningList');
+
+    Route::get('/zone_rides/{zone_id}', 'Admin\PreopeningListController@zone_rides')->name('zoneRides');
     Route::resource('ride_inspection_lists', 'Admin\RideInspectionListController');
+    Route::get('/add_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@add_ride_inspection_lists')->name('addRideInspectionLists');
+    Route::get('/cheack_ride_inspection_lists/', 'Admin\RideInspectionListController@cheackRideInspectionList')->name('cheackRideInspectionList');
+    Route::get('/edit_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@edit_ride_inspection_lists')->name('editRideInspectionLists');
 
     Route::resource('customer_feedbacks', 'Admin\CustomerFeedbackController');//done
     Route::get('/search_customer_feedbacks/', 'Admin\CustomerFeedbackController@search')->name('searchCustomerFeedBack');

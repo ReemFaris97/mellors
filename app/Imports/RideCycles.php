@@ -33,6 +33,7 @@ class RideCycles implements ToCollection,WithHeadingRow
         if (is_null($park)) {
             return throw ValidationException::withMessages(['Park' => 'Park does not exist']);
         }
+        
             \App\Models\RideCycles::create([
                 'ride_id' => $ride->id ?? 1,
                 'user_id' => $operator->id?? null,

@@ -11,6 +11,8 @@ use App\Models\PreopeningList;
 use App\Models\Ride;
 use App\Models\RideInspectionList;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 class PreopeningListController extends Controller
 {
@@ -90,6 +92,36 @@ class PreopeningListController extends Controller
         return view('admin.preopening_lists.edit',compact('rides','list','zone_id','item','inspections'));
 
     }
+    public function edit_ride_preopening_list( $ride_id)
+    {
+        $ride=Ride::find($ride_id);
+        $zone_id=$ride->zone_id;
+        $items=PreopeningList::where('ride_id',$ride_id)
+        ->whereDate('created_at',Carbon::now()->format('Y-m-d'))
+        ->get();
+        $inspections=InspectionList::all();
+        //return $items;
+        return view('admin.preopening_lists.edit',compact('inspections','ride','items','ride_id','zone_id'));
+
+    }
+    
+    public function update_ride_preopening_list(Request $request ,$ride_id)
+    {
+        $items=PreopeningList::where('ride_id',$ride_id)
+        ->whereDate('created_at',Carbon::now()->format('Y-m-d'))
+        ->delete();
+        foreach ($request->inspection_list_id as $key=>$value){
+            $preopening_list= new PreopeningList();
+            $preopening_list->inspection_list_id=$request->inspection_list_id[$key];
+            $preopening_list->ride_id=$request->ride_id[$key];
+            $preopening_list->comment=$request->comment[$key];
+            $preopening_list->status=$request->status[$key];
+            $preopening_list->created_by_id=auth()->user()->id;
+            $preopening_list->save();
+        }
+         return response()->json(['success'=>'Preopening List Added successfully']);
+ 
+    }
     public function show($id)
     {
         $items=PreopeningList::where('zone_id',$id)->get();
@@ -107,6 +139,8 @@ class PreopeningListController extends Controller
      */
     public function update(PreopeningListRequest $request, PreopeningList $preopening_list)
     {
+        return $request;
+        
         $preopening_list->update([
         'ride_id'=>$request->validated('ride_id'),
         'zone_id'=>$request->validated('zone_id'),
@@ -137,5 +171,13 @@ class PreopeningListController extends Controller
         }
         alert()->error('Preopening List not found');
         return redirect()->route('admin.preopening_lists.index');
+    }
+
+    public function cheackPreopeningList(Request $request)
+    {
+        $item=PreopeningList::where('ride_id',$request->ride_id)->
+        whereDate('created_at',Carbon::now()->format('Y-m-d'))->first();
+/*         dd($item);
+ */        return response()->json(['item' => $item]);
     }
 }

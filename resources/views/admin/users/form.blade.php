@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="name">name</label>
+    <label for="name">Name</label>
     {!! Form::text('name',null,['class'=>'form-control','id'=>'name','placeholder'=>'name']) !!}
     @error('name')
     <div class="invalid-feedback" style="color: #ef1010">
@@ -8,7 +8,7 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="first_name">first name</label>
+    <label for="first_name">First Name</label>
     {!! Form::text('first_name',null,['class'=>'form-control','id'=>'first_name','placeholder'=>'first_name']) !!}
     @error('first_name')
     <div class="invalid-feedback" style="color: #ef1010">
@@ -17,7 +17,7 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="middle_name">middle name</label>
+    <label for="middle_name">Middle Name</label>
     {!! Form::text('middle_name',null,['class'=>'form-control','id'=>'middle_name','placeholder'=>'middle_name']) !!}
     @error('middle_name')
     <div class="invalid-feedback" style="color: #ef1010">
@@ -26,7 +26,7 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="last_name">last name</label>
+    <label for="last_name">Last Name</label>
     {!! Form::text('last_name',null,['class'=>'form-control','id'=>'last_name','placeholder'=>'last_name']) !!}
 
     @error('last_name')
@@ -36,7 +36,7 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="email">email</label>
+    <label for="email">Email</label>
     {!! Form::email('email',null,['class'=>'form-control','id'=>'email','placeholder'=>'email']) !!}
     @error('email')
     <div class="invalid-feedback" style="color: #ef1010">
@@ -55,7 +55,7 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="phone">phone number</label>
+    <label for="phone">Phone Number</label>
     {!! Form::text('phone',null,['class'=>'form-control','id'=>'phone','placeholder'=>'phone number']) !!}
     @error('phone')
     <div class="invalid-feedback" style="color: #ef1010">
@@ -64,7 +64,7 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="password">password</label>
+    <label for="password">Password</label>
     {!! Form::password('password',['class'=>'form-control','id'=>'password','placeholder'=>'password']) !!}
     @error('password')
     <div class="invalid-feedback" style="color: #ef1010">
@@ -73,7 +73,7 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="password_confirmation">password confirmation</label>
+    <label for="password_confirmation">Password Confirmation</label>
     {!!
     Form::password('password_confirmation',['class'=>'form-control','id'=>'password_confirmation','placeholder'=>'password
     confirmation']) !!}
@@ -127,7 +127,7 @@
 @endif -->
 <div class="form-group">
     <label>User Park (choose branch first):</label>
-    {!! Form::select('park_id[]',@$parks?$park[],null,array('class' => 'form-control
+    {!! Form::select('park_id[]', @$parks?$parks:[],null,array('class' => 'form-control
     select2','multiple'=>"",'id'=>'park'))
     !!}
  

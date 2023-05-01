@@ -37,7 +37,7 @@ Maintenance Report
 
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
-                                <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
+                                <td tabindex="0" class="sorting_1">{{ $loop->iteration}}</td>
                                 <td>{{ $item->question }}</td>
                                 <td>{{$item->answer }}                            
                                 <td>{!! $item->comment !!}</td>
