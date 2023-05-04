@@ -59,7 +59,11 @@ class PreopeningListController extends Controller
     public function store(Request $request)
     {
 //     dd($request->all());
-
+        $dateExists = PreopeningList::whereDate('created_at',Carbon::now()->format('Y-m-d'))->where
+            ('ride_id', $request['ride_id'])->first();
+        if ($dateExists) {
+            return response()->json(['danger'=>'Preopening List Already Exist']);
+        }
        foreach ($request->inspection_list_id as $key=>$value){
            $preopening_list= new PreopeningList();
            $preopening_list->inspection_list_id=$request->inspection_list_id[$key];

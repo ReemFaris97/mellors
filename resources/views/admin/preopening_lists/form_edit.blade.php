@@ -111,10 +111,10 @@
                         swal({
                          title: "Preopening List Already Exist !",
                          icon: "danger",
-                         buttons: ["Ok"],
+                         buttons: ["Ok"]
                          
                           }); 
-                          window.location.href = "{{route('admin.zones.index')}}";
+                          window.location.href = "{{route('admin.zoneRides',$zone_id)}}";
 
                     }
                 }

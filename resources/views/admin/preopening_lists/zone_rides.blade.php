@@ -23,9 +23,7 @@ Rides
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                              Preopening List
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Process
-                            </th>
+                          
                         </tr>
                         </thead>
 
@@ -39,7 +37,9 @@ Rides
                                 <td>{{ $item->name }}</td>
                                 {!!Form::open( ['route' => ['admin.zones.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
-                                <td>                               
+                                <td>               
+                                @if(auth()->user()->can('preopening_lists-create'))
+                
                                     <a href="{{url('add_preopening_list_to_ride/'.$item->id)}}">
                                         <button type="button" class="add btn btn-info">
                                         <i class="fa fa-plus"></i> Add Preopening List
@@ -50,20 +50,9 @@ Rides
                                             <i class="fa fa-edit"></i> Edit Preopening List
                                             </button>
                                         </a>
-                               
+                               @endif
                                 </td>
-                                <td>
-                                    {{--@if(auth()->user()->can('zones-edit'))--}}
-                                        {{--<a href="{{ route('admin.zones.edit', $item) }}"--}}
-                                           {{--class="btn btn-info">Edit</a>--}}
-                                    {{--@endif--}}
-                                        <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                           data-url="{{ route('admin.zones.destroy', $item) }}"
-                                           onclick="delete_form(this)">
-                                            Delete
-                                        </a>
-
-                                </td>
+                            
 
                             </tr>
 
