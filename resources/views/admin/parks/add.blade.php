@@ -19,5 +19,5 @@
     <!-- end row -->
 @endsection
 @push('scripts')
-    {!! JsValidator::formRequest(\App\Http\Requests\Dashboard\Park\ParkRequest::class, '#form'); !!}
+    {!! JsValidator::formRequest(\App\Http\Requests\Dashboard\park\ParkRequest::class, '#form'); !!}
 @endpush
