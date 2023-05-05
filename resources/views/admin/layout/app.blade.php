@@ -104,7 +104,7 @@
 
     </div>
     <footer class="footer text-right">
-        Mellors entertainment saudi
+        Mellors Entertainment Saudi
     </footer>
     @include('admin.layout.scripts')
     @include('sweetalert::alert')
@@ -115,7 +115,7 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $('.summernote').summernote({
-            height: 200,
+            height: 100,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
