@@ -21,7 +21,7 @@ class RideInspectionListController extends Controller
     public function index()
     {
         if (auth()->user()->hasRole('Super Admin')) {
-            $rides=RideInspectionList::get();
+            $rides=Ride::all();
         }else {
             $zones = auth()->user()->zones->pluck('id');
            // return $zones;

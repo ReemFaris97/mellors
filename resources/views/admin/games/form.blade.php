@@ -17,7 +17,7 @@
         <div class="form-group form-float">
             <label class="form-label">Ride Description</label>
             <div class="form-line">
-                {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>' Game description'])!!}
+                {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>' Ride description'])!!}
                 @error('description')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
@@ -45,9 +45,7 @@
         <div class="form-group form-float">
             <label class="form-label">Zone</label>
             <div class="form-line">
-              {!! Form::select('zone_id', $zones,null, array('class' => 'form-control zone_id')) !!}
-
-                <select class="form-control js-example-basic-single ms select2 zone_id" id="zone_id" name="zone_id"
+                <select class="form-control js-example-basic-single ms zone_id" id="zone_id" name="zone_id"
                         data-live-search=true required>
                     <option disabled> choose Park First</option>
 
@@ -130,7 +128,7 @@
         <div class="form-group form-float">
             <label class="form-label">Minimum Height Requirement In cm</label>
             <div class="form-line">
-                {!! Form::number("minimum_height_requirement",null,['class'=>'form-control','placeholder'=>' cycle duration per second'])!!}
+                {!! Form::number("minimum_height_requirement",null,['class'=>'form-control','placeholder'=>'Minimum Height Requirement In cm'])!!}
                 @error('minimum_height_requirement')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}

@@ -112,10 +112,9 @@
         </div>
         <div class="col-lg-12">
             {!! Form::time('time_slot_start',null,['class'=>'form-control']) !!}
-            @if ($errors->has('start'))
+            @if ($errors->has('time_slot_start'))
                 <span class="help-block">
-                <span class="help-block">
-                    <strong>{{ $errors->first('start') }}</strong>
+                    <strong>{{ $errors->first('time_slot_start') }}</strong>
                 </span>
             @endif
         </div>

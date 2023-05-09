@@ -80,7 +80,7 @@ class RideStoppageController extends Controller
     public function uploadStoppagesExcleFile(Request $request)
     {
         Excel::import(new RidesStoppageImport(), $request->file('file'));
-        alert()->success('Ride Added successfully !');
+        alert()->success('Ride Stoppage Added successfully !');
         return redirect()->route('admin.rides-stoppages.index');
     }
 

@@ -41,12 +41,12 @@ Rides
                                 @if(auth()->user()->can('preopening_lists-create'))
                 
                                     <a href="{{url('add_preopening_list_to_ride/'.$item->id)}}">
-                                        <button type="button" class="add btn btn-info">
+                                        <button type="button" id="add" class="add btn btn-info">
                                         <i class="fa fa-plus"></i> Add Preopening List
                                         </button>
                                         </a>
                                         <a href="{{url('edit_preopening_list/'.$item->id)}}">
-                                            <button type="button" class="edit btn btn-success hidden">
+                                            <button type="button" id="edit" class="edit btn btn-success hidden">
                                             <i class="fa fa-edit"></i> Edit Preopening List
                                             </button>
                                         </a>
@@ -79,8 +79,10 @@ Rides
 
 <script type="text/javascript">
     $(document).ready(function(){
-        var ride_id = $("#ride-id").val();
-         console.log(ride_id);
+     $('#datatable-buttons tr').each(function(){
+        $(this).find("input").each(function() { 
+        var ride_id = $(this).val();
+        console.log($(this).val()); 
          $.ajax({
                 url: "{{ route('admin.cheackPreopeningList')}}",
                 type: 'GET',
@@ -90,7 +92,8 @@ Rides
                 },
                 success: function(data)
                 {
-                    if (data.item != null){   
+                    if (data.item != null){ 
+            
                         console.log('aaaaaaaaaaaaaa');
                         $('.edit').removeClass('hidden');
                         $('.add').addClass('hidden');
@@ -105,6 +108,8 @@ Rides
 
                 }
             });
+        });
+    });
 });
 </script>
 @endpush

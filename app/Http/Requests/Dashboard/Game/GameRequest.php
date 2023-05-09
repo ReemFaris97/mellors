@@ -28,17 +28,17 @@ class GameRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'nullable',
             'park_id' => 'nullable',
-            'capacity_one_cycle' => 'required',
-            'one_cycle_duration_seconds' => 'required',
-            'ride_cycle_mins' => 'nullable',
-            'ride_price' => 'nullable',
-            'ride_price_ft' => 'nullable',
+            'capacity_one_cycle' => 'required|number',
+            'one_cycle_duration_seconds' => 'required|number',
+            'ride_cycle_mins' => 'nullable|number',
+            'ride_price' => 'nullable|number',
+            'ride_price_ft' => 'nullable|number',
             'ride_cat' => 'required',
             'ride_type_id' => 'required',
             'zone_id' => 'nullable',
-            'theoretical_number'=>'nullable',
-            'minimum_height_requirement'=>'nullable',
-            'number_of_seats'=>'nullable'
+            'theoretical_number'=>'nullable|number',
+            'minimum_height_requirement'=>'nullable|number',
+            'number_of_seats'=>'nullable|number'
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
