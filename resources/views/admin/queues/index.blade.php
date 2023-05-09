@@ -57,23 +57,25 @@ Show Queues On Selected Ride
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Park Name
                             </th>
+                           
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Date
+                               Start Time
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Time
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                seats_filled
-                            </th>
+                          
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Queue Minites
                             </th>
+                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                 Current Wait Time
+                            </th> 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Queue seconds
-                            </th>
+                            Max Queue Capacity
+                            </th> 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Opened_Date
+                            Current Queue Occupancy
+                            </th> 
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Opened Date
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
@@ -90,12 +92,12 @@ Show Queues On Selected Ride
                                 <td>{{ $item->ride->name }}</td>
                                 <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->ride->park->name ?? "" }}</td>
-                                <td>{{ $item->date }}</td>
-                                <td>{{ $item->time }}</td>
-                                <td>{{ $item->seats_filled }}</td>
+                                <td>{{ $item->start_time }}</td>
                                 <td>{{ $item->queue_minutes }}</td>
-                                <td>{{ $item->queue_seconds }}</td>
-                                <td>{{ $item->opened_date }}</td>
+                                <td>{{ $item->current_wait_time??"" }}</td>
+                                <td>{{ $item->max_queue_capacity??""  }}</td>
+                                <td>{{ $item->current_queue_occupancy??""  }}</td>
+                                 <td>{{ $item->opened_date }}</td>
 
                                 {!!Form::open( ['route' => ['admin.queues.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
