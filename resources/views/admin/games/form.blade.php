@@ -28,14 +28,14 @@
     </div>
 
 
- <!--    <div class="col-xs-12">
+    <div class="col-xs-12">
         <div class="form-group form-float">
             <label class="form-label">Park</label>
             <div class="form-line">
-                {!! Form::select('park_id', $parks,null, array('class' => 'form-control select2 park_id','placeholder'=>'Choose Park Name')) !!}
+                {!! Form::select('park_id', @$parks?$parks:null,null, array('class' => 'form-control select2 park_id','placeholder'=>'Choose Park Name')) !!}
                 @error('park_id')
                 <div class="invalid-feedback" style="color: #ef1010">
-{{--                    {{ $message }}--}}
+                   {{ $message }}
                 </div>
                 @enderror
             </div>
@@ -45,7 +45,7 @@
         <div class="form-group form-float">
             <label class="form-label">Zone</label>
             <div class="form-line">
-{{--                {!! Form::select('zone_id', $zones,null, array('class' => 'form-control zone_id')) !!}--}}
+              {!! Form::select('zone_id', $zones,null, array('class' => 'form-control zone_id')) !!}
 
                 <select class="form-control js-example-basic-single ms select2 zone_id" id="zone_id" name="zone_id"
                         data-live-search=true required>
@@ -59,14 +59,40 @@
                 @enderror
             </div>
         </div>
-    </div> -->
-
+    </div> 
     <div class="col-xs-12">
         <div class="form-group form-float">
             <label class="form-label">Ride Category</label>
             <div class="form-line">
-                {!! Form::select('game_cat_id', $game_cats,null, array('class' => 'form-control select2')) !!}
-                @error('game_cat_id')
+            {!! Form::select('ride_cat', ["family"=>'Family',"thrill"=>'Thrill',"kids"=>'Kids'],null, array('class' =>
+            'form-control ','placeholder'=>'Choose Ride Category...')) !!}           
+                 @error('ride_cat')
+                <div class="invalid-feedback" style="color: #ef1010">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group form-float">
+            <label class="form-label">Ride Type</label>
+            <div class="form-line">
+                {!! Form::select('ride_type_id', $ride_types,null, array('class' => 'form-control select2','placeholder'=>'Choose Ride Type...')) !!}
+                @error('ride_type_id')
+                <div class="invalid-feedback" style="color: #ef1010">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group form-float">
+            <label class="form-label">Number Of Seats</label>
+            <div class="form-line">
+                {!! Form::number("number_of_seats",null,['class'=>'form-control','placeholder'=>' number_of_seats'])!!}
+                @error('number_of_seats')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
                 </div>
@@ -89,7 +115,7 @@
     </div>
     <div class="col-xs-12">
         <div class="form-group form-float">
-            <label class="form-label">Cycle duration /second</label>
+            <label class="form-label">Cycle Duration /second</label>
             <div class="form-line">
                 {!! Form::number("one_cycle_duration_seconds",null,['class'=>'form-control','placeholder'=>' cycle duration per second'])!!}
                 @error('one_cycle_duration_seconds')
@@ -102,10 +128,10 @@
     </div>
     <div class="col-xs-12">
         <div class="form-group form-float">
-            <label class="form-label">Cycle duration load unload /minutes</label>
+            <label class="form-label">Minimum Height Requirement In cm</label>
             <div class="form-line">
-                {!! Form::number("ride_cycle_mins",null,['class'=>'form-control','placeholder'=>'cycle duration load nload minutes'])!!}
-                @error('ride_cycle_mins')
+                {!! Form::number("minimum_height_requirement",null,['class'=>'form-control','placeholder'=>' cycle duration per second'])!!}
+                @error('minimum_height_requirement')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
                 </div>
@@ -115,22 +141,11 @@
     </div>
     <div class="col-xs-12">
         <div class="form-group form-float">
-            <label class="form-label">IS FLOW ?</label>
+            <label class="form-label">Cycle duration load unload /minutes</label>
             <div class="form-line">
-                <table>
-                    <tr><td>
-                            {!! Form::label('is_flow','Yes') !!}
-                        </td><td>
-                            {!! Form::radio('is_flow','0') !!}
-                        </td></tr>
-                    <tr><td>
-                            {!! Form::label('is_flow','No') !!}
-                        </td><td>
-                            {!! Form::radio('is_flow','1') !!}
-                        </td></tr>
-
-                </table>
-                @error('is_flow')
+                {!! Form::number("ride_cycle_mins",null,['class'=>'form-control',
+                    'placeholder'=>'cycle duration load nload minutes'])!!}
+                @error('ride_cycle_mins')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
                 </div>
@@ -138,6 +153,7 @@
             </div>
         </div>
     </div>
+   
     <div class="col-xs-12">
         <div class="form-group form-float">
             <label class="form-label">Theoretical Number</label>
@@ -153,9 +169,9 @@
     </div>
     <div class="col-xs-12">
         <div class="form-group form-float">
-            <label class="form-label">Price</label>
+            <label class="form-label">Ticket Price</label>
             <div class="form-line">
-                {!! Form::number("ride_price",null,['class'=>'form-control','placeholder'=>'ride_price'])!!}
+                {!! Form::number("ride_price",null,['class'=>'form-control','placeholder'=>'Ticket Price'])!!}
                 @error('ride_price')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
@@ -167,9 +183,9 @@
 
     <div class="col-xs-12">
         <div class="form-group form-float">
-            <label class="form-label">Price Fast Track</label>
+            <label class="form-label">Ticket Price Fast Track</label>
             <div class="form-line">
-                {!! Form::number("ride_price_vip",null,['class'=>'form-control','placeholder'=>'ride_price_vip'])!!}
+                {!! Form::number("ride_price_ft",null,['class'=>'form-control','placeholder'=>'Ticket Price Fast Track'])!!}
                 @error('ride_price_vip')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}

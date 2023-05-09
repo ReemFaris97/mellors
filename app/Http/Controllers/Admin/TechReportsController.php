@@ -158,12 +158,7 @@ class TechReportsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
 
-        return view('admin.tech_reports.edit');
-
-    }
 
     public function show($id)
     {
@@ -172,35 +167,60 @@ class TechReportsController extends Controller
 
     }
 
+    public function edit_tech_report($park_time_id)
+    {
+        $items=TechReport::where('park_time_id',$park_time_id)->get();
+        return view('admin.tech_reports.index',compact('items','park_time_id'));
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $item=TechReport::find($id);
+        return view('admin.tech_reports.edit',compact('item'));
+
+    }
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SkillGameReport $list)
+    public function update(Request $request, TechReport $techReport)
     {
-
-        return redirect()->route('admin.preopening_lists.index');
-    }
-
+        $techReport->update($request->all());
+        $techReport->user_id=auth()->user()->id;
+        $techReport->save();
+        alert()->success('Tech Report updated successfully !');
+        return redirect()->route('admin.park_times.index');    }
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $preopening_list = SkillGameReport::find($id);
-        if ($preopening_list) {
+        $item = TechReport::find($id);
+        if ($item){
 
-            $preopening_list->delete();
-            alert()->success('Preopening List deleted successfully');
+            $item->delete();
+            alert()->success('This Question  deleted successfully');
             return back();
         }
-        alert()->error('Preopening List not found');
-        return redirect()->route('admin.preopening_lists.index');
+        alert()->error('This Question  not found');
+        return redirect()->route('admin.park_times.index');
+    }
+
+    public function cheackTech(Request $request)
+    {
+        $item=TechReport::where('park_time_id',$request->park_time_id)->first();
+/*         dd($item);
+ */        return response()->json(['item' => $item]);
     }
 }

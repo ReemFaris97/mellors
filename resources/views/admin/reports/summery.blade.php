@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 @if(request()->is('search_duty_summary_reports*'))
 
->>>>>>> b7044f94c091e2a5d8000e85b83b28a13cee30f4
 <div class="card-box">
 
     <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -54,10 +51,8 @@
                             <td>{{$parkTime->end}}</td>
                             <td>{{$parkTime->daily_entrance_count}}</td>
                             <td class="">
-                                @if(isset($info))
-                                {{$info->weather[0]->main}}-{{$info->weather[0]->description}}-{{$info->main->temp}} ْ
-                                -Windspeed avg {{$info->wind->speed}}km/h
-                                @endif
+                                {{$parkTime->general_weather}} - {{$parkTime->description}} - {{$parkTime->temp}} ْ
+                                - Windspeed avg : {{$parkTime->windspeed_avg}}km/h
                             </td>
                         </tr>
                         @endif

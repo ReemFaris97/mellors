@@ -1,21 +1,6 @@
 {{--@include('admin.common.errors')--}}
 <div class="row">
-    @isset($list)
-        @else
-        <div class="col-xs-12">
-            <div class="form-group form-float">
-                <label class="form-label">Ride</label>
-                <div class="form-line">
-                    {!! Form::select('ride_id',$rides,null, array('class' => 'form-control select2')) !!}
-                    @error('ride_id')
-                    <div class="invalid-feedback" style="color: #ef1010">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-            </div>
-        </div>
-@endif
+   
     <div class="col-xs-12 col-sm-12 col-md-12">
 
         <div class="form-group">
@@ -37,7 +22,7 @@
                 </div>
             @endforeach
 
-                @error('ride_id')
+                @error('inspection_list_id')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
                 </div>
@@ -45,6 +30,8 @@
         </div>
 
     </div>
+    <input type="hidden" name="ride_id" value="{{$ride_id}}"
+
     <div class="col-xs-12 aligne-center contentbtn">
         <button class="btn btn-primary waves-effect" type="submit">Save</button>
     </div>

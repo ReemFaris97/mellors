@@ -49,6 +49,12 @@ class MaintenanceReportController extends Controller
         $rides=Ride::where('park_id',$park_id)->get();
         return view('admin.maintenance_reports.add',compact('rides','park_id','park_time_id'));
     }
+
+    public function edit_health_and_safety_report($park_time_id)
+    {
+        $items=HealthAndSafetyReport::where('park_time_id',$park_time_id)->get();
+        return view('admin.health_and_safety_reports.index',compact('items','park_time_id'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -135,6 +141,19 @@ class MaintenanceReportController extends Controller
         return view('admin.reports.duty_report', compact('parks'));
     }
  
+    public function show($id)
+    {
+        $items=MaintenanceReport::where('zone_id',$id)->get();
+
+        return view('admin.preopening_lists.index',compact('items'));
+
+    }
+
+    public function edit_maintenance_report($park_time_id)
+    {
+        $items=MaintenanceReport::where('park_time_id',$park_time_id)->get();
+        return view('admin.maintenance_reports.index',compact('items','park_time_id'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -143,23 +162,10 @@ class MaintenanceReportController extends Controller
      */
     public function edit($id)
     {
-        $item=PreopeningList::find($id);
-        $zone_id=$item->zone_id;
-        $list = explode(",",$item->inspection_list);
-        $rides=Ride::where('zone_id',$item->zone_id)->pluck('name','id')->all();
-        $item=PreopeningList::find($id);
-        $inspections=InspectionList::all();
-        return view('admin.preopening_lists.edit',compact('rides','list','zone_id','item','inspections'));
+        $item=MaintenanceReport::find($id);
+        return view('admin.maintenance_reports.edit',compact('item'));
 
     }
-    public function show($id)
-    {
-        $items=PreopeningList::where('zone_id',$id)->get();
-
-        return view('admin.preopening_lists.index',compact('items'));
-
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -167,21 +173,13 @@ class MaintenanceReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PreopeningListRequest $request, PreopeningList $preopening_list)
+    public function update(Request $request, MaintenanceReport $maintenanceReport)
     {
-        $preopening_list->update([
-        'ride_id'=>$request->validated('ride_id'),
-        'zone_id'=>$request->validated('zone_id'),
-        'user_id' =>$request->validated('user_id'),
-        'inspection_list'=>implode(',', (array) $request['inspection_list']),
-        'comment'=>$request->validated('comment'),
-        'date'=>$request->validated('date')
-        ]);
-        $preopening_list->save();
-
-        alert()->success('Preopening List updated successfully !');
-        return redirect()->route('admin.preopening_lists.index');
-    }
+        $maintenanceReport->update($request->all());
+        $maintenanceReport->user_id=auth()->user()->id;
+        $maintenanceReport->save();
+        alert()->success('Maintenance Report updated successfully !');
+        return redirect()->route('admin.park_times.index');    }
     /**
      * Remove the specified resource from storage.
      *
@@ -190,14 +188,21 @@ class MaintenanceReportController extends Controller
      */
     public function destroy($id)
     {
-        $preopening_list=PreopeningList::find($id);
-        if ($preopening_list){
+        $item=MaintenanceReport::find($id);
+        if ($item){
 
-            $preopening_list->delete();
-            alert()->success('Preopening List deleted successfully');
+            $item->delete();
+            alert()->success('This Question  deleted successfully');
             return back();
         }
-        alert()->error('Preopening List not found');
-        return redirect()->route('admin.preopening_lists.index');
+        alert()->error('This Question  not found');
+        return redirect()->route('admin.park_times.index');
+    }
+
+    public function cheackMaintenance(Request $request)
+    {
+        $item=MaintenanceReport::where('park_time_id',$request->park_time_id)->first();
+/*         dd($item);
+ */        return response()->json(['item' => $item]);
     }
 }

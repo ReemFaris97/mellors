@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\Park;
+namespace App\Http\Requests\Dashboard\park;
 
 use Illuminate\Foundation\Http\FormRequest;
 

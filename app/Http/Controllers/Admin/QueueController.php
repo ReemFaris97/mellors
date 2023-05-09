@@ -89,7 +89,7 @@ class QueueController extends Controller
      * @param  \App\GameTime  $GameTime
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GameTime $gameTime)
+    public function update(Request $request, Queue $queue)
     {
 
     }
@@ -100,9 +100,16 @@ class QueueController extends Controller
      * @param  \App\GameTime  $GameTime
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GameTime $gameTime)
+    public function destroy($id)
     {
-        //
+        $queue=Queue::find($id);
+        if ($queue){
+            $queue->delete();
+            alert()->success('Queue deleted successfully');
+            return back();
+        }
+        alert()->error('Queue not found');
+        return redirect()->route('admin.queues.index');
     }
 
     public function search(Request $request){

@@ -32,21 +32,28 @@ class RideCyclesController extends Controller
      */
     public function create()
     {
-        $rides = Ride::pluck('name', 'id')->all();;
-        $users=User::pluck('name','id')->toArray();
-        $parks=Park::pluck('name','id')->toArray();
-        return view('admin.rides_cycles.add',compact('rides','users','parks'));
+        $rides = Ride::pluck('name', 'id')->all();
+        $users = User::pluck('name', 'id')->toArray();
+        $parks = Park::pluck('name', 'id')->toArray();
+        return view('admin.rides_cycles.add', compact('rides', 'users', 'parks'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(RideCycleRequest $request)
     {
-        RideCycles::create($request->validated());
+        $data = $request->validated();
+        $ride = Ride::findOrFail($data['ride_id']);
+        $time = $ride->park->parkTimes->first();
+        $data['opened_date'] = $time->date;
+        $data['user_id'] = auth()->user()->id;
+        RideCycles::create($data);
+        alert()->success('Ride Cycle Added successfully !');
+        return redirect()->route('admin.rides_cycles.index');
 
     }
 
@@ -54,14 +61,14 @@ class RideCyclesController extends Controller
     public function uploadCycleExcleFile(Request $request)
     {
         Excel::import(new \App\Imports\RideCycles(), $request->file('file'));
-        alert()->success('Ride Added successfully !');
+        alert()->success('Ride Cycle Added successfully !');
         return redirect()->route('admin.rides-cycles.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -72,7 +79,7 @@ class RideCyclesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -83,8 +90,8 @@ class RideCyclesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -95,11 +102,29 @@ class RideCyclesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $ride = RideCycles::find($id);
+        if ($ride) {
+            $ride->delete();
+            alert()->success('Ride Cycle deleted successfully');
+            return back();
+        }
+        alert()->error('Ride Cycle not found');
+        return redirect()->route('admin.rides-cycles.index');
+    }
+
+    public function search(Request $request)
+    {
+        $ride_id = $request->input('ride_id');
+        $date = $request->input('date');
+        $items = RideCycles::query()
+            ->where('ride_id', $ride_id)
+            ->orWheredate('start_time', $date)
+            ->get();
+        return view('admin.rides_cycles.index', compact('items'));
     }
 }

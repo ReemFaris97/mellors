@@ -34,13 +34,14 @@ class RideOpsReportsController extends Controller
      */
     public function create()
     {
-
         return view('admin.ride_ops_reports.add');
     }
     public function add_ride_ops_report($park_id,$park_time_id)
     {
         return view('admin.ride_ops_reports.add',compact('park_id','park_time_id'));
     }
+
+  
     /**
      * Store a newly created resource in storage.
      *
@@ -129,6 +130,18 @@ class RideOpsReportsController extends Controller
         return view('admin.reports.duty_report', compact('parks'));
     }
  
+
+    public function show($id)
+    {
+
+        return view('admin.tech_reports.show');
+
+    }
+    public function edit_ride_ops_report($park_time_id)
+    {
+        $items=RideOpsReport::where('park_time_id',$park_time_id)->get();
+        return view('admin.ride_ops_reports.index',compact('items','park_time_id'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -137,17 +150,10 @@ class RideOpsReportsController extends Controller
      */
     public function edit($id)
     {
-
-        return view('admin.tech_reports.edit');
-
-    }
-    public function show($id)
-    {
-
-        return view('admin.tech_reports.show');
+        $item=RideOpsReport::find($id);
+        return view('admin.ride_ops_reports.edit',compact('item'));
 
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -155,11 +161,14 @@ class RideOpsReportsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SkillGameReport $list)
+    public function update(Request $request, RideOpsReport $rideOpsReport)
     {
-
-        return redirect()->route('admin.preopening_lists.index');
-    }
+        $rideOpsReport->update($request->all());
+        $rideOpsReport->user_id=auth()->user()->id;
+        $rideOpsReport->save();
+        alert()->success('Ride Ops Report updated successfully !');
+        return redirect()->route('admin.park_times.index');  
+      }
     /**
      * Remove the specified resource from storage.
      *
@@ -168,14 +177,22 @@ class RideOpsReportsController extends Controller
      */
     public function destroy($id)
     {
-        $preopening_list=SkillGameReport::find($id);
-        if ($preopening_list){
+        $item=RideOpsReport::find($id);
+        if ($item){
 
-            $preopening_list->delete();
-            alert()->success('Preopening List deleted successfully');
+            $item->delete();
+            alert()->success('This Question  deleted successfully');
             return back();
         }
-        alert()->error('Preopening List not found');
-        return redirect()->route('admin.preopening_lists.index');
+        alert()->error('This Question  not found');
+        return redirect()->route('admin.park_times.index');
+    }
+
+    
+    public function cheackRideOps(Request $request)
+    {
+        $item=RideOpsReport::where('park_time_id',$request->park_time_id)->first();
+/*         dd($item);
+ */        return response()->json(['item' => $item]);
     }
 }

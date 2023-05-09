@@ -30,7 +30,7 @@ class RsrReport extends Model
     }
     public function rides()
     {
-        return $this->belongsTo(Ride::class, 'ride_id', 'id');
+        return $this->belongsTo(Ride::class, 'ride_id', 'id')->withDefault(['name'=>'not found']);
     }
     public function parks()
     {
@@ -42,6 +42,6 @@ class RsrReport extends Model
     }
     public function rsr_images()
     {
-        return $this->hasMany(RsrReportsImages::class,'rsr_report_id');
+        return $this->hasMany(RsrReportsImages::class,'rsr_report_id','id');
     }
 }

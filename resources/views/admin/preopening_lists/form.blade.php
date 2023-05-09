@@ -5,8 +5,6 @@
 
         <div class="form-group">
 
-
-
             <div class="row">
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                     <thead>
@@ -25,7 +23,7 @@
                    @foreach($inspections as $value)
                        <tr>
                            <td>
-                               {{ $value->inspection_list->name }}
+                               {{ $value->inspection_list->name??'' }}
                            </td>
                            <td>
                           <label>
@@ -93,11 +91,23 @@
                 success: function(response)
                 {
                     if(response.success){
-                        alert('Preopening List Added successfully');
-                    }else {
-                        console.log('error');
-                    }
+                    swal({
+                         title: "Preopening List Report Added successfully",
+                         icon: "success",
+                         buttons: ["Ok"]
+                          }); 
+                          window.location.href = "{{route('admin.zones.index')}}";
 
+                    }else {
+                        swal({
+                         title: "Preopening List Already Exist !",
+                         icon: "danger",
+                         buttons: ["Ok"],
+                         
+                          }); 
+                          window.location.href = "{{route('admin.zones.index')}}";
+
+                    }
                 }
             });
 

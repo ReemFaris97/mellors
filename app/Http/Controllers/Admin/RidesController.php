@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Game\GameRequest;
 use App\Imports\RidesImport;
-use App\Models\GameCategory;
+use App\Models\RideType;
 use App\Models\Park;
 use App\Models\Ride;
 use App\Models\Zone;
@@ -34,8 +34,8 @@ class RidesController extends Controller
     {
         $parks = Park::pluck('name', 'id')->all();
         $zones = Zone::pluck('name', 'id')->all();
-        $game_cats = GameCategory::pluck('name', 'id')->all();
-        return view('admin.rides.add', compact('parks', 'zones', 'game_cats'));
+        $ride_types = RideType::pluck('name', 'id')->all();
+        return view('admin.rides.add', compact('parks', 'zones', 'ride_types'));
     }
 
     /**
@@ -60,15 +60,50 @@ class RidesController extends Controller
         return redirect()->route('admin.rides.index');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+ /**
+  * Show the form for editing the specified resource.
+  *
+  * @param  int  $id
+  * @return \Illuminate\Http\Response
+  */
+  public function edit($id)
+  {
+    $ride=Ride::find($id);
+    $parks = Park::pluck('name','id')->all();
+    $zones=Zone::pluck('name','id')->all();
+    $ride_types=RideType::pluck('name','id')->all();
+      return view('admin.rides.edit',compact('ride','parks','zones','ride_types'));
+  }
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function update(GameRequest $request, $id)
+  {
+      $rides=Ride::find($id);
+      $rides->update($request->validated());
+      $rides->save();
+      alert()->success('Ride updated successfully !');
+      return redirect()->route('admin.rides.index');
+  }
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy($id)
+  {
+      $ride=Ride::find($id);
+      if ($ride){
+          $ride->delete();
+          alert()->success('Ride deleted successfully');
+          return back();
+      }
+      alert()->error('Ride not found');
+      return redirect()->route('admin.rides.index');
+  }
 }

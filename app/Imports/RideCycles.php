@@ -7,6 +7,7 @@ use App\Models\Ride;
 use App\Models\RideStoppages;
 use App\Models\StopageSubCategory;
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -23,23 +24,27 @@ class RideCycles implements ToCollection,WithHeadingRow
             $operator = User::where('name', $row['operator_name'])->first();
             $park = Park::where('name', $row['park_name'])->first();
 //            dd($row);
+        if (is_null($ride)) {
+            return throw ValidationException::withMessages(['ride' => 'Ride does not exist']);
+        }
+        if (is_null($operator)) {
+            return throw ValidationException::withMessages(['Operator' => 'Operator does not exist']);
+        }
+        if (is_null($park)) {
+            return throw ValidationException::withMessages(['Park' => 'Park does not exist']);
+        }
+        
             \App\Models\RideCycles::create([
                 'ride_id' => $ride->id ?? 1,
                 'user_id' => $operator->id?? null,
                 'park_id'=>$park->id??null,
-                'date' => date('Y-m-d', strtotime($row['date'])),
-                'time' => date('H:i:s', strtotime($row['time'])),
                 'opened_date' => date('Y-m-d', strtotime($row['opened_date'])),
-//                'date_time' => date('Y-m-d H:i:s', strtotime($row['datetime'])),
-                "seats_filled" => $row['seats_filled'],
-                "number_of_vip" => $row['num_of_vip'],
-                "number_of_disabled" => $row['num_of_disabled'],
-//                "date_time" => $row['datetime'],
-                "cycle_time_minute" => $row['cycle_time_minute'],
-                "ride_price" => $row['cycle_time_minute'],
-                "ride_price_vip" => $row['ride_price_vip'],
-                "ride_price_new" =>$row['ride_price_new'],
-                "ride_price_vip_new" => $row['ride_price_vip_new'],
+                'start_time' => date('Y-m-d H:i:s', strtotime($row['start_time'])),
+                "riders_count" => $row['riders_count'],
+                "number_of_ft" => $row['riders_count_ft'] ?? 0,
+                "number_of_vip" => $row['riders_count_vip'] ?? 0,
+                "number_of_disabled" => $row['riders_count_disabled'] ?? 0,
+                "duration_seconds" => $row['duration_seconds'],
                 "sales" => $row['sales']
             ]);
         }

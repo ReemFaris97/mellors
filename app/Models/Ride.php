@@ -13,16 +13,17 @@ class Ride extends Model
         'name',
         'capacity_one_cycle',
         'one_cycle_duration_seconds',
-        'ride_cycle_mins',
-        'is_flow',
         'ride_price',
-        'ride_price_vip',
-        'ride_category',
-        'date',
+        'ride_price_ft',
+        'ride_type_id',
         'zone_id',
         'park_id',
-        'game_cat_id',
-        'theoretical_number'
+        'ride_cat',
+        'theoretical_number',
+        'description',
+        'ride_cycle_mins',
+        'minimum_height_requirement',
+        'number_of_seats'
     ];
 
     public function park()
@@ -35,9 +36,9 @@ class Ride extends Model
         return $this->belongsTo(Zone::class, 'zone_id', 'id')->withDefault()->withTrashed();
     }
 
-    public function category()
+    public function ride_type()
     {
-        return $this->belongsTo(GameCategory::class, 'game_cat_id', 'id')->withDefault()->withTrashed();
+        return $this->belongsTo(RideType::class, 'ride_type_id', 'id')->withDefault()->withTrashed();
     }
 
     public function inspection_list()

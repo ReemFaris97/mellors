@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 
-@section('title','Update Park '.$time->parks->name)
+@section('title','Update Ride Cycle '.$time->parks->name)
 
 @section('content')
     <div class="row">

@@ -26,21 +26,13 @@ class RideCycleRequest extends FormRequest
         return [
             'ride_id'=>'required',
             'park_id'=>'required',
-            'user_id'=>'required',
-            'seats_filled'=>'required',
-            'number_of_vip'=>'required',
-            'number_of_disabled'=>'required',
-            'cycle_time_minute'=>'required',
-            'ride_price'=>'required',
-            'ride_price_vip'=>'required',
-            'ride_price_new'=>'required',
-            'ride_price_vip_new'=>'required',
+            'riders_count'=>'required',
+            'number_of_vip'=>'nullable',
+            'number_of_ft'=>'nullable',
+            'number_of_disabled'=>'nullable',
+            'duration_seconds'=>'required',
             'sales'=>'required',
-            'date'=>'nullable',
-            'time'=>'nullable',
-            'opened_date'=>'nullable',
-
-
+            'start_time'=>'required'
         ];
     }
 }

@@ -21,6 +21,13 @@ class Zone extends Model
         ]);
 
     }
+    public function ride()
+    {
+        return $this->hasMany(Ride::class,'zone_id','id')->withDefault([
+            'name'=>'not found'
+        ]);
+
+    }
     public function branches()
     {
         return $this->belongsTo(Branch::class,'branch_id')->withDefault([

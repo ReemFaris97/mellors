@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('preopening_lists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ride_id')->nullable()->constrained('parks');
+            $table->foreignId('ride_id')->nullable()->constrained('rides');
             $table->foreignId('inspection_list_id')->nullable()->constrained('inspection_lists');
             $table->enum('list_type',['preopening','maintenance'])->default('preopening');
             $table->enum('status',['yes','no'])->default('yes');

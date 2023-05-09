@@ -17,7 +17,6 @@ use App\Models\SkillGameReport;
 use App\Models\TechReport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use RakibDevs\Weather\Weather;
 
 
 class DutySummaryController extends Controller
@@ -72,8 +71,7 @@ class DutySummaryController extends Controller
                 $parks=auth()->user()->parks->pluck('name','id')->all();
             }
             if($parkTime){
-                $wt = new Weather();
-                $info= $wt->getCurrentByCity('Jeddah'); 
+
                 $techData = [];
                 $techData['How many rides have delayed opening?'] = TechReport::query()->where('park_time_id',$parkTime->id)
                 ->where('question','How many rides have delayed opening?')->pluck('answer')->first();

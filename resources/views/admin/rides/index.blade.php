@@ -26,34 +26,35 @@
                                 Theoretical Number
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Capacity
+                            Minimum Height Required 
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Duration seconds
+                                Capacity One Cycle
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                               One cycle Duration /seconds
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Cycle Mins (include load /unload)
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                is_flow
+                                Ride Type
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride Price
+                                Ticket Price
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride Fast Track 
+                                Ticket Price Fast Track 
+                            </th>            
+            
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                            Category
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                               Date
+                             Park Name
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Park Name
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Category
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Zone
+                             Zone
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
@@ -69,22 +70,23 @@
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->theoretical_number }}</td>
+                                <td>{{ $item->minimum_height_requirement  }}</td>
                                 <td>{{ $item->capacity_one_cycle }}</td>
                                 <td>{{ $item->one_cycle_duration_seconds ?? "" }}</td>
                                 <td>{{ $item->ride_cycle_mins?? "" }}</td>
-                                <td>{{ $item->is_flow == 0 ? 'No' : 'Yes' }}</td>
+                                <td>{{ $item->ride_type->name ?? "" }}</td>
                                 <td>{{ $item->ride_price }}</td>
-                                <td>{{ $item->ride_price_vip }}</td>
-
-                                <td>{{ $item->date }}</td>
-                                <td>{{ $item->park->name }}</td>
-                                <td>{{ $item->category->name }}</td>
-                                <td>{{ $item->zone->name }}</td>
+                                <td>{{ $item->ride_price_ft }}</td>
+                                <td>{{ $item->ride_cat}}</td>
+                                <td>{{ $item->park->name??"" }}</td>
+                                <td>{{ $item->zone->name ?? ""}}</td>
                                 {!!Form::open( ['route' => ['admin.rides.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
+                                        <a href="{{ route('admin.rides.edit', $item) }}"
+                                           class="btn btn-info">Edit</a>
 
-                                        <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                           <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.rides.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete

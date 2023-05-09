@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\GameCategory;
+namespace App\Http\Requests\Dashboard\RideType;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GameCategoryRequest extends FormRequest
+class RideTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
