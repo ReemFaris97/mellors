@@ -134,7 +134,7 @@ class DutySummaryController extends Controller
             
                 return view('admin.reports.duty_report', compact('parkTime','techData','ridesData','maintenanceData',
                 'skillGameData','healthData','parks','ridesRedFlag','healthRedFlag',
-                'skillRedFlag','maintenanceRedFlag','techRedFlag','info'));
+                'skillRedFlag','maintenanceRedFlag','techRedFlag'));
         }else
         return view('admin.reports.duty_report', compact('parks'));
     }

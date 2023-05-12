@@ -22,17 +22,16 @@ class RideInspectionListController extends Controller
     {
         if (auth()->user()->hasRole('Super Admin')) {
             $rides=Ride::all();
+            $ride_inspect=Ride::all()->pluck('id');
         }else {
             $zones = auth()->user()->zones->pluck('id');
            // return $zones;
             $rides=Ride::wherein('zone_id', $zones)->get();
+            $ride_inspect=Ride::wherein('zone_id', $zones)->pluck('id');
            // return  $rides;
-        /*     $items = RideInspectionList::whereDate('created_at',Carbon::now()->format('Y-m-d'))
-            ->wherein('ride_id', $rides)->get(); */
-           // return  $items;
-
         }
-       return view('admin.ride_inspection_lists.index',compact('rides'));
+        $data_exist = RideInspectionList::wherein('ride_id', $ride_inspect)->distinct()->pluck('ride_id')->toArray();
+       return view('admin.ride_inspection_lists.index',compact('rides','data_exist'));
     }
 
     /**
@@ -99,7 +98,7 @@ class RideInspectionListController extends Controller
      */
     public function update(RideInspectionListRequest $request, RideInspectionList $rideInspectionList)
     {
-        //return ($request);
+        return ($request);
         RideInspectionList::where('ride_id',$request->ride_id)->delete();
         $ride=Ride::find($request->ride_id);
         $ride->inspection_list()->sync($request['inspection_list_id']);

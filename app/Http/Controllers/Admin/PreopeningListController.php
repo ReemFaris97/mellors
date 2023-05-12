@@ -29,14 +29,22 @@ class PreopeningListController extends Controller
     public function zone_rides($zone_id)
     {
         $rides=Ride::where('zone_id',$zone_id)->get();
-        return view('admin.preopening_lists.zone_rides',compact('zone_id','rides'));
+        $ride=Ride::where('zone_id',$zone_id)->pluck('id');
+        $data_exist = PreopeningList::whereDate('created_at',Carbon::now()->format('Y-m-d'))
+       ->wherein('ride_id', $ride)->distinct()->pluck('ride_id')->toArray();
+
+       // return($data_exist); 
+
+        return view('admin.preopening_lists.zone_rides',compact('zone_id','rides','data_exist'));
     }
 
     public function add_preopening_list_to_ride($id)
     {
        $inspections=RideInspectionList::where('ride_id',$id)->get();
-//       return $inspections;
-        return view('admin.preopening_lists.add',compact('inspections','id'));
+//     return $inspections; 
+       $ride=Ride::findOrFail($id);
+       $zone_id=$ride->zone_id;
+       return view('admin.preopening_lists.add',compact('inspections','id','zone_id'));
     }
 
     /**

@@ -38,6 +38,7 @@
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment', 'rows'=>"1")) !!}
                                <input name="ride_id" type="hidden" class="ride-id" value={{$id}}>
+                               <input name="zone_id" type="hidden" class="zone-id" value={{$zone_id}}>
 
                            </td>
                        </tr>
@@ -78,6 +79,8 @@
             $('.ride-id').each(function () {
                 ride_id.push($(this).val());
             });
+            var zone_id = $("#zone-id").val();
+
             $.ajax({
                 url: "{{ route('admin.preopening_lists.store') }}",
                 type: 'POST',
@@ -96,7 +99,7 @@
                          icon: "success",
                          buttons: ["Ok"]
                           }); 
-                          window.location.href = "{{route('admin.zones.index')}}";
+                          window.location.href = "{{route('admin.zoneRides',$zone_id)}}";
 
                     }else {
                         swal({
@@ -105,7 +108,7 @@
                          buttons: ["Ok"],
                          
                           }); 
-                          window.location.href = "{{route('admin.zones.index')}}";
+                          window.location.href = "{{route('admin.zoneRides',$zone_id)}}";
 
                     }
                 }

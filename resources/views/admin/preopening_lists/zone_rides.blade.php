@@ -39,17 +39,19 @@ Rides
                                 {!!Form::close() !!}
                                 <td>               
                                 @if(auth()->user()->can('preopening_lists-create'))
-                
-                                    <a href="{{url('add_preopening_list_to_ride/'.$item->id)}}">
+                                        @if(in_array($item->id, $data_exist))
+                                         <a href="{{url('edit_preopening_list/'.$item->id)}}">
+                                            <button type="button" id="edit" class="edit btn btn-success">
+                                            <i class="fa fa-edit"></i> Edit Preopening List
+                                            </button>
+                                        </a>
+                                        @else
+                                        <a href="{{url('add_preopening_list_to_ride/'.$item->id)}}">
                                         <button type="button" id="add" class="add btn btn-info">
                                         <i class="fa fa-plus"></i> Add Preopening List
                                         </button>
                                         </a>
-                                        <a href="{{url('edit_preopening_list/'.$item->id)}}">
-                                            <button type="button" id="edit" class="edit btn btn-success hidden">
-                                            <i class="fa fa-edit"></i> Edit Preopening List
-                                            </button>
-                                        </a>
+                                        @endif
                                @endif
                                 </td>
                             
@@ -75,42 +77,3 @@ Rides
 @section('footer')
     @include('admin.datatable.scripts')
 @endsection
-@push('scripts')
-
-<script type="text/javascript">
-    $(document).ready(function(){
-     $('#datatable-buttons tr').each(function(){
-        $(this).find("input").each(function() { 
-        var ride_id = $(this).val();
-        console.log($(this).val()); 
-         $.ajax({
-                url: "{{ route('admin.cheackPreopeningList')}}",
-                type: 'GET',
-                data:{
-                    "_token":"{{ csrf_token() }}",
-                    ride_id: ride_id
-                },
-                success: function(data)
-                {
-                    if (data.item != null){ 
-            
-                        console.log('aaaaaaaaaaaaaa');
-                        $('.edit').removeClass('hidden');
-                        $('.add').addClass('hidden');
-
-                    }else{
-                        console.log('eeeeeeeeeeeeee');
-                        $('.edit').addClass('hidden');
-                        $('.add').removeClass('hidden');
-
-                    }
-
-
-                }
-            });
-        });
-    });
-});
-</script>
-@endpush
-
