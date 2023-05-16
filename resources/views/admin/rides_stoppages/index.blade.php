@@ -22,7 +22,7 @@
     </div>
     <div class='col-md-5'>
         <div class="form-group">
-            <label for="middle_name">Date </label>
+            <label for="middle_name">Time Slot Date </label>
             {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
         </div>
     </div>
@@ -60,7 +60,7 @@
                                 Operator Name
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Date
+                            Time Slot Date
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Time
@@ -98,7 +98,7 @@
                                 <td>{{ $item->ride->number_of_seats?? "" }}</td>
                                 <td>{{ $item->user->user_number??"" }}</td>
                                 <td>{{ $item->user->name }}</td>
-                                <td>{{ $item->date }}</td>
+                                <td>{{ $item->opened_date }}</td>
                                 <td>{{ $item->time }}</td>
                                 <td>
                                 @if($item->ride_status=='stopped')
