@@ -32,7 +32,7 @@
                           <label>
                               <input type="number" name="answer[]" class="answer" value="{{$incidents??''}}">
                           </label>
-                                     
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -49,8 +49,10 @@
                            <td>
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="">
+
+{{-- type == text || select || number --}}
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -67,7 +69,7 @@
                                <label>
                                <input type="number" name="answer[]" class="answer" value="{{$accidents??''}}">
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -88,7 +90,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -109,7 +111,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -130,7 +132,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -151,7 +153,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -173,7 +175,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -196,7 +198,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -218,7 +220,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -240,7 +242,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -262,7 +264,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -284,7 +286,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -301,7 +303,7 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="">
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -319,7 +321,7 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="">
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -340,7 +342,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -349,7 +351,7 @@
                        </tr>
                        <tr>
                            <td>
-                           Has a training attendance register been taken?        
+                           Has a training attendance register been taken?
                            <input type="hidden" name="question[]" class="question" value="Has a training attendance register been taken?">
 
                            </td>
@@ -361,7 +363,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -382,7 +384,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -401,7 +403,7 @@
                                    <input type="number" name="answer[]" class="answer" value="">
 
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -410,7 +412,7 @@
                        </tr>
                        <tr>
                            <td>
-                           Has a training attendance register been taken?        
+                           Has a training attendance register been taken?
                            <input type="hidden" name="question[]" class="question" value="Has a training attendance register been taken?">
 
                            </td>
@@ -422,7 +424,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -443,7 +445,7 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -461,7 +463,7 @@
                                <label>
                                    <input type="number" name="answer[]" class="answer" value="">
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
@@ -483,14 +485,14 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
+
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
 
                            </td>
                        </tr>
-                    
+
                         <tr>
                         <td colspan="4" tabindex=" 0" class="sorting_1 redflagTd">
                             <h3>Red Flags</h3>
@@ -592,7 +594,7 @@
             const answer = [];
             const ride = [];
             const issue = [];
-           
+
             $('.answer').each(function () {
                 if($(this).change){
                     answer.push($(this).val());
@@ -612,7 +614,7 @@
             $('.issue').each(function () {
                 issue.push($(this).val());
             });
-            
+
             var park_id = $("#park-id").val();
             var park_time_id = $("#park-time-id").val();
             $.ajax({
@@ -635,7 +637,7 @@
                          title: "Health and Safety Report Added successfully",
                          icon: "success",
                          buttons: ["Ok"]
-                          }); 
+                          });
                           window.location.href = "{{route('admin.park_times.index')}}";
 
                     }else {
@@ -643,8 +645,8 @@
                          title: "Health And Safety Report Already Exist !",
                          icon: "danger",
                          buttons: ["Ok"],
-                         
-                          }); 
+
+                          });
                           window.location.href = "{{route('admin.park_times.index')}}";
 
                     }

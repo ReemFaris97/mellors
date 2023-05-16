@@ -33,10 +33,15 @@ class ParkTimeController extends Controller
             $items = ParkTime::where('date', Carbon::now()->format('Y-m-d'))->get();
             $items_check = ParkTime::where('date', Carbon::now()->format('Y-m-d'))->pluck('id');
         } else {
-            $parks = auth()->user()->parks->pluck('id');        
+            $date = Carbon::now();
+    // $from=date
+    // $to=cosed
+//currentbetween
+            $parks = auth()->user()->parks->pluck('id');
             $items = ParkTime::where('date',Carbon::now()->format('Y-m-d'))
             ->wherein('park_id', $parks)->get();
-            $items_check= ParkTime::where('date',Carbon::now()->format('Y-m-d'))
+            $items_check= ParkTime::where('date', '<=', $date)
+            ->where('close_date', '>=', $date)
             ->wherein('park_id', $parks)->pluck('id');
         }
         //dd( $items);
@@ -45,7 +50,7 @@ class ParkTimeController extends Controller
         $maintenance_data_exist=MaintenanceReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();
         $skill_data_exist=SkillGameReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();
         $health_data_exist = HealthAndSafetyReport::wherein('park_time_id', $items_check)->distinct()->pluck('park_time_id')->toArray();
-       
+
         return view('admin.park_times.index', compact('items','tech_data_exist','ops_data_exist','maintenance_data_exist','health_data_exist','skill_data_exist'));
     }
 
@@ -61,7 +66,7 @@ class ParkTimeController extends Controller
             $parks = Park::pluck('name', 'id')->toArray();
         } else {
             $parks = auth()->user()->parks->pluck('name', 'id')->toArray();
-        }                                               
+        }
         return view('admin.park_times.add', compact('parks'));
     }
 
@@ -84,8 +89,8 @@ class ParkTimeController extends Controller
         $park=Park::find( $request['park_id']);
         $city=$park->branches;
         $wt = new Weather();
-        $info= $wt->getCurrentByCity($city['name']); 
-       
+        $info= $wt->getCurrentByCity($city['name']);
+
         $data=$request->validated();
         $to_time = strtotime($data['start']);
         $from_time = strtotime($data['end']);

@@ -24,19 +24,19 @@ class RidesStoppageImport implements ToCollection, WithHeadingRow
             $ride = Ride::where('name', $row['ride_name'])->first();
             $sub_category = StopageSubCategory::where('name', $row['stoppage_subcategory'])->first();
             $operator = User::where('name', $row['operator_name'])->first();
-            if (is_null($ride)) {
-                return throw ValidationException::withMessages(['ride' => 'Ride does not exist']);
-            }
-            if (is_null($operator)) {
-                return throw ValidationException::withMessages(['Operator' => 'Operator does not exist']);
-            }
-            if (is_null($sub_category)) {
-                return throw ValidationException::withMessages(['StoppageSubCategory' => 'StoppageSubCategory does not exist']);
-            }
+//            if (is_null($ride)) {
+//                return throw ValidationException::withMessages(['ride' => 'Ride does not exist']);
+//            }
+//            if (is_null($operator)) {
+//                return throw ValidationException::withMessages(['Operator' => 'Operator does not exist']);
+//            }
+//            if (is_null($sub_category)) {
+//                return throw ValidationException::withMessages(['StoppageSubCategory' => 'StoppageSubCategory does not exist']);
+//            }
             RideStoppages::create([
                 'ride_id' => $ride->id ?? 3,
                 'user_id' => $operator->id ?? null,
-                'stoppage_status' => $row['stoppage_status'],
+//                'stoppage_status' => $row['stoppage_status'],
                 'stopage_sub_category_id' => $sub_category->id ?? 1,
                 'description' => $row['stoppage_description'],
                 'down_minutes' => $row['down_minutes'],

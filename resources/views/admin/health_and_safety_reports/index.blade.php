@@ -7,7 +7,9 @@
 @section('content')
 
     <div class="card-box">
-
+        @if(auth()->user()->can('health_and_safety_reports-edit'))
+        <a href="{{ route('admin.health_and_safety_reports.edit', $item) }}"
+           class="btn btn-info">Edit</a>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4">
             <div class="row">
                 <div class="col-sm-12">
@@ -21,7 +23,7 @@
                                 Health and Safety Daily report
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                           Answer 
+                           Answer
                         </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Comment
@@ -39,7 +41,7 @@
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $loop->iteration }}</td>
                                 <td>{{ $item->question }}</td>
-                                <td>{{$item->answer }}                            
+                                <td>{{$item->answer }}
                                 <td>{!! $item->comment !!}</td>
                                 {!!Form::open( ['route' => ['admin.health_and_safety_reports.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
