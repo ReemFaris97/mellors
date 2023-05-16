@@ -10,6 +10,30 @@
         <a href="{{route('admin.rides-stoppages.create')}}">
             <button type="button" class="btn btn-info">Create New Stoppage</button>
         </a>
+        <br><br>
+        <form class="formSection" action="{{url('/search_stoppages')}}" method="GET">
+            @csrf
+        <div class="row">
+    <div class='col-md-5'>
+        <div class="form-group">
+            <label for="last_name">Select Ride</label>
+            {!! Form::select('ride_id', \App\Models\Ride::pluck('name','id')->all(),null, array('class' => 'form-control')) !!}
+        </div>
+    </div>
+    <div class='col-md-5'>
+        <div class="form-group">
+            <label for="middle_name">Date </label>
+            {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
+        </div>
+    </div>
+    <div class='col-md-2 mtButton'>
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-primary save_btn waves-effect">Show</button>
+        </div>
+    </div>
+</div>
+            {!!Form::close() !!}
+    </div>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">

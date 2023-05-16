@@ -13,21 +13,7 @@
     </div>
 </div>
 </div>
-    <div class="col-xs-12">
-        <div class="form-group form-float">
-            <label class="form-label">Ride Description</label>
-            <div class="form-line">
-                {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>' Ride description'])!!}
-                @error('description')
-                <div class="invalid-feedback" style="color: #ef1010">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-    </div>
-
-
+   
     <div class="col-xs-12">
         <div class="form-group form-float">
             <label class="form-label">Park</label>
@@ -126,6 +112,19 @@
     </div>
     <div class="col-xs-12">
         <div class="form-group form-float">
+            <label class="form-label">Number Of Gondolas</label>
+            <div class="form-line">
+                {!! Form::number("no_of_gondolas",null,['class'=>'form-control','placeholder'=>'Number Of Gondolas'])!!}
+                @error('no_of_gondolas')
+                <div class="invalid-feedback" style="color: #ef1010">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group form-float">
             <label class="form-label">Minimum Height Requirement In cm</label>
             <div class="form-line">
                 {!! Form::number("minimum_height_requirement",null,['class'=>'form-control','placeholder'=>'Minimum Height Requirement In cm'])!!}
@@ -192,6 +191,21 @@
             </div>
         </div>
     </div> 
+    <div class="col-xs-12">
+        <div class="form-group form-float">
+            <label class="form-label">Ride Description</label>
+            <div class="form-line">
+                {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>' Ride description'])!!}
+                @error('description')
+                <div class="invalid-feedback" style="color: #ef1010">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+        </div>
+    </div>
+
+
 
 
     <div class="col-xs-12 aligne-center contentbtn">

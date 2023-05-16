@@ -21,7 +21,7 @@ class QueueController extends Controller
      */
     public function index()
     {
-        $items=Queue::all();
+        $items=Queue::where('opened_date', date('Y-m-d'))->get();
         return view('admin.queues.index',compact('items'));
     }
 

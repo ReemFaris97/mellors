@@ -56,6 +56,8 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::resource('rides', 'Admin\RidesController');//done
     Route::Post('upload-rides-with-excel', 'Admin\RidesController@uploadExcleFile')->name('uploadExcleFile');
     Route::resource('rides-stoppages', 'Admin\RideStoppageController');//done
+    Route::get('/search_stoppages/', 'Admin\RideStoppageController@search')->name('searchStoppage');
+
     Route::Post('upload-stoppages-with-excel', 'Admin\RideStoppageController@uploadStoppagesExcleFile')->name('uploadStoppagesExcleFile');
     Route::Post('get-images', 'Admin\RideStoppageController@getImage')->name('getImage');
     Route::resource('rides-cycles', 'Admin\RideCyclesController');//done
@@ -65,7 +67,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::resource('queues', 'Admin\QueueController');//done
     Route::Post('upload-queues-with-excel', 'Admin\QueueController@uploadQueueExcleFile')->name('uploadQueueExcleFile');
     Route::get('/search_queues/', 'Admin\QueueController@search')->name('search');
-
+    
     Route::resource('inspection_lists', 'Admin\InspectionListController');//done
     
 
@@ -80,6 +82,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::get('/add_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@add_ride_inspection_lists')->name('addRideInspectionLists');
     Route::get('/cheack_ride_inspection_lists/', 'Admin\RideInspectionListController@cheackRideInspectionList')->name('cheackRideInspectionList');
     Route::get('/edit_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@edit_ride_inspection_lists')->name('editRideInspectionLists');
+    Route::post('/update_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@update_ride_inspection_lists')->name('updatRideInspectionLists');
 
     Route::resource('customer_feedbacks', 'Admin\CustomerFeedbackController');//done
     Route::get('/search_customer_feedbacks/', 'Admin\CustomerFeedbackController@search')->name('searchCustomerFeedBack');

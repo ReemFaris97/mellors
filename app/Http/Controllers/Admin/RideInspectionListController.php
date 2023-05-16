@@ -96,6 +96,15 @@ class RideInspectionListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
+    public function update_ride_inspection_lists(Request $request,  $ride_id)
+    {
+        RideInspectionList::where('ride_id',$request->ride_id)->delete();
+        $ride=Ride::find($request->ride_id);
+        $ride->inspection_list()->sync($request['inspection_list_id']);
+        alert()->success('Ride Inspection List Updated Successfully !');
+        return redirect()->route('admin.ride_inspection_lists.index');
+    }
     public function update(RideInspectionListRequest $request, RideInspectionList $rideInspectionList)
     {
         return ($request);
