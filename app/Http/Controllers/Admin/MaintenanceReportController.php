@@ -50,10 +50,57 @@ class MaintenanceReportController extends Controller
         return view('admin.maintenance_reports.add',compact('rides','park_id','park_time_id'));
     }
 
-    public function edit_health_and_safety_report($park_time_id)
+    public function edit_maintenance_report($park_time_id)
     {
-        $items=HealthAndSafetyReport::where('park_time_id',$park_time_id)->get();
-        return view('admin.health_and_safety_reports.index',compact('items','park_time_id'));
+        $items=MaintenanceReport::where('park_time_id',$park_time_id)->get();
+        $ride_status_items=MaintenanceRideStatusReport::where('park_time_id',$park_time_id)->get();
+        $redFlags=RedFlag::query()->where('park_time_id',$park_time_id)->where('type','maintenance')->get();
+        return view('admin.maintenance_reports.edit',compact('items','ride_status_items','park_time_id','redFlags'));
+    }
+    public function update_request(Request $request)
+    {
+/*         dd($request->all());
+ */
+    $items=MaintenanceReport::where('park_time_id',$request->park_time_id)
+    ->delete();
+    $items=MaintenanceRideStatusReport::where('park_time_id',$request->park_time_id)
+    ->delete();
+    $items=RedFlag::where('park_time_id',$request->park_time_id)->where('type','maintenance')
+    ->delete();
+       foreach ($request->question as $key=>$value){
+           $list= new MaintenanceReport();
+           $list->question=$request->question[$key];
+           $list->answer=$request->answer[$key];
+           $list->comment=$request->comment[$key];
+           $list->park_time_id=$request->park_time_id;
+           $list->date=Carbon::now()->format('Y-m-d');
+           $list->user_id=auth()->user()->id;
+           $list->save();
+       }
+       $maintenance_report_id=$list->id;
+       foreach ($request->ride_id as $key=>$value){
+        $listr= new MaintenanceRideStatusReport();
+        $listr->ride_id=$request->ride_id[$key];
+        $listr->status=$request->status[$key];
+        $listr->comment=$request->ride_comment[$key];
+        $listr->maintenance_report_id=$maintenance_report_id;
+        $listr->park_time_id=$request->park_time_id;
+        $listr->date=Carbon::now()->format('Y-m-d');
+        $listr->save();
+    }
+       foreach ($request->ride as $key=>$value){
+        $listrf= new RedFlag();
+        if($request->ride[$key] != null){
+        $listrf->ride=$request->ride[$key];
+        $listrf->issue=$request->issue[$key];
+        $listrf->park_time_id=$request->park_time_id;
+        $listrf->type='maintenance';
+        $listrf->date=Carbon::now()->format('Y-m-d');
+        $listrf->save();
+        }
+    }
+        alert()->success('Maintenance Report Updated  successfully !');
+        return redirect()->route('admin.park_times.index');
     }
     /**
      * Store a newly created resource in storage.
@@ -68,7 +115,7 @@ class MaintenanceReportController extends Controller
             ['park_id', $request['park_id']]
         ])->first();
         if ($dateExists){
-            return response()->json(['error'=>'maintenance report Report Already Exist !']);
+            return response()->json(['error'=>'Maintenance  Report Already Exist !']);
         }
       //dd($request->all());
 
@@ -149,11 +196,6 @@ class MaintenanceReportController extends Controller
 
     }
 
-    public function edit_maintenance_report($park_time_id)
-    {
-        $items=MaintenanceReport::where('park_time_id',$park_time_id)->get();
-        return view('admin.maintenance_reports.index',compact('items','park_time_id'));
-    }
     /**
      * Show the form for editing the specified resource.
      *

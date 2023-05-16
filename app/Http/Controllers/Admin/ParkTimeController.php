@@ -30,14 +30,19 @@ class ParkTimeController extends Controller
     {
         $times=[];
         if (auth()->user()->hasRole('Super Admin')) {
-            $items = ParkTime::where('date', Carbon::now()->format('Y-m-d'))->get();
-            $items_check = ParkTime::where('date', Carbon::now()->format('Y-m-d'))->pluck('id');
+            $items = ParkTime::where('date', '>=', Carbon::now()->format('Y-m-d'))
+            ->where('close_date', '>=', Carbon::now()->format('Y-m-d'))->get();
+            $items_check = ParkTime::where('date', '>=', Carbon::now()->format('Y-m-d'))
+            ->where('close_date', '>=', Carbon::now()->format('Y-m-d'))->pluck('id');
         } else {
             $parks = auth()->user()->parks->pluck('id');        
-            $items = ParkTime::where('date',Carbon::now()->format('Y-m-d'))
+            $items = ParkTime::where('date', '>=', Carbon::now()->format('Y-m-d'))
+            ->where('close_date', '>=', Carbon::now()->format('Y-m-d'))
             ->wherein('park_id', $parks)->get();
-            $items_check= ParkTime::where('date',Carbon::now()->format('Y-m-d'))
+            $items_check= ParkTime::where('date', '>=', Carbon::now()->format('Y-m-d'))
+            ->where('close_date', '>=', Carbon::now()->format('Y-m-d'))
             ->wherein('park_id', $parks)->pluck('id');
+           
         }
         //dd( $items);
         $tech_data_exist=TechReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();

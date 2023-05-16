@@ -58,8 +58,13 @@ class CustomerFeedbackController extends Controller
      */
     public function store(CustomerFeedbackRequest $request)
     {
+        $ride=Ride::findOrFail($request->input('ride_id'));
+        $is_skill_game=$ride->ride_type->name;
         $cf = new CustomerFeedbacks();
         $cf->comment = $request->input('comment');
+        if($is_skill_game == 'Skill Game'){
+        $cf-> is_skill_game ='skill_game';
+        }
         $cf-> type = $request->input('type');
         $cf-> date = $request->input('date');
         $cf->ride_id = $request->input('ride_id');

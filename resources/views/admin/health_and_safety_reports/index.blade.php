@@ -8,33 +8,7 @@
 
     <div class="card-box">
 
-        <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4">
-            <div class="row">
-                <div class="col-sm-12">
-                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
-                        <thead>
-                        <tr role="row">
-                            <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                colspan="1" aria-sort="ascending">ID
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Health and Safety Daily report
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                           Answer 
-                        </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Comment
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Process
-                            </th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
                       @if(isset($items))
-
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $loop->iteration }}</td>
@@ -65,18 +39,52 @@
                         @endif
 
                         </tbody>
-                    </table>
+                    @if(isset($redFlags))
 
+                    <div class='mt-4'>
+                    <h4 class='redFlags'>Edit RED FLAGS</h4>
+                    <table id="datatable-buttons "
+                        class="table table-striped table-bordered dt-responsive nowrap redFlag tableRedFlag  mt-2">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="4" aria-sort="ascending">RIDES
+                                </th>
+                                <th style="display: none;" class="sorting" tabindex="0"
+                                    aria-controls="datatable-buttons">
+
+                                </th>
+                                <th style="display: none;" class="sorting" tabindex="0"
+                                    aria-controls="datatable-buttons">
+
+                                </th>
+
+                                <th style="display: none;" class="sorting" tabindex="0"
+                                    aria-controls="datatable-buttons">
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($redFlags as $item)
+                            <tr>
+                                <td tabindex="0" class="sorting_1">22</td>
+                                <td>33</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    </div>
+                      @else
+
+                    </table>
 
                 </div>
             </div>
 
         </div>
     </div>
-
-
 @endsection
-
 @section('footer')
     @include('admin.datatable.scripts')
 @endsection
