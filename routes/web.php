@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +56,8 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::resource('rides', 'Admin\RidesController');//done
     Route::Post('upload-rides-with-excel', 'Admin\RidesController@uploadExcleFile')->name('uploadExcleFile');
     Route::resource('rides-stoppages', 'Admin\RideStoppageController');//done
+    Route::get('/search_stoppages/', 'Admin\RideStoppageController@search')->name('searchStoppage');
+
     Route::Post('upload-stoppages-with-excel', 'Admin\RideStoppageController@uploadStoppagesExcleFile')->name('uploadStoppagesExcleFile');
     Route::Post('get-images', 'Admin\RideStoppageController@getImage')->name('getImage');
     Route::resource('rides-cycles', 'Admin\RideCyclesController');//done
@@ -64,7 +67,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::resource('queues', 'Admin\QueueController');//done
     Route::Post('upload-queues-with-excel', 'Admin\QueueController@uploadQueueExcleFile')->name('uploadQueueExcleFile');
     Route::get('/search_queues/', 'Admin\QueueController@search')->name('search');
-
+    
     Route::resource('inspection_lists', 'Admin\InspectionListController');//done
     
 
@@ -79,6 +82,7 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::get('/add_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@add_ride_inspection_lists')->name('addRideInspectionLists');
     Route::get('/cheack_ride_inspection_lists/', 'Admin\RideInspectionListController@cheackRideInspectionList')->name('cheackRideInspectionList');
     Route::get('/edit_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@edit_ride_inspection_lists')->name('editRideInspectionLists');
+    Route::post('/update_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@update_ride_inspection_lists')->name('updatRideInspectionLists');
 
     Route::resource('customer_feedbacks', 'Admin\CustomerFeedbackController');//done
     Route::get('/search_customer_feedbacks/', 'Admin\CustomerFeedbackController@search')->name('searchCustomerFeedBack');
@@ -105,30 +109,37 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::resource('health_and_safety_reports', 'Admin\HealthAndSafetyReportController');//done
     Route::get('/add_health_and_safety_report/{park_id}/{time_slot_id}', 'Admin\HealthAndSafetyReportController@add_health_and_safety_report')->name('addHealthAndSafetyReport');
     Route::get('/edit_health_and_safety_report/{time_slot_id}', 'Admin\HealthAndSafetyReportController@edit_health_and_safety_report')->name('editHealthAndSafetyReport');
+    Route::post('/updateRequest/', 'Admin\HealthAndSafetyReportController@update_request')->name('updateRequest');
     Route::get('/search_health_and_safety/', 'Admin\HealthAndSafetyReportController@search')->name('searchHealthAndSafetyReport');
     Route::get('/cheack_health/', 'Admin\HealthAndSafetyReportController@cheackHealth')->name('cheackHealth');
-
+   /* Route::post('/updateRequest', function (Request $request) {
+        dd('aaaaaaaaa');
+    })->name('updateRequest');*/
     Route::resource('skill_game_reports', 'Admin\SkillGameReportController');//done
     Route::get('/add_skill_game_report/{park_id}/{time_slot_id}', 'Admin\SkillGameReportController@add_skill_game_report')->name('addSkillGameReport');
     Route::get('/edit_skill_game_report/{time_slot_id}', 'Admin\SkillGameReportController@edit_skill_game_report')->name('editSkillGameReport');
+    Route::post('/updateskillGame/', 'Admin\SkillGameReportController@update_request')->name('updateskillGame');
     Route::get('/search_skill_game_reports/', 'Admin\SkillGameReportController@search')->name('searchSkillGameReport');
     Route::get('/cheack_skill_game/', 'Admin\SkillGameReportController@cheackSkillGame')->name('cheackSkillGame');
 
     Route::resource('maintenance_reports', 'Admin\MaintenanceReportController');//done
     Route::get('/add_maintenance_report/{park_id}/{time_slot_id}', 'Admin\MaintenanceReportController@add_maintenace_report')->name('addMaintenanceReport');
     Route::get('/edit_maintenance_report/{time_slot_id}', 'Admin\MaintenanceReportController@edit_maintenance_report')->name('editMaintenanceReport');
+    Route::post('/updateMaintenance/', 'Admin\MaintenanceReportController@update_request')->name('updateMaintenance');
     Route::get('/search_maintenance_reports/', 'Admin\MaintenanceReportController@search')->name('searchMaintenanceReport');
     Route::get('/cheack_maintenance/', 'Admin\MaintenanceReportController@cheackMaintenance')->name('cheackMaintenance');
 
     Route::resource('tech-reports', 'Admin\TechReportsController');//done
     Route::get('/add-tech-report/{park_id}/{time_slot_id}', 'Admin\TechReportsController@add_tech_report')->name('addTechReport');
     Route::get('/edit_tech_report/{time_slot_id}', 'Admin\TechReportsController@edit_tech_report')->name('editTechReport');
+    Route::post('/updateTechnical/', 'Admin\TechReportsController@update_request')->name('updateTechnical');
     Route::get('/search_tech_reports/', 'Admin\TechReportsController@search')->name('searchTechReport');
     Route::get('/cheack_tech/', 'Admin\TechReportsController@cheackTech')->name('cheackTech');
 
     Route::resource('ride-ops-reports', 'Admin\RideOpsReportsController');//done
     Route::get('/add-ride-ops-report/{park_id}/{time_slot_id}', 'Admin\RideOpsReportsController@add_ride_ops_report')->name('addOpsReport');
     Route::get('/edit_ride_ops_report/{time_slot_id}', 'Admin\RideOpsReportsController@edit_ride_ops_report')->name('editOpsReport');
+    Route::post('/updateRideOps/', 'Admin\RideOpsReportsController@update_request')->name('updateRideOps');
     Route::get('/search_ride_ops_reports/', 'Admin\RideOpsReportsController@search')->name('searchOpsReport');
     Route::get('/cheack_ride_ops/', 'Admin\RideOpsReportsController@cheackRideOps')->name('cheackRideOps');
 

@@ -65,16 +65,13 @@ class TechReportsController extends Controller
      */
     public function store(Request $request)
     {
-/*         dd($request);
- */        $dateExists = TechReport::where([
+       $dateExists = TechReport::where([
             ['park_time_id', $request['park_time_id']],
             ['park_id', $request['park_id']]
         ])->first();
         if ($dateExists) {
             return response()->json(['error' => 'Tech Report Already Exist !']);
         }
-        // dd($request->all());
-
         foreach ($request->question as $key => $value) {
             $list = new TechReport();
             $list->question = $request->question[$key];
@@ -88,8 +85,8 @@ class TechReportsController extends Controller
         }
         $tech_report_id=$list->id;
         foreach ($request->ride_down_id as $key=>$value){
+         if($request->is_down[$key] == 'yes'){
          $listr= new TechRideDownReport();
-         if($request->is_down == 'yes')
          $listr->ride_down_id=$request->ride_down_id[$key];
          $listr->lead_name=$request->lead_name[$key];
          $listr->comment=$request->ride_down_comment[$key];
@@ -97,7 +94,10 @@ class TechReportsController extends Controller
          $listr->park_time_id=$request->park_time_id;
          $listr->date = Carbon::now()->format('Y-m-d');
          $listr->date_expected_open=$request->date[$key];
+         
          $listr->save();
+       //  dd($request->ride_down_id);
+         }
      }
 
         foreach ($request->ride as $key=>$value){
@@ -112,10 +112,8 @@ class TechReportsController extends Controller
             }
         }
         return response()->json(['success' => 'Tech Report Added successfully']);
-
-//        alert()->success('Preopening List Added successfully !');
-//        return redirect()->back();
     }
+
 
     public function search(Request $request)
     {
@@ -170,8 +168,64 @@ class TechReportsController extends Controller
     public function edit_tech_report($park_time_id)
     {
         $items=TechReport::where('park_time_id',$park_time_id)->get();
-        return view('admin.tech_reports.index',compact('items','park_time_id'));
+        $redFlags=RedFlag::query()->where('park_time_id',$park_time_id)->where('type','tech')->get();
+        $park_time=ParkTime::findOrFail($park_time_id);
+        $park_id=$park_time->park_id;
+        $rides=Ride::where('park_id',$park_id)->get();
+        $rides_down_items=TechRideDownReport::where('park_time_id',$park_time_id)->get();
+        $rides_down_items_array=TechRideDownReport::where('park_time_id',$park_time_id)->pluck('ride_down_id')->toArray();
+        return view('admin.tech_reports.edit',compact('items','park_time_id','rides_down_items_array','rides_down_items','redFlags','rides'));
     }
+    public function update_request(Request $request)
+    { 
+      //  dd($request);
+    $items=TechReport::where('park_time_id',$request->park_time_id)
+    ->delete();
+    $items=RedFlag::where('park_time_id',$request->park_time_id)->where('type','tech')
+    ->delete();
+    $items=TechRideDownReport::where('park_time_id',$request->park_time_id)
+    ->delete();
+    foreach ($request->question as $key => $value) {
+        $list = new TechReport();
+        $list->question = $request->question[$key];
+        $list->answer = $request->answer[$key];
+        $list->comment = $request->comment[$key];
+        $list->park_id = $request->park_id;
+        $list->park_time_id = $request->park_time_id;
+        $list->date = Carbon::now()->format('Y-m-d');
+        $list->user_id = auth()->user()->id;
+        $list->save();
+    }
+    $tech_report_id=$list->id;
+    foreach ($request->ride_down_id as $key=>$value){
+     if($request->is_down[$key] == 'yes'){
+     $listr= new TechRideDownReport();
+     $listr->ride_down_id=$request->ride_down_id[$key];
+     $listr->lead_name=$request->lead_name[$key];
+     $listr->comment=$request->ride_down_comment[$key];
+     $listr->tech_report_id=$tech_report_id;
+     $listr->park_time_id=$request->park_time_id;
+     $listr->date = Carbon::now()->format('Y-m-d');
+     $listr->date_expected_open=$request->date_expected_open[$key];
+     $listr->save();
+   //  dd($request->ride_down_id);
+     }
+ }
+
+    foreach ($request->ride as $key=>$value){
+        $listrf= new RedFlag();
+        if($request->ride[$key] != null){
+        $listrf->ride=$request->ride[$key];
+        $listrf->issue=$request->issue[$key];
+        $listrf->park_time_id=$request->park_time_id;
+        $listrf->type='tech';
+        $listrf->date=Carbon::now()->format('Y-m-d');
+        $listrf->save();
+        }
+    }
+    alert()->success(' Tech Report Updated  successfully !');
+    return redirect()->route('admin.park_times.index');
+}
     /**
      * Show the form for editing the specified resource.
      *
@@ -180,8 +234,7 @@ class TechReportsController extends Controller
      */
     public function edit($id)
     {
-        $item=TechReport::find($id);
-        return view('admin.tech_reports.edit',compact('item'));
+ 
 
     }
     /**
@@ -193,11 +246,7 @@ class TechReportsController extends Controller
      */
     public function update(Request $request, TechReport $techReport)
     {
-        $techReport->update($request->all());
-        $techReport->user_id=auth()->user()->id;
-        $techReport->save();
-        alert()->success('Tech Report updated successfully !');
-        return redirect()->route('admin.park_times.index');    }
+        }
     /**
      * Remove the specified resource from storage.
      *

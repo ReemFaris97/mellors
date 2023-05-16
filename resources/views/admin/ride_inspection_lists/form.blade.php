@@ -30,7 +30,7 @@
         </div>
 
     </div>
-    <input type="hidden" name="ride_id" value="{{$ride_id}}"
+    <input type="hidden" name="ride_id" value="{{$ride_id}}">
 
     <div class="col-xs-12 aligne-center contentbtn">
         <button class="btn btn-primary waves-effect" type="submit">Save</button>
