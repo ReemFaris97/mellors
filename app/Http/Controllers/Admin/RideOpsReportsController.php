@@ -140,7 +140,41 @@ class RideOpsReportsController extends Controller
     public function edit_ride_ops_report($park_time_id)
     {
         $items=RideOpsReport::where('park_time_id',$park_time_id)->get();
-        return view('admin.ride_ops_reports.index',compact('items','park_time_id'));
+        $redFlags=RedFlag::query()->where('park_time_id',$park_time_id)->where('type','ride_ops')->get();
+        return view('admin.ride_ops_reports.edit',compact('items','park_time_id','redFlags'));
+    }
+    public function update_request(Request $request)
+    {
+/*         dd($request->all());
+ */
+    $items=RideOpsReport::where('park_time_id',$request->park_time_id)
+    ->delete();
+    $items=RedFlag::where('park_time_id',$request->park_time_id)->where('type','ride_ops')
+    ->delete();
+       foreach ($request->question as $key=>$value){
+           $list= new RideOpsReport();
+           $list->question=$request->question[$key];
+           $list->answer=$request->answer[$key];
+           $list->comment=$request->comment[$key];
+           $list->park_time_id=$request->park_time_id;
+           $list->date=Carbon::now()->format('Y-m-d');
+           $list->user_id=auth()->user()->id;
+           $list->save();
+       }
+
+       foreach ($request->ride as $key=>$value){
+        $listrf= new RedFlag();
+        if($request->ride[$key] != null){
+        $listrf->ride=$request->ride[$key];
+        $listrf->issue=$request->issue[$key];
+        $listrf->park_time_id=$request->park_time_id;
+        $listrf->type='ride_ops';
+        $listrf->date=Carbon::now()->format('Y-m-d');
+        $listrf->save();
+        }
+    }
+        alert()->success('Ride Ops Report Updated  successfully !');
+        return redirect()->route('admin.park_times.index');
     }
     /**
      * Show the form for editing the specified resource.

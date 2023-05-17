@@ -32,7 +32,7 @@ class RideStoppageController extends Controller
             $items = RideStoppages::where('ride_status', 'stopped')
                 ->where('opened_date', date('Y-m-d'))->get();
         } else {
-            $items = RideStoppages::all();
+            $items = RideStoppages::where('opened_date', date('Y-m-d'))->get();
         }
         return view('admin.rides_stoppages.index', compact('items'));
     }
@@ -145,5 +145,14 @@ class RideStoppageController extends Controller
     {
         $x = $request->trCount;
         return view('admin.rides_stoppages.append_images', compact('x'));
+    }
+    public function search(Request $request){
+        $ride_id = $request->input('ride_id');
+        $date = $request->input('date');
+        $items = RideStoppages::query()
+            ->where('ride_id',$ride_id)
+            ->Where('date', $date)
+            ->get();
+        return view('admin.rides_stoppages.index', compact('items'));
     }
 }

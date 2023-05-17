@@ -28,17 +28,18 @@ class GameRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'nullable',
             'park_id' => 'nullable',
-            'capacity_one_cycle' => 'required|number',
-            'one_cycle_duration_seconds' => 'required|number',
-            'ride_cycle_mins' => 'nullable|number',
-            'ride_price' => 'nullable|number',
-            'ride_price_ft' => 'nullable|number',
+            'capacity_one_cycle' => 'required|numeric',
+            'one_cycle_duration_seconds' => 'required|numeric',
+            'ride_cycle_mins' => 'nullable|numeric',
+            'ride_price' => 'nullable|numeric',
+            'ride_price_ft' => 'nullable|numeric',
             'ride_cat' => 'required',
             'ride_type_id' => 'required',
             'zone_id' => 'nullable',
-            'theoretical_number'=>'nullable|number',
-            'minimum_height_requirement'=>'nullable|number',
-            'number_of_seats'=>'nullable|number'
+            'theoretical_number'=>'nullable|numeric',
+            'minimum_height_requirement'=>'nullable|numeric',
+            'number_of_seats'=>'nullable|numeric',
+            'no_of_gondolas'=>'nullable|numeric'
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
@@ -47,15 +48,17 @@ class GameRequest extends FormRequest
                 'park_id' => 'nullable',
                 'capacity_one_cycle' => 'nullable',
                 'one_cycle_duration_seconds' => 'nullable',
-                'ride_cycle_mins' => 'nullable',
-                'ride_price' => 'nullable',
-                'ride_price_ft' => 'nullable',
+                'ride_cycle_mins' => 'nullable|numeric',
+                'ride_price' => 'nullable|numeric',
+                'ride_price_ft' => 'nullable|numeric',
                 'ride_cat' => 'nullable',
                 'ride_type_id' => 'nullable',
                 'zone_id' => 'nullable',
-                'theoretical_number'=>'nullable',
+                'theoretical_number'=>'nullable|numeric',
                 'minimum_height_requirement'=>'nullable',
-                'number_of_seats'=>'nullable'
+                'number_of_seats'=>'nullable|numeric',
+                'no_of_gondolas'=>'nullable|,numeric'
+
 
             ];
         }

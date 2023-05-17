@@ -12,7 +12,7 @@ Duty Report
         <li class="{{ (request()->is('search_maintenance_reports*')) ? 'active' : '' }}"><a data-toggle="tab"
                 href="#Maintenance"> Maintenance</a></li>
         <li class="{{ (request()->is('search_tech_reports*')) ? 'active' : '' }}"><a data-toggle="tab"
-                href="#Teachnical"> Teachnical Services</a></li>
+                href="#Teachnical"> Technical Services</a></li>
         <li class="{{ (request()->is('search_skill_game_reports*')) ? 'active' : '' }}"><a data-toggle="tab"
                 href="#Skill"> Skill Games</a></li>
         <li class="{{ (request()->is('search_duty_summary_reports*')) ? 'active' : '' }}"><a data-toggle="tab"

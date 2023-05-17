@@ -24,7 +24,7 @@ Show Queues On Selected Ride
     </div>
     <div class='col-md-5'>
         <div class="form-group">
-            <label for="middle_name">Date </label>
+            <label for="middle_name">Time Slot Date </label>
             {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
         </div>
     </div>
@@ -75,7 +75,7 @@ Show Queues On Selected Ride
                             Current Queue Occupancy
                             </th> 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Opened Date
+                            Time Slot Date
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
@@ -85,7 +85,6 @@ Show Queues On Selected Ride
                         </thead>
 
                         <tbody>
-
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{$loop->iteration}}</td>

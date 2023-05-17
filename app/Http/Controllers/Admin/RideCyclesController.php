@@ -21,7 +21,7 @@ class RideCyclesController extends Controller
      */
     public function index()
     {
-        $items = RideCycles::all();
+        $items = RideCycles::where('opened_date', date('Y-m-d'))->get();
         return view('admin.rides_cycles.index', compact('items'));
     }
 

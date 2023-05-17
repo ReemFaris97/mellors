@@ -25,7 +25,7 @@
     </div>
     <div class='col-md-5'>
         <div class="form-group">
-            <label for="middle_name">Date </label>
+            <label for="middle_name">Time Slot Date </label>
             {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
         </div>
     </div>
@@ -71,7 +71,7 @@
                                 Number oF Fast Track
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Opened Date
+                            Time Slot Date
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Cycle Duration /Seconds

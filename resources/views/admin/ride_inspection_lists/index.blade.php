@@ -40,16 +40,21 @@ Rides Inspection List
                             {!!Form::close() !!}
                             <td>
                                 @if(auth()->user()->can('preopening_lists-edit'))
+                                @if(in_array($item->id, $data_exist))
+
+                                <a href="{{url('edit_ride_inspection_lists/'.$item->id)}}">
+                                        <button type="button" class="edit btn btn-success">
+                                        <i class="fa fa-edit"></i> Edit
+                                        </button>
+                                    </a>
+                                   
+                                    @else
                                     <a href="{{url('add_ride_inspection_lists/'.$item->id)}}">
                                     <button type="button" class="add btn btn-info">
                                     <i class="fa fa-plus"></i> Add
                                     </button>
                                     </a>
-                                    <a href="{{url('edit_ride_inspection_lists/'.$item->id)}}">
-                                        <button type="button" class="edit btn btn-success hidden">
-                                        <i class="fa fa-edit"></i> Edit
-                                        </button>
-                                    </a>
+                                    @endif
                                 @endif
                             <!--     @if(auth()->user()->can('preopening_lists-delete'))
 
@@ -82,36 +87,3 @@ Rides Inspection List
 @section('footer')
 @include('admin.datatable.scripts')
 @endsection
-@push('scripts')
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        var ride_id = $("#ride-id").val();
-         console.log(ride_id);
-         $.ajax({
-                url: "{{ route('admin.cheackRideInspectionList')}}",
-                type: 'GET',
-                data:{
-                    "_token":"{{ csrf_token() }}",
-                    ride_id: ride_id
-                },
-                success: function(data)
-                {
-                    if (data.item != null){   
-                        console.log('aaaaaaaaaaaaaa');
-                        $('.edit').removeClass('hidden');
-                        $('.add').addClass('hidden');
-
-                    }else{
-                        console.log('eeeeeeeeeeeeee');
-                        $('.edit').addClass('hidden');
-                        $('.add').removeClass('hidden');
-
-                    }
-
-
-                }
-            });
-});
-</script>
-@endpush

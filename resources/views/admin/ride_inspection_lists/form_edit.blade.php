@@ -20,25 +20,30 @@
                         </th>
                    </thead>
                    <tbody>
-                   @foreach($inspections as $value)
+                   @foreach($items as $value)
                        <tr>
                            <td>
-                               {{ $value->inspection_list->name??'' }}
+                               {{ $value->inspection_list->name ??''}}
                            </td>
                            <td>
                           <label>
-                              <select name="inspection_element[]" id="element_id" class="form-control element-id">
-                                  <option disabled> Choose...</option>
-                                  <option value="yes">Yes</option>
-                                  <option value="no">No</option>
+                          <select name="status[]" id="element_id" class="form-control element-id">
+                            @if($value->status =='yes')
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                          @else
+                          <option value="no">No</option>
+                          <option value="yes">Yes</option>
+                          @endif
                            </select>
-                              <input type="hidden" name="inspection_element_id[]" class="ele_id" value="{{ $value->inspection_list->id }}" >
+                             
+                              <input type="hidden" name="inspection_list_id[]" class="ele_id" value="{{ $value->inspection_list_id }}" >
                           </label>
                            </td>
                            <td>
-                               {!! Form::textArea('comment[]',null, array('class' => 'form-control comment', 'rows'=>"1")) !!}
-                               <input name="ride_id" type="hidden" class="ride-id" value={{$id}}>
-                               <input name="zone_id" type="hidden" class="zone-id" value={{$zone_id}}>
+                               {!! Form::textArea('comment[]',$value->comment, array('class' => 'form-control comment', 'rows'=>"1")) !!}
+                               <input name="ride_id" type="hidden" id="ride-id" class="ride-id" value={{$ride_id}}>
+                               <input name="zone_id" type="hidden" id="zone-id" class="zone-id" value={{$zone_id}}>
 
                            </td>
                        </tr>
@@ -79,10 +84,11 @@
             $('.ride-id').each(function () {
                 ride_id.push($(this).val());
             });
+            var ride = $("#ride-id").val();
             var zone_id = $("#zone-id").val();
 
             $.ajax({
-                url: "{{ route('admin.preopening_lists.store') }}",
+                url: "{{ route('admin.updatePreopeningList',$ride) }}",
                 type: 'POST',
                 data:{
                     "_token":"{{ csrf_token() }}",
@@ -95,7 +101,7 @@
                 {
                     if(response.success){
                     swal({
-                         title: "Preopening List Report Added successfully",
+                         title: "Preopening List Updted successfully",
                          icon: "success",
                          buttons: ["Ok"]
                           }); 
@@ -105,7 +111,7 @@
                         swal({
                          title: "Preopening List Already Exist !",
                          icon: "danger",
-                         buttons: ["Ok"],
+                         buttons: ["Ok"]
                          
                           }); 
                           window.location.href = "{{route('admin.zoneRides',$zone_id)}}";

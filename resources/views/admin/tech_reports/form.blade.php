@@ -313,7 +313,6 @@
             const date = [];
             const ride_down_comment = [];
            
-
             $('.answer').each(function () {
                 if($(this).change){
                     answer.push($(this).val());
@@ -361,6 +360,7 @@
                     park_id: park_id,
                     park_time_id: park_time_id,
                     ride: ride,
+                    issue: issue,
                     ride_down_id: ride_down_id,
                     is_down: is_down,
                     date: date,

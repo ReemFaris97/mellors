@@ -252,6 +252,7 @@ i.zmdi.zmdi-power {
 #sidebar-menu {
   padding-bottom: 30px;
   width: 100%;
+  overflow-y: scroll;
 }
 #sidebar-menu a {
   line-height: 1.3;
@@ -665,4 +666,8 @@ body.mobile {
 /* =============== modfication ================*/
 #wrapper.enlarged .left.side-menu #sidebar-menu ul > li:hover > ul a{
   background-color: var(--themeColor);
+}
+
+.sidebar-inner.slimscrollleft{
+  overflow-y: scroll !important;
 }

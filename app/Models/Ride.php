@@ -23,7 +23,8 @@ class Ride extends Model
         'description',
         'ride_cycle_mins',
         'minimum_height_requirement',
-        'number_of_seats'
+        'number_of_seats',
+        'no_of_gondolas'
     ];
 
     public function park()

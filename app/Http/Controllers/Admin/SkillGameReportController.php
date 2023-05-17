@@ -40,13 +40,13 @@ class SkillGameReportController extends Controller
      */
     public function create()
     {
-        $complaints = CustomerFeedbacks::where('type', 'Complaint')
+        $complaints = CustomerFeedbacks::where('type', 'Complaint')->where('is_skill_game', 'skill_game')
             ->where('date', Carbon::now()->format('Y-m-d'))->count();
         return view('admin.skill_game_reports.add', compact('complaints'));
     }
     public function add_skill_game_report($park_id, $park_time_id)
     {
-        $complaints = CustomerFeedbacks::where('type', 'Complaint')
+        $complaints = CustomerFeedbacks::where('type', 'Complaint')->where('is_skill_game', 'skill_game')
             ->where('date', Carbon::now()->format('Y-m-d'))->count();
         return view('admin.skill_game_reports.add', compact('complaints', 'park_id', 'park_time_id'));
     }
@@ -149,7 +149,41 @@ class SkillGameReportController extends Controller
     public function edit_skill_game_report($park_time_id)
     {
         $items=SkillGameReport::where('park_time_id',$park_time_id)->get();
-        return view('admin.skill_game_reports.index',compact('items','park_time_id'));
+        $redFlags=RedFlag::query()->where('park_time_id',$park_time_id)->where('type','skill_games')->get();
+        return view('admin.skill_game_reports.edit',compact('items','park_time_id','redFlags'));
+    }
+    public function update_request(Request $request)
+    {
+/*         dd($request->all());
+ */ 
+    $items=SkillGameReport::where('park_time_id',$request->park_time_id)
+    ->delete();
+    $items=RedFlag::where('park_time_id',$request->park_time_id)->where('type','skill_games')
+    ->delete();
+       foreach ($request->question as $key=>$value){
+           $list= new SkillGameReport();
+           $list->question=$request->question[$key];
+           $list->answer=$request->answer[$key];
+           $list->comment=$request->comment[$key];
+           $list->park_time_id=$request->park_time_id;
+           $list->date=Carbon::now()->format('Y-m-d');
+           $list->user_id=auth()->user()->id;
+           $list->save();
+       }
+
+       foreach ($request->ride as $key=>$value){
+        $listrf= new RedFlag();
+        if($request->ride[$key] != null){
+        $listrf->ride=$request->ride[$key];
+        $listrf->issue=$request->issue[$key];
+        $listrf->park_time_id=$request->park_time_id;
+        $listrf->type='skill_games';
+        $listrf->date=Carbon::now()->format('Y-m-d');
+        $listrf->save();
+        }
+    }
+        alert()->success('Skill Game Report Updated  successfully !');
+        return redirect()->route('admin.park_times.index');
     }
     /**
      * Show the form for editing the specified resource.

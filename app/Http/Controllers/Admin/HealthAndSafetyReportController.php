@@ -54,7 +54,8 @@ class HealthAndSafetyReportController extends Controller
     public function edit_health_and_safety_report($park_time_id)
     {
         $items=HealthAndSafetyReport::where('park_time_id',$park_time_id)->get();
-        return view('admin.health_and_safety_reports.index',compact('items','park_time_id'));
+        $redFlags=RedFlag::query()->where('park_time_id',$park_time_id)->where('type','h&s')->get();
+        return view('admin.health_and_safety_reports.edit',compact('items','park_time_id','redFlags'));
     }
     /**
      * Store a newly created resource in storage.
@@ -62,10 +63,43 @@ class HealthAndSafetyReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function update_request(Request $request)
     {
 /*         dd($request->all());
  */
+    $items=HealthAndSafetyReport::where('park_time_id',$request->park_time_id)
+    ->delete();
+    $items=RedFlag::where('park_time_id',$request->park_time_id)->where('type','h&s')
+    ->delete();
+       foreach ($request->question as $key=>$value){
+           $list= new HealthAndSafetyReport();
+           $list->question=$request->question[$key];
+           $list->answer=$request->answer[$key];
+           $list->comment=$request->comment[$key];
+           $list->park_time_id=$request->park_time_id;
+           $list->date=Carbon::now()->format('Y-m-d');
+           $list->user_id=auth()->user()->id;
+           $list->save();
+       }
+
+       foreach ($request->ride as $key=>$value){
+        $listrf= new RedFlag();
+        if($request->ride[$key] != null){
+        $listrf->ride=$request->ride[$key];
+        $listrf->issue=$request->issue[$key];
+        $listrf->park_time_id=$request->park_time_id;
+        $listrf->type='h&s';
+        $listrf->date=Carbon::now()->format('Y-m-d');
+        $listrf->save();
+        }
+    }
+        alert()->success('Health And Safety Report Updated  successfully !');
+        return redirect()->route('admin.park_times.index');
+    }
+    public function store(Request $request)
+    {
+       // dd($request);
+
         $dateExists = HealthAndSafetyReport::where([
             ['park_time_id',$request['park_time_id']],
             ['park_id', $request['park_id']]
@@ -73,8 +107,6 @@ class HealthAndSafetyReportController extends Controller
         if ($dateExists){
             return response()->json(['error'=>'Health And Safety Report Already Exist !']);
         }
-
-
        foreach ($request->question as $key=>$value){
            $list= new HealthAndSafetyReport();
            $list->question=$request->question[$key];
@@ -197,6 +229,7 @@ class HealthAndSafetyReportController extends Controller
      */
     public function update(Request $request, HealthAndSafetyReport $healthAndSafetyReport)
     {
+        return $request;
         $healthAndSafetyReport->update($request->all());
         $healthAndSafetyReport->user_id=auth()->user()->id;
         $healthAndSafetyReport->save();
