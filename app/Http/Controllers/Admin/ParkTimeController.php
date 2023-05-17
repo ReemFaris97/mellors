@@ -92,14 +92,18 @@ class ParkTimeController extends Controller
         $info= $wt->getCurrentByCity($city['name']);
 
         $data=$request->validated();
-        $to_time = strtotime($data['start']);
-        $from_time = strtotime($data['end']);
+        $start_date=$data['date'];
+        $end_date=$data['close_date'];
+
+        $to_time = $data['start'];
+        $from_time = $data['end'];
+        $start_timestamp =  strtotime("$start_date $to_time");
+        $end_timestamp = strtotime("$end_date $from_time");
+        $data['duration_time']= round(abs($start_timestamp - $end_timestamp) / 60,2). " minute";
         $data['general_weather'] = $info->weather[0]->main;
         $data['description'] = $info->weather[0]->description;
         $data['temp'] = $info->main->temp;
         $data['windspeed_avg'] =$info->wind->speed;
-       // dd($data);
-        $data['duration_time']= round(abs($to_time - $from_time) / 60,2). " minute";
         ParkTime::create($data);
         alert()->success('Time Slot And Weather Status Added successfully to the park !');
         return redirect()->route('admin.park_times.index');
@@ -146,9 +150,14 @@ class ParkTimeController extends Controller
     public function update(ParkTimeRequest $request, ParkTime $parkTime)
     {
         $data=$request->validated();
-        $to_time = strtotime($data['start']);
-        $from_time = strtotime($data['end']);
-        $data['duration_time']= round(abs($to_time - $from_time) / 60,2). " minute";
+        $start_date=$data['date'];
+        $end_date=$data['close_date'];
+
+        $to_time = $data['start'];
+        $from_time = $data['end'];
+        $start_timestamp =  strtotime("$start_date $to_time");
+        $end_timestamp = strtotime("$end_date $from_time");
+        $data['duration_time']= round(abs($start_timestamp - $end_timestamp) / 60,2). " minute";
         $parkTime->update($data);
         alert()->success('Park Time Slot Updated successfully !');
         return redirect()->route('admin.park_times.index');
