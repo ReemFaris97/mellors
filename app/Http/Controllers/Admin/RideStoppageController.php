@@ -49,6 +49,12 @@ class RideStoppageController extends Controller
         $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
         return view('admin.rides_stoppages.add', compact('stopage_category', 'rides', 'stopage_sub_category'));
     }
+    public function show_stoppages($park_time_id,$ride_id)
+    {
+        $items = RideStoppages::where('park_time_id',$park_time_id)
+                ->where('ride_id',$ride_id)->get();
+        return view('admin.rides_stoppages.index', compact('items', 'ride_id', 'park_time_id'));
+    }
 
     /**
      * Store a newly created resource in storage.

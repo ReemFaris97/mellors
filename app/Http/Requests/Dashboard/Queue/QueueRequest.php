@@ -27,11 +27,13 @@ class QueueRequest extends FormRequest
                 'ride_id'=>'required',
                 'park_id'=>'required',
                 'user_id'=>'required',
-                'seats_filled'=>'required',
                 'queue_minutes'=>'required',
-                'queue_seconds'=>'required',
                 'date'=>'nullable',
-                'time'=>'nullable',
+                'start_time'=>'nullable',
+                'current_queue_occupancy'=>'nullable',
+                'current_wait_time'=>'nullable',
+                'max_queue_capacity'=>'nullable',
+                'riders_count'=>'nullable',
                 'opened_date'=>'nullable',
             ];
 

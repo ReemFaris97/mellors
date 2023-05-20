@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    Games open and close times
+    Games Time Slot
 @endsection
 
 @section('content')

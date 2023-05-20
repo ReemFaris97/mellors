@@ -55,19 +55,26 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     Route::resource('stoppage-sub-category', 'Admin\StoppageSubCategoryController');//done
     Route::resource('rides', 'Admin\RidesController');//done
     Route::Post('upload-rides-with-excel', 'Admin\RidesController@uploadExcleFile')->name('uploadExcleFile');
+   
     Route::resource('rides-stoppages', 'Admin\RideStoppageController');//done
     Route::get('/search_stoppages/', 'Admin\RideStoppageController@search')->name('searchStoppage');
-
     Route::Post('upload-stoppages-with-excel', 'Admin\RideStoppageController@uploadStoppagesExcleFile')->name('uploadStoppagesExcleFile');
     Route::Post('get-images', 'Admin\RideStoppageController@getImage')->name('getImage');
+    Route::get('/show_stoppages/{ride_id}/{park_time_id}', 'Admin\RideStoppageController@show_stoppages')->name('showStoppages');
+    Route::get('/add_stoppage/{ride_id}/{park_time_id}', 'Admin\RideStoppageController@add_stoppage')->name('addStoppage');
+
     Route::resource('rides-cycles', 'Admin\RideCyclesController');//done
     Route::Post('upload-cycles-with-excel', 'Admin\RideCyclesController@uploadCycleExcleFile')->name('uploadCycleExcleFile');
     Route::get('/search_ride_cycle/', 'Admin\RideCyclesController@search')->name('searchRideCycle');
+    Route::get('/show_cycles/{ride_id}/{park_time_id}', 'Admin\RideCyclesController@show_cycles')->name('showCycles');
+    Route::get('/add_cycle/{ride_id}/{park_time_id}', 'Admin\RideCyclesController@add_cycle')->name('addCycle');
 
     Route::resource('queues', 'Admin\QueueController');//done
     Route::Post('upload-queues-with-excel', 'Admin\QueueController@uploadQueueExcleFile')->name('uploadQueueExcleFile');
     Route::get('/search_queues/', 'Admin\QueueController@search')->name('search');
-    
+    Route::get('/show_queues/{ride_id}/{park_time_id}', 'Admin\QueueController@show_queues')->name('showQueues');
+    Route::get('/add_queue/{ride_id}/{park_time_id}', 'Admin\QueueController@add_queue')->name('addQueue');
+
     Route::resource('inspection_lists', 'Admin\InspectionListController');//done
     
 

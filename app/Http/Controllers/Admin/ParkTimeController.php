@@ -99,7 +99,8 @@ class ParkTimeController extends Controller
         $data['temp'] = $info->main->temp;
         $data['windspeed_avg'] =$info->wind->speed;
        // dd($data);
-        $data['duration_time']= round(abs($to_time - $from_time) / 60,2). " minute";
+        $data['duration_time']=
+         round(abs($to_time - $from_time) / 60,2). " minute";
         ParkTime::create($data);
         alert()->success('Time Slot And Weather Status Added successfully to the park !');
         return redirect()->route('admin.park_times.index');

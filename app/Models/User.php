@@ -7,11 +7,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use App\Traits\bcryptPass;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 
 
 class User extends Authenticatable
 {
+    use SoftDeletes;
 
     use  Notifiable,bcryptPass, HasRoles;
 

@@ -2,7 +2,7 @@
 <div class="row">
 <div class="col-xs-12">
 <div class="form-group form-float">
-    <label class="form-label">Branch Name</label>
+    <label class="form-label">Category Name</label>
     <div class="form-line">
         {!! Form::text("name",null,['class'=>'form-control','placeholder'=>' Category name'])!!}
         @error('name')

@@ -39,6 +39,12 @@ class QueueController extends Controller
         return view('admin.queues.add',compact('rides','users','parks'));
 
     }
+    public function show_queues($park_time_id,$ride_id)
+    {
+        $items = Queue::where('park_time_id',$park_time_id)
+                ->where('ride_id',$ride_id)->get();
+        return view('admin.queues.index', compact('items', 'ride_id', 'park_time_id'));
+    }
     public function uploadQueueExcleFile(Request $request)
     {
         Excel::import(new \App\Imports\RideQueues(), $request->file('file'));

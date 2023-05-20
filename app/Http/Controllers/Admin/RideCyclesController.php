@@ -37,6 +37,12 @@ class RideCyclesController extends Controller
         $parks = Park::pluck('name', 'id')->toArray();
         return view('admin.rides_cycles.add', compact('rides', 'users', 'parks'));
     }
+    public function show_cycles($park_time_id,$ride_id)
+    {
+        $items = RideCycles::where('park_time_id',$park_time_id)
+                ->where('ride_id',$ride_id)->get();
+        return view('admin.rides_cycles.index', compact('items', 'ride_id', 'park_time_id'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -53,7 +59,7 @@ class RideCyclesController extends Controller
         $data['user_id'] = auth()->user()->id;
         RideCycles::create($data);
         alert()->success('Ride Cycle Added successfully !');
-        return redirect()->route('admin.rides_cycles.index');
+        return redirect()->route('admin.rides-cycles.index');
 
     }
 

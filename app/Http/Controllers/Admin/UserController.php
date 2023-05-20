@@ -63,7 +63,7 @@ class UserController extends Controller
             $user->zones()->sync($zoneIds);
         }
 
-        alert()->success('user added successfully !');
+        alert()->success('User added successfully !');
         return  redirect()->route('admin.users.index');
     }
 

@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    Update Ride open and close times
+    Update Rides Time Slots
 @endsection
 
 @section('content')
@@ -28,7 +28,10 @@
                               Edit Time Slot
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                              Add Incident Report
+                              Add Health And Safety Reports
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                              Ride Operations
                             </th>
 
                         </tr>
@@ -53,6 +56,22 @@
                                    <a href="{{url('add_accident_report/'.$item->id.'/'.$park_time_id)}}"
                                            class="btn btn-primary">Add Accident Report</a>
                                 </td>
+                                <td>
+                                @if(auth()->user()->can('rides-stoppages-list'))
+
+                                    <a href="{{url('show_stoppages/'.$item->id.'/'.$park_time_id)}}"
+                                           class="btn btn-primary">Stoppages</a>
+                                @endif
+                                @if(auth()->user()->can('rides-cycles-list'))
+                                   <a href="{{url('show_cycles/'.$item->id.'/'.$park_time_id)}}"
+                                           class="btn btn-primary">Cycles</a>
+                                @endif
+                                @if(auth()->user()->can('queues-list'))      
+                                    <a href="{{url('show_queues/'.$item->id.'/'.$park_time_id)}}"
+                                           class="btn btn-primary">Queues</a>
+                                 @endif
+                                </td>
+
                             </tr>
 
                         @endforeach
