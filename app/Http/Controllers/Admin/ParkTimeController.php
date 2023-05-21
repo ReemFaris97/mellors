@@ -44,7 +44,6 @@ class ParkTimeController extends Controller
             ->wherein('park_id', $parks)->pluck('id');
 
         }
-        //dd( $items);
         $tech_data_exist=TechReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();
         $ops_data_exist=RideOpsReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();
         $maintenance_data_exist=MaintenanceReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();
@@ -118,16 +117,16 @@ class ParkTimeController extends Controller
                 $items_check = ParkTime::where('date', '>=', $date )->pluck('id');;
             } else {
                 $parks = auth()->user()->parks->pluck('id');              
-                $items_check= ParkTime::where('date', '>=', $date )->wherein('park_id', $parks)->pluck('id');
+                $items_check= ParkTime::where('date', '>=', $date )
+                ->wherein('park_id', $parks)->pluck('id');
     
             }
-            //dd( $items);
             $tech_data_exist=TechReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();
             $ops_data_exist=RideOpsReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();
             $maintenance_data_exist=MaintenanceReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();
             $skill_data_exist=SkillGameReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();
             $health_data_exist = HealthAndSafetyReport::wherein('park_time_id', $items_check)->distinct()->pluck('park_time_id')->toArray();
-    
+
             return view('admin.park_times.index', compact('items','tech_data_exist','ops_data_exist','maintenance_data_exist','health_data_exist','skill_data_exist'));
            }
     /**
