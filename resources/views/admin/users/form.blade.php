@@ -127,16 +127,34 @@
 @endif -->
 <div class="form-group">
     <label>User Park (choose branch first):</label>
-    {!! Form::select('park_id[]', @$parks?$parks:[],null,array('class' => 'form-control
-    select2','multiple'=>"",'id'=>'park'))
+   @if(isset($parks))
+   
+   <select name="park_id[]" class="custom-select form-control" id="park" multiple="multiple">
+            @foreach($parks as $park)
+           <option value="{{ $park->id }}" {{ in_array($park->id, $userparksIds) ? 'selected' : '' }} > {{ $park->name}}</option>   
+         @endforeach
+   
+</select>
+   @else
+    {!! Form::select('park_id[]',[],null,array('class' => 'form-control
+        custom-select','multiple'=>"",'id'=>'park'))
     !!}
- 
+    @endif
+  
 </div>
 <div class="form-group">
     <label>User Zone (choose branch first):</label>
-    {!! Form::select('zone_id[]',@$zones?$zones:[],null, array('class' => 'form-control
-    select2','multiple'=>"",'id'=>'zone'))
+    @if(isset($zones))
+   <select name="zone_id[]" class="custom-select form-control" id="zone" multiple="multiple">
+            @foreach($zones as $zone)
+            <option  value="{{ $zone->id }}" @if(in_array($zone->id , $userzonesIds)) selected @endif>{{ $zone->name }}</option>
+            @endforeach
+   </select>
+   @else
+    {!! Form::select('zone_id[]',[],null, array('class' => 'form-control
+        custom-select','multiple'=>"",'id'=>'zone'))
     !!}
+    @endif
     @error('zone_id')
     <div class="invalid-feedback" style="color: #ef1010">
         {{ $message }}

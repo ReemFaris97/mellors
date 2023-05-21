@@ -107,10 +107,12 @@ class ZoneController extends Controller
 
     public function get_by_branch(Request $request)
     {
+
         $html = '';
         $zones = Zone::where('branch_id', $request->branch_id)->get();
         foreach ($zones as $zone) {
-            $html .= '<option value="' . $zone->id . '">' . $zone->name . '</option>';
+         $html .= '<option value="' . $zone->id . '">' . $zone->name . '</option>';
+
         }
         return response()->json(['html' => $html]);
     }

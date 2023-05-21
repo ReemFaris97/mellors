@@ -57,7 +57,6 @@ class IndexController extends Controller
         }
 
         $park_times = ParkTime::where('date', date('Y-m-d'))->get();
-//        $park_times = ParkTime::all();
 
         return view('admin.layout.home',compact('rides','park_times'));
     }

@@ -79,10 +79,13 @@ class UserController extends Controller
         $branches = Branch::pluck('name','id')->all();
         $userRole = $user->roles()->first()->id ?? null;
         $departments = Department::pluck('name','id')->all();
-        $parks=$user->parks->pluck('name','id')->all();
-        $zones=$user->zones->pluck('name','id')->all();
+        $userparksIds=$user->parks->pluck('id')->toArray();
+        $userzonesIds=$user->zones->pluck('id')->toArray();
+        $parks=Park::get();
+        $zones=Zone::get();
         return  view('admin.users.edit')->with(['user'=>$user,'roles'=>$roles,
-            'userRole'=>$userRole,'departments'=>$departments,'branches'=>$branches,'zones'=>$zones,'parks'=>$parks]);
+            'userRole'=>$userRole,'departments'=>$departments,'branches'=>$branches,'zones'=>$zones,
+            'parks'=>$parks,'userzonesIds'=>$userzonesIds,'userparksIds'=>$userparksIds]);
     }
 
     /**
