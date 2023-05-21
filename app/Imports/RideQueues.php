@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Park;
+use App\Models\ParkTime;
 use App\Models\Ride;
 use App\Models\Queue;
 use App\Models\User;
@@ -31,12 +32,13 @@ class RideQueues implements ToCollection, WithHeadingRow
             if (is_null($park)) {
                 return throw ValidationException::withMessages(['Park' => 'Park does not exist']);
             }
-
+            $park_time=ParkTime::where('park_id',$park->id)
+            ->where('date', date('Y-m-d', strtotime($row['opened_date'])))->first();
             Queue::create([
                 'ride_id' => $ride->id ?? 3,
                 'user_id' => $operator->id ?? null,
-                'opened_date' => date('Y-m-d', strtotime($row['opened_date'])),
-                'park_id' => $park->id ?? null,
+                'park_time_id'=>$park_time->id??null,
+                'opened_date' => date('Y-m-d', strtotime($row['opened_date'])),                'park_id' => $park->id ?? null,
                 'start_time' => date('Y-m-d H:i:s', strtotime($row['start_time'])),
                 "queue_minutes" => $row['queue_minutes'],
                 "rider_count" => $row['rider_count'],

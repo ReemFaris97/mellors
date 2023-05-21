@@ -1,16 +1,5 @@
 <div class="row">
-    <div class="col-lg-12 form-group">
-        <label class="block">Ride :</label></label>
-        <div class=" ">
-            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control ','placeholder'=>'choose
-            ride')) !!}
-        </div>
-        @error('name')
-        <div class="invalid-feedback" style="color: #ef1010">
-            {{ $message }}
-        </div>
-        @enderror
-    </div>
+   
     <!--     <div class="col-lg-6 form-group stoppageCategory ">
         <label class="block">Ride Status :</label>
         <div class="">
@@ -182,7 +171,10 @@
 
     @include('admin.rides_stoppages.images_upload')
 </div>
-
+<div class="form-group">
+<input type="hidden" name="ride_id" value="{{$ride_id}}" >
+    <input type="hidden" name="park_time_id" value="{{$park_time_id}}" >
+</div>
 <div class="editbtnInCenter aligne-center contentbtn">
     <button class="btn btn-primary waves-effect" type="submit">Save</button>
 </div>

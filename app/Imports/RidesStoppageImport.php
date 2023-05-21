@@ -3,6 +3,8 @@
 namespace App\Imports;
 
 use App\Models\Game;
+use App\Models\Park;
+use App\Models\ParkTime;
 use App\Models\Ride;
 use App\Models\RideStoppages;
 use App\Models\StopageSubCategory;
@@ -24,6 +26,8 @@ class RidesStoppageImport implements ToCollection, WithHeadingRow
             $ride = Ride::where('name', $row['ride_name'])->first();
             $sub_category = StopageSubCategory::where('name', $row['stoppage_subcategory'])->first();
             $operator = User::where('name', $row['operator_name'])->first();
+            $park = Park::where('name', $row['park_name'])->first();
+
 //            if (is_null($ride)) {
 //                return throw ValidationException::withMessages(['ride' => 'Ride does not exist']);
 //            }
@@ -33,6 +37,8 @@ class RidesStoppageImport implements ToCollection, WithHeadingRow
 //            if (is_null($sub_category)) {
 //                return throw ValidationException::withMessages(['StoppageSubCategory' => 'StoppageSubCategory does not exist']);
 //            }
+            $park_time=ParkTime::where('park_id',$park->id)
+            ->where('date', date('Y-m-d', strtotime($row['opened_date'])))->first();
             RideStoppages::create([
                 'ride_id' => $ride->id ?? 3,
                 'user_id' => $operator->id ?? null,
@@ -40,8 +46,8 @@ class RidesStoppageImport implements ToCollection, WithHeadingRow
                 'stopage_sub_category_id' => $sub_category->id ?? 1,
                 'description' => $row['stoppage_description'],
                 'down_minutes' => $row['down_minutes'],
-                'opened_date' => date('Y-m-d', strtotime($row['opened_date'])),
-                'date' => date('Y-m-d', strtotime($row['start_time'])),
+                'park_time_id'=>$park_time->id??null,
+                'opened_date' => date('Y-m-d', strtotime($row['opened_date'])),                'date' => date('Y-m-d', strtotime($row['start_time'])),
                 'time' => date('H:i:s', strtotime($row['start_time'])),
                 'date_time' => date('Y-m-d H:i:s', strtotime($row['start_time'])),
             ]);

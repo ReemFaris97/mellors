@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Park;
+use App\Models\ParkTime;
 use App\Models\Ride;
 use App\Models\RideStoppages;
 use App\Models\StopageSubCategory;
@@ -33,11 +34,13 @@ class RideCycles implements ToCollection,WithHeadingRow
         if (is_null($park)) {
             return throw ValidationException::withMessages(['Park' => 'Park does not exist']);
         }
-        
+        $park_time=ParkTime::where('park_id',$park->id)
+        ->where('date', date('Y-m-d', strtotime($row['opened_date'])))->first();
             \App\Models\RideCycles::create([
                 'ride_id' => $ride->id ?? 1,
                 'user_id' => $operator->id?? null,
                 'park_id'=>$park->id??null,
+                'park_time_id'=>$park_time->id??null,
                 'opened_date' => date('Y-m-d', strtotime($row['opened_date'])),
                 'start_time' => date('Y-m-d H:i:s', strtotime($row['start_time'])),
                 "riders_count" => $row['riders_count'],

@@ -7,7 +7,7 @@ Show Queues On Selected Ride
 @section('content')
 
     <div class="card-box">
-        <a href="{{route('admin.queues.create')}}">
+        <a href="{{url('add_queue/'.$ride_id.'/'.$park_time_id)}}">
             <button type="button" class="btn btn-primary save_btn">Create New Queue</button>
         </a>
         <br><br>
@@ -26,6 +26,7 @@ Show Queues On Selected Ride
         <div class="form-group">
             <label for="middle_name">Time Slot Date </label>
             {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
+            <input type="hidden" name="park_time_id" value="{{$park_time_id}}">
         </div>
     </div>
     <div class='col-md-2 mtButton'>
@@ -36,7 +37,6 @@ Show Queues On Selected Ride
 </div>
             {!!Form::close() !!}
 
-      {{--@if(isset($queues))--}}
 
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
@@ -75,6 +75,9 @@ Show Queues On Selected Ride
                             Current Queue Occupancy
                             </th> 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                            Rider Count
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                             Time Slot Date
                             </th>
 
@@ -85,6 +88,8 @@ Show Queues On Selected Ride
                         </thead>
 
                         <tbody>
+                        @if(isset($items))
+
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{$loop->iteration}}</td>
@@ -96,6 +101,7 @@ Show Queues On Selected Ride
                                 <td>{{ $item->current_wait_time??"" }}</td>
                                 <td>{{ $item->max_queue_capacity??""  }}</td>
                                 <td>{{ $item->current_queue_occupancy??""  }}</td>
+                                <td>{{ $item->riders_count??""  }}</td>
                                  <td>{{ $item->opened_date }}</td>
 
                                 {!!Form::open( ['route' => ['admin.queues.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
@@ -111,6 +117,7 @@ Show Queues On Selected Ride
                             </tr>
 
                         @endforeach
+                        @endif
 
                         </tbody>
                     </table>
@@ -120,7 +127,6 @@ Show Queues On Selected Ride
             </div>
 
         </div>
-          {{--@endif--}}
     </div>
 
 

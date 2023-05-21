@@ -14,7 +14,7 @@ use App\Traits\ImageOperations;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\Dashboard\Ride\RideStoppageRequest;
-
+use App\Models\ParkTime;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -44,12 +44,18 @@ class RideStoppageController extends Controller
      */
     public function create()
     {
-        $rides = Ride::pluck('name','id')->all();
+       
+        return view('admin.rides_stoppages.exce_upload');
+    }
+    public function add_stoppage($ride_id,$park_time_id)
+    {
+        $users=User::pluck('name','id')->toArray();
         $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
         $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
-        return view('admin.rides_stoppages.add', compact('stopage_category', 'rides', 'stopage_sub_category'));
+        return view('admin.rides_stoppages.add',compact('users','ride_id','park_time_id','stopage_category','stopage_sub_category'));
+
     }
-    public function show_stoppages($park_time_id,$ride_id)
+    public function show_stoppages($ride_id,$park_time_id)
     {
         $items = RideStoppages::where('park_time_id',$park_time_id)
                 ->where('ride_id',$ride_id)->get();
@@ -64,30 +70,36 @@ class RideStoppageController extends Controller
      */
     public function store(RideStoppageRequest $request)
     {
+       // dd($request);
         \DB::beginTransaction();
+        $park_time_id=$request->park_time_id;
+        $ride_id=$request->ride_id;
+        $park_time=ParkTime::findOrFail($park_time_id);
+        $park_id=$park_time->park_id;
+        $opened_date=$park_time->date;
         $data=$request->validated();
-/*         $ride=Ride::findOrFail($data['ride_id']);
-        $time=$ride->park->parkTimes->first();
-        $data['date']=$time->date; */
-//        $data['user_id']= auth()->user()->id;
+        $data['opened_date'] = $opened_date;
+        $data['park_id'] = $park_id;
+        $data['user_id']= auth()->user()->id;
         $data['ride_status']="stopped";
         $data['time']=Carbon::now()->toTimeString();
-        $data['opened_date']=Carbon::now()->format('Y-m-d');
         $stoppage=RideStoppages::create($data);
         if ($request->has('images')) {
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' =>$stoppage->id]);
         }
         DB::commit();
         alert()->success('Ride Stoppage Added successfully !');
-        return redirect()->route('admin.rides-stoppages.index');
+
+        return redirect()->route('admin.showStoppages', ['ride_id'=>$ride_id,'park_time_id'=>$park_time_id]);
     }
 
 
     public function uploadStoppagesExcleFile(Request $request)
     {
+    
         Excel::import(new RidesStoppageImport(), $request->file('file'));
         alert()->success('Ride Stoppage Added successfully !');
-        return redirect()->route('admin.rides-stoppages.index');
+        return view('admin.rides_stoppages.exce_upload');
     }
 
 
@@ -154,11 +166,12 @@ class RideStoppageController extends Controller
     }
     public function search(Request $request){
         $ride_id = $request->input('ride_id');
+        $park_time_id = $request->input('park_time_id');
         $date = $request->input('date');
         $items = RideStoppages::query()
             ->where('ride_id',$ride_id)
-            ->Where('date', $date)
+            ->Where('opened_date', $date)
             ->get();
-        return view('admin.rides_stoppages.index', compact('items'));
+        return view('admin.rides_stoppages.index', compact('items','ride_id','park_time_id'));
     }
 }

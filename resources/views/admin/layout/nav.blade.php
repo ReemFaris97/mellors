@@ -111,10 +111,8 @@
     <a href="javascript:void(0);" class="waves-effect"><i class="fa-regular fa-clock"></i><span>Parks Time Slot
         </span> <span class="menu-arrow"></span></a>
     <ul class="list-unstyled">
-        <li><a href="{{route('admin.park_times.index')}}">All Parks</a></li>
+        <li><a href="{{route('admin.park_times.index')}}">All Parks Time Slot</a></li>
         <li><a href="{{route('admin.park_times.create')}}">Add Park Time Slot</a></li>
-        {{--<li><a href="{{route('admin.game_times.index')}}">Update Ride open and close times</a>
-</li>--}}
 
 </ul>
 </li>
@@ -139,7 +137,7 @@
             Categories </span> <span class="menu-arrow"></span></a>
     <ul class="list-unstyled">
         <li><a href="{{route('admin.stoppage-category.index')}}"> Stoppage Categories</a></li>
-        <li><a href="{{route('admin.stoppage-sub-category.index')}}"> Stoppage sub Categories</a></li>
+        <li><a href="{{route('admin.stoppage-sub-category.index')}}"> Stoppage Sub Categories</a></li>
     </ul>
 </li>
 @endif
@@ -159,13 +157,15 @@
 @if(auth()->user()->can('rides-stoppages-list')|| auth()->user()->can('rides-stoppages-create'))
 
 <li class="has_sub">
-    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span>Ride Operations
+    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span>Upload Rides Operations
         </span> <span class="menu-arrow"></span></a>
     <ul class="list-unstyled">
-        <li><a href="{{route('admin.rides-stoppages.index')}}"> Rides Stoppages</a></li>
+      <!--   <li><a href="{{route('admin.rides-stoppages.index')}}"> Rides Stoppages</a></li>
         <li><a href="{{route('admin.rides-cycles.index')}}"> Rides Cycles</a></li>
-        <li><a href="{{route('admin.queues.index')}}">Rides Queues</a></li>
-
+        <li><a href="{{route('admin.queues.index')}}">Rides Queues</a></li> -->
+        <li><a href="{{route('admin.rides-stoppages.create')}}"> Upload Stoppages</a></li>
+        <li><a href="{{route('admin.rides-cycles.create')}}"> Upload Cycles</a></li>
+        <li><a href="{{route('admin.queues.create')}}">Upload Queues</a></li>
     </ul>
 </li>
 @endif

@@ -13,7 +13,7 @@ Parks Time Slot
         <div class="row">
             <div class='col-md-8'>
                 <div class="form-group">
-                    <label for="middle_name">Date </label>
+                    <label for="middle_name">Time Slot Date </label>
                     {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
                 </div>
             </div>

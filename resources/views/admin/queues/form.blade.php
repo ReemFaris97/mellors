@@ -1,27 +1,5 @@
 {{--@include('admin.common.errors')--}}
 <div class="row">
-    <div class="form-group">
-        <label class="col-lg-12">Ride :</label></label>
-        <div class="    ">
-            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control      select2')) !!}
-            @error('ride_id')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-lg-12">Parks :</label></label>
-        <div class="    ">
-            {!! Form::select('park_id', $parks,null, array('class' => 'form-control      select2     ')) !!}
-            @error('park_id')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
 
     <div class="form-group stoppageCategory ">
         <label class="col-lg-12">Operator Name :</label></label>
@@ -34,20 +12,6 @@
             @enderror
         </div>
     </div>
-
-
-    <div class="form-group">
-        <label class="col-lg-12">Opened Date :</label>
-        <div class="    ">
-            {!! Form::date("opened_date",null,['class'=>'form-control','placeholder'=>'opened_date'])!!}
-            @error('opened_date')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-
     <div class="form-group">
         <label class="col-lg-12">Queue Start Time :</label>
         <div class="    ">
@@ -70,11 +34,10 @@
             @enderror
         </div>
     </div>
-
     <div class="form-group">
         <label class="col-lg-12">Rider count :</label>
         <div class="    ">
-            {!! Form::number("rider_count",null,['class'=>'form-control','placeholder'=>'rider count '])!!}
+            {!! Form::number("riders_count",null,['class'=>'form-control','placeholder'=>'rider count '])!!}
             @error('rider_count')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
@@ -116,7 +79,8 @@
             @enderror
         </div>
     </div>
-
+    <input type="hidden" name="ride_id" value="{{$ride_id}}" >
+    <input type="hidden" name="park_time_id" value="{{$park_time_id}}" >
     <div class="col-xs-12 aligne-center contentbtn">
         <button class="btn btn-primary waves-effect" type="submit">Save</button>
     </div>

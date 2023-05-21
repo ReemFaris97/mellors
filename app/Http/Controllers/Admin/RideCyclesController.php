@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Ride\RideCycleRequest;
 use App\Imports\RidesStoppageImport;
 use App\Models\Park;
+use App\Models\ParkTime;
 use App\Models\Ride;
 use App\Models\RideCycles;
 use App\Models\User;
@@ -32,12 +33,15 @@ class RideCyclesController extends Controller
      */
     public function create()
     {
-        $rides = Ride::pluck('name', 'id')->all();
-        $users = User::pluck('name', 'id')->toArray();
-        $parks = Park::pluck('name', 'id')->toArray();
-        return view('admin.rides_cycles.add', compact('rides', 'users', 'parks'));
+        return view('admin.rides_cycles.exce_upload');
     }
-    public function show_cycles($park_time_id,$ride_id)
+    public function add_cycle($ride_id,$park_time_id)
+    {
+        $users=User::pluck('name','id')->toArray();
+        return view('admin.rides_cycles.add',compact('users','ride_id','park_time_id'));
+
+    }
+    public function show_cycles($ride_id,$park_time_id)
     {
         $items = RideCycles::where('park_time_id',$park_time_id)
                 ->where('ride_id',$ride_id)->get();
@@ -52,23 +56,29 @@ class RideCyclesController extends Controller
      */
     public function store(RideCycleRequest $request)
     {
-        $data = $request->validated();
-        $ride = Ride::findOrFail($data['ride_id']);
-        $time = $ride->park->parkTimes->first();
-        $data['opened_date'] = $time->date;
+
+        $park_time_id=$request->park_time_id;
+        $ride_id=$request->ride_id;
+        $park_time=ParkTime::findOrFail($park_time_id);
+        $park_id=$park_time->park_id;
+        $opened_date=$park_time->date;
+        $data=$request->validated();
+        $data['opened_date'] = $opened_date;
+        $data['park_id'] = $park_id;
         $data['user_id'] = auth()->user()->id;
         RideCycles::create($data);
         alert()->success('Ride Cycle Added successfully !');
-        return redirect()->route('admin.rides-cycles.index');
+        return redirect()->route('admin.showCycles', ['ride_id'=>$ride_id,'park_time_id'=>$park_time_id]);
 
     }
 
 
     public function uploadCycleExcleFile(Request $request)
     {
+     
         Excel::import(new \App\Imports\RideCycles(), $request->file('file'));
         alert()->success('Ride Cycle Added successfully !');
-        return redirect()->route('admin.rides-cycles.index');
+        return view('admin.rides_cycles.exce_upload');
     }
 
     /**
@@ -126,11 +136,12 @@ class RideCyclesController extends Controller
     public function search(Request $request)
     {
         $ride_id = $request->input('ride_id');
+        $park_time_id = $request->input('park_time_id');
         $date = $request->input('date');
         $items = RideCycles::query()
             ->where('ride_id', $ride_id)
-            ->orWheredate('start_time', $date)
+            ->Where('opened_date', $date)
             ->get();
-        return view('admin.rides_cycles.index', compact('items'));
+        return view('admin.rides_cycles.index', compact('items','ride_id','park_time_id'));
     }
 }

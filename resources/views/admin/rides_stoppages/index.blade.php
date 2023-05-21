@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="card-box">
-        <a href="{{route('admin.rides-stoppages.create')}}">
+    <a href="{{url('add_stoppage/'.$ride_id.'/'.$park_time_id)}}">
             <button type="button" class="btn btn-info">Create New Stoppage</button>
         </a>
         <br><br>
@@ -24,7 +24,8 @@
         <div class="form-group">
             <label for="middle_name">Time Slot Date </label>
             {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
-        </div>
+            <input type="hidden" name="park_time_id" value="{{$park_time_id}}">
+ </div>
     </div>
     <div class='col-md-2 mtButton'>
         <div class="input-group-btn">
@@ -50,9 +51,7 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Number
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Number of Seats
-                            </th>
+                        
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Operator Number
                             </th>
@@ -95,7 +94,6 @@
                                 <td tabindex="0" class="sorting_1">{{ $loop->iteration }}</td>
                                 <td>{{ $item->ride->name }}</td>
                                 <td>{{ $item->ride->id }}</td>
-                                <td>{{ $item->ride->number_of_seats?? "" }}</td>
                                 <td>{{ $item->user->user_number??"" }}</td>
                                 <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->opened_date }}</td>

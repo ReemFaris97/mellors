@@ -26,10 +26,11 @@ class RideStoppageRequest extends FormRequest
 //        dd("ggg");
         return [
             'ride_id'=>'required',
+            'park_time_id'=>'required',
             'stoppage_status'=>'nullable',
             'stopage_sub_category_id'=>'required',
             'ride_notes'=>'nullable',
-            'opened_date'=>'nullable',
+            'park_time_id'=>'nullable',
             'date_time'=>'nullable',
             'down_minutes'=>'nullable',
             'description'=>'nullable',

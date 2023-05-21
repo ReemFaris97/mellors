@@ -51,10 +51,16 @@
 
                                 </td>
                                 <td>
+                                    @if(auth()->user()->can('incidents-create'))
+
                                     <a href="{{url('add_incident_report/'.$item->id.'/'.$park_time_id)}}"
                                            class="btn btn-primary">Add Incident Report</a>
+                                           @endif
+                                           @if(auth()->user()->can('accidents-create'))
+
                                    <a href="{{url('add_accident_report/'.$item->id.'/'.$park_time_id)}}"
                                            class="btn btn-primary">Add Accident Report</a>
+                                           @endif
                                 </td>
                                 <td>
                                 @if(auth()->user()->can('rides-stoppages-list'))

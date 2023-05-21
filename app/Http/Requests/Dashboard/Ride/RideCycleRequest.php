@@ -25,7 +25,7 @@ class RideCycleRequest extends FormRequest
     {
         return [
             'ride_id'=>'required',
-            'park_id'=>'required',
+            'park_time_id'=>'required',
             'riders_count'=>'required',
             'number_of_vip'=>'nullable',
             'number_of_ft'=>'nullable',

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\Incident\IncidentRequest;
+use App\Http\Requests\Dashboard\Accident\AccidentRequest;
 use App\Models\Accident;
 use App\Models\Park;
 use App\Models\Ride;
@@ -44,7 +44,7 @@ class AccidentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(IncidentRequest $request)
+    public function store(AccidentRequest $request)
     {
         $data=$request->validated();
         $data['user_id']=auth()->user()->id;
@@ -72,7 +72,7 @@ class AccidentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(IncidentRequest $request, Accident $accident)
+    public function update(AccidentRequest $request, Accident $accident)
     {
         $accident->update($request->validated());
         $accident->save();

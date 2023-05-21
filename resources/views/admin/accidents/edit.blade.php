@@ -22,5 +22,5 @@
     <!-- end row -->
 @endsection
 @push('scripts')
-{!! JsValidator::formRequest(\App\Http\Requests\Dashboard\Incident\IncidentRequest::class, '#form'); !!}
+{!! JsValidator::formRequest(\App\Http\Requests\Dashboard\Accident\AccidentRequest::class, '#form'); !!}
 @endpush

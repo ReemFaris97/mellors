@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="card-box">
-        <a href="{{route('admin.rides-cycles.create')}}">
+    <a href="{{url('add_cycle/'.$ride_id.'/'.$park_time_id)}}">
             <button type="button" class="btn btn-info">Create New Cycle</button>
         </a>
 
@@ -21,6 +21,7 @@
         <div class="form-group">
             <label for="last_name">Select Ride</label>
             {!! Form::select('ride_id', \App\Models\Ride::pluck('name','id')->all(),null, array('class' => 'form-control')) !!}
+       <input type="hidden" name="park_time_id" value="{{$park_time_id}}">
         </div>
     </div>
     <div class='col-md-5'>

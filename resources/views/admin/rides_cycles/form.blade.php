@@ -1,29 +1,6 @@
 {{--@include('admin.common.errors')--}}
 <div class="row">
     <div class="form-group">
-        <label class="col-lg-12">Ride :</label></label>
-        <div class="">
-            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control    select2')) !!}
-            @error('ride_id')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-lg-12">Parks :</label></label>
-        <div class="">
-            {!! Form::select('park_id', $parks,null, array('class' =>'form-control    select2')) !!}
-            @error('park_id')
-            <div class="invalid-feedback" style="color: #ef1010">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-
-    <div class="form-group">
         <label class="col-lg-12">Riders Count :</label>
         <div class="">
             {!! Form::number("riders_count",null,['class'=>'form-control','placeholder'=>'riders count '])!!}
@@ -102,7 +79,10 @@
             @enderror
         </div>
     </div>
-    
+    <div class="form-group">
+<input type="hidden" name="ride_id" value="{{$ride_id}}" >
+    <input type="hidden" name="park_time_id" value="{{$park_time_id}}" >
+</div>
 
     <div class="col-xs-12 aligne-center contentbtn">
         <button class="btn btn-primary waves-effect" type="submit">Save</button>
