@@ -30,12 +30,7 @@ class IncidentController extends Controller
      */
     public function create()
     {
-//        $parks=auth()->user()->parks->all();
-//        foreach ($parks as $park){
-//            $parkRides=$park->rides->pluck('name','id')->all();
-//        }
-        $rides=Ride::pluck('name','id')->all();
-        return view('admin.incidents.add',compact('rides'));
+
     }
     
     public function add_incident_report($ride_id,$park_time_id)

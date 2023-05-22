@@ -154,7 +154,8 @@
 </li>
 @endif
 
-@if(auth()->user()->can('rides-stoppages-list')|| auth()->user()->can('rides-stoppages-create'))
+@if(auth()->user()->can('queues-create')|| auth()->user()->can('rides-stoppages-create')||
+auth()->user()->can('rides-cycles-create'))
 
 <li class="has_sub">
     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span>Upload Rides Operations
@@ -163,9 +164,16 @@
       <!--   <li><a href="{{route('admin.rides-stoppages.index')}}"> Rides Stoppages</a></li>
         <li><a href="{{route('admin.rides-cycles.index')}}"> Rides Cycles</a></li>
         <li><a href="{{route('admin.queues.index')}}">Rides Queues</a></li> -->
+        @can('rides-stoppages-create')
         <li><a href="{{route('admin.rides-stoppages.create')}}"> Upload Stoppages</a></li>
-        <li><a href="{{route('admin.rides-cycles.create')}}"> Upload Cycles</a></li>
+        @endcan
+        @can('rides-cycles-create')
+         <li><a href="{{route('admin.rides-cycles.create')}}"> Upload Cycles</a></li>
+         @endcan
+        @can('queues-create')
         <li><a href="{{route('admin.queues.create')}}">Upload Queues</a></li>
+        @endcan
+
     </ul>
 </li>
 @endif

@@ -1,5 +1,8 @@
-@endsection
+@extends('admin.layout.app')
 
+@section('title')
+    Upload Ride Cycle Operation
+@endsection
 @section('content')
     <div class="row">
         <div class="col-sm-12">
@@ -28,8 +31,7 @@
                     <strong>{{ $errors->first('file') }}</strong>
                 </span>
             @endif
-            <input type="hidden" name="ride_id" value="{{$ride_id}}" >
-    <input type="hidden" name="park_time_id" value="{{$park_time_id}}" >
+
     <div class="col-xs-12 aligne-center contentbtn">
         <button class="btn btn-primary waves-effect" type="submit">Save</button>
     </div>
