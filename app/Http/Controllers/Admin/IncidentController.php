@@ -35,7 +35,7 @@ class IncidentController extends Controller
     
     public function add_incident_report($ride_id,$park_time_id)
     {
-        return view('admin.incidents.add',compact('ride_id','park_time_id'));
+        return view('admin.Incidents.add',compact('ride_id','park_time_id'));
     }
     /**
      * Store a newly created resource in storage.
@@ -49,7 +49,7 @@ class IncidentController extends Controller
         $data['user_id']=auth()->user()->id;
         Incident::create($data);
         alert()->success('Incident Report Added successfully !');
-        return redirect()->route('admin.incidents.index');
+        return redirect()->route('admin.Incidents.index');
     }
 
     /**
@@ -60,7 +60,7 @@ class IncidentController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.incidents.edit')->with('incident',Incident::find($id));
+        return view('admin.Incidents.edit')->with('incident',Incident::find($id));
 
     }
 
@@ -77,7 +77,7 @@ class IncidentController extends Controller
         $incident->save();
 
         alert()->success('Incident Report updated successfully !');
-        return redirect()->route('admin.incidents.index');
+        return redirect()->route('admin.Incidents.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -94,6 +94,6 @@ class IncidentController extends Controller
             return back();
         }
         alert()->error('Incident Report not found');
-        return redirect()->route('admin.incidents.index');
+        return redirect()->route('admin.Incidents.index');
     }
 }

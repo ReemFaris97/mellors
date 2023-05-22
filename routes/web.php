@@ -154,4 +154,8 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
 
     Route::resource('duty-report', 'Admin\RideOpsReportsController');
 
+    Route::resource('ride_parks', 'Admin\RideParkController');
+    Route::get('/add_ride_park/{ride_id}', 'Admin\RideParkController@addRidePark')->name('addRidePark');
+
+
 });

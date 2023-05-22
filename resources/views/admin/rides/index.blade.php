@@ -56,13 +56,14 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                              Zone
                             </th>
-
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                             Assign Park / Zone / User
+                            </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
                             </th>
                         </tr>
                         </thead>
-
                         <tbody>
 
                         @foreach ($items as $item)
@@ -82,6 +83,15 @@
                                 <td>{{ $item->zone->name ?? ""}}</td>
                                 {!!Form::open( ['route' => ['admin.rides.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
+                                <td>
+                                @if($item->park_id == null)
+                                        <a href="{{ route('admin.addRidePark', $item->id) }}"
+                                           class="btn btn-info">Assign Park</a>
+                                           @else
+                                           <a href="{{ route('admin.addRidePark', $item->id) }}"
+                                           class="btn btn-success">Edit Park</a>
+                                         @endif
+                                </td>
                                 <td>
                                         <a href="{{ route('admin.rides.edit', $item) }}"
                                            class="btn btn-info">Edit</a>

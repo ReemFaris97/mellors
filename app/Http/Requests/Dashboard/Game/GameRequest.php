@@ -57,7 +57,7 @@ class GameRequest extends FormRequest
                 'theoretical_number'=>'nullable|numeric',
                 'minimum_height_requirement'=>'nullable',
                 'number_of_seats'=>'nullable|numeric',
-                'no_of_gondolas'=>'nullable|,numeric'
+                'no_of_gondolas'=>'nullable|numeric'
 
 
             ];

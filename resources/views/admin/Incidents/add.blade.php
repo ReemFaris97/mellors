@@ -11,7 +11,7 @@
                 <h4 class="header-title m-t-0 m-b-30">  Add New Incident Report</h4>
                         {!!Form::open( ['route' => 'admin.incidents.store' ,'class'=>'form phone_validate', 'method' => 'Post', 'enctype'=>"multipart/form-data",'class'=>'form-horizontal','files' => true]) !!}
                         @csrf
-                        @include('admin.incidents.form')
+                        @include('admin.Incidents.form')
                         {!!Form::close() !!}
             </div>
         </div><!-- end col -->

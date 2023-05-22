@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\park;
+namespace App\Http\Requests\Dashboard\Ride;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ParkRequest extends FormRequest
+class RideParkRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,14 @@ class ParkRequest extends FormRequest
     {
 
         $rules= [
-            'name' => 'required',
-            'branch_id' => 'required'
-
+            'park_id' => 'required',
+            'ride_id' => 'required'
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
-                'name'=>'nullable',
-                'branch_id' => 'nullable'
-
-            ];
+                'park_id' => 'required',
+                'ride_id' => 'required',         
+               ];
         }
         return $rules;
 
