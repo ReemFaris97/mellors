@@ -244,14 +244,15 @@ class HealthAndSafetyReportController extends Controller
      */
     public function destroy($id)
     {
-        $item=HealthAndSafetyReport::find($id);
-        if ($item){
-
+        $items=HealthAndSafetyReport::where('park_time_id',$id)->get();
+        if ($items){
+            foreach($items as $item){
             $item->delete();
-            alert()->success('This Question Deleted Successfully');
-            return back();
         }
-        alert()->error('This Question not found');
+        alert()->success('This H&S Report Deleted Successfully');
+        return back();
+    }
+        alert()->error('This H&S Report not found');
         return redirect()->route('admin.park_times.index');
     }
     public function cheackHealth(Request $request)

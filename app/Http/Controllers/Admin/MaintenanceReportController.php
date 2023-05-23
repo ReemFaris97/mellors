@@ -230,14 +230,15 @@ class MaintenanceReportController extends Controller
      */
     public function destroy($id)
     {
-        $item=MaintenanceReport::find($id);
-        if ($item){
-
-            $item->delete();
-            alert()->success('This Question  deleted successfully');
+        $items=MaintenanceReport::where('park_time_id',$id)->get();
+            if ($items){
+                foreach($items as $item){
+                $item->delete();
+            }
+                alert()->success('This  Maintenance Report  deleted successfully');
             return back();
         }
-        alert()->error('This Question  not found');
+        alert()->error('This Maintenance Report  not found');
         return redirect()->route('admin.park_times.index');
     }
 

@@ -255,14 +255,15 @@ class TechReportsController extends Controller
      */
     public function destroy($id)
     {
-        $item = TechReport::find($id);
-        if ($item){
-
+        $items=TechReport::where('park_time_id',$id)->get();
+        if ($items){
+            foreach($items as $item){
             $item->delete();
-            alert()->success('This Question  deleted successfully');
-            return back();
         }
-        alert()->error('This Question  not found');
+        alert()->success('This Tech Report Deleted Successfully');
+        return back();
+    }
+        alert()->error('This Tech Report  not found');
         return redirect()->route('admin.park_times.index');
     }
 

@@ -220,14 +220,16 @@ class SkillGameReportController extends Controller
      */
     public function destroy($id)
     {
-        $item = SkillGameReport::find($id);
-        if ($item){
-
+        
+        $items=SkillGameReport::where('park_time_id',$id)->get();
+        if ($items){
+            foreach($items as $item){
             $item->delete();
-            alert()->success('This Question  deleted successfully');
-            return back();
         }
-        alert()->error('This Question  not found');
+        alert()->success('This Skill Game Report Report Deleted Successfully');
+        return back();
+    }
+        alert()->error('This Skill Game not found');
         return redirect()->route('admin.park_times.index');
     }
 

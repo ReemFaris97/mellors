@@ -62,9 +62,9 @@ Parks Time Slot
                                     colspan="1">
                                     Daily Entrance Count & General Comment
                                 </th>
-                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1">
-                                    Reports
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="2"
+                                    colspan="2">
+                                    Reports Operations
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
@@ -81,9 +81,11 @@ Parks Time Slot
 
                             @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
+                               
+                                <td tabindex="0" class="sorting_1">{{ $item->id }}
                                 <input type="hidden" name="park_time_id" id="park-time-id" class="park-time-id"
                                     value="{{ $item->id }}">
-                                <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
+                                </td>
                                 <td>{{ $item->parks->name }}</td>
                                 <td>{{ $item->date }}</td>
                                 <td>{{ $item->start }}</td>
@@ -157,10 +159,19 @@ Parks Time Slot
                                 <td>
                                     @if(auth()->user()->can('health_and_safety_reports-create'))
                                     @if(in_array($item->id, $health_data_exist))
+                                    {!!Form::open( ['route' => ['admin.health_and_safety_reports.destroy',$item->id]
+                                ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
                                     <a href="{{url('edit_health_and_safety_report/'.$item->id)}}">
                                         <button type="button" class="edit btn btn-success ">
                                             <i class="fa fa-edit"></i> H&S
                                         </button>
+                                    </a>
+                                    <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                        data-url="{{ route('admin.health_and_safety_reports.destroy', $item) }}"
+                                        onclick="delete_form(this)">
+                                        <i class="fa fa-close"></i>
+
                                     </a>
                                     @else
                                     <a href="{{url('add_health_and_safety_report/'.$item->parks->id.'/'.$item->id)}}">
@@ -168,14 +179,26 @@ Parks Time Slot
                                             <i class="fa fa-plus"></i> H&S
                                         </button>
                                     </a>
+                                    
                                     @endif
                                     @endif
+                                   
+                                    <br>
                                     @if(auth()->user()->can('skill_game_reports-create'))
                                     @if(in_array($item->id, $skill_data_exist))
+                                    {!!Form::open( ['route' => ['admin.skill_game_reports.destroy',$item->id]
+                                ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
                                     <a href="{{url('edit_skill_game_report/'.$item->id)}}">
                                         <button type="button" class="edits btn btn-success">
                                             <i class="fa fa-edit"></i> SkillGames
                                         </button>
+                                    </a>
+                                    <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                        data-url="{{ route('admin.skill_game_reports.destroy', $item) }}"
+                                        onclick="delete_form(this)">
+                                        <i class="fa fa-close"></i>
+
                                     </a>
                                     @else
                                     <a href="{{url('add_skill_game_report/'.$item->parks->id.'/'.$item->id)}}">
@@ -185,12 +208,22 @@ Parks Time Slot
 
                                     @endif
                                     @endif
+                                    <br>
+
                                     @if(auth()->user()->can('maintenance_reports-create'))
                                     @if(in_array($item->id, $maintenance_data_exist))
+                                    {!!Form::open( ['route' => ['admin.maintenance_reports.destroy',$item->id]
+                                ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
                                     <a href="{{url('edit_maintenance_report/'.$item->id)}}">
                                         <button type="button" class="editm btn btn-success ">
                                             <i class="fa fa-edit"></i> Maintenance
                                         </button>
+                                    </a>
+                                    <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                        data-url="{{ route('admin.maintenance_reports.destroy', $item) }}"
+                                        onclick="delete_form(this)">
+                                        <i class="fa fa-close"></i>
                                     </a>
                                     @else
                                     <a href="{{url('add_maintenance_report/'.$item->parks->id.'/'.$item->id)}}">
@@ -199,12 +232,23 @@ Parks Time Slot
                                     </a>
                                     @endif
                                     @endif
+                                    <br>
+
                                     @if(auth()->user()->can('tech-reports-create'))
                                     @if(in_array($item->id, $tech_data_exist))
+                                    {!!Form::open( ['route' => ['admin.tech-reports.destroy',$item->id]
+                                ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
                                     <a href="{{url('edit_tech_report/'.$item->id)}}">
                                         <button type="button" class="editt btn btn-success ">
                                             <i class="fa fa-edit"></i> Tech
                                         </button>
+                                    </a>
+                                    <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                        data-url="{{ route('admin.tech-reports.destroy', $item) }}"
+                                        onclick="delete_form(this)">
+                                        <i class="fa fa-close"></i>
+
                                     </a>
                                     @else
                                     <a href="{{url('add-tech-report/'.$item->parks->id.'/'.$item->id)}}">
@@ -213,14 +257,24 @@ Parks Time Slot
                                     </a>
                                     @endif
                                     @endif
+                                    <br>
+
                                     @if(auth()->user()->can('ride-ops-reports-create'))
                                     @if(in_array($item->id, $ops_data_exist))
+                                    {!!Form::open( ['route' => ['admin.ride-ops-reports.destroy',$item->id]
+                                ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
                                     <a href="{{url('edit_ride_ops_report/'.$item->id)}}">
                                         <button type="button" class="editr btn btn-success ">
                                             <i class="fa fa-edit"></i> Ride Ops
                                         </button>
                                     </a>
+                                    <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                        data-url="{{ route('admin.ride-ops-reports.destroy', $item) }}"
+                                        onclick="delete_form(this)">
+                                        <i class="fa fa-close"></i>
 
+                                    </a>
                                     @else
                                     <a href="{{url('add-ride-ops-report/'.$item->parks->id.'/'.$item->id)}}">
                                         <button type="button" class="addr btn btn-info">
@@ -242,7 +296,6 @@ Parks Time Slot
                                             Rides with different time slot
                                         </button>
                                     </a>
-
 
                                     <a class="btn btn-danger" data-name="{{ $item->name }}"
                                         data-url="{{ route('admin.park_times.destroy', $item) }}"
