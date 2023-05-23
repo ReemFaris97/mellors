@@ -26,16 +26,16 @@
                                 Theoretical Number
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                            Minimum Height Required 
+                            Minimum Height 
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Capacity One Cycle
+                            Cycle Capacity 
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                               One cycle Duration /seconds
+                                Cycle Duration /sec
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride Cycle Mins (include load /unload)
+                                Cycle Mins (load /unload)
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Type
@@ -44,20 +44,26 @@
                                 Ticket Price
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ticket Price Fast Track 
+                                Ticket Price FT
                             </th>            
             
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                             Category
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                             Park Name
+                             Park 
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                              Zone
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                             Assign Park / Zone / User
+                             Assign Park 
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                             Assign Zone 
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                             Assign User
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
@@ -84,13 +90,25 @@
                                 {!!Form::open( ['route' => ['admin.rides.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                @if($item->park_id == null)
                                         <a href="{{ route('admin.addRidePark', $item->id) }}"
-                                           class="btn btn-info">Assign Park</a>
-                                           @else
-                                           <a href="{{ route('admin.addRidePark', $item->id) }}"
-                                           class="btn btn-success">Edit Park</a>
-                                         @endif
+                                        class=" btn {{($item->park_id == null)? 'btn-info' : 'btn-success'}}">
+                                        <i class="fa {{($item->park_id == null)? 'fa-plus' : 'fa-edit'}}"></i>
+                                        Assign
+                                        </a>
+                                </td>
+                                <td>
+                                        <a href="{{ route('admin.addRideZone', $item->id) }}"
+                                        class=" btn {{($item->zone_id == null)? 'btn-info' : 'btn-success'}}">
+                                        <i class="fa {{($item->zone_id == null)? 'fa-plus' : 'fa-edit'}}"></i>
+                                        Assign
+                                        </a>
+                                </td>
+                                <td>
+                                        <a href="{{ route('admin.addRideUser', $item->id) }}"
+                                        class=" btn {{($item->user_id == null)? 'btn-info' : 'btn-success'}}">
+                                        <i class="fa {{($item->user_id == null)? 'fa-plus' : 'fa-edit'}}"></i>
+                                        Assign
+                                        </a>
                                 </td>
                                 <td>
                                         <a href="{{ route('admin.rides.edit', $item) }}"
@@ -98,10 +116,9 @@
 
                                            <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.rides.destroy', $item) }}"
-                                           onclick="delete_form(this)">
+                                           onclick="delete_form(this)"> 
                                             Delete
                                         </a>
-
                                 </td>
 
                             </tr>

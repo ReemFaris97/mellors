@@ -14,36 +14,7 @@
 </div>
 </div>
    
-    <div class="col-xs-12">
-        <div class="form-group form-float">
-            <label class="form-label">Park</label>
-            <div class="form-line">
-                {!! Form::select('park_id', @$parks?$parks:null,null, array('class' => 'form-control select2 park_id','placeholder'=>'Choose Park Name')) !!}
-                @error('park_id')
-                <div class="invalid-feedback" style="color: #ef1010">
-                   {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12">
-        <div class="form-group form-float">
-            <label class="form-label">Zone</label>
-            <div class="form-line">
-                <select class="form-control js-example-basic-single ms zone_id" id="zone_id" name="zone_id"
-                        data-live-search=true required>
-                    <option disabled> choose Park First</option>
 
-                </select>
-                @error('zone_id')
-                <div class="invalid-feedback" style="color: #ef1010">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-    </div> 
     <div class="col-xs-12">
         <div class="form-group form-float">
             <label class="form-label">Ride Category</label>

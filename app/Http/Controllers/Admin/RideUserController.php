@@ -1,15 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Http\Requests\Dashboard\Ride\RideParkRequest;
+use App\Http\Requests\Dashboard\Ride\RideUserRequest;
 use App\Http\Controllers\Controller;
-
-use App\Models\Park;
 use App\Models\Ride;
-use App\Models\RidePark;
+use App\Models\RideUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class RideParkController extends Controller
+class RideUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,14 +19,14 @@ class RideParkController extends Controller
     {
         //
     }
-    
-    public function addRidePark($ride_id)
+    public function addRideUser($ride_id)
     {
-        $parks = Park::get();
+        $users = User::get();
         $ride=Ride::findOrFail($ride_id);
-        $park_id []= $ride->park_id;
-        return view('admin.ride_parks.add',compact('ride_id','parks','park_id'));
+        $user_id []= $ride->user_id;
+        return view('admin.ride_users.add',compact('ride_id','users','user_id'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,24 +43,24 @@ class RideParkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RideParkRequest $request)
+    public function store(RideUserRequest $request)
     {
-        RidePark::create($request->validated());
+        RideUser::create($request->validated());
         $item = Ride::findOrFail($request->ride_id);
-        $data['park_id']=$request->park_id;
+        $data['user_id']=$request->user_id;
         $item->update($data);
-        alert()->success('Park Added Successfully To Ride!');
+        alert()->success('User Added Successfully To Ride!');
 
-        return redirect()->route('admin.rides.index');  
-      }
+        return redirect()->route('admin.rides.index');
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\RidePark  $ridePark
+     * @param  \App\Models\RideUser  $rideUser
      * @return \Illuminate\Http\Response
      */
-    public function show(RidePark $ridePark)
+    public function show(RideUser $rideUser)
     {
         //
     }
@@ -69,10 +68,10 @@ class RideParkController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\RidePark  $ridePark
+     * @param  \App\Models\RideUser  $rideUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(RidePark $ridePark)
+    public function edit(RideUser $rideUser)
     {
         //
     }
@@ -81,10 +80,10 @@ class RideParkController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RidePark  $ridePark
+     * @param  \App\Models\RideUser  $rideUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RidePark $ridePark)
+    public function update(Request $request, RideUser $rideUser)
     {
         //
     }
@@ -92,10 +91,10 @@ class RideParkController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\RidePark  $ridePark
+     * @param  \App\Models\RideUser  $rideUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RidePark $ridePark)
+    public function destroy(RideUser $rideUser)
     {
         //
     }

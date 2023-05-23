@@ -2,17 +2,17 @@
 <div class="row">
 <div class="col-xs-12">
         <div class="form-group form-float">
-            <label class="form-label">Park</label>
+            <label class="form-label">User</label>
             <div class="form-line">               
-                <select name="park_id" class="form-control" id="park">
-                <option value=""> Choose Park...</option>   
-                    @foreach($parks as $park)
-                        <option value="{{ $park->id }}"  {{ in_array($park->id, $park_id) ? 'selected' : '' }}  > {{ $park->name}}</option>   
+                <select name="user_id" class="form-control">
+                <option value=""> Choose User...</option>   
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}"  {{ in_array($user->id, $user_id) ? 'selected' : '' }}  > {{ $user->name}}</option>   
                         @endforeach
    
                 </select>
                
-                @error('park_id')
+                @error('user_id')
                 <div class="invalid-feedback" style="color: #ef1010">
                    {{ $message }}
                 </div>

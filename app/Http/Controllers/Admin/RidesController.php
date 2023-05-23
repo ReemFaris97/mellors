@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Game\GameRequest;
 use App\Imports\RidesImport;
 use App\Models\RideType;
-use App\Models\Park;
 use App\Models\Ride;
-use App\Models\Zone;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -32,10 +30,8 @@ class RidesController extends Controller
      */
     public function create()
     {
-        $parks = Park::pluck('name', 'id')->all();
-        $zones = Zone::pluck('name', 'id')->all();
         $ride_types = RideType::pluck('name', 'id')->all();
-        return view('admin.rides.add', compact('parks', 'zones', 'ride_types'));
+        return view('admin.rides.add', compact('ride_types'));
     }
 
     /**
@@ -69,10 +65,8 @@ class RidesController extends Controller
   public function edit($id)
   {
     $ride=Ride::find($id);
-    $parks = Park::pluck('name','id')->all();
-    $zones=Zone::pluck('name','id')->all();
     $ride_types=RideType::pluck('name','id')->all();
-      return view('admin.rides.edit',compact('ride','parks','zones','ride_types'));
+      return view('admin.rides.edit',compact('ride','ride_types'));
   }
   /**
    * Update the specified resource in storage.

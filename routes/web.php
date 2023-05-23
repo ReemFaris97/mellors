@@ -156,6 +156,10 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
 
     Route::resource('ride_parks', 'Admin\RideParkController');
     Route::get('/add_ride_park/{ride_id}', 'Admin\RideParkController@addRidePark')->name('addRidePark');
+    Route::resource('ride_users', 'Admin\RideUserController');
+    Route::get('/add_ride_user/{ride_id}', 'Admin\RideUserController@addRideUser')->name('addRideUser');
+    Route::resource('ride_zones', 'Admin\RideZoneController');
+    Route::get('/add_ride_zone/{ride_id}', 'Admin\RideZoneController@addRideZone')->name('addRideZone');
 
 
 });

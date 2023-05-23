@@ -1,15 +1,14 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-use App\Http\Requests\Dashboard\Ride\RideParkRequest;
-use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Ride\RideZoneRequest;
 
-use App\Models\Park;
+use App\Http\Controllers\Controller;
 use App\Models\Ride;
-use App\Models\RidePark;
+use App\Models\RideZone;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 
-class RideParkController extends Controller
+class RideZoneController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,13 +19,12 @@ class RideParkController extends Controller
     {
         //
     }
-    
-    public function addRidePark($ride_id)
+    public function addRideZone($ride_id)
     {
-        $parks = Park::get();
+        $zones = Zone::get();
         $ride=Ride::findOrFail($ride_id);
-        $park_id []= $ride->park_id;
-        return view('admin.ride_parks.add',compact('ride_id','parks','park_id'));
+        $zone_id []= $ride->zone_id;
+        return view('admin.ride_zones.add',compact('ride_id','zones','zone_id'));
     }
     /**
      * Show the form for creating a new resource.
@@ -44,24 +42,24 @@ class RideParkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RideParkRequest $request)
+    public function store(RideZoneRequest $request)
     {
-        RidePark::create($request->validated());
+        RideZone::create($request->validated());
         $item = Ride::findOrFail($request->ride_id);
-        $data['park_id']=$request->park_id;
+        $data['zone_id']=$request->zone_id;
         $item->update($data);
-        alert()->success('Park Added Successfully To Ride!');
+        alert()->success('Zone Added Successfully To Ride!');
 
-        return redirect()->route('admin.rides.index');  
-      }
+        return redirect()->route('admin.rides.index');
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\RidePark  $ridePark
+     * @param  \App\Models\RideZone  $rideZone
      * @return \Illuminate\Http\Response
      */
-    public function show(RidePark $ridePark)
+    public function show(RideZone $rideZone)
     {
         //
     }
@@ -69,10 +67,10 @@ class RideParkController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\RidePark  $ridePark
+     * @param  \App\Models\RideZone  $rideZone
      * @return \Illuminate\Http\Response
      */
-    public function edit(RidePark $ridePark)
+    public function edit(RideZone $rideZone)
     {
         //
     }
@@ -81,10 +79,10 @@ class RideParkController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RidePark  $ridePark
+     * @param  \App\Models\RideZone  $rideZone
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RidePark $ridePark)
+    public function update(Request $request, RideZone $rideZone)
     {
         //
     }
@@ -92,10 +90,10 @@ class RideParkController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\RidePark  $ridePark
+     * @param  \App\Models\RideZone  $rideZone
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RidePark $ridePark)
+    public function destroy(RideZone $rideZone)
     {
         //
     }

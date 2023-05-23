@@ -18,6 +18,7 @@ class Ride extends Model
         'ride_type_id',
         'zone_id',
         'park_id',
+        'user_id',
         'ride_cat',
         'theoretical_number',
         'description',
