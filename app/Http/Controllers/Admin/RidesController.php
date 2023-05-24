@@ -30,7 +30,7 @@ class RidesController extends Controller
      */
     public function create()
     {
-        $ride_types = RideType::pluck('name', 'id')->all();
+        $ride_types = RideType::pluck('name','id')->all();
         return view('admin.rides.add', compact('ride_types'));
     }
 

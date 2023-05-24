@@ -5,24 +5,30 @@ Main Page
 @stop
 
 @section('content')
+@foreach($park_times as $time )
 <div class="row">
-    <div class="col-lg-8 col-xs-12">
+    <div class="col-lg-12 col-xs-12">
         <div class='contentRide'>
-            <h2>Rides Status</h2>
+
+            <h3>{{ $time->parks->name }}: {{ $time->duration_time?? 0 ." minute" }}
+            </h3>
+            <p> {{ $time->date }} : ( {{$time->start}} - {{ $time->end }} )</p>
             <div class="row">
                 @foreach ($rides as $ride )
+                @if ($ride->park_id === $time->parks->id)
                 @if ($ride->available == "active")
-                <div class="col-lg-2 col-md-6 yes cardGame">
+                <div class="col-lg-1 col-md-6 yes cardGame">
                     <div class="card-box">
                         <h4 class="header-title m-t-0 m-b-15">{{$ride->name}}</h4>
                     </div>
                 </div>
                 @elseif($ride->available == "stopped" || "closed")
-                <div class="col-lg-2 col-md-6 no cardGame">
+                <div class="col-lg-1 col-md-6 no cardGame">
                     <div class="card-box">
                         <h4 class="header-title m-t-0 m-b-15">{{$ride->name}}</h4>
                     </div>
                 </div>
+                @endif
                 @endif
                 @endforeach
             </div>
@@ -30,27 +36,9 @@ Main Page
 
         </div>
     </div>
-    <div class="col-lg-4 col-xs-12">
-        <div class='contentRide'>
-            <h2>Park Hours</h2>
-            <div class="row">
-                @foreach($park_times as $time )
-                <a href="{{route('admin.park_times.index')}}">
-                    <div class="col-lg-4 col-md-6  cardGame">
-                        <div class="card-box">
-                            <h4 class="header-title m-t-0 m-b-30">{{ $time->parks->name }}</h4>
-                            <p> {{ $time->duration_time?? 0 ." minute" }}</p>
-                            <p> {{ $time->date }}</p>
-                            <p> {{$time->start}} - {{ $time->end }}</p>
-                        </div>
-                    </div>
-                </a>
-                @endforeach
-            </div>
 
-        </div>
-    </div>
 </div>
+@endforeach
 
 
 <!-- <div class='contentRide'>

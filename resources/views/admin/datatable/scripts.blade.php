@@ -24,6 +24,9 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        $('#datatable').DataTable( {
+    "pageLength": 20
+});
         $('#datatable').DataTable();
         $('#datatable-keytable').DataTable( { keys: true } );
         $('#datatable-responsive').DataTable();
@@ -41,7 +44,7 @@
     function delete_form(element) {
         var name = $(element).data('name');
         var swalTitle = 'Delete: ' + name;
-        var swalText = 'You are going ro delete '+name+ 'Do you want to continue?';
+        var swalText = 'You are going to delete '+name+ 'Do you want to continue?';
         swal({
             title: swalTitle,
             text: swalText,

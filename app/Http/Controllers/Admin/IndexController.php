@@ -55,9 +55,11 @@ class IndexController extends Controller
                 $ride->rideSroppageDescription = '';
             }
         }
+       // dd( $rides);
 
         $park_times = ParkTime::where('date', date('Y-m-d'))->get();
 
+     
         return view('admin.layout.home',compact('rides','park_times'));
     }
 }

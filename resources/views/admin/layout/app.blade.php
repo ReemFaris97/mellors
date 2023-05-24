@@ -136,11 +136,7 @@
         theme: "bootstrap",
     });
     </script>
-        <script>
-     $('#example').dataTable( {
-    "pageLength": 20
-});
-    </script>
+
 
 
 </script>
