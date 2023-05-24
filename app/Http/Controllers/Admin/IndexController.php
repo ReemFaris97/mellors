@@ -30,15 +30,15 @@ class IndexController extends Controller
             ->select([
                 DB::raw('rides.*'),
                 DB::raw('parks.name as parkName'),
-                DB::raw('park_times.start,park_times.end'),
+                DB::raw('park_times.start,park_times.end,park_times.date,park_times.close_date'),
                 DB::raw('ride_stoppages.ride_status as stoppageRideStatus,ride_stoppages.ride_notes,ride_stoppages.description as rideSroppageDescription'),
 
             ])->get();
 
         foreach ($rides as $ride) {
             $now = Carbon::now();
-            $start = Carbon::createFromTimeString($ride->start);
-            $end = Carbon::createFromTimeString($ride->end);
+            $start = Carbon::createFromTimeString("$ride->date $ride->start");
+            $end = Carbon::createFromTimeString("$ride->close_date $ride->end");
             if ($now->between($start, $end)) {
                 if ($ride->stoppageRideStatus != null) {
                     $ride->available = $ride->stoppageRideStatus;
