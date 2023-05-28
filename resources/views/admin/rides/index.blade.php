@@ -62,9 +62,7 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                              Assign Zone 
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                             Assign User
-                            </th>
+                           
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
                             </th>
@@ -103,13 +101,13 @@
                                         Assign
                                         </a>
                                 </td>
-                                <td>
+                             <!--    <td>
                                         <a href="{{ route('admin.addRideUser', $item->id) }}"
                                         class=" btn {{($item->user_id == null)? 'btn-info' : 'btn-success'}}">
                                         <i class="fa {{($item->user_id == null)? 'fa-plus' : 'fa-edit'}}"></i>
                                         Assign
                                         </a>
-                                </td>
+                                </td> -->
                                 <td>
                                         <a href="{{ route('admin.rides.edit', $item) }}"
                                            class="btn btn-info">Edit</a>

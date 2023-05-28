@@ -117,19 +117,28 @@
     </div>
     @enderror
 </div>
-<!-- @if(isset($parks))
 <div class="form-group">
-    <label>User Parks:</label>
-    {!! Form::select('park_id[]',@$parks,null,array('class' => 'form-control
-    select2','multiple'=>""))
-    !!}
+    <label>Time Zone :</label>
+    <select name="time_zone" class="select2">
+    @foreach (DateTimeZone::listIdentifiers() as $timezone)
+        <option value="{{ $timezone }}"
+            @if(old('time_zone', $user->time_zone ?? '') === $timezone) selected @endif>
+            {{ $timezone }}
+        </option>
+    @endforeach
+</select>
+    @error('time_zone')
+    <div class="invalid-feedback" style="color: #ef1010">
+        {{ $message }}
+    </div>
+    @enderror
 </div>
-@endif -->
+
 <div class="form-group">
     <label>User Park (choose branch first):</label>
    @if(isset($parks))
    
-   <select name="park_id[]" class="custom-select form-control" id="park" multiple="multiple">
+   <select name="park_id[]" class="custom-select form-control " id="park" multiple="multiple">
             @foreach($parks as $park)
            <option value="{{ $park->id }}" {{ in_array($park->id, $userparksIds) ? 'selected' : '' }} > {{ $park->name}}</option>   
          @endforeach
@@ -145,7 +154,7 @@
 <div class="form-group">
     <label>User Zone (choose branch first):</label>
     @if(isset($zones))
-   <select name="zone_id[]" class="custom-select form-control" id="zone" multiple="multiple">
+   <select name="zone_id[]" class="custom-select form-control " id="zone" multiple="multiple">
             @foreach($zones as $zone)
             <option  value="{{ $zone->id }}" @if(in_array($zone->id , $userzonesIds)) selected @endif>{{ $zone->name }}</option>
             @endforeach

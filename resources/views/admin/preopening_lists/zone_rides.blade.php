@@ -52,7 +52,7 @@ Rides
                                         </button>
                                         </a>
                                         @endif
-                               @endif
+                                @endif
                                 </td>
                             
 

@@ -7,7 +7,10 @@ Preopening Lists
 @section('content')
 
     <div class="card-box">
-
+    <a href="{{url('add_preopening_list_to_ride/'.$ride_id.'/'.$park_time_id)}}">
+            <button type="button" class="btn btn-info">Create New inspection List</button>
+        </a>
+        <br><br>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">
@@ -18,12 +21,11 @@ Preopening Lists
                                 colspan="1" aria-sort="ascending">ID
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride
+                                Inspection List 
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Comment
+                                Created At
                             </th>
-
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
                             </th>
@@ -35,23 +37,18 @@ Preopening Lists
                         @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                <td>{{ $item->rides->name }}</td>
-                                <td>{{ $item->comment }}</td>
+                                <td>List {{ $loop->iteration }}</td>
+                                <td>{{ $item->created_at }}</td>
                                 {!!Form::open( ['route' => ['admin.preopening_lists.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
                                     @if(auth()->user()->can('preopening_lists-edit'))
-                                        <a href="{{ route('admin.preopening_lists.edit', $item) }}"
-                                           class="btn btn-info">Edit</a>
-                                    @endif
-                                        @if(auth()->user()->can('preopening_lists-delete'))
-
-                                        <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                           data-url="{{ route('admin.preopening_lists.destroy', $item) }}"
-                                           onclick="delete_form(this)">
-                                            Delete
+                                    <a href="{{url('edit_preopening_list/'.$item->ride_id.'/'.$park_time_id.'/'.$item->created_at)}}">
+                                        <button type="button" id="add" class="add btn btn-success">
+                                        <i class="fa fa-edit"></i>Edit List
+                                        </button>
                                         </a>
-                                        @endif
+                                    @endif
 
                                 </td>
 

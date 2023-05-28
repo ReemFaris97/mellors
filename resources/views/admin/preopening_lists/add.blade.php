@@ -1,14 +1,14 @@
 @extends('admin.layout.app')
 
 @section('title')
-  Add New Preopening list
+  Add New Inspection list
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box">
-                <h4 class="header-title m-t-0 m-b-30"> Add New Preopening list</h4>
+                <h4 class="header-title m-t-0 m-b-30"> Add New Inspection list</h4>
                         {!!Form::open( ['route' => 'admin.preopening_lists.store' ,'class'=>'form phone_validate', 'method' => 'Post', 'enctype'=>"multipart/form-data",'class'=>'form-horizontal','files' => true]) !!}
                         @csrf
                         @include('admin.preopening_lists.form')

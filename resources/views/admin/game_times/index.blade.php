@@ -33,6 +33,9 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                               Ride Operations
                             </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                              Inspection List 
+                            </th>
 
                         </tr>
                         </thead>
@@ -54,30 +57,40 @@
                                     @if(auth()->user()->can('incidents-create'))
 
                                     <a href="{{url('add_incident_report/'.$item->id.'/'.$park_time_id)}}"
-                                           class="btn btn-primary">Add Incident </a>
+                                           class="btn btn-danger"> <i class="fa fa-plus"></i>Incident </a>
                                            @endif
                                            @if(auth()->user()->can('accidents-create'))
 
                                    <a href="{{url('add_accident_report/'.$item->id.'/'.$park_time_id)}}"
-                                           class="btn btn-primary">Add Accident </a>
+                                           class="btn btn-danger"> <i class="fa fa-plus"></i>Accident </a>
                                            @endif
                                 </td>
                                 <td>
                                 @if(auth()->user()->can('rides-stoppages-list'))
 
                                     <a href="{{url('show_stoppages/'.$item->id.'/'.$park_time_id)}}"
-                                           class="btn btn-primary">Stoppages</a>
+                                           class="btn btn-primary"><i class="fa fa-plus"></i>Stoppages</a>
                                 @endif
                                 @if(auth()->user()->can('rides-cycles-list'))
                                    <a href="{{url('show_cycles/'.$item->id.'/'.$park_time_id)}}"
-                                           class="btn btn-primary">Cycles</a>
+                                           class="btn btn-primary"><i class="fa fa-plus"></i>Cycles</a>
                                 @endif
                                 @if(auth()->user()->can('queues-list'))      
                                     <a href="{{url('show_queues/'.$item->id.'/'.$park_time_id)}}"
-                                           class="btn btn-primary">Queues</a>
+                                           class="btn btn-primary"><i class="fa fa-plus"></i>Queues</a>
                                  @endif
                                 </td>
-
+                                 <td> 
+                                      @if(auth()->user()->can('preopening_lists-create'))
+                                        @if(in_array($item->id, $zone_rides))
+                                        <a href="{{url('show_preopening_list/'.$item->id.'/'.$park_time_id)}}">
+                                        <button type="button" id="add" class="add btn btn-success">
+                                        <i class="fa fa-plus"></i> Add Inspection List
+                                        </button>
+                                        </a>
+                                        @endif
+                                      @endif
+                                  </td>
                             </tr>
 
                         @endforeach

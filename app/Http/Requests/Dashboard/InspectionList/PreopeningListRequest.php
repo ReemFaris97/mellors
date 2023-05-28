@@ -25,6 +25,7 @@ class PreopeningListRequest extends FormRequest
     {
         $rules= [
             'ride_id' => 'required',
+            'park_time_id' => 'required',
             'inspection_list_id' => 'required',
             'status' => 'nullable',
             'comment' => 'nullable'
@@ -32,6 +33,7 @@ class PreopeningListRequest extends FormRequest
         if ($this->getMethod() == 'PATCH') {
             $rules = [
                 'ride_id' => 'nullable',
+                'park_time_id' => 'nullable',
                 'inspection_list_id' => 'nullable',
                 'status' => 'nullable',
                 'comment' => 'nullable'

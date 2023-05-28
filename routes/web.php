@@ -24,8 +24,8 @@ Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
-    Route::get('/', 'Admin\IndexController')->name('index');
+Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], function () {
+    Route::get('/', 'Admin\IndexController@index')->name('index');
 
     Route::resource('roles', 'Admin\RoleController'); // done
     Route::resource('users', 'Admin\UserController'); // done
@@ -79,11 +79,13 @@ Route::group(['middleware' => 'auth', 'as' => 'admin.'], function () {
     
 
     Route::resource('preopening_lists', 'Admin\PreopeningListController');//done
-    Route::get('/add_preopening_list_to_ride/{id}', 'Admin\PreopeningListController@add_preopening_list_to_ride');
-    Route::get('/edit_preopening_list/{ride_id}', 'Admin\PreopeningListController@edit_ride_preopening_list')->name('editPreopeningList');
+    Route::get('/add_preopening_list_to_ride/{ride_id}/{park_time_id}', 'Admin\PreopeningListController@add_preopening_list_to_ride');
+    Route::get('/edit_preopening_list/{ride_id}/{park_time_id}/{created_at}', 'Admin\PreopeningListController@edit_ride_preopening_list')->name('editPreopeningList');
     Route::post('/update_preopening_list/{ride_id}', 'Admin\PreopeningListController@update_ride_preopening_list')->name('updatePreopeningList');
     Route::get('/cheack_preopening_list/', 'Admin\PreopeningListController@cheackPreopeningList')->name('cheackPreopeningList');
+    Route::get('/show_preopening_list/{ride_id}/{park_time_id}', 'Admin\PreopeningListController@show_ride_preopening_list')->name('showPreopeningList');
 
+    
     Route::get('/zone_rides/{zone_id}', 'Admin\PreopeningListController@zone_rides')->name('zoneRides');
     Route::resource('ride_inspection_lists', 'Admin\RideInspectionListController');
     Route::get('/add_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@add_ride_inspection_lists')->name('addRideInspectionLists');

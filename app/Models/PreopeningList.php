@@ -13,7 +13,8 @@ class PreopeningList extends Model
         'list_type',
         'status',
         'comment',
-        'created_by_id'
+        'created_by_id',
+        'park_time_id'
     ];
     public function rides()
     {

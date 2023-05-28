@@ -10,6 +10,7 @@ use App\Models\Game;
 use App\Models\ParkTime;
 use App\Models\Ride;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GameTimeController extends Controller
 {
@@ -75,7 +76,9 @@ class GameTimeController extends Controller
     public function all_rides($park_id,$park_time_id)
     {
         $items=Ride::where('park_id',$park_id)->get();
-        return view('admin.game_times.index',compact('items','park_time_id'));
+        $zones = auth()->user()->zones->pluck('id');
+        $zone_rides=Ride::wherein('zone_id', $zones)->pluck('id')->toArray();
+        return view('admin.game_times.index',compact('items','park_time_id','zone_rides'));
     }
 
     /**

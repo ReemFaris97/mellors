@@ -21,6 +21,7 @@
                    </thead>
                    <tbody>
                    @foreach($items as $value)
+                   @if(in_array($value->inspection_list_id, $inspections) )
                        <tr>
                            <td>
                                {{ $value->inspection_list->name ??''}}
@@ -43,10 +44,33 @@
                            <td>
                                {!! Form::textArea('comment[]',$value->comment, array('class' => 'form-control comment', 'rows'=>"1")) !!}
                                <input name="ride_id" type="hidden" id="ride-id" class="ride-id" value={{$ride_id}}>
-                               <input name="zone_id" type="hidden" id="zone-id" class="zone-id" value={{$zone_id}}>
+                               <input name="park_time_id" type="hidden" id="park-time-id" class="park-time-id" value={{$park_time_id}}>
 
                            </td>
                        </tr>
+                       @else
+                       <tr>
+                           <td>
+                               {{ $value->inspection_list->name ??''}}
+                           </td>
+                           <td>
+                          <label>
+                          <select name="status[]" id="element_id" class="form-control element-id">
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                           </select>
+                              <input type="hidden" name="inspection_list_id[]" class="ele_id" value="{{ $value->inspection_list_id }}" >
+                          </label>
+                           </td>
+                           <td>
+                               {!! Form::textArea('comment[]','', array('class' => 'form-control comment', 'rows'=>"1")) !!}
+                               <input name="ride_id" type="hidden" id="ride-id" class="ride-id" value={{$ride_id}}>
+                               <input name="park_time_id" type="hidden" id="park-time-id" class="park-time-id" value={{$park_time_id}}>
+
+                           </td>
+                       </tr>
+                       @endif
+
                    @endforeach
 
                    </tbody>
@@ -68,6 +92,7 @@
             const comment = [];
             const status = [];
             const ride_id=[];
+            const park_time_id=[];
             $('.element-id').each(function () {
                 if($(this).change){
                     status.push($(this).val());
@@ -83,9 +108,10 @@
             });
             $('.ride-id').each(function () {
                 ride_id.push($(this).val());
+            });  $('.park-time-id').each(function () {
+                park_time_id.push($(this).val());
             });
             var ride = $("#ride-id").val();
-            var zone_id = $("#zone-id").val();
 
             $.ajax({
                 url: "{{ route('admin.updatePreopeningList',$ride) }}",
@@ -95,7 +121,8 @@
                     status: status,
                     inspection_list_id: element_id,
                     comment: comment,
-                    ride_id: ride_id
+                    ride_id: ride_id,
+                    park_time_id:park_time_id
                 },
                 success: function(response)
                 {
@@ -105,7 +132,7 @@
                          icon: "success",
                          buttons: ["Ok"]
                           }); 
-                          window.location.href = "{{route('admin.zoneRides',$zone_id)}}";
+                          window.location.href = "{{route('admin.park_times.index')}}";
 
                     }else {
                         swal({
@@ -114,7 +141,7 @@
                          buttons: ["Ok"]
                          
                           }); 
-                          window.location.href = "{{route('admin.zoneRides',$zone_id)}}";
+                          window.location.href = "{{route('admin.park_times.index')}}";
 
                     }
                 }

@@ -37,14 +37,21 @@ class PreopeningListController extends Controller
 
         return view('admin.preopening_lists.zone_rides',compact('zone_id','rides','data_exist'));
     }
-
-    public function add_preopening_list_to_ride($id)
+    
+    public function show_ride_preopening_list($ride_id,$park_time_id)
     {
-       $inspections=RideInspectionList::where('ride_id',$id)->get();
+        $items = PreopeningList::where('park_time_id',$park_time_id)
+                ->where('ride_id',$ride_id)->groupBy('created_at')->get();
+               // dd($items);
+        return view('admin.preopening_lists.index', compact('items', 'ride_id', 'park_time_id'));
+    }
+    public function add_preopening_list_to_ride($ride_id,$park_time_id)
+    {
+       $inspections=RideInspectionList::where('ride_id',$ride_id)->get();
 //     return $inspections; 
-       $ride=Ride::findOrFail($id);
+       $ride=Ride::findOrFail($ride_id);
        $zone_id=$ride->zone_id;
-       return view('admin.preopening_lists.add',compact('inspections','id','zone_id'));
+       return view('admin.preopening_lists.add',compact('inspections','ride_id','zone_id','park_time_id'));
     }
 
     /**
@@ -66,16 +73,13 @@ class PreopeningListController extends Controller
      */
     public function store(Request $request)
     {
-//     dd($request->all());
-        $dateExists = PreopeningList::whereDate('created_at',Carbon::now()->format('Y-m-d'))->where
-            ('ride_id', $request['ride_id'])->first();
-        if ($dateExists) {
-            return response()->json(['danger'=>'Preopening List Already Exist']);
-        }
+   // dd($request->all());
+
        foreach ($request->inspection_list_id as $key=>$value){
            $preopening_list= new PreopeningList();
            $preopening_list->inspection_list_id=$request->inspection_list_id[$key];
            $preopening_list->ride_id=$request->ride_id[$key];
+           $preopening_list->park_time_id=$request->park_time_id[$key];
            $preopening_list->comment=$request->comment[$key];
            $preopening_list->status=$request->status[$key];
            $preopening_list->created_by_id=auth()->user()->id;
@@ -104,16 +108,16 @@ class PreopeningListController extends Controller
         return view('admin.preopening_lists.edit',compact('rides','list','zone_id','item','inspections'));
 
     }
-    public function edit_ride_preopening_list( $ride_id)
+    public function edit_ride_preopening_list( $ride_id,$park_time_id,$created_at)
     {
         $ride=Ride::find($ride_id);
-        $zone_id=$ride->zone_id;
-        $items=PreopeningList::where('ride_id',$ride_id)
-        ->whereDate('created_at',Carbon::now()->format('Y-m-d'))
-        ->get();
-        $inspections=InspectionList::all();
+        $inspections=PreopeningList::where('ride_id',$ride_id)->where('park_time_id',$park_time_id)
+        ->where('created_at',$created_at)
+        ->pluck('inspection_list_id')->toArray();
+       // dd($inspections);
+        $items=RideInspectionList::where('ride_id',$ride_id)->get();
         //return $items;
-        return view('admin.preopening_lists.edit',compact('inspections','ride','items','ride_id','zone_id'));
+        return view('admin.preopening_lists.edit',compact('inspections','ride','items','park_time_id','ride_id'));
 
     }
     
@@ -127,6 +131,7 @@ class PreopeningListController extends Controller
             $preopening_list->inspection_list_id=$request->inspection_list_id[$key];
             $preopening_list->ride_id=$request->ride_id[$key];
             $preopening_list->comment=$request->comment[$key];
+            $preopening_list->park_time_id=$request->park_time_id[$key];
             $preopening_list->status=$request->status[$key];
             $preopening_list->created_by_id=auth()->user()->id;
             $preopening_list->save();

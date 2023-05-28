@@ -5,12 +5,11 @@ Main Page
 @stop
 
 @section('content')
-@foreach($park_times as $time )
+@foreach($times as $time )
 <div class="row">
     <div class="col-lg-12 col-xs-12">
         <div class='contentRide'>
-
-            <h3>{{ $time->parks->name }}: {{ $time->duration_time?? 0 ." minute" }}
+        <h3>{{ $time->parks->name }}: {{ $time->duration_time?? 0 ." minute" }}
             </h3>
             <p> {{ $time->date }} : ( {{$time->start}} - {{ $time->end }} )</p>
             <div class="row">
@@ -32,6 +31,57 @@ Main Page
                 @endif
                 @endforeach
             </div>
+     <div class="row">
+       <div class="col-lg-6 col-xs-12">
+            @foreach($cycles as $cycle_rides)
+            @foreach($queues as $queue)
+                @if ($cycle_rides->park_time_id === $time->id & $queue->park_time_id === $time->id )
+                <ul>
+                @if ($cycle_rides->ride_cat ==='family' &$queue->ride_cat ==='family' )
+
+                <li>Family Riders :{{$cycle_rides->total_rider}} 
+                          - Avg Queue :{{$queue->avg_queue_minutes}} min 
+                          - Avg Cycles : {{$cycle_rides->avg_duration}}
+               </li>
+               @endif 
+
+               @if ($cycle_rides->ride_cat ==='thrill' & $queue->ride_cat ==='thrill' )
+
+               <li>Thrill Riders :{{ $cycle_rides->total_rider}} 
+                          - Avg Queue :{{$queue->avg_queue_minutes}} min 
+                          - Avg Cycles : {{ $cycle_rides->avg_duration}}
+               </li>
+               @endif 
+               @if ($cycle_rides->ride_cat ==='kids' & $queue->ride_cat ==='kids' )
+
+               <li>Kids Riders :{{ $cycle_rides->total_rider}} 
+                         - Avg Queue :{{ $queue->avg_queue_minutes }} min 
+                         - Avg Cycles : {{ $cycle_rides->avg_duration}}
+               </li>
+               @endif 
+
+                </ul>
+            @endif 
+            @endforeach
+            @endforeach
+
+            </div>
+
+        <div class="col-lg-6 col-xs-12">
+        
+        <h4> Total Riders : 
+        @foreach($total_riders as $total_rider_id => $total_rider_rides)
+        @if ($total_rider_id === $time->id)
+             @foreach($total_rider_rides as $ride)
+              {{ $ride->total_rider }} 
+             @endforeach
+        @endif
+        @endforeach
+        </h4>
+        </div>
+
+       
+      </div>
 
 
         </div>

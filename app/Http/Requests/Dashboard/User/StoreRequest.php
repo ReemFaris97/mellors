@@ -33,7 +33,8 @@ class StoreRequest extends FormRequest
             'last_name'=>'nullable',
             'user_number'=>'required|unique:users',
             'email'=>'required|email|unique:users,email',
-            'password'=>'required|confirmed'
+            'password'=>'required|confirmed',
+            'time_zone' => 'required', 'timezone'
         ];
     }
 }

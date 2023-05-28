@@ -62,8 +62,8 @@ Parks Time Slot
                                     colspan="1">
                                     Daily Entrance Count & General Comment
                                 </th>
-                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="2"
-                                    colspan="2">
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1">
                                     Reports Operations
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
@@ -283,13 +283,10 @@ Parks Time Slot
                                     @endif
                                     @endif
                                 </td>
+                               
                                 <td>
-                                    <a href="{{ url('all-rides/'.$item->parks->id.'/'.$item->id) }}"
+                                <a href="{{ url('all-rides/'.$item->parks->id.'/'.$item->id) }}"
                                         class="btn btn-info">All Rides </a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.park_times.edit', $item) }}" class="btn btn-info">Edit Park
-                                        Time Slot</a>
 
                                     <a href="{{url('game-all-times/'.$item->parks->id)}}">
                                         <button type="button" class="btn btn-info">
@@ -297,6 +294,9 @@ Parks Time Slot
                                         </button>
                                     </a>
 
+                                </td>
+                                <td>
+                                <a href="{{ route('admin.park_times.edit', $item) }}" class="btn btn-info">Edit</a>
                                     <a class="btn btn-danger" data-name="{{ $item->name }}"
                                         data-url="{{ route('admin.park_times.destroy', $item) }}"
                                         onclick="delete_form(this)">
