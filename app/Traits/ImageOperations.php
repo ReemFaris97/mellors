@@ -4,6 +4,7 @@
 namespace App\Traits;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 trait ImageOperations
 {
@@ -49,7 +50,9 @@ trait ImageOperations
     public function Gallery($request, $model, $item)
     {
         foreach ($request['images'] as $key => $image) {
-            $imageName = $path = \Storage::disk('public')->putFile('photos', $image['file']);
+          //  $imageName = $path = \Storage::disk('public')->putFile('photos', $image['file']);
+            $imageName =time().$image['file']->getClientOriginalName();
+            Storage::putFile('images',$image['file'],$imageName);
             $model->create(['image' => $imageName, 'comment' => $image['comment']] + $item);
 
         } 
@@ -57,11 +60,15 @@ trait ImageOperations
     public function Images($request, $model, $item)
     {
         foreach ($request['image'] as $key => $image) {
-            $imageName = $path = \Storage::disk('public')->putFile('photos', $image);
-            $model->create(['image' => $imageName] + $item);
+           // $imageName = $path = \Storage::disk('public')->putFile('photos', $image);
+           $imageName =time().$image->getClientOriginalName();
+           $path= Storage::putFile('images',$image,$imageName);
+          
+           $model->create(['image' => $imageName] + $item);
+           return $path;
 
         }
 
 
-}
+} 
 }

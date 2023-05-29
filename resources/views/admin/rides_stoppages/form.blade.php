@@ -157,9 +157,9 @@
         <div class="col-lg-12">
             <div class="flex-img">
                 <input type="text" value="{{$item->comment}}" class="form-control">
-                <a download href="{{ $item->image }}"> <img class="img-preview" src="{{ $item->image }}"
-                        style="height: 40px; width: 40px"></a>
-            </div>
+                <a ><img class="img-preview" src="{{ Storage::disk('s3')->url('images/'.basename($item->image)) }}"
+                    style="height: 40px; width: 40px"></a> 
+             </div>
         </div>
         @endforeach
     </div>
@@ -171,10 +171,7 @@
 
     @include('admin.rides_stoppages.images_upload')
 </div>
-<div class="form-group">
-<input type="hidden" name="ride_id" value="{{$ride_id}}" >
-    <input type="hidden" name="park_time_id" value="{{$park_time_id}}" >
-</div>
+
 <div class="editbtnInCenter aligne-center contentbtn">
     <button class="btn btn-primary waves-effect" type="submit">Save</button>
 </div>

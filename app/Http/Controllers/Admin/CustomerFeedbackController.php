@@ -11,6 +11,7 @@ use App\Models\CustomerFeedbackImage;
 use Illuminate\Support\Facades\Auth;
 
 use App\Traits\ImageOperations;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerFeedbackController extends Controller
 {
@@ -89,6 +90,9 @@ class CustomerFeedbackController extends Controller
     }
     public function show($id)
     {
+       // $files = Storage::files('images');
+       // return $files;
+
         $items=CustomerFeedbacks::findorfail($id);
         $images=CustomerFeedbackImage::where('customer_feedback_id',$id)->get();
         return view('admin.customer_feedbacks.show',compact('items','images'));
