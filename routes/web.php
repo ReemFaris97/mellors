@@ -25,7 +25,7 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], function () {
-    Route::get('/', 'Admin\IndexController@index')->name('index');
+    Route::get('/', 'Admin\IndexController')->name('index');
 
     Route::resource('roles', 'Admin\RoleController'); // done
     Route::resource('users', 'Admin\UserController'); // done
