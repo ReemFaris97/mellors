@@ -16,17 +16,13 @@ Show Queues On Selected Ride
             @csrf
 
      <div class="row">
-    <div class='col-md-5'>
-        <div class="form-group">
-            <label for="last_name">Select Ride</label>
-            {!! Form::select('ride_id', \App\Models\Ride::pluck('name','id')->all(),null, array('class' => 'form-control')) !!}
-        </div>
-    </div>
+
     <div class='col-md-5'>
         <div class="form-group">
             <label for="middle_name">Time Slot Date </label>
             {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
             <input type="hidden" name="park_time_id" value="{{$park_time_id}}">
+            <input type="hidden" name="ride_id" value="{{$ride_id}}">
         </div>
     </div>
     <div class='col-md-2 mtButton'>

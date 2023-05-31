@@ -74,12 +74,15 @@ class RideStoppageController extends Controller
         \DB::beginTransaction();
         $park_time_id=$request->park_time_id;
         $ride_id=$request->ride_id;
+        $ride=Ride::findOrFail($ride_id);
+        $zone_id=$ride->zone_id;
         $park_time=ParkTime::findOrFail($park_time_id);
         $park_id=$park_time->park_id;
         $opened_date=$park_time->date;
         $data=$request->validated();
         $data['opened_date'] = $opened_date;
         $data['park_id'] = $park_id;
+        $data['zone_id'] = $zone_id;
         $data['user_id']= auth()->user()->id;
         $data['ride_status']="stopped";
         $data['time']=Carbon::now()->toTimeString();

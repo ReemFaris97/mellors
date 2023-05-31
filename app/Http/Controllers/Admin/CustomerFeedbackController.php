@@ -96,18 +96,25 @@ class CustomerFeedbackController extends Controller
     {
         $files = Storage::files('images');
          $files;
-
-
+     //return $files;
         $items=CustomerFeedbacks::findorfail($id);
-        $images=CustomerFeedbackImage::where('customer_feedback_id',$id)->get();
-        foreach ($images as $item)
-         {
-            $path='images';
-            $name=basename($item->image);
-            $presignedUrl=  Storage::disk('s3')->temporaryUrl($path."/".$name,now()->addMinutes(10));
-                    
-                   // return $presignedUrl ;
-                   }
+        $images=CustomerFeedbackImage::where('customer_feedback_id',$id)->get();   
+        $s3 = Storage::disk('s3');
+
+                $files = $s3->files('images');
+
+                $presignedUrls = [];
+
+                foreach ($files as $file) {
+                    $command = $s3->getDriver()->getAdapter()->getClient()->getCommand('GetObject', [
+                        'Bucket' => 'your-bucket',
+                        'Key' => $file
+                    ]);
+
+                    $request = $s3->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, '+20 minutes');
+
+                    $presignedUrls[] = (string) $request->getUri();
+                }     
 
         return view('admin.customer_feedbacks.show',compact('items','images','files'));
 

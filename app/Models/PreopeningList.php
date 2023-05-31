@@ -9,6 +9,9 @@ class PreopeningList extends Model
 {
     protected $fillable = [
         'ride_id',
+        'park_id',
+        'zone_id',
+        'opened_date',
         'inspection_list_id',
         'list_type',
         'status',
@@ -19,6 +22,20 @@ class PreopeningList extends Model
     public function rides()
     {
         return $this->belongsTo(Ride::class,'ride_id')->withDefault([
+            'name'=>'not found'
+        ]);
+
+    }
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class,'zone_id')->withDefault([
+            'name'=>'not found'
+        ]);
+
+    }
+    public function park()
+    {
+        return $this->belongsTo(Ride::class,'park_id')->withDefault([
             'name'=>'not found'
         ]);
 

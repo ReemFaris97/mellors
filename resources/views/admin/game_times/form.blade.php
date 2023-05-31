@@ -54,11 +54,11 @@
         @endif
     </div>
     </div>
-    @if(isset($id))
-        {!! Form::input('hidden','ride_id',$id,['class'=>'form-control']) !!}
+    @if(isset($ride_id))
+        {!! Form::input('hidden','ride_id',$ride_id,['class'=>'form-control']) !!}
     @endif
-    @if(isset($park_id))
-        {!! Form::input('hidden','park_id',$park_id,['class'=>'form-control']) !!}
+    @if(isset($park_time_id))
+        {!! Form::input('hidden','park_time_id',$park_time_id,['class'=>'form-control']) !!}
     @endif
 <div class="col-xs-12 aligne-center contentbtn">
     <button class="btn btn-primary waves-effect" type="submit">Save</button>

@@ -30,6 +30,8 @@ class GeneralController extends Controller
     {
         $html = '';
         $rides = Ride::where('park_id', $request->park_id)->get();
+        $html = '<option value="">' .'Choose Ride' . '</option>';
+
         foreach ($rides as $ride) {
             $html .= '<option value="' . $ride->id . '">' . $ride->name . '</option>';
         }

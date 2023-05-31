@@ -7,12 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\InspectionList\PreopeningListRequest;
 use App\Models\Game;
 use App\Models\InspectionList;
+use App\Models\ParkTime;
 use App\Models\PreopeningList;
 use App\Models\Ride;
 use App\Models\RideInspectionList;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\DB;
 
 class PreopeningListController extends Controller
 {
@@ -45,6 +46,8 @@ class PreopeningListController extends Controller
                // dd($items);
         return view('admin.preopening_lists.index', compact('items', 'ride_id', 'park_time_id'));
     }
+
+    
     public function add_preopening_list_to_ride($ride_id,$park_time_id)
     {
        $inspections=RideInspectionList::where('ride_id',$ride_id)->get();
@@ -74,14 +77,23 @@ class PreopeningListController extends Controller
     public function store(Request $request)
     {
    // dd($request->all());
+    
 
        foreach ($request->inspection_list_id as $key=>$value){
            $preopening_list= new PreopeningList();
+           $ride=Ride::findOrFail($request->ride_id[$key]);
+           $zone_id=$ride->zone_id;
+           $park_time=ParkTime::findOrFail($request->park_time_id[$key]);
+           $park_id=$park_time->park_id;
+           $opened_date=$park_time->date;
            $preopening_list->inspection_list_id=$request->inspection_list_id[$key];
            $preopening_list->ride_id=$request->ride_id[$key];
            $preopening_list->park_time_id=$request->park_time_id[$key];
            $preopening_list->comment=$request->comment[$key];
            $preopening_list->status=$request->status[$key];
+           $preopening_list->park_id=$park_id;
+           $preopening_list->zone_id=$zone_id;
+           $preopening_list->opened_date=$opened_date;
            $preopening_list->created_by_id=auth()->user()->id;
            $preopening_list->save();
        }
@@ -113,11 +125,11 @@ class PreopeningListController extends Controller
         $ride=Ride::find($ride_id);
         $inspections=PreopeningList::where('ride_id',$ride_id)->where('park_time_id',$park_time_id)
         ->where('created_at',$created_at)
-        ->pluck('inspection_list_id')->toArray();
-       // dd($inspections);
-        $items=RideInspectionList::where('ride_id',$ride_id)->get();
+        ->get();
+      //  dd($inspections);
+       // $items=RideInspectionList::where('ride_id',$ride_id)->get();
         //return $items;
-        return view('admin.preopening_lists.edit',compact('inspections','ride','items','park_time_id','ride_id'));
+        return view('admin.preopening_lists.edit',compact('inspections','ride','park_time_id','ride_id'));
 
     }
     
@@ -128,13 +140,21 @@ class PreopeningListController extends Controller
         ->delete();
         foreach ($request->inspection_list_id as $key=>$value){
             $preopening_list= new PreopeningList();
-            $preopening_list->inspection_list_id=$request->inspection_list_id[$key];
-            $preopening_list->ride_id=$request->ride_id[$key];
-            $preopening_list->comment=$request->comment[$key];
-            $preopening_list->park_time_id=$request->park_time_id[$key];
-            $preopening_list->status=$request->status[$key];
-            $preopening_list->created_by_id=auth()->user()->id;
-            $preopening_list->save();
+           $ride=Ride::findOrFail($request->ride_id[$key]);
+           $zone_id=$ride->zone_id;
+           $park_time=ParkTime::findOrFail($request->park_time_id[$key]);
+           $park_id=$park_time->park_id;
+           $opened_date=$park_time->date;
+           $preopening_list->inspection_list_id=$request->inspection_list_id[$key];
+           $preopening_list->ride_id=$request->ride_id[$key];
+           $preopening_list->park_time_id=$request->park_time_id[$key];
+           $preopening_list->comment=$request->comment[$key];
+           $preopening_list->status=$request->status[$key];
+           $preopening_list->park_id=$park_id;
+           $preopening_list->zone_id=$zone_id;
+           $preopening_list->opened_date=$opened_date;
+           $preopening_list->created_by_id=auth()->user()->id;
+           $preopening_list->save();
         }
          return response()->json(['success'=>'Preopening List Added successfully']);
  

@@ -33,6 +33,15 @@ Main Page
             </div>
      <div class="row">
        <div class="col-lg-6 col-xs-12">
+       <h4> Total Riders : 
+        @foreach($total_riders as $total_rider_id => $total_rider_rides)
+        @if ($total_rider_id === $time->id)
+             @foreach($total_rider_rides as $ride)
+              {{ $ride->total_rider }} 
+             @endforeach
+        @endif
+        @endforeach
+        </h4>
             @foreach($cycles as $cycle_rides)
             @foreach($queues as $queue)
                 @if ($cycle_rides->park_time_id === $time->id & $queue->park_time_id === $time->id )
@@ -40,8 +49,8 @@ Main Page
                 @if ($cycle_rides->ride_cat ==='family' &$queue->ride_cat ==='family' )
 
                 <li>Family Riders :{{$cycle_rides->total_rider}} 
-                          - Avg Queue :{{$queue->avg_queue_minutes}} min 
-                          - Avg Cycles : {{$cycle_rides->avg_duration}}
+                           -  Avg Queue :{{$queue->avg_queue_minutes}} min 
+                           -  Avg Cycles : {{$cycle_rides->avg_duration}} Sec
                </li>
                @endif 
 
@@ -69,15 +78,7 @@ Main Page
 
         <div class="col-lg-6 col-xs-12">
         
-        <h4> Total Riders : 
-        @foreach($total_riders as $total_rider_id => $total_rider_rides)
-        @if ($total_rider_id === $time->id)
-             @foreach($total_rider_rides as $ride)
-              {{ $ride->total_rider }} 
-             @endforeach
-        @endif
-        @endforeach
-        </h4>
+   
         </div>
 
        

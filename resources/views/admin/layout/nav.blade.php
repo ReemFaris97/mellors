@@ -210,7 +210,9 @@ auth()->user()->can('rides-cycles-create'))
     <a href="javascript:void(0);" class="waves-effect"><i class="fa-regular fa-folder-open"></i><span>Reports </span>
         <span class="menu-arrow"></span></a>
     <ul class="list-unstyled">
-        <li><a href="{{route('admin.duty-report.index')}}">Duty Report</a></li>
+    <li><a href="{{route('admin.duty-report.index')}}">Duty Report</a></li>
+    <li><a href="{{route('admin.reports.stoppagesReport')}}">Stoppages Report</a></li>
+    <li><a href="{{route('admin.reports.inspectionListReport')}}">Inspection Lists Report</a></li>
         <li><a href="{{route('admin.reports.rideStatus')}}">Ride Availability Report</a></li>
     </ul>
 </li>

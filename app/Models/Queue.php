@@ -12,14 +12,20 @@ class Queue extends Model
 
     protected $fillable = [
         'ride_id','date','queue_minutes','park_id','user_id','current_queue_occupancy','opened_date','riders_count',
-        'current_wait_time','max_queue_capacity','start_time','park_time_id'
+        'current_wait_time','max_queue_capacity','start_time','park_time_id','zone_id'
     ];
 
     public function ride()
     {
         return $this->belongsTo(Ride::class)->withDefault();
     }
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class,'zone_id')->withDefault([
+            'name'=>'not found'
+        ]);
 
+    }
     public function user()
     {
         return $this->belongsTo(User::class)->withDefault();

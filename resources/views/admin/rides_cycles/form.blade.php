@@ -58,7 +58,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-lg-12">Salles:</label>
+        <label class="col-lg-12">Sales:</label>
         <div class="  ">
             {!! Form::number("sales",null,['class'=>'form-control','placeholder'=>'Salles'])!!}
             @error('sales')

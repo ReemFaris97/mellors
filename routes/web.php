@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('/search_park_times/', 'Admin\ParkTimeController@search');
 
     Route::resource('game_times', 'Admin\GameTimeController');//done
+    Route::get('/edit_ride_time/{ride_id}/{park_time_id}', 'Admin\GameTimeController@edit_ride_time')->name('editRideTime');
+
     Route::PATCH('daily_entrance_count', 'Admin\ParkTimeController@add_daily_entrance_count')->name('park_times.daily_entrance_count');
     Route::get('/all-rides/{park_id}/{time_slot_id}', 'Admin\GameTimeController@all_rides');
 
@@ -107,6 +109,8 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::Post('get-rsr-images', 'Admin\RsrReportController@getImage')->name('getRsrImage');
 
     Route::get('rides-status', 'Admin\ReportsController@rideStatus')->name('reports.rideStatus');
+    Route::get('stoppages-report', 'Admin\ReportsController@stoppagesReport')->name('reports.stoppagesReport');
+    Route::get('show-stoppages-report', 'Admin\ReportsController@showstoppagesReport')->name('reports.showStoppagesReport');
 
     Route::resource('incidents', 'Admin\IncidentController');//done
     Route::get('/add_incident_report/{ride_id}/{park_time_id}', 'Admin\IncidentController@add_incident_report')->name('addIncidentReport');
@@ -155,7 +159,10 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('/search_duty_summary_reports/', 'Admin\DutySummaryController@search')->name('searchDutySummaryReport');
 
     Route::resource('duty-report', 'Admin\RideOpsReportsController');
+    Route::get('inspection-list-report', 'Admin\ReportsController@inspectionListReport')->name('reports.inspectionListReport');
+    Route::get('show-inspection-list-report', 'Admin\ReportsController@showInspectionListReport')->name('reports.showInspectionListReport');
 
+    
     Route::resource('ride_parks', 'Admin\RideParkController');
     Route::get('/add_ride_park/{ride_id}', 'Admin\RideParkController@addRidePark')->name('addRidePark');
     Route::resource('ride_users', 'Admin\RideUserController');

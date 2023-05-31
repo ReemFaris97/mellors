@@ -39,6 +39,7 @@ Show Customer Feedback
                         @foreach ($files as $item)
                         <div class="col-sm-3">
                             <div class="flex-img">
+                                
                                 <a >
                                 <img class="img-preview" src="{{ Storage::disk('s3')->url($item) }}"
                                     style="height: 300px; width: 300px"></a>

@@ -79,6 +79,7 @@ Parks Time Slot
 
                         <tbody>
 
+                        
                             @foreach ($items as $item)
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                
@@ -273,7 +274,6 @@ Parks Time Slot
                                         data-url="{{ route('admin.ride-ops-reports.destroy', $item) }}"
                                         onclick="delete_form(this)">
                                         <i class="fa fa-close"></i>
-
                                     </a>
                                     @else
                                     <a href="{{url('add-ride-ops-report/'.$item->parks->id.'/'.$item->id)}}">

@@ -25,7 +25,7 @@ class GameTimeRequest extends FormRequest
     {
             $rules = [
                 'ride_id'=>'required',
-                'park_id'=>'required',
+                'park_time_id'=>'required',
                 'start'=>'nullable',
                 'end'=>'nullable',
                 'date'=>'nullable',

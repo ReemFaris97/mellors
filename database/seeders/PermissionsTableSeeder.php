@@ -15,7 +15,7 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissions = [
 
-                 [   
+ /*                 [   
                     'name' => 'role-list',   
                     'guard_name' => 'web',   
                     'title' => 'roles List',   
@@ -668,7 +668,20 @@ class PermissionsTableSeeder extends Seeder
                 'guard_name' => 'web',
                 'title' => 'delete ride_types',
                 'route_name' => 'admin.ride_types.destroy'
+            ], */
+            [
+                'name' => 'park_times.daily_entrance_count',
+                'guard_name' => 'web',
+                'title' => 'park_times.daily_entrance_count',
+                'route_name' => 'admin.park_times.daily_entrance_count'
             ],
+            [
+                'name' => 'editOpsReport',
+                'guard_name' => 'web',
+                'title' => 'edit Ops Report',
+                'route_name' => 'admin.editOpsReport'
+            ],
+
 
 
         ];

@@ -39,7 +39,6 @@
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment', 'rows'=>"1")) !!}
                                <input name="ride_id" type="hidden" class="ride-id" value={{$ride_id}}>
                                <input name="park_time_id" type="hidden" id="park-time-id" class="park-time-id" value={{$park_time_id}}>
-                               <input name="zone_id" type="hidden" class="zone-id" value={{$zone_id}}>
 
                            </td>
                        </tr>
@@ -109,7 +108,7 @@
 
                     }else {
                         swal({
-                         title: "Preopening List Already Exist !",
+                         title: "Error !",
                          icon: "danger",
                          buttons: ["Ok"],
                          

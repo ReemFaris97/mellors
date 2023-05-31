@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-Preopening Lists
+inspection Lists
 @endsection
 
 @section('content')
@@ -72,7 +72,6 @@ Preopening Lists
 @section('footer')
     @include('admin.datatable.scripts')
 @endsection
-
 
 
 

@@ -12,6 +12,7 @@ class RideStoppages extends Model
 
     protected $fillable = [
         'ride_id',
+        'park_id',
         'number_of_seats',
         'operator_number',
         'operator_name',
@@ -28,12 +29,23 @@ class RideStoppages extends Model
         'type',
         'time_slot_start',
         'time_slot_end',
-        'park_time_id','description'
+        'park_time_id','description','zone_id'
     ];
 
     public function ride()
     {
         return $this->belongsTo(Ride::class)->withDefault();
+    }
+    public function park()
+    {
+        return $this->belongsTo(Park::class)->withDefault();
+    }
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class,'zone_id')->withDefault([
+            'name'=>'not found'
+        ]);
+
     }
     public function stopageSubCategory()
     {

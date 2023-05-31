@@ -48,17 +48,22 @@ class GameTimeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(GameTimeRequest $request)
-    {  $dateExists = GameTime::where([
-        ['date',$request['date']],
-        ['ride_id', $request['ride_id']]
-    ])->first();
+    {  
+        $dateExists = GameTime::where([
+            ['park_time_id',$request['park_time_id']],
+            ['ride_id',$request['ride_id']]
+        ])->first();
         if ($dateExists){
-            alert()->error(' Time Slot Already Exist !');
-            return redirect()->back();
-        }
-
-        GameTime::create($request->validated());
-        alert()->success('Time Slot Added Successfully to the Ride !');
+            $gametime = GameTime::where([
+                ['park_time_id',$request['park_time_id']],
+                ['ride_id',$request['ride_id']]
+            ])->first();
+            $gametime->update($request->validated());
+            alert()->success('Ride Time Slot Updated Successfully !');
+                }else{
+                    GameTime::create($request->validated());
+                    alert()->success('Time Slot Added Successfully to the Ride !');
+                     }
         return redirect()->route('admin.park_times.index');
     }
 
@@ -90,8 +95,23 @@ class GameTimeController extends Controller
     public function edit($id)
     {
         $park_id=Ride::where('id',$id)->pluck('park_id')->first();
-        $time=ParkTime::where('park_id',$park_id)->where('date',date('Y-m-d'))->first();
+        $time=ParkTime::where('park_id',$park_id)->first();
         return view('admin.game_times.edit',compact('time','id','park_id'));
+
+    }
+    
+    public function edit_ride_time($ride_id,$park_time_id)
+    {
+        $dateExists = GameTime::where([
+            ['park_time_id',$park_time_id],
+            ['ride_id',$ride_id]
+        ])->first();
+        if ($dateExists){
+            $time=GameTime::where('park_time_id',$park_time_id)->where('ride_id',$ride_id)->first();
+        }else{
+        $time=ParkTime::findOrFail($park_time_id);
+        }
+        return view('admin.game_times.edit',compact('time','park_time_id','ride_id'));
 
     }
 
@@ -119,7 +139,7 @@ class GameTimeController extends Controller
         if ($gameTime){
 
             $gameTime->delete();
-            alert()->success('Open to Close Time  deleted successfully');
+            alert()->success('Time Slot deleted successfully');
             return back();
         }
         alert()->error('GameTime not found');

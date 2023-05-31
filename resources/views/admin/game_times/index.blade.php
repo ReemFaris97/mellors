@@ -49,9 +49,8 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->park->name }}</td>
                                 <td>
-                                    <a href="{{ route('admin.game_times.edit', $item) }}"
+                                <a href="{{url('edit_ride_time/'.$item->id.'/'.$park_time_id)}}"
                                            class="btn btn-info">Edit Time Slot</a>
-
                                 </td>
                                 <td>
                                     @if(auth()->user()->can('incidents-create'))
