@@ -28,7 +28,7 @@ class GameTimeController extends Controller
 
     public function all_times($id)
     {
-        $items=GameTime::where('date',date('Y-m-d'))->get()->where('park_id',$id);
+        $items=GameTime::where('park_time_id',$id)->get();
         return view('admin.game_times.all_games_times',compact('items'));
     }
 

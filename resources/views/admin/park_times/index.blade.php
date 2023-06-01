@@ -293,7 +293,7 @@ Parks Time Slot
                                 <a href="{{ url('all-rides/'.$item->parks->id.'/'.$item->id) }}"
                                         class="btn btn-info">All Rides </a>
 
-                                    <a href="{{url('game-all-times/'.$item->parks->id)}}">
+                                    <a href="{{url('game-all-times/'.$item->id)}}">
                                         <button type="button" class="btn btn-info">
                                             Rides with different time slot
                                         </button>

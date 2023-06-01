@@ -23,7 +23,7 @@ class IndexController extends Controller
         if (auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Visitor') ){
             $parks=Park::pluck('id');
         }else{
-            $parks=auth()->user()->parks->pluck('id')();
+            $parks=auth()->user()->parks->pluck('id');
         }
 $park_times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->pluck('id');
 
