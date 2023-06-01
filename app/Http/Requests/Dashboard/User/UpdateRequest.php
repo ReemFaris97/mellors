@@ -30,9 +30,9 @@ class UpdateRequest extends FormRequest
             'middle_name'=>'nullable',
             'last_name'=>'nullable',
             'branch_id'=>'required',
-            'department_id'=>'required',
+            'department_id'=>'nullable',
             'time_zone' => 'required', 'timezone',
-            'user_number'=>'required|unique:users,user_number,'.$this->route('user')->id,
+            'user_number'=>'nullable',
             'email'=>'required|email|unique:users,email,'.$this->route('user')->id,
 //            'password'=>'required|confirmed',
 

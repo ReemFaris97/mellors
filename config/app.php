@@ -183,6 +183,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Infinety\Alerts\AlertServiceProvider::class,
         RakibDevs\Weather\WeatherServiceProvider::class,
+        Aws\Laravel\AwsServiceProvider::class,
 
 
         /*
@@ -196,7 +197,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        App\Providers\RouteServiceProvider::class
 
     ],
 
@@ -213,6 +214,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Weather' => RakibDevs\Weather\Weather::class,	
+        'AWS' => Aws\Laravel\AwsFacade::class,
 
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),

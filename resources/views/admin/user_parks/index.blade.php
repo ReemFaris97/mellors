@@ -1,13 +1,12 @@
 @extends('admin.layout.app')
 
 @section('title')
-Departments
+Ride Types 
 @endsection
 
 @section('content')
 
     <div class="card-box">
-
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">
@@ -18,7 +17,7 @@ Departments
                                 colspan="1" aria-sort="ascending">ID
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Department name
+                            Ride Type 
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
@@ -33,18 +32,17 @@ Departments
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
-                                {!!Form::open( ['route' => ['admin.departments.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::open( ['route' => ['admin.ride_types.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
-                                <td>  
-
-                                     @if(auth()->user()->can('departments-edit'))
-                                        <a href="{{ route('admin.departments.edit', $item) }}"
+                                <td>
+                                    @if(auth()->user()->can('ride_types-edit'))
+                                        <a href="{{ route('admin.ride_types.edit', $item) }}"
                                            class="btn btn-info">Edit</a>
-                                           @endif
-                                           @if(auth()->user()->can('departments-delete'))
+                                    @endif
+                                        @if(auth()->user()->can('ride_types-delete'))
 
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                           data-url="{{ route('admin.departments.destroy', $item) }}"
+                                           data-url="{{ route('admin.ride_types.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>
@@ -69,8 +67,8 @@ Departments
 
 @endsection
 
-
 @section('footer')
     @include('admin.datatable.scripts')
 @endsection
+
 

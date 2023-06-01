@@ -65,16 +65,16 @@
                                            @endif
                                 </td>
                                 <td>
-                                @if(auth()->user()->can('rides-stoppages-list'))
+                                @if(auth()->user()->can('showStoppages'))
 
                                     <a href="{{url('show_stoppages/'.$item->id.'/'.$park_time_id)}}"
                                            class="btn btn-primary"><i class="fa fa-plus"></i>Stoppages</a>
                                 @endif
-                                @if(auth()->user()->can('rides-cycles-list'))
+                                @if(auth()->user()->can('showCycles'))
                                    <a href="{{url('show_cycles/'.$item->id.'/'.$park_time_id)}}"
                                            class="btn btn-primary"><i class="fa fa-plus"></i>Cycles</a>
                                 @endif
-                                @if(auth()->user()->can('queues-list'))      
+                                @if(auth()->user()->can('showQueues'))      
                                     <a href="{{url('show_queues/'.$item->id.'/'.$park_time_id)}}"
                                            class="btn btn-primary"><i class="fa fa-plus"></i>Queues</a>
                                  @endif

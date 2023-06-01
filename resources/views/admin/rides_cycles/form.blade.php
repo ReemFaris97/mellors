@@ -60,7 +60,7 @@
     <div class="form-group">
         <label class="col-lg-12">Sales:</label>
         <div class="  ">
-            {!! Form::number("sales",null,['class'=>'form-control','placeholder'=>'Salles'])!!}
+            {!! Form::number("sales",null,['class'=>'form-control','placeholder'=>'Sales'])!!}
             @error('sales')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}

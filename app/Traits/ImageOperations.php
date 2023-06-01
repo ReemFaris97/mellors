@@ -62,10 +62,9 @@ trait ImageOperations
         foreach ($request['image'] as $key => $image) {
            // $imageName = $path = \Storage::disk('public')->putFile('photos', $image);
            $imageName =time().$image->getClientOriginalName();
-           $path= Storage::putFile('images',$image,$imageName);
+            $path= Storage::putFile('images',$image,$imageName);
           
-           $model->create(['image' => $imageName] + $item);
-           return $path;
+           $model->create(['image' => $path] + $item);
 
         }
 

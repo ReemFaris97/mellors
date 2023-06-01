@@ -31,7 +31,7 @@ class StoreRequest extends FormRequest
             'branch_id'=>'required',
             'department_id'=>'required',
             'last_name'=>'nullable',
-            'user_number'=>'required|unique:users',
+            'user_number'=>'required|unique:users,user_number',
             'email'=>'required|email|unique:users,email',
             'password'=>'required|confirmed',
             'time_zone' => 'required', 'timezone'

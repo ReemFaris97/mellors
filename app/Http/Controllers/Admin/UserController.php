@@ -26,8 +26,13 @@ class UserController extends Controller
      */
     public function index()
     {
+
         $items=User::all();
-        return view('admin.users.index',compact('items'));
+        $users=User::pluck('id');
+        $user_zones_exist=UserZone::wherein('user_id',$users)->distinct()->pluck('user_id')->toArray();
+        $user_parks_exist=UserPark::wherein('user_id',$users)->distinct()->pluck('user_id')->toArray();
+//dd($user_exist);
+        return view('admin.users.index',compact('items','user_zones_exist','user_parks_exist'));
     }
 
     /**
@@ -54,15 +59,6 @@ class UserController extends Controller
     {
         $user=User::create($request->validated());
         $user->assignRole($request->input('roles'));
-        $user = User::find($user->id);
-        if(isset($request['park_id'])) {
-            $parkIds = $request['park_id'];
-            $user->parks()->sync($parkIds);
-        }
-        if(isset($request['zone_id'])) {
-            $zoneIds = $request['zone_id'];
-            $user->zones()->sync($zoneIds);
-        }
 
         alert()->success('User added successfully !');
         return  redirect()->route('admin.users.index');
@@ -80,13 +76,12 @@ class UserController extends Controller
         $branches = Branch::pluck('name','id')->all();
         $userRole = $user->roles()->first()->id ?? null;
         $departments = Department::pluck('name','id')->all();
-        $userparksIds=$user->parks->pluck('id')->toArray();
+/*         $userparksIds=$user->parks->pluck('id')->toArray();
         $userzonesIds=$user->zones->pluck('id')->toArray();
         $parks=Park::get();
-        $zones=Zone::get();
+        $zones=Zone::get(); */
         return  view('admin.users.edit')->with(['user'=>$user,'roles'=>$roles,
-            'userRole'=>$userRole,'departments'=>$departments,'branches'=>$branches,'zones'=>$zones,
-            'parks'=>$parks,'userzonesIds'=>$userzonesIds,'userparksIds'=>$userparksIds]);
+        'userRole'=>$userRole,'departments'=>$departments,'branches'=>$branches]);
     }
 
     /**

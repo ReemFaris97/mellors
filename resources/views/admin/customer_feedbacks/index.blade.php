@@ -7,11 +7,12 @@
 @section('content')
 
     <div class="card-box">
+    @if(auth()->user()->can('searchCustomerFeedBack'))
         <form class="formSection" action="{{url('/search_customer_feedbacks')}}" method="GET">
 
         @csrf
 
-        <div class="row">
+    <div class="row">
     <div class='col-md-5'>
         <div class="form-group">
             <label for="last_name">Select Ride</label>
@@ -31,6 +32,7 @@
     </div>
 </div>
         {!!Form::close() !!}
+        @endif
       @if(isset($customer_feedbacks))
 
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -64,9 +66,12 @@
                                 <td>{{ $item->type }}</td>
                                 {!!Form::open( ['route' => ['admin.customer_feedbacks.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
-                                <td>
+                                <td>   @if(auth()->user()->can('customer_feedbacks-list'))
+
                                     <a href="{{ route('admin.customer_feedbacks.show', $item) }}"
                                        class="btn btn-primary">Show</a>
+                                       @endif
+
                                     @if(auth()->user()->can('customer_feedbacks-delete'))
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.customer_feedbacks.destroy', $item) }}"

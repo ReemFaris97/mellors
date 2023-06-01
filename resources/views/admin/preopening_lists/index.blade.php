@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-inspection Lists
+Inspection Lists
 @endsection
 
 @section('content')

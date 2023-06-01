@@ -669,21 +669,159 @@ class PermissionsTableSeeder extends Seeder
                 'title' => 'delete ride_types',
                 'route_name' => 'admin.ride_types.destroy'
             ], */
-            [
-                'name' => 'park_times.daily_entrance_count',
+           [
+                'name' => 'daily_entrance_count',
                 'guard_name' => 'web',
-                'title' => 'park_times.daily_entrance_count',
+                'title' => 'Add daily entrance count',
                 'route_name' => 'admin.park_times.daily_entrance_count'
             ],
             [
-                'name' => 'editOpsReport',
+                'name' => 'editRideTime',
                 'guard_name' => 'web',
-                'title' => 'edit Ops Report',
-                'route_name' => 'admin.editOpsReport'
+                'title' => 'edit Ride Time',
+                'route_name' => 'admin.editRideTime'
+            ],
+            [
+                'name' => 'uploadStoppagesExcleFile',
+                'guard_name' => 'web',
+                'title' => 'upload Stoppages Excle File',
+                'route_name' => 'admin.uploadStoppagesExcleFile'
+            ],
+            [
+                'name' => 'showStoppages',
+                'guard_name' => 'web',
+                'title' => 'show Stoppages',
+                'route_name' => 'admin.showStoppages'
+            ],
+            [
+                'name' => 'uploadQueueExcleFile',
+                'guard_name' => 'web',
+                'title' => 'upload Queue ExcleFile',
+                'route_name' => 'admin.uploadQueueExcleFile'
+            ],
+            [
+                'name' => 'uploadCycleExcleFile',
+                'guard_name' => 'web',
+                'title' => 'upload Cycle ExcleFile',
+                'route_name' => 'admin.uploadCycleExcleFile'
             ],
 
+            [
+                'name' => 'showCycles',
+                'guard_name' => 'web',
+                'title' => 'show Cycles',
+                'route_name' => 'admin.showCycles'
+            ],
+            [
+                'name' => 'showQueues',
+                'guard_name' => 'web',
+                'title' => 'show Queues',
+                'route_name' => 'admin.showQueues'
+            ],
+            [
+                'name' => 'showPreopeningList',
+                'guard_name' => 'web',
+                'title' => 'show Inspection List',
+                'route_name' => 'admin.showPreopeningList'
+            ],
 
+            [
+                'name' => 'cheackRideInspectionList',
+                'guard_name' => 'web',
+                'title' => 'cheackRideInspectionList',
+                'route_name' => 'admin.cheackRideInspectionList'
+            ],
+            [
+                'name' => 'showStoppagesReport',
+                'guard_name' => 'web',
+                'title' => 'show Stoppages Report',
+                'route_name' => 'admin.reports.showStoppagesReport'
+            ],
+            [
+                'name' => 'stoppagesReport',
+                'guard_name' => 'web',
+                'title' => 'stoppages Report',
+                'route_name' => 'admin.reports.stoppagesReport'
+            ],
+            [
+                'name' => 'rideStatus',
+                'guard_name' => 'web',
+                'title' => 'ride Status report',
+                'route_name' => 'admin.reports.rideStatus'
+            ],
 
+            [
+                'name' => 'searchCustomerFeedBack',
+                'guard_name' => 'web',
+                'title' => 'search Customer FeedBack',
+                'route_name' => 'admin.searchCustomerFeedBack'
+            ],
+            [
+                'name' => 'searchDutySummaryReport',
+                'guard_name' => 'web',
+                'title' => 'search DutySummary Report',
+                'route_name' => 'admin.searchDutySummaryReport'
+            ],
+            [
+                'name' => 'addRideZone',
+                'guard_name' => 'web',
+                'title' => 'add Ride Zone',
+                'route_name' => 'admin.addRideZone'
+            ],
+            [
+                'name' => 'addRidePark',
+                'guard_name' => 'web',
+                'title' => 'add Ride Park',
+                'route_name' => 'admin.addRidePark'
+            ],
+            [ 
+                'name' => 'duty-report-list',
+                'guard_name' => 'web',
+                'title' => 'duty report list',
+                'route_name' => 'admin.duty-report.index,admin.duty-report.show'
+            ],
+            [ 
+                'name' => 'inspectionListReport',
+                'guard_name' => 'web',
+                'title' => 'inspection List Report',
+                'route_name' => 'admin.inspectionListReport'
+            ],
+            [ 
+                'name' => 'user_zones-list',
+                'guard_name' => 'web',
+                'title' => 'user zones list',
+                'route_name' => 'admin.user_zones.index,admin.user_zones.show'
+            ],
+            [
+                'name' => 'user_zones-create',
+                'guard_name' => 'web',
+                'title' => 'add user zones',
+                'route_name' => 'admin.user_zones.create,admin.user_zones.store'
+            ],
+            [
+                'name' => 'user_zones-edit',
+                'guard_name' => 'web',
+                'title' => 'update user zones',
+                'route_name' => 'admin.user_zones.edit,admin.user_zones.update'
+            ],
+            [ 
+                'name' => 'user_parks-list',
+                'guard_name' => 'web',
+                'title' => 'user parks list',
+                'route_name' => 'admin.user_parks.index,admin.user_parks.show'
+            ],
+            [
+                'name' => 'user_parks-create',
+                'guard_name' => 'web',
+                'title' => 'add user zones',
+                'route_name' => 'admin.user_parks.create,admin.user_parks.store'
+            ],
+            [
+                'name' => 'user_parks-edit',
+                'guard_name' => 'web',
+                'title' => 'update user parks',
+                'route_name' => 'admin.user_parks.edit,admin.user_parks.update'
+            ],
         ];
         \DB::table('permissions')->insert($permissions);
     }

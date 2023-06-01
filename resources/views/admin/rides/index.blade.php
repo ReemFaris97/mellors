@@ -87,19 +87,22 @@
                                 <td>{{ $item->zone->name ?? ""}}</td>
                                 {!!Form::open( ['route' => ['admin.rides.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
-                                <td>
+                                <td> @if(auth()->user()->can('addRidePark'))
                                         <a href="{{ route('admin.addRidePark', $item->id) }}"
                                         class=" btn {{($item->park_id == null)? 'btn-info' : 'btn-success'}}">
                                         <i class="fa {{($item->park_id == null)? 'fa-plus' : 'fa-edit'}}"></i>
                                         Assign
                                         </a>
+                                        @endif
                                 </td>
-                                <td>
+                                <td> @if(auth()->user()->can('addRideZone'))
                                         <a href="{{ route('admin.addRideZone', $item->id) }}"
                                         class=" btn {{($item->zone_id == null)? 'btn-info' : 'btn-success'}}">
                                         <i class="fa {{($item->zone_id == null)? 'fa-plus' : 'fa-edit'}}"></i>
                                         Assign
                                         </a>
+                                        @endif
+
                                 </td>
                              <!--    <td>
                                         <a href="{{ route('admin.addRideUser', $item->id) }}"
@@ -108,15 +111,21 @@
                                         Assign
                                         </a>
                                 </td> -->
-                                <td>
+                                <td>                                   
+                                         @if(auth()->user()->can('rides-edit'))
+
                                         <a href="{{ route('admin.rides.edit', $item) }}"
                                            class="btn btn-info">Edit</a>
+                                           @endif
+                                           @if(auth()->user()->can('rides-delete'))
 
                                            <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.rides.destroy', $item) }}"
                                            onclick="delete_form(this)"> 
                                             Delete
-                                        </a>
+                                        </a>   
+                                             @endif
+
                                 </td>
 
                             </tr>

@@ -116,10 +116,17 @@
                                 {!!Form::open( ['route' => ['admin.rides-stoppages.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
+                                @if(auth()->user()->can('rsr_reports-creat'))
+
                                     <a href="{{url('add_rsr_stoppage_report/'.$item->id)}}"
                                        class="btn btn-info">Add RSR report</a>
+                                       @endif
+                                       @if(auth()->user()->can('rides-stoppages-edit'))
+
                                     <a href="{{ route('admin.rides-stoppages.edit', $item) }}"
                                        class="btn btn-info">Edit</a>
+                                       @endif
+                                       @if(auth()->user()->can('rides-stoppages-delete'))
 
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.rides-stoppages.destroy', $item) }}"

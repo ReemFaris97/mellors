@@ -45,11 +45,15 @@ Accident Reports
                                 <td>
                                         <!-- <a href="{{ route('admin.accidents.edit', $item) }}"
                                            class="btn btn-info">Edit</a> -->
+                                           @if(auth()->user()->can('accidents-delete'))
+
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.accidents.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>
+                                         @endif
+
 
                                 </td>
 

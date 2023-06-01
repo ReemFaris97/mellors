@@ -21,7 +21,12 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Name
                             </th>
-
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                User Park
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                User Zone
+                            </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
                             </th>
@@ -34,7 +39,37 @@
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
+                                <td> @if(auth()->user()->can('user_parks-edit'))
+                                       @if(in_array($item->id, $user_parks_exist))
+                                        <a href="{{ route('admin.user_parks.edit', $item) }}"
+                                            class=" btn btn-success">
+                                            <i class="fa fa-edit"></i>Edit
+                                    @endif
+                                        @else
+                                        @if(auth()->user()->can('user_parks-create'))
+                                        <a href="{{ route('admin.addUserPark', $item->id) }}"
+                                            class=" btn btn-info">
+                                            <i class="fa fa-plus"></i>Add
+                                            </a>
+                                        @endif
+                                        @endif
+                                </td>
+                                <td> @if(auth()->user()->can('user_zones-edit'))
+                                        @if(in_array($item->id, $user_zones_exist))
+                                        <a href="{{ route('admin.user_zones.edit', $item) }}"
+                                            class=" btn btn-success">
+                                            <i class="fa fa-edit"></i>Edit
+                                            @endif
+                                        @else
+                                        @if(auth()->user()->can('user_zones-create'))
+                                        <a href="{{ route('admin.addUserZone', $item->id) }}"
+                                            class=" btn btn-info">
+                                            <i class="fa fa-plus"></i>Add
+                                            </a>
+                                            @endif
 
+                                        @endif
+                                </td>
                                 <td>
                                     @if(auth()->user()->can('users-edit'))
                                         <a href="{{ route('admin.users.edit', $item) }}"

@@ -103,12 +103,14 @@
                                 {!!Form::open( ['route' => ['admin.rides-cycles.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
+                                @if(auth()->user()->can('rides-cycles-delete'))
+
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.rides-cycles.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>
-
+                                @endif
                                 </td>
 
                             </tr>

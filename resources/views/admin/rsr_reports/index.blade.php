@@ -61,7 +61,7 @@
                                 {!!Form::open( ['route' => ['admin.rsr_reports.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                    @if(auth()->user()->can('rsr_reports-edit'))
+                                    @if(auth()->user()->can('rsr_reports-list'))
                                         <a href="{{ route('admin.rsr_reports.show', $item) }}"
                                            class="btn btn-primary">Show</a>
                                     @endif

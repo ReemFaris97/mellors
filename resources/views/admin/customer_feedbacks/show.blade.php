@@ -32,16 +32,16 @@ Show Customer Feedback
 
             </div>
             <div class="form-group">
-                @if (isset($files))
+                @if (isset($images))
                 <div class="form-group">
                     <label class=" bold title">Images :</label>
                     <div class="form-line row">
-                        @foreach ($files as $item)
+                        @foreach ($images as $item)
                         <div class="col-sm-3">
                             <div class="flex-img">
                                 
                                 <a >
-                                <img class="img-preview" src="{{ Storage::disk('s3')->url($item) }}"
+                                <img class="img-preview" src="{{ Storage::disk('s3')->url(basename($item->image)) }}"
                                     style="height: 300px; width: 300px"></a>
                             </div>
                         </div>

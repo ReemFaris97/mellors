@@ -41,15 +41,14 @@ Incident Reports
                                 {!!Form::open( ['route' => ['admin.incidents.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>
-                                    {{--@if(auth()->user()->can('incidents-edit'))--}}
-                                        {{--<a href="{{ route('admin.incidents.edit', $item) }}"--}}
-                                           {{--class="btn btn-info">Edit</a>--}}
-                                    {{--@endif--}}
+                                    @if(auth()->user()->can('incidents-delete'))
+                                       
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.incidents.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>
+                                        @endif
 
                                 </td>
 

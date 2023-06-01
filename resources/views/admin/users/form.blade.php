@@ -45,8 +45,8 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="last_name">Employee Number</label>
-    {!! Form::number('user_number',null,['class'=>'form-control','id'=>'last_name','placeholder'=>'Employee Number'])
+    <label for="user_number">Employee Number</label>
+    {!! Form::number('user_number',null,['class'=>'form-control','id'=>'user_number','placeholder'=>'Employee Number'])
     !!}
     @error('user_number')
     <div class="invalid-feedback" style="color: #ef1010">
@@ -134,42 +134,6 @@
     @enderror
 </div>
 
-<div class="form-group">
-    <label>User Park (choose branch first):</label>
-   @if(isset($parks))
-   
-   <select name="park_id[]" class="custom-select form-control " id="park" multiple="multiple">
-            @foreach($parks as $park)
-           <option value="{{ $park->id }}" {{ in_array($park->id, $userparksIds) ? 'selected' : '' }} > {{ $park->name}}</option>   
-         @endforeach
-   
-</select>
-   @else
-    {!! Form::select('park_id[]',[],null,array('class' => 'form-control
-        custom-select','multiple'=>"",'id'=>'park'))
-    !!}
-    @endif
-  
-</div>
-<div class="form-group">
-    <label>User Zone (choose branch first):</label>
-    @if(isset($zones))
-   <select name="zone_id[]" class="custom-select form-control " id="zone" multiple="multiple">
-            @foreach($zones as $zone)
-            <option  value="{{ $zone->id }}" @if(in_array($zone->id , $userzonesIds)) selected @endif>{{ $zone->name }}</option>
-            @endforeach
-   </select>
-   @else
-    {!! Form::select('zone_id[]',[],null, array('class' => 'form-control
-        custom-select','multiple'=>"",'id'=>'zone'))
-    !!}
-    @endif
-    @error('zone_id')
-    <div class="invalid-feedback" style="color: #ef1010">
-        {{ $message }}
-    </div>
-    @enderror
-</div>
 
 <div class="form-group">
     <div class="input-group-btn">
@@ -177,29 +141,7 @@
     </div>
 </div>
 @push('scripts')
-<script type="text/javascript">
-$("#branch").change(function() {
-    $.ajax({
-        url: "{{ route('admin.parks.get_by_branch') }}?branch_id=" + $(this).val(),
-        method: 'GET',
-        success: function(data) {
-            $('#park').html(data.html);
-        }
-    });
-});
 
-</script>
-<script type="text/javascript">
-$("#branch").change(function() {
-    $.ajax({
-        url: "{{ route('admin.zones.get_by_branch') }}?branch_id=" + $(this).val(),
-        method: 'GET',
-        success: function(data) {
-            $('#zone').html(data.html);
-        }
-    });
-});
-</script>
 
 
 @endpush
