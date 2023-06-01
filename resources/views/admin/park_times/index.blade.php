@@ -60,6 +60,10 @@ Parks Time Slot
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
+                                    Weather
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1">
                                     Daily Entrance Count & General Comment
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
@@ -93,6 +97,7 @@ Parks Time Slot
                                 <td>{{ $item->close_date }}</td>
                                 <td>{{ $item->end }}</td>
                                 <td>{{ $item->duration_time }}</td>
+                                <td>{{ $item->temp}} ْ - {{ $item->general_weather}}</td>
                                 <td>
                                     @if($item->daily_entrance_count ===null)
                                     <button type="button" class="btn btn-info waves-effect " data-toggle="modal"
