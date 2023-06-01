@@ -813,9 +813,9 @@ class PermissionsTableSeeder extends Seeder
             [
                 'name' => 'user_parks-create',
                 'guard_name' => 'web',
-                'title' => 'add user zones',
+                'title' => 'add user parks',
                 'route_name' => 'admin.user_parks.create,admin.user_parks.store'
-            ],
+            ],//edit
             [
                 'name' => 'user_parks-edit',
                 'guard_name' => 'web',
