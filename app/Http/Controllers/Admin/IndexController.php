@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Models\ParkTime;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
+//use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -95,8 +97,11 @@ $total_riders= DB::table('rides')
     
  foreach ($rides as $ride) {
      $now = Carbon::now();
-     $start = Carbon::createFromTimeString("$ride->date $ride->start");
-     $end = Carbon::createFromTimeString("$ride->close_date $ride->end");
+     $start = Carbon::createFromFormat('Y-m-d H:i:s', "{$ride->date} {$ride->start}");
+     $end = Carbon::createFromFormat('Y-m-d H:i:s', "{$ride->close_date} {$ride->end}");
+    // $start = Carbon::createFromTimeString("$ride->date $ride->start");
+    // $end = Carbon::createFromTimeString("$ride->close_date $ride->end");
+    //return $start;
      if ($now->between($start, $end)) {
          if ($ride->stoppageRideStatus != null) {
              $ride->available = $ride->stoppageRideStatus;

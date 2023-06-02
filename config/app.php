@@ -215,6 +215,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'Weather' => RakibDevs\Weather\Weather::class,	
         'AWS' => Aws\Laravel\AwsFacade::class,
+        'Carbon' => Illuminate\Support\Carbon::class,
+
 
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),

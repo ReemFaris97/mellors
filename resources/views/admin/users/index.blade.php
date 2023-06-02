@@ -61,7 +61,7 @@
                                             class=" btn btn-info">
                                             <i class="fa fa-plus"></i>Add
                                             </a>
-                                            @endif
+                                         @endif
 
                                 </td>
                                 <td>
