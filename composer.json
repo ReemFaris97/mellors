@@ -23,7 +23,6 @@
         "league/flysystem-ftp": "3.0",
         "league/flysystem-sftp-v3": "3.0",
         "maatwebsite/excel": "^3.1",
-        "nesbot/carbon": "*",
         "proengsoft/laravel-jsvalidation": "^4.7",
         "rakibdevs/openweather-laravel-api": "^1.9",
         "realrashid/sweet-alert": "^5.1",
