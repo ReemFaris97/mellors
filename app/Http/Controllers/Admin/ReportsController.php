@@ -34,8 +34,8 @@ class ReportsController extends Controller
             ])->get();
         foreach ($rides as $ride) {
             $now = Carbon::now();
-            $start = Carbon::createFromTimeString($ride->start);
-            $end = Carbon::createFromTimeString($ride->end);
+            $start = Carbon::createFromFormat('Y-m-d H:i:s', "{$ride->date} {$ride->start}");
+            $end = Carbon::createFromFormat('Y-m-d H:i:s', "{$ride->close_date} {$ride->end}");
             if ($now->between($start, $end)) {
                 if ($ride->stoppageRideStatus != null ){
                     $ride->available=$ride->stoppageRideStatus;
