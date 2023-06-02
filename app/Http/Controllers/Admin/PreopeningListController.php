@@ -51,7 +51,7 @@ class PreopeningListController extends Controller
     public function add_preopening_list_to_ride($ride_id,$park_time_id)
     {
        $inspections=RideInspectionList::where('ride_id',$ride_id)->get();
-//     return $inspections; 
+   // return $inspections; 
        $ride=Ride::findOrFail($ride_id);
        $zone_id=$ride->zone_id;
        return view('admin.preopening_lists.add',compact('inspections','ride_id','zone_id','park_time_id'));

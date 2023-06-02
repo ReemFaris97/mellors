@@ -4,7 +4,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
 
         <div class="form-group">
-
+@if(isset($inspections))
             <div class="row">
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                     <thead>
@@ -51,6 +51,12 @@
         <button class="btn btn-primary save_btn waves-effect" type="submit">Save</button>
     </div>
 </div>
+@else
+
+<lable>No Check Elementes Added To Ride Yet</lable>
+@endif
+
+
         </div>
     </div>
 </div>
