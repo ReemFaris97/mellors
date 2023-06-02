@@ -28,7 +28,7 @@ class ReportsController extends Controller
             ->select([
                 DB::raw('rides.*'),
                 DB::raw('parks.name as parkName'),
-                DB::raw('park_times.start,park_times.end'),
+                DB::raw('park_times.start,park_times.end,park_times.date,park_times.close_date'),
                 DB::raw('ride_stoppages.ride_status as stoppageRideStatus,ride_stoppages.ride_notes,ride_stoppages.description as rideSroppageDescription'),
 
             ])->get();
