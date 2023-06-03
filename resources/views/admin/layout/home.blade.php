@@ -5,7 +5,116 @@ Main Page
 @stop
 
 @section('content')
+@foreach($times as $time )
+<div class="row">
+    <div class="col-lg-12 col-xs-12">
+        <div class='contentRide'>
+        <h3>{{ $time->parks->name }}: {{ $time->duration_time?? 0 ." minute" }}
+            </h3>
+            <p> {{ $time->date }} : ( {{$time->start}} - {{ $time->end }} )</p>
+            <div class="row">
+                @foreach ($rides as $ride )
+                @if ($ride->park_id === $time->parks->id)
+                @if ($ride->available == "active")
+                <div class="col-lg-1 col-md-6 yes cardGame">
+                    <div class="card-box">
+                        <h4 class="header-title m-t-0 m-b-15">{{$ride->name}}</h4>
+                    </div>
+                </div>
+                @elseif($ride->available == "stopped" || "closed")
+                <div class="col-lg-1 col-md-6 no cardGame">
+                    <div class="card-box">
+                        <h4 class="header-title m-t-0 m-b-15">{{$ride->name}}</h4>
+                    </div>
+                </div>
+                @endif
+                @endif
+                @endforeach
+            </div>
+     <div class="row">
+       <div class="col-lg-6 col-xs-12">
+       <h4> Total Riders : 
+        @foreach($total_riders as $total_rider_id => $total_rider_rides)
+        @if ($total_rider_id === $time->id)
+             @foreach($total_rider_rides as $ride)
+              {{ $ride->total_rider }} 
+             @endforeach
+        @endif
+        @endforeach
+        </h4>
+            @foreach($cycles as $cycle_rides)
+            @foreach($queues as $queue)
+                @if ($cycle_rides->park_time_id === $time->id & $queue->park_time_id === $time->id )
+                <ul>
+                @if ($cycle_rides->ride_cat ==='family' &$queue->ride_cat ==='family' )
 
+                <li>Family Riders :{{$cycle_rides->total_rider}} 
+                           -  Avg Queue :{{$queue->avg_queue_minutes}} min 
+                           -  Avg Cycles : {{$cycle_rides->avg_duration}} Sec
+               </li>
+               @endif 
+
+               @if ($cycle_rides->ride_cat ==='thrill' & $queue->ride_cat ==='thrill' )
+
+               <li>Thrill Riders :{{ $cycle_rides->total_rider}} 
+                          - Avg Queue :{{$queue->avg_queue_minutes}} min 
+                          - Avg Cycles : {{ $cycle_rides->avg_duration}}
+               </li>
+               @endif 
+               @if ($cycle_rides->ride_cat ==='kids' & $queue->ride_cat ==='kids' )
+
+               <li>Kids Riders :{{ $cycle_rides->total_rider}} 
+                         - Avg Queue :{{ $queue->avg_queue_minutes }} min 
+                         - Avg Cycles : {{ $cycle_rides->avg_duration}}
+               </li>
+               @endif 
+
+                </ul>
+            @endif 
+            @endforeach
+            @endforeach
+
+            </div>
+
+        <div class="col-lg-6 col-xs-12">
+        
+   
+        </div>
+
+       
+      </div>
+
+
+        </div>
+    </div>
+
+</div>
+@endforeach
+
+
+<!-- <div class='contentRide'>
+        <div class="Description">
+            <div class="contentDescription">
+                <h4 class="bold">title</h4>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, minima soluta omnis commodi
+                    exercitationem laboriosam iure laudantium porro asperiores totam fuga quam ab. Eaque blanditiis
+                    perferendis enim repudiandae neque voluptas!</p>
+            </div>
+            <div class="contentDescription">
+                <h4 class="bold">title</h4>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, minima soluta omnis commodi
+                    exercitationem laboriosam iure laudantium porro asperiores totam fuga quam ab. Eaque blanditiis
+                    perferendis enim repudiandae neque voluptas!</p>
+            </div>
+            <div class="contentDescription">
+                <h4 class="bold">title</h4>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, minima soluta omnis commodi
+                    exercitationem laboriosam iure laudantium porro asperiores totam fuga quam ab. Eaque blanditiis
+                    perferendis enim repudiandae neque voluptas!</p>
+            </div>
+
+        </div>
+    </div> -->
 <div class=" row">
 
     <div class="col-lg-3 col-md-6">
@@ -206,3 +315,22 @@ Main Page
 </div>
 
 @stop
+
+@push('scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $('.cardGame').each(function() {
+        if ($(this).hasClass("yes")) {
+            $(this).addClass("yesImportant");
+            console.log("$(this)")
+
+        } else if ($(this).hasClass("no")) {
+            $(this).addClass("noImportant")
+        }
+    });
+
+
+});
+</script>
+@endpush

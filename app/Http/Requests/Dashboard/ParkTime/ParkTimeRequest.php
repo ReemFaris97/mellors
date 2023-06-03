@@ -30,7 +30,7 @@ class ParkTimeRequest extends FormRequest
             'end' => 'required',
             'date' => 'required',
             'daily_entrance_count'=>'nullable',
-            'close_date'=>'nullable'
+            'close_date'=>'required'
 
         ];
         if ($this->getMethod() == 'PATCH') {

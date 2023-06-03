@@ -37,8 +37,6 @@ class ReportsController extends Controller
             $startDateTime = Carbon::parse("$ride->date $ride->start");
             $endDateTime = Carbon::parse("$ride->close_date $ride->end");
 
-            //$start = Carbon::createFromFormat('Y-m-d H:i:s', "{$ride->date} {$ride->start}");
-            //$end = Carbon::createFromFormat('Y-m-d H:i:s', "{$ride->close_date} {$ride->end}");
             if ($now->between($startDateTime, $endDateTime)) {
 
                 if ($ride->stoppageRideStatus != null ){
