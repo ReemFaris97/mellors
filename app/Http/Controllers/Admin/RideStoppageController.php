@@ -133,7 +133,10 @@ class RideStoppageController extends Controller
         $data=$request->validated();
         $park_time=ParkTime::findOrFail($request['park_time_id']);
         $duration=$park_time->duration_time;
-      
+        if($data['type']=='all_day')
+        {
+            $data['down_minutes']=$duration;
+        }
 /*         if ( $data['stoppage_status']="working" && $request->ride_status == "stopped"){
             $data['stoppage_status']="working";
         }elseif ($request->ride_status == "active"){
