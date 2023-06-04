@@ -79,12 +79,17 @@ class RideStoppageController extends Controller
         $park_time=ParkTime::findOrFail($park_time_id);
         $park_id=$park_time->park_id;
         $opened_date=$park_time->date;
+        $duration=$park_time->duration_time;
         $data=$request->validated();
         $data['opened_date'] = $opened_date;
         $data['park_id'] = $park_id;
         $data['zone_id'] = $zone_id;
         $data['user_id']= auth()->user()->id;
         $data['ride_status']="stopped";
+        if($data['type']=='all_day')
+        {
+            $data['down_minutes']=$duration;
+        }
         $data['time']=Carbon::now()->toTimeString();
         $stoppage=RideStoppages::create($data);
         if ($request->has('images')) {
@@ -109,20 +114,26 @@ class RideStoppageController extends Controller
     public function edit($id)
     {
         $item = RideStoppages::findOrFail($id);
+        $park_time_id= $item->park_time_id;
         $ride_status=$item->ride_status;
-        $rides = Ride::pluck('name', 'id')->all();;
-        $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
-        $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
+        $rides = Ride::pluck('name','id')->all();
+        $stopage_category = StopageCategory::pluck('name','id')->toArray();
+        $stopage_sub_category = StopageSubCategory::pluck('name','id')->toArray();
         $users = User::pluck('name', 'id')->toArray();
         $album=$item->album;
-        return view('admin.rides_stoppages.edit', compact('item','stopage_category', 'rides', 'stopage_sub_category', 'users','album'));
+        return view('admin.rides_stoppages.edit', compact('item','park_time_id','stopage_category', 'rides', 'stopage_sub_category', 'users','album'));
 
     }
 
     public function update(RideStoppageRequest $request,$id)
     {
+//dd($request);
         $item = RideStoppages::findOrFail($id);
+        $ride_id=$item->ride_id;
         $data=$request->validated();
+        $park_time=ParkTime::findOrFail($request['park_time_id']);
+        $duration=$park_time->duration_time;
+      
 /*         if ( $data['stoppage_status']="working" && $request->ride_status == "stopped"){
             $data['stoppage_status']="working";
         }elseif ($request->ride_status == "active"){
@@ -130,8 +141,12 @@ class RideStoppageController extends Controller
         } */
         if ( $data['stoppage_status']="working" || $data['stoppage_status']="pending"){
             $data['ride_status']="stopped";
+            $data['stoppage_status']=$request['stoppage_status'];
         }else{
             $data['ride_status']="active";
+            $data['down_minutes']="0";
+            $data['stoppage_status']=$request['stoppage_status'];
+
         }
         $item->update($data);
 
@@ -139,7 +154,7 @@ class RideStoppageController extends Controller
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' =>$id]);
         }
         alert()->success('Ride Stoppage Updated successfully !');
-        return redirect()->route('admin.rides-stoppages.index');
+        return redirect()->route('admin.showStoppages', ['ride_id'=>$ride_id,'park_time_id'=>$request['park_time_id']]);
 
     }
 

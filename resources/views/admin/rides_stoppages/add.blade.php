@@ -13,7 +13,6 @@
                         @csrf
                         <div class="form-group">
                        <input type="hidden" name="ride_id" value="{{$ride_id}}" >
-                       <input type="hidden" name="park_time_id" value="{{$park_time_id}}" >
                         </div>
                         @include('admin.rides_stoppages.form')
                         {!!Form::close() !!}

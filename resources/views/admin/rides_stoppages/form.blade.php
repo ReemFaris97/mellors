@@ -1,3 +1,13 @@
+
+@if (count($errors) > 0)
+<div class="alert alert-danger">
+  <ul>
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+    @endforeach
+  </ul>
+</div>
+@endif
 <div class="row">
    
     <!--     <div class="col-lg-6 form-group stoppageCategory ">
@@ -18,17 +28,21 @@
     <div class="form-group stoppageSubCategory ">
         <label class="col-lg-12">Stoppage Reasons Main Category :</label>
         <div class="">
-            {!! Form::select('',@$stopage_category?$stopage_category:[],null, array('class' => 'select2 form-control
+            {!! Form::select('stopage_category_id',@$stopage_category?$stopage_category:[],null, array('class' => 'select2 form-control
             mai_category','placeholder'=>'Stoppage main Category')) !!}
         </div>
     </div>
     <div class="col-lg-12 form-group stoppageSubCategory ">
         <label class="block">Stoppage Sub Category :</label>
+
         <div class="">
-            <select class="form-control js-example-basic-single ms select2 subCategory" id="subCategory"
-                name="stopage_sub_category_id" data-live-search=true required>
-                <option disabled> choose Stoppage Reasons Main Category First</option>
-            </select>
+
+        {!! Form::select("stopage_sub_category_id",
+            isset($item)?[$item->stopage_sub_category_id =>$item->stopageSubCategory->name]:[],
+            isset($item)?$item->stopage_sub_category_id:null,
+            ['class'=>'form-control js-example-basic-single ms select2 subCategory','id'=>'subCategory','placeholder'=>'Choose Main Category first'])!!}
+
+           
             @error('stopage_sub_category_id')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
@@ -41,7 +55,7 @@
         <label class="col-lg-12">Stoppage Type :</label>
         <div class="">
             {!! Form::select('type', ['all_day'=>'All day','time_slot'=>'Time slot'],null, array('class' =>
-            'form-control stoppageType','placeholder'=>'Stoppage type')) !!}
+            'form-control stoppageType','id'=>'type','placeholder'=>'Stoppage type')) !!}
         </div>
         @error('type')
         <div class="invalid-feedback" style="color: #ef1010">
@@ -171,6 +185,7 @@
 
     @include('admin.rides_stoppages.images_upload')
 </div>
+<input type="hidden" name="park_time_id" value="{{$park_time_id}}" >
 
 <div class="editbtnInCenter aligne-center contentbtn">
     <button class="btn btn-primary waves-effect" type="submit">Save</button>
@@ -213,5 +228,20 @@ $('.stoppageType').change(function() {
         $('.timeSlot').addClass('hidden');
     }
 });
+</script>
+<script>
+    $(document).ready(function(){
+    var val=$('#type').val();
+    console.log(val);
+
+    if (val == "time_slot") {
+        $('.downTime').removeClass('hidden');
+        $('.timeSlot').removeClass('hidden');
+    }
+    if (val == "all_day") {
+        $('.downTime').addClass('hidden');
+        $('.timeSlot').addClass('hidden');
+    }
+  });
 </script>
 @endpush

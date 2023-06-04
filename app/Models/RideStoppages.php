@@ -18,6 +18,7 @@ class RideStoppages extends Model
         'operator_name',
         'ride_status',
         'stopage_sub_category_id',
+        'stopage_category_id',
         'ride_notes',
         'date',
         'time',
