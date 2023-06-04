@@ -127,28 +127,25 @@ class RideStoppageController extends Controller
 
     public function update(RideStoppageRequest $request,$id)
     {
-//dd($request);
         $item = RideStoppages::findOrFail($id);
         $ride_id=$item->ride_id;
         $data=$request->validated();
+        $data['ride_status']=$item['ride_status'];
         $park_time=ParkTime::findOrFail($request['park_time_id']);
         $duration=$park_time->duration_time;
         if($data['type']=='all_day')
         {
             $data['down_minutes']=$duration;
         }
-/*         if ( $data['stoppage_status']="working" && $request->ride_status == "stopped"){
-            $data['stoppage_status']="working";
-        }elseif ($request->ride_status == "active"){
-            $data['stoppage_status']="done";
-        } */
-        if ( $data['stoppage_status']="working" || $data['stoppage_status']="pending"){
+       
+        if ($request['stoppage_status'] == "done"){
+           $data['ride_status']="active";
+            $data['stoppage_status']=$request['stoppage_status'];
+        }
+
+        elseif ( $data['stoppage_status']="working" || $data['stoppage_status']="pending"){
+            $data['stoppage_status']=$request['stoppage_status'];
             $data['ride_status']="stopped";
-            $data['stoppage_status']=$request['stoppage_status'];
-        }else{
-            $data['ride_status']="active";
-            $data['down_minutes']="0";
-            $data['stoppage_status']=$request['stoppage_status'];
 
         }
         $item->update($data);

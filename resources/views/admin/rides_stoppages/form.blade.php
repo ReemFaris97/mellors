@@ -171,8 +171,9 @@
         <div class="col-lg-12">
             <div class="flex-img">
                 <input type="text" value="{{$item->comment}}" class="form-control">
-                <a ><img class="img-preview" src="{{ Storage::disk('s3')->url('images/'.basename($item->image)) }}"
-                    style="height: 40px; width: 40px"></a> 
+                <a >
+                <img class="img-preview" src="{{ Storage::disk('s3')->temporaryUrl('images/'.baseName($item->image),now()->addMinutes(30)) }}"
+                style="height: 40px; width: 40px"></a> 
              </div>
         </div>
         @endforeach

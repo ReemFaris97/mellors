@@ -99,7 +99,7 @@
 
                         <td style="border-color: #0b0b0b">
                          
-                            <img class="img-preview" src="{{ $item->image }}" 
+                        <img class="img-preview" src="{{ Storage::disk('s3')->temporaryUrl('images/'.baseName($item->image),now()->addMinutes(30)) }}"
                             style="height: 300px; width: 300px">
                         </td>
                         <td style="border-color: #0b0b0b">
