@@ -82,8 +82,8 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
 
     Route::resource('preopening_lists', 'Admin\PreopeningListController');//done
     Route::get('/add_preopening_list_to_ride/{ride_id}/{park_time_id}', 'Admin\PreopeningListController@add_preopening_list_to_ride');
-    Route::get('/edit_preopening_list/{ride_id}/{park_time_id}/{created_at}', 'Admin\PreopeningListController@edit_ride_preopening_list')->name('editPreopeningList');
-    Route::post('/update_preopening_list/{ride_id}', 'Admin\PreopeningListController@update_ride_preopening_list')->name('updatePreopeningList');
+    Route::get('/edit_preopening_list/{ride_id}/{park_time_id}/{created_date}', 'Admin\PreopeningListController@edit_ride_preopening_list')->name('editPreopeningList');
+    Route::post('/update_preopening_list/{ride_id}/{created_date}', 'Admin\PreopeningListController@update_ride_preopening_list')->name('updatePreopeningList');
     Route::get('/cheack_preopening_list/', 'Admin\PreopeningListController@cheackPreopeningList')->name('cheackPreopeningList');
     Route::get('/show_preopening_list/{ride_id}/{park_time_id}', 'Admin\PreopeningListController@show_ride_preopening_list')->name('showPreopeningList');
 

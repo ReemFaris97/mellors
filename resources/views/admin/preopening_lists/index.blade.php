@@ -38,12 +38,11 @@ Inspection Lists
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>List {{ $loop->iteration }}</td>
-                                <td>{{ $item->created_at }}</td>
-                                {!!Form::open( ['route' => ['admin.preopening_lists.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
-                                {!!Form::close() !!}
+                                <td>{{ $item->created_date }}</td>
+                             
                                 <td>
                                     @if(auth()->user()->can('preopening_lists-edit'))
-                                    <a href="{{url('edit_preopening_list/'.$item->ride_id.'/'.$park_time_id.'/'.$item->created_at)}}">
+                                    <a href="{{url('edit_preopening_list/'.$ride_id.'/'.$park_time_id.'/'.$item->created_date)}}">
                                         <button type="button" id="add" class="add btn btn-success">
                                         <i class="fa fa-edit"></i>Edit List
                                         </button>

@@ -44,14 +44,19 @@
                         @if(isset($items))
 
                         @foreach ($items as $item)
+                        @if(in_array($item->id, $zone_rides))
+
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->park->name }}</td>
                                 <td>
+                                @if(auth()->user()->can('editRideTime'))
                                 <a href="{{url('edit_ride_time/'.$item->id.'/'.$park_time_id)}}"
                                            class="btn btn-info">Edit Time Slot</a>
                                 </td>
+                                @endif
+
                                 <td>
                                     @if(auth()->user()->can('incidents-create'))
 
@@ -81,16 +86,17 @@
                                 </td>
                                  <td> 
                                       @if(auth()->user()->can('preopening_lists-create'))
-                                        @if(in_array($item->id, $zone_rides))
                                         <a href="{{url('show_preopening_list/'.$item->id.'/'.$park_time_id)}}">
                                         <button type="button" id="add" class="add btn btn-success">
-                                        <i class="fa fa-plus"></i> Add Inspection List
+                                        <i class="fa fa-plus"></i>  Inspection Lists
                                         </button>
                                         </a>
-                                        @endif
                                       @endif
                                   </td>
+
                             </tr>
+                            @endif
+
 
                         @endforeach
                             @endif

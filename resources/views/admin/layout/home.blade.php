@@ -17,15 +17,23 @@ Main Page
                 @if ($ride->park_id === $time->parks->id)
                 @if ($ride->available == "active")
                 <div class="col-lg-1 col-md-6 yes cardGame">
-                    <div class="card-box">
+                <a href="{{url('/all-rides/'.$ride->park_id.'/'.$time->id)}}">    
+                <div class="card-box">
                         <h4 class="header-title m-t-0 m-b-15">{{$ride->name}}</h4>
                     </div>
+                    </a>
                 </div>
                 @elseif($ride->available == "stopped" || "closed")
                 <div class="col-lg-1 col-md-6 no cardGame">
-                    <div class="card-box">
+                <a href="{{url('/all-rides/'.$ride->park_id.'/'.$time->id)}}">    
+   
+                <div class="card-box">
+
                         <h4 class="header-title m-t-0 m-b-15">{{$ride->name}}</h4>
-                    </div>
+                   
+                </div>
+                </a>
+
                 </div>
                 @endif
                 @endif

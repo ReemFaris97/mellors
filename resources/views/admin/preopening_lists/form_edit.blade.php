@@ -44,7 +44,8 @@
                                {!! Form::textArea('comment[]',$value->comment, array('class' => 'form-control comment', 'rows'=>"1")) !!}
                                <input name="ride_id" type="hidden" id="ride-id" class="ride-id" value={{$ride_id}}>
                                <input name="park_time_id" type="hidden" id="park-time-id" class="park-time-id" value={{$park_time_id}}>
-
+                               <input name="created_date" type="hidden" id="created_date" class="created_date" value={{$created_date}}>
+                               
                            </td>
                        </tr>
                      
@@ -90,9 +91,10 @@
                 park_time_id.push($(this).val());
             });
             var ride = $("#ride-id").val();
+            var created_date = $("#created_date").val();
 
             $.ajax({
-                url: "{{ route('admin.updatePreopeningList',$ride) }}",
+                url: "{{ route('admin.updatePreopeningList',['ride_id' => $ride, 'created_date' => $created_date]) }}",
                 type: 'POST',
                 data:{
                     "_token":"{{ csrf_token() }}",

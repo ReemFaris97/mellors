@@ -28,8 +28,11 @@ class CustomerFeedbackController extends Controller
     public function index()
     {
       //  dd(config('filesystems.disks.s3'));
-        $customer_feedbacks =CustomerFeedbacks::Where('date', date('Y-m-d'))->get();
-        return view('admin.customer_feedbacks.index',compact('customer_feedbacks'));
+    $customer_feedbacks =CustomerFeedbacks::Where('date', date('Y-m-d'))->get();
+       
+     $zones = auth()->user()->zones->pluck('id');
+     $rides=Ride::wherein('zone_id',$zones)->pluck('name','id')->all();
+        return view('admin.customer_feedbacks.index',compact('customer_feedbacks','rides'));
     }
 
     public function search(Request $request)
@@ -41,8 +44,9 @@ class CustomerFeedbackController extends Controller
             ->where('ride_id',$ride_id)
             ->Where('date', $date)
             ->get();
-
-        return view('admin.customer_feedbacks.index', compact('customer_feedbacks'));
+            $zones = auth()->user()->zones->pluck('id');
+            $rides=Ride::wherein('zone_id',$zones)->pluck('name','id')->all();
+        return view('admin.customer_feedbacks.index', compact('customer_feedbacks','rides'));
     }
 
     /**
@@ -52,7 +56,8 @@ class CustomerFeedbackController extends Controller
      */
     public function create()
     {
-        $rides=Ride::pluck('name','id')->all();
+        $zones = auth()->user()->zones->pluck('id');
+        $rides=Ride::wherein('zone_id',$zones)->pluck('name','id')->all();
         return view('admin.customer_feedbacks.add',compact('rides'));
     }
 
@@ -79,8 +84,11 @@ class CustomerFeedbackController extends Controller
            if ($request->has('image')) {
                     $this->Images($request, new CustomerFeedbackImage(), ['customer_feedback_id' =>$customer_feedback_id]);
                 }
+
+                $zones = auth()->user()->zones->pluck('id');
+                $rides=Ride::wherein('zone_id',$zones)->pluck('name','id')->all();
         alert()->success('Customer Feedback  Added successfully !');
-        return redirect()->route('admin.customer_feedbacks.index');
+        return redirect()->route('admin.customer_feedbacks.index','rides');
     }
 
     /**
@@ -95,10 +103,8 @@ class CustomerFeedbackController extends Controller
     }
     public function show($id)
     {
-        $files = Storage::files('images');
+       // $files = Storage::files('images');
        // return $files;
-
-
         $items=CustomerFeedbacks::findorfail($id);
         $images=CustomerFeedbackImage::where('customer_feedback_id',$id)->get();        
 

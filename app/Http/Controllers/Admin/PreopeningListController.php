@@ -41,8 +41,13 @@ class PreopeningListController extends Controller
     
     public function show_ride_preopening_list($ride_id,$park_time_id)
     {
-        $items = PreopeningList::where('park_time_id',$park_time_id)
-                ->where('ride_id',$ride_id)->groupBy('created_at')->get();
+       /*  $items = PreopeningList::where('park_time_id',$park_time_id)
+                ->where('ride_id',$ride_id)->groupBy('created_at')->get(); */
+                $items = PreopeningList::selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d %H:%i") as created_date')
+                        ->where('park_time_id',$park_time_id)
+                        ->where('ride_id',$ride_id)
+                        ->groupBy('created_date')
+                        ->get();
                // dd($items);
         return view('admin.preopening_lists.index', compact('items', 'ride_id', 'park_time_id'));
     }
@@ -120,23 +125,24 @@ class PreopeningListController extends Controller
         return view('admin.preopening_lists.edit',compact('rides','list','zone_id','item','inspections'));
 
     }
-    public function edit_ride_preopening_list( $ride_id,$park_time_id,$created_at)
+    public function edit_ride_preopening_list( $ride_id,$park_time_id,$created_date)
     {
         $ride=Ride::find($ride_id);
-        $inspections=PreopeningList::where('ride_id',$ride_id)->where('park_time_id',$park_time_id)
-        ->where('created_at',$created_at)
-        ->get();
-      //  dd($inspections);
-       // $items=RideInspectionList::where('ride_id',$ride_id)->get();
-        //return $items;
-        return view('admin.preopening_lists.edit',compact('inspections','ride','park_time_id','ride_id'));
+        $inspections = PreopeningList::where('ride_id', $ride_id)
+    ->where('park_time_id', $park_time_id)
+    ->whereRaw('DATE_FORMAT(created_at, "%Y-%m-%d %H:%i") = ?', [$created_date])
+    ->get();
+          //  dd($inspections);
+         // $items=RideInspectionList::where('ride_id',$ride_id)->get();
+      //return $items;
+        return view('admin.preopening_lists.edit',compact('inspections','created_date','ride','park_time_id','ride_id'));
 
     }
     
-    public function update_ride_preopening_list(Request $request ,$ride_id)
+    public function update_ride_preopening_list(Request $request ,$ride_id,$created_date)
     {
         $items=PreopeningList::where('ride_id',$ride_id)
-        ->whereDate('created_at',Carbon::now()->format('Y-m-d'))
+        ->whereRaw('DATE_FORMAT(created_at, "%Y-%m-%d %H:%i") = ?', [$created_date])
         ->delete();
         foreach ($request->inspection_list_id as $key=>$value){
             $preopening_list= new PreopeningList();

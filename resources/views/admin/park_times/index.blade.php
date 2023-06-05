@@ -99,6 +99,8 @@ Parks Time Slot
                                 <td>{{ $item->duration_time }}</td>
                                 <td>{{ $item->temp}} ْ - {{ $item->general_weather}}</td>
                                 <td>
+                                @if(auth()->user()->can('daily_entrance_count'))
+
                                     @if($item->daily_entrance_count ===null)
                                     <button type="button" class="btn btn-info waves-effect " data-toggle="modal"
                                         data-target="#modal-{{ $item->id }}"><i class="fa fa-plus"></i> Add
@@ -158,6 +160,7 @@ Parks Time Slot
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 </td>
                                 {!!Form::open( ['route' => ['admin.park_times.destroy',$item->id]
                                 ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
@@ -292,21 +295,29 @@ Parks Time Slot
                                 <td>
                                 <a href="{{ url('all-rides/'.$item->parks->id.'/'.$item->id) }}"
                                         class="btn btn-info">All Rides </a>
+                                     @if(auth()->user()->can('game_times-list'))
 
                                     <a href="{{url('game-all-times/'.$item->id)}}">
                                         <button type="button" class="btn btn-info">
                                             Rides with different time slot
                                         </button>
                                     </a>
+                                    @endif
 
                                 </td>
-                                <td>
+                                <td>  
+                                @if(auth()->user()->can('park_times-edit'))
+
                                 <a href="{{ route('admin.park_times.edit', $item) }}" class="btn btn-info">Edit</a>
-                                    <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                @endif
+                                @if(auth()->user()->can('park_times-delete'))
+
+                                <a class="btn btn-danger" data-name="{{ $item->name }}"
                                         data-url="{{ route('admin.park_times.destroy', $item) }}"
                                         onclick="delete_form(this)">
                                         Delete
-                                    </a>
+                                 </a>
+                                    @endif
 
                                 </td>
 

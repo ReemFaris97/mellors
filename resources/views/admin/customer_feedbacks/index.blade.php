@@ -16,7 +16,7 @@
     <div class='col-md-5'>
         <div class="form-group">
             <label for="last_name">Select Ride</label>
-            {!! Form::select('ride_id', \App\Models\Ride::pluck('name','id')->all(),null, array('class' => 'form-control')) !!}
+            {!! Form::select('ride_id', $rides,null, array('class' => 'form-control')) !!}
         </div>
     </div>
     <div class='col-md-5'>
