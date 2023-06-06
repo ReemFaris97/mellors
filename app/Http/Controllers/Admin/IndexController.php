@@ -25,10 +25,10 @@ class IndexController extends Controller
 
         if (auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Visitor') ){
             $parks=Park::pluck('id');
-            $zones=Zone::pluck('id');
+          //  $zones=Zone::pluck('id');
         }else{
             $parks=auth()->user()->parks->pluck('id');
-            $zones=auth()->user()->zones->pluck('id');
+           // $zones=auth()->user()->zones->pluck('id');
         }
 $park_times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->pluck('id');
 
@@ -82,7 +82,6 @@ $total_riders= DB::table('rides')
 $rides = DB::table('rides')
 ->groupBy('rides.id')
 ->join('parks', 'parks.id', '=', 'rides.park_id')
-->join('zones', 'zones.id', '=', 'rides.zone_id')
 ->leftJoin('park_times', function ($join) {
 $join->on('park_times.park_id', '=', 'parks.id');
 })
@@ -94,7 +93,7 @@ DB::raw('rides.*'),
 DB::raw('parks.name as parkName'),
 DB::raw('park_times.start,park_times.end,park_times.date,park_times.close_date'),
 DB::raw('ride_stoppages.ride_status as stoppageRideStatus,ride_stoppages.ride_notes,ride_stoppages.description as rideSroppageDescription'),
-])->wherein('parks.id', $parks)->wherein('zones.id', $zones)
+])->wherein('parks.id', $parks)
 
 ->get();
     
