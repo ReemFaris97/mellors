@@ -32,7 +32,10 @@ class CustomerFeedbackController extends Controller
             $parks=Park::pluck('name','id');
             $customer_feedbacks =CustomerFeedbacks::Where('date', date('Y-m-d'))->get();
         } else {
-            $parks = auth()->user()->parks->pluck('id');    
+            $parks = auth()->user()->parks->pluck('id'); 
+            $customer_feedbacks = CustomerFeedbacks::Where('date', date('Y-m-d'))
+            ->whereIn('zone_id', auth()->user()->zones->pluck('id'))
+            ->get();   
         }
         return view('admin.customer_feedbacks.index',compact('customer_feedbacks','parks'));
     }

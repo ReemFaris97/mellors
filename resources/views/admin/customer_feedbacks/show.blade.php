@@ -31,6 +31,20 @@ Show Customer Feedback
                 </div>
 
             </div>
+            <div class="form-group form-float">
+                <span class="title  bold form-label">Park :</span>
+                <div class='contentP-comment'>
+                    <p class='p-comment'>{{ $items->rides->park->name }}</p>
+                </div>
+
+            </div>
+            <div class="form-group form-float">
+                <span class="title  bold form-label">Zone :</span>
+                <div class='contentP-comment'>
+                    <p class='p-comment'>{{ $items->rides->zone->name }}</p>
+                </div>
+
+            </div>
             <div class="form-group">
                 @if (isset($images))
                 <div class="form-group">
