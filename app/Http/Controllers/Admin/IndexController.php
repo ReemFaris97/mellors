@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Park;
+use App\Models\Zone;
 
 class IndexController extends Controller
 {
@@ -24,8 +25,10 @@ class IndexController extends Controller
 
         if (auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Visitor') ){
             $parks=Park::pluck('id');
+            $zones=Zone::pluck('id');
         }else{
             $parks=auth()->user()->parks->pluck('id');
+            $zones=auth()->user()->zones->pluck('id');
         }
 $park_times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->pluck('id');
 
@@ -76,24 +79,24 @@ $total_riders= DB::table('rides')
     ->groupBy('id');
      //  dd($total_riders);
 
-     $rides = DB::table('rides')
-     ->groupBy('rides.id')
-     ->join('parks', 'parks.id', '=', 'rides.park_id')
-     ->leftJoin('park_times', function ($join) {
-         $join->on('park_times.park_id', '=', 'parks.id');
-     })
-     ->leftJoin('ride_stoppages', function ($join) {
-         $join->on('ride_stoppages.ride_id', '=', 'rides.id');
-     })
-     ->select([
-         DB::raw('rides.*'),
-         DB::raw('parks.name as parkName'),
-         DB::raw('park_times.start,park_times.end,park_times.date,park_times.close_date'),
-         DB::raw('ride_stoppages.ride_status as stoppageRideStatus,ride_stoppages.ride_notes,ride_stoppages.description as rideSroppageDescription'),
+$rides = DB::table('rides')
+->groupBy('rides.id')
+->join('parks', 'parks.id', '=', 'rides.park_id')
+->join('zones', 'zones.id', '=', 'rides.zone_id')
+->leftJoin('park_times', function ($join) {
+$join->on('park_times.park_id', '=', 'parks.id');
+})
+->leftJoin('ride_stoppages', function ($join) {
+$join->on('ride_stoppages.ride_id', '=', 'rides.id');
+})
+->select([
+DB::raw('rides.*'),
+DB::raw('parks.name as parkName'),
+DB::raw('park_times.start,park_times.end,park_times.date,park_times.close_date'),
+DB::raw('ride_stoppages.ride_status as stoppageRideStatus,ride_stoppages.ride_notes,ride_stoppages.description as rideSroppageDescription'),
+])->wherein('parks.id', $parks)->wherein('zones.id', $zones)
 
-
-     ])->wherein('parks.id', $parks)
-     ->get();
+->get();
     
  foreach ($rides as $ride) {
     $now = Carbon::now();

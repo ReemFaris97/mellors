@@ -14,9 +14,19 @@ class GeneralController extends Controller
 
     public function getParkZones(Request $request)
     {
-        $cities = Zone::where("park_id", $request->park_id)->get();
+        if (auth()->user()->hasRole('Super Admin')) {
+            $zones = Zone::where("park_id", $request->park_id)->get();
+        } else {
+            $zones = Zone::where("park_id", $request->park_id)
+            ->whereIn('id', auth()->user()->zones->pluck('id'))
+            ->get();
+        }
+        $html = '<option value="">' .'Choose Zoon' . '</option>';
 
-        return response()->json(['zones' => $cities]);
+        foreach ($zones as $zone) {
+            $html .= '<option value="' . $zone->id . '">' . $zone->name . '</option>';
+        }
+        return response()->json(['html' => $html]);
     }
 
     public function getSubStoppageCategories(Request $request)

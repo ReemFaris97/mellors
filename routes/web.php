@@ -99,7 +99,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('/search_customer_feedbacks/', 'Admin\CustomerFeedbackController@search')->name('searchCustomerFeedBack');
 
 
-    Route::post('get-park-zones', 'Admin\GeneralController@getParkZones')->name('getParkZones');
+    Route::get('get-park-zones', 'Admin\GeneralController@getParkZones')->name('getParkZones');
     Route::post('get-sub-stoppages-categories', 'Admin\GeneralController@getSubStoppageCategories')->name('getSubStoppageCategories');
     Route::get('get_park_rides', 'Admin\GeneralController@getParkRides')->name('getParkRides');
 

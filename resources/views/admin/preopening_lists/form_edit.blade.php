@@ -31,9 +31,13 @@
                             @if($value->status =='yes')
                           <option value="yes">Yes</option>
                           <option value="no">No</option>
-                          @else
+                          @elseif($value->status =='no')
                           <option value="no">No</option>
                           <option value="yes">Yes</option>
+                          @else
+                          <option default value="null"> Choose...</option>
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
                           @endif
                            </select>
                              

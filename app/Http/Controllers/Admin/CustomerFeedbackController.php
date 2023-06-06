@@ -8,6 +8,7 @@ use App\Models\Ride;
 use Illuminate\Http\Request;
 use App\Models\CustomerFeedbacks;
 use App\Models\CustomerFeedbackImage;
+use App\Models\Park;
 use Illuminate\Support\Facades\Auth;
 
 use App\Traits\ImageOperations;
@@ -27,26 +28,35 @@ class CustomerFeedbackController extends Controller
      */
     public function index()
     {
-      //  dd(config('filesystems.disks.s3'));
-    $customer_feedbacks =CustomerFeedbacks::Where('date', date('Y-m-d'))->get();
-       
-     $zones = auth()->user()->zones->pluck('id');
-     $rides=Ride::wherein('zone_id',$zones)->pluck('name','id')->all();
-        return view('admin.customer_feedbacks.index',compact('customer_feedbacks','rides'));
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks=Park::pluck('name','id');
+            $customer_feedbacks =CustomerFeedbacks::Where('date', date('Y-m-d'))->get();
+        } else {
+            $parks = auth()->user()->parks->pluck('id');    
+        }
+        return view('admin.customer_feedbacks.index',compact('customer_feedbacks','parks'));
     }
 
     public function search(Request $request)
     {
 
-        $ride_id = $request->input('ride_id');
-        $date = $request->input('date');
-        $customer_feedbacks = CustomerFeedbacks::query()
-            ->where('ride_id',$ride_id)
-            ->Where('date', $date)
-            ->get();
-            $zones = auth()->user()->zones->pluck('id');
-            $rides=Ride::wherein('zone_id',$zones)->pluck('name','id')->all();
-        return view('admin.customer_feedbacks.index', compact('customer_feedbacks','rides'));
+       $from = $request->input('from');
+       $to = $request->input('to');
+       $park_id = $request->input('park_id');
+       $customer_feedbacks = CustomerFeedbacks::whereBetween('date',[$from, $to])
+           ->where('park_id',$park_id)
+           ->get();
+           if($request->input('zone_id'))
+           {
+               $customer_feedbacks->where('zone_id',$request->input('zone_id'));
+           } 
+           if (auth()->user()->hasRole('Super Admin')){
+               $parks=Park::pluck('name','id')->all();
+           }else{
+               $parks=auth()->user()->parks->pluck('name','id')->all();
+           }
+
+        return view('admin.customer_feedbacks.index', compact('customer_feedbacks','parks'));
     }
 
     /**
@@ -71,6 +81,8 @@ class CustomerFeedbackController extends Controller
     {
         $ride=Ride::findOrFail($request->input('ride_id'));
         $is_skill_game=$ride->ride_type->name;
+        $park_id=$ride->park_id;
+        $zone_id=$ride->zone_id;
         $cf = new CustomerFeedbacks();
         $cf->comment = $request->input('comment');
         if($is_skill_game == 'Skill Game'){
@@ -79,6 +91,8 @@ class CustomerFeedbackController extends Controller
         $cf-> type = $request->input('type');
         $cf-> date = $request->input('date');
         $cf->ride_id = $request->input('ride_id');
+        $cf->park_id = $park_id;
+        $cf->zone_id = $zone_id;
         $cf->save();
         $customer_feedback_id=$cf->id;
            if ($request->has('image')) {
@@ -108,7 +122,7 @@ class CustomerFeedbackController extends Controller
         $items=CustomerFeedbacks::findorfail($id);
         $images=CustomerFeedbackImage::where('customer_feedback_id',$id)->get();        
 
-        return view('admin.customer_feedbacks.show',compact('items','images','files'));
+        return view('admin.customer_feedbacks.show',compact('items','images'));
 
     }
 

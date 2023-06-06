@@ -84,14 +84,15 @@ class PreopeningListController extends Controller
    // dd($request->all());
     
 
-       foreach ($request->inspection_list_id as $key=>$value){
-           $preopening_list= new PreopeningList();
-           $ride=Ride::findOrFail($request->ride_id[$key]);
-           $zone_id=$ride->zone_id;
-           $park_time=ParkTime::findOrFail($request->park_time_id[$key]);
-           $park_id=$park_time->park_id;
-           $opened_date=$park_time->date;
-           $preopening_list->inspection_list_id=$request->inspection_list_id[$key];
+   foreach ($request->inspection_list_id as $key=>$value){
+    if ($request->status[$key] == 'yes' || $request->status[$key] == 'no' ){
+        $preopening_list = new PreopeningList();
+        $ride = Ride::findOrFail($request->ride_id[$key]);
+        $zone_id = $ride->zone_id;
+        $park_time = ParkTime::findOrFail($request->park_time_id[$key]);
+        $park_id = $park_time->park_id;
+        $opened_date = $park_time->date;
+        $preopening_list->inspection_list_id =$request->inspection_list_id[$key];
            $preopening_list->ride_id=$request->ride_id[$key];
            $preopening_list->park_time_id=$request->park_time_id[$key];
            $preopening_list->comment=$request->comment[$key];
@@ -101,6 +102,7 @@ class PreopeningListController extends Controller
            $preopening_list->opened_date=$opened_date;
            $preopening_list->created_by_id=auth()->user()->id;
            $preopening_list->save();
+           }
        }
         return response()->json(['success'=>'Preopening List Added successfully']);
 
@@ -151,6 +153,8 @@ class PreopeningListController extends Controller
            $park_time=ParkTime::findOrFail($request->park_time_id[$key]);
            $park_id=$park_time->park_id;
            $opened_date=$park_time->date;
+           if($request->status[$key] != null){
+
            $preopening_list->inspection_list_id=$request->inspection_list_id[$key];
            $preopening_list->ride_id=$request->ride_id[$key];
            $preopening_list->park_time_id=$request->park_time_id[$key];
@@ -161,7 +165,9 @@ class PreopeningListController extends Controller
            $preopening_list->opened_date=$opened_date;
            $preopening_list->created_by_id=auth()->user()->id;
            $preopening_list->save();
+           }
         }
+
          return response()->json(['success'=>'Preopening List Added successfully']);
  
     }

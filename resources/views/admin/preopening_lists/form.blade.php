@@ -28,7 +28,7 @@
                            <td>
                           <label>
                               <select name="inspection_element[]" id="element_id" class="form-control element-id">
-                                  <option disabled> Choose...</option>
+                                  <option default value="none"> None</option>
                                   <option value="yes">Yes</option>
                                   <option value="no">No</option>
                            </select>

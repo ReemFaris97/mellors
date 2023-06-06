@@ -35,7 +35,7 @@ class PreopeningList extends Model
     }
     public function park()
     {
-        return $this->belongsTo(Ride::class,'park_id')->withDefault([
+        return $this->belongsTo(Park::class,'park_id')->withDefault([
             'name'=>'not found'
         ]);
 

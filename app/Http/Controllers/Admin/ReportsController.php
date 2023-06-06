@@ -97,7 +97,7 @@ class ReportsController extends Controller
 
     }
     public function showInspectionListReport(Request $request){
-        $from = $request->input('from');
+       $from = $request->input('from');
        $to = $request->input('to');
        $park_id = $request->input('park_id');
        $items = PreopeningList::whereBetween('opened_date',[$from, $to])
