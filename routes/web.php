@@ -108,6 +108,10 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('add_rsr_stoppage_report/{id}', 'Admin\RsrReportController@addRsrStoppageReport');
     Route::Post('get-rsr-images', 'Admin\RsrReportController@getImage')->name('getRsrImage');
 
+    Route::resource('availability_reports', 'Admin\AvailabilityReportController');
+    Route::get('add-availability-report/{park_id}', 'Admin\AvailabilityReportController@addAvailabilityReport')->name('addAvailabilityReport');
+    Route::get('show-availability-report', 'Admin\AvailabilityReportController@showAvailabilityReport')->name('reports.showAvailabilityReport');
+
     Route::get('rides-status', 'Admin\ReportsController@rideStatus')->name('reports.rideStatus');
     Route::get('stoppages-report', 'Admin\ReportsController@stoppagesReport')->name('reports.stoppagesReport');
     Route::get('show-stoppages-report', 'Admin\ReportsController@showstoppagesReport')->name('reports.showStoppagesReport');

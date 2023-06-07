@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ParkTime\ParkTimeRequest;
 use App\Http\Requests\Dashboard\ParkTime\EntranceCountRequest;
+use App\Models\GameTime;
 use App\Models\HealthAndSafetyReport;
 use App\Models\MaintenanceReport;
 use App\Models\Park;
@@ -103,7 +104,19 @@ class ParkTimeController extends Controller
         $data['description'] = $info->weather[0]->description;
         $data['temp'] = $info->main->temp;
         $data['windspeed_avg'] =$info->wind->speed;
-        ParkTime::create($data);
+        $parkTime = ParkTime::create($data);
+        $lastInsertedId = $parkTime->id;
+
+        $lists = GameTime::where('park_id', $request->park_id)
+        ->where('date', $request['date'])
+        ->get();
+            foreach ($lists as $list) {
+            $list->start = $request->input('start'); 
+            $list->end = $request->input('end'); 
+            $list->close_date = $data['close_date'];
+            $list->park_time_id = $lastInsertedId;
+            $list->save();
+            }
         alert()->success('Time Slot And Weather Status Added successfully to the park !');
         return redirect()->route('admin.park_times.index');
     }

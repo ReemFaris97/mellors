@@ -24,6 +24,9 @@ Parks
                                 Branch
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Availability Report
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
                             </th>
                         </tr>
@@ -32,10 +35,26 @@ Parks
                         <tbody>
 
                         @foreach ($items as $item)
+
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->branches->name }}</td>
+                                <td>
+                                @if(auth()->user()->can('parks-edit'))
+                                @if(in_array($item->id, $items_check))
+
+                                <a href="{{ route('admin.availability_reports.edit', $item->id) }}"
+                                         class="btn btn-success"><i class="fa fa-edit"></i> Edit Status</a>
+                                         @else
+                                        <a href="{{ route('admin.addAvailabilityReport', $item->id) }}"
+                                         class="btn btn-info">Add Status</a>
+                                @endif
+                                @endif
+                                    
+                                </td>
+
+
                                 {!!Form::open( ['route' => ['admin.parks.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>

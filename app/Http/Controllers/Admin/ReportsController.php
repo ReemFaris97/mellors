@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\DB;
 
 class ReportsController extends Controller
 {
+    
+   
+
     public function rideStatus()
     {
 

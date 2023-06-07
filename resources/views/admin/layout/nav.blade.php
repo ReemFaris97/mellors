@@ -260,8 +260,11 @@ auth()->user()->can('inspectionListReport')|| auth()->user()->can('rideStatus'))
     @can('inspectionListReport')
     <li><a href="{{route('admin.reports.inspectionListReport')}}">Inspection Lists Report</a></li>
     @endcan
-    @can('rideStatus')
+  <!--   @can('rideStatus')
     <li><a href="{{route('admin.reports.rideStatus')}}">Ride Availability Report</a></li>
+    @endcan -->
+    @can('rideStatus')
+    <li><a href="{{route('admin.availability_reports.index')}}">Ride Availability Report</a></li>
     @endcan
 </ul>
 </li>

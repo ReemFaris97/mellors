@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\park\ParkRequest;
 use Illuminate\Http\Request;
 use App\Models\Branch;
-
+use App\Models\GameTime;
 use App\Models\Park;
+use Illuminate\Support\Carbon;
 
 class ParkController extends Controller
 {
@@ -20,11 +21,14 @@ class ParkController extends Controller
     {
         if (auth()->user()->hasRole('Super Admin')){
             $items=Park::all();
+            $items_check=GameTime::where('date', Carbon::now()->format('Y-m-d'))->pluck('park_id')->toArray();
         }else{
             $items=auth()->user()->parks->all();
+            $items_check= GameTime::where('date', Carbon::now()->format('Y-m-d'))
+            ->wherein('park_id', $items)->pluck('park_id')->toArray();
         }
-
-        return view('admin.parks.index',compact('items'));
+//dd( $items_check);
+        return view('admin.parks.index',compact('items','items_check'));
     }
 
     /**
