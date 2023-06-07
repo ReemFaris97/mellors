@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('comment')->nullable();
             $table->integer('no_of_gondolas')->nullable();
             $table->integer('no_of_seats')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users');
+
 
         });
     }
