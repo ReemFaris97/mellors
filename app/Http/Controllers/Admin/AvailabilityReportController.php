@@ -45,12 +45,10 @@ class AvailabilityReportController extends Controller
     public function store(Request $request)
     {
        // dd($request);
-
        foreach ($request->ride_id as $key=>$value){
            $list= new GameTime();
            $list->ride_id=$request->ride_id[$key];
            $list->first_status=$request->first_status[$key];
-          // $list->second_status=$request->second_status[$key];
            $list->no_of_gondolas=$request->no_of_gondolas[$key];
            $list->no_of_seats=$request->no_of_seats[$key];
            $list->park_id=$request->park_id[$key];
@@ -60,7 +58,8 @@ class AvailabilityReportController extends Controller
            $list->save();
        }
        alert()->success('Availability Report Added successfully !');
-       return redirect()->back();
+       return redirect()->route('admin.parks.index');
+
     }
 
     public function edit($id)
@@ -74,9 +73,6 @@ class AvailabilityReportController extends Controller
  
     public function show($id)
     {
-        $items=MaintenanceReport::where('zone_id',$id)->get();
-
-        return view('admin.preopening_lists.index',compact('items'));
 
     }
 

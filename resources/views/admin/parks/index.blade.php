@@ -41,16 +41,19 @@ Parks
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->branches->name }}</td>
                                 <td>
-                                @if(auth()->user()->can('parks-edit'))
+                         @if(auth()->user()->can('parks-edit'))
+                         
+        
                                 @if(in_array($item->id, $items_check))
 
                                 <a href="{{ route('admin.availability_reports.edit', $item->id) }}"
-                                         class="btn btn-success"><i class="fa fa-edit"></i> Edit Status</a>
+                                         class="btn btn-success"><i class="fa fa-edit"></i> Add second Status</a>
                                          @else
                                         <a href="{{ route('admin.addAvailabilityReport', $item->id) }}"
-                                         class="btn btn-info">Add Status</a>
+                                         class="btn btn-info">Add First Status</a>
+
                                 @endif
-                                @endif
+                      @endif
                                     
                                 </td>
 

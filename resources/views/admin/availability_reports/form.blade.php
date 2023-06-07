@@ -46,11 +46,6 @@
                 </label>
                 </td>
                 <td><label>
-                    <select name="second_status[]" id="element_id" class="form-control element-id" hidden>
-                        <option default value="">  </option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                </select>
                 </label></td>
                 <td> {!! Form::number("no_of_gondolas[]",$item->no_of_gondolas,['class'=>'form-control','placeholder'=>' number_of_gondolas'])!!}</td>
                 <td> {!! Form::number("no_of_seats[]",$item->number_of_seats,['class'=>'form-control','placeholder'=>' number_of_seats'])!!}</td>

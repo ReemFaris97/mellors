@@ -22,13 +22,22 @@ class ParkController extends Controller
         if (auth()->user()->hasRole('Super Admin')){
             $items=Park::all();
             $items_check=GameTime::where('date', Carbon::now()->format('Y-m-d'))->pluck('park_id')->toArray();
+            $items_updated=GameTime::where('date', Carbon::now()->format('Y-m-d'))
+            ->where('updated_at','>=','created_at')->pluck('park_id')->toArray();
+
         }else{
             $items=auth()->user()->parks->all();
             $items_check= GameTime::where('date', Carbon::now()->format('Y-m-d'))
             ->wherein('park_id', $items)->pluck('park_id')->toArray();
+
+            $items_updated=GameTime::where('date', Carbon::now()->format('Y-m-d'))
+            ->wherein('park_id', $items)
+            ->where('updated_at','>=','created_at')->pluck('park_id')->toArray();
+
+
         }
 //dd( $items_check);
-        return view('admin.parks.index',compact('items','items_check'));
+        return view('admin.parks.index',compact('items','items_check','items_updated'));
     }
 
     /**

@@ -49,7 +49,7 @@
                         <option default value="">None  </option>
 
                         @else
-                        <option default value=""> None</option>
+                        <option default value=""></option>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                         @endif
