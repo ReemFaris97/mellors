@@ -120,7 +120,16 @@ class AvailabilityReportController extends Controller
 }
     public function destroy($id)
     {
-        
+        $items=GameTime::where('park_id',$id)->get();
+        if ($items){
+            foreach($items as $item){
+            $item->delete();
+        }
+        alert()->success('This AvailabilityReport Deleted Successfully');
+        return back();
+    }
+        alert()->error('This Availability Report not found');
+        return redirect()->route('admin.park.index');
     }
 
 

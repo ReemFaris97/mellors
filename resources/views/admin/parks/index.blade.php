@@ -41,6 +41,9 @@ Parks
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->branches->name }}</td>
                                 <td>
+                                {!!Form::open( ['route' => ['admin.availability_reports.destroy',$item->id]
+                                ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
                          @if(auth()->user()->can('parks-edit'))
                          
         
@@ -48,6 +51,12 @@ Parks
 
                                 <a href="{{ route('admin.availability_reports.edit', $item->id) }}"
                                          class="btn btn-success"><i class="fa fa-edit"></i> Add second Status</a>
+                                         <a class="btn btn-danger" data-name="availability report"
+                                        data-url="{{ route('admin.availability_reports.destroy', $item) }}"
+                                        onclick="delete_form(this)">
+                                        <i class="fa fa-close"></i>
+
+                                    </a>
                                          @else
                                         <a href="{{ route('admin.addAvailabilityReport', $item->id) }}"
                                          class="btn btn-info">Add First Status</a>
