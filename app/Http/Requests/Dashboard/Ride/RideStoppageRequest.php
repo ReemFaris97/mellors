@@ -33,6 +33,7 @@ class RideStoppageRequest extends FormRequest
             'date_time'=>'nullable',
             'down_minutes'=>'nullable',
             'description'=>'nullable',
+            'time_slot_start'=>'nullable',
             'type'=>'required',
             'images.*'=>'nullable',
             'date'=>'nullable',

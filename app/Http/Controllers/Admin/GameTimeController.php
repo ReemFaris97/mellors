@@ -15,11 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 class GameTimeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $items=Ride::all();
@@ -32,22 +28,13 @@ class GameTimeController extends Controller
         return view('admin.game_times.all_games_times',compact('items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(GameTimeRequest $request)
     {  
         $dateExists = GameTime::where([
@@ -68,12 +55,6 @@ class GameTimeController extends Controller
         return redirect()->route('admin.park_times.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\GameTime  $GameTime
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $items=Ride::where('park_id',$id)->get();

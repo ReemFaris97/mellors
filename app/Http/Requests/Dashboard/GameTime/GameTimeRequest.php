@@ -29,7 +29,10 @@ class GameTimeRequest extends FormRequest
                 'start'=>'nullable',
                 'end'=>'nullable',
                 'date'=>'nullable',
-                'close_date'=>'nullable'
+                'close_date'=>'nullable',
+                'no_of_gondolas'=>'nullable',
+                'no_of_seats'=>'nullable',
+                'comment'=>'nullable'
 
             ];
 
