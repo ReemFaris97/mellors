@@ -12,8 +12,8 @@ var resizefunc = [];
 <script src="{{asset('_admin/assets/js/jquery.nicescroll.js')}}"></script>
 <script src="{{asset('_admin/assets/js/jquery.slimscroll.js')}}"></script>
 <script src="{{asset('_admin/assets/js/jquery.scrollTo.min.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
+<!-- <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+ -->
 <!-- Modal-Effect -->
 <script src="{{asset('_admin/assets/plugins/custombox/dist/custombox.min.js')}}"></script>
 <script src="{{asset('_admin/assets/plugins/custombox/dist/legacy.min.js')}}"></script>
@@ -38,6 +38,7 @@ var resizefunc = [];
 <script src="{{asset('_admin/assets/summernote.js')}}"></script>
 
 <script src="{{asset('_admin/assets/js/select2.min.js')}}"></script>
+ 
 
 
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>

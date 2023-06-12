@@ -195,7 +195,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class
 
@@ -216,6 +216,7 @@ return [
         'Weather' => RakibDevs\Weather\Weather::class,	
         'AWS' => Aws\Laravel\AwsFacade::class,
         'Carbon' => Illuminate\Support\Carbon::class,
+        'Pusher' => Pusher\Pusher::class,
 
 
         // 'ExampleClass' => App\Example\ExampleClass::class,

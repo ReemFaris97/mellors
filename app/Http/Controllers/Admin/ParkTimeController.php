@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-
+use App\Events\timeSlotNotification;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ParkTime\ParkTimeRequest;
 use App\Http\Requests\Dashboard\ParkTime\EntranceCountRequest;
@@ -22,11 +22,7 @@ use RakibDevs\Weather\Weather;
 
 class ParkTimeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
         $times=[];
@@ -54,11 +50,7 @@ class ParkTimeController extends Controller
         return view('admin.park_times.index', compact('items','tech_data_exist','ops_data_exist','maintenance_data_exist','health_data_exist','skill_data_exist'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
 
     public function create()
     {
@@ -70,12 +62,7 @@ class ParkTimeController extends Controller
         return view('admin.park_times.add', compact('parks'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(ParkTimeRequest $request)
     {
         $dateExists = ParkTime::where([
@@ -117,6 +104,17 @@ class ParkTimeController extends Controller
             $list->park_time_id = $lastInsertedId;
             $list->save();
             }
+
+            $date=[
+                'user_id'=>auth()->user()->id,
+                'start'=>$request->input('start'),
+                'end'=>$request->input('end'),
+                'date'=>$request->input('date'),
+                'close_date'=>$request->input('close_date'),
+            ];
+
+            event(new timeSlotNotification($date));
+
         alert()->success('Time Slot And Weather Status Added successfully to the park !');
         return redirect()->route('admin.park_times.index');
     }
@@ -142,23 +140,13 @@ class ParkTimeController extends Controller
 
             return view('admin.park_times.index', compact('items','tech_data_exist','ops_data_exist','maintenance_data_exist','health_data_exist','skill_data_exist'));
            }
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\ParkTime $parkTime
-     * @return \Illuminate\Http\Response
-     */
+  
     public function show(ParkTime $parkTime)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\ParkTime $parkTime
-     * @return \Illuminate\Http\Response
-     */
+  
     public function edit($id)
     {
         $time = ParkTime::find($id);
@@ -166,13 +154,7 @@ class ParkTimeController extends Controller
         return view('admin.park_times.edit', compact('parks', 'time'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\ParkTime $parkTime
-     * @return \Illuminate\Http\Response
-     */
+  
     public function update(ParkTimeRequest $request, ParkTime $parkTime)
     {
         $data=$request->validated();
@@ -189,12 +171,7 @@ class ParkTimeController extends Controller
         return redirect()->route('admin.park_times.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
 
