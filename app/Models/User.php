@@ -35,7 +35,6 @@ class User extends Authenticatable
         'last_name',
         'user_number',
         'time_zone'
-
     ];
 
     /**
