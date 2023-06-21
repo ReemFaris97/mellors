@@ -65,4 +65,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Zone::class, 'user_zones');
     }
+    public function rides()
+    {
+        return $this->belongsToMany(Ride::class, 'ride_users');
+    }
 }

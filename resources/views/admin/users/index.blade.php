@@ -28,6 +28,9 @@
                                 User Zone
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                User Rides
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
                             </th>
                         </tr>
@@ -58,6 +61,19 @@
                                             <i class="fa fa-edit"></i>Edit
                                         @else
                                         <a href="{{ route('admin.addUserZone', $item->id) }}"
+                                            class=" btn btn-info">
+                                            <i class="fa fa-plus"></i>Add
+                                            </a>
+                                         @endif
+
+                                </td>
+                                <td> 
+                                        @if(in_array($item->id, $user_rides_exist))
+                                        <a href="{{ route('admin.ride_users.edit', $item) }}"
+                                            class=" btn btn-success">
+                                            <i class="fa fa-edit"></i>Edit
+                                        @else
+                                        <a href="{{ route('admin.addRideUser', $item->id) }}"
                                             class=" btn btn-info">
                                             <i class="fa fa-plus"></i>Add
                                             </a>

@@ -169,8 +169,6 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     
     Route::resource('ride_parks', 'Admin\RideParkController');
     Route::get('/add_ride_park/{ride_id}', 'Admin\RideParkController@addRidePark')->name('addRidePark');
-    Route::resource('ride_users', 'Admin\RideUserController');
-    Route::get('/add_ride_user/{ride_id}', 'Admin\RideUserController@addRideUser')->name('addRideUser');
     Route::resource('ride_zones', 'Admin\RideZoneController');
     Route::get('/add_ride_zone/{ride_id}', 'Admin\RideZoneController@addRideZone')->name('addRideZone');
 
@@ -179,5 +177,8 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
 
     Route::resource('user_zones', 'Admin\UserZoneController');
     Route::get('/add_user_zone/{user_id}', 'Admin\UserZoneController@addUserZone')->name('addUserZone');
-
+   
+    Route::resource('ride_users', 'Admin\RideUserController');
+    Route::get('/add_ride_user/{ride_id}', 'Admin\RideUserController@addRideUser')->name('addRideUser');
+    
 });

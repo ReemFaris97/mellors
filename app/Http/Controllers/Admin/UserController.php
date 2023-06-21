@@ -8,6 +8,7 @@ use App\Http\Requests\Dashboard\User\UpdateRequest;
 use App\Models\Branch;
 use App\Models\Department;
 use App\Models\Park;
+use App\Models\RideUser;
 use App\Models\User;
 use App\Models\UserPark;
 use App\Models\UserZone;
@@ -31,8 +32,10 @@ class UserController extends Controller
         $users=User::pluck('id');
         $user_zones_exist=UserZone::wherein('user_id',$users)->distinct()->pluck('user_id')->toArray();
         $user_parks_exist=UserPark::wherein('user_id',$users)->distinct()->pluck('user_id')->toArray();
+        $user_rides_exist=RideUser::wherein('user_id',$users)->distinct()->pluck('user_id')->toArray();
+        
 //dd($user_exist);
-        return view('admin.users.index',compact('items','user_zones_exist','user_parks_exist'));
+        return view('admin.users.index',compact('items','user_zones_exist','user_parks_exist','user_rides_exist'));
     }
 
     /**

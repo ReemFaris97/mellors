@@ -45,7 +45,7 @@
                             <h4 class="page-title">@yield('title') </h4>
                         </li>
                     </ul>
-  <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
 
                     @auth
@@ -87,7 +87,7 @@
                         </li>
                     @endauth
 
-                    </ul>
+            </ul>
 
                 </div><!-- end container -->
             </div><!-- end navbar -->
@@ -154,7 +154,8 @@
     @stack('scripts')
     <script src="{{asset('_admin/assets/summernote.js')}}"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script src="{{asset('_admin/assets/js/pusherNotifications.js')}}"></script>
+    <script type="module" src="{{asset('_admin/assets/js/pusherNotifications.js')}}"></script>
+    <script type="text/javascript" src="{{asset('_admin/assets/js/laravel-echo.js')}}"></script>
 
     <script type="text/javascript">
     $(document).ready(function() {
