@@ -20,7 +20,7 @@ class AuthController extends Controller
         if (Auth::attempt($cred)) {
             $user = Auth::user();
             $this->message = __('login successfully');
-            $this->body['user'] = RideResource::collection($user->rides);
+            $this->body['rides'] = RideResource::collection($user->rides);
             $this->body['accessToken'] = $user->createToken('user-token')->plainTextToken;
             return self::apiResponse(200, $this->message, $this->body);
         } else {
