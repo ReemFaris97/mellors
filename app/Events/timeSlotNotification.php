@@ -37,4 +37,11 @@ class timeSlotNotification implements ShouldBroadcastNow
 
 /*         return  ('timeSlot-notification');
  */    }
+
+ public function broadcastAs() { 
+    
+    return 'new-message'; 
+}
+
+
 }

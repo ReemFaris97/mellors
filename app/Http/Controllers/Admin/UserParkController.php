@@ -1,14 +1,16 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-use App\Http\Requests\Dashboard\Ride\RideUserRequest;
+use App\Http\Requests\Dashboard\User\UserParkRequest;
+
 use App\Http\Controllers\Controller;
-use App\Models\Ride;
-use App\Models\RideUser;
+use App\Models\Branch;
+use App\Models\Park;
 use App\Models\User;
+use App\Models\UserPark;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 
-class RideUserController extends Controller
+class UserParkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,13 +21,13 @@ class RideUserController extends Controller
     {
         //
     }
-    public function addRideUser($user_id)
+    public function addUserPark($user_id)
     {
         $user =User::findOrFail($user_id);
-        $rides = $user->parks->pluck('rides')->all();
-        return view('admin.ride_users.add',compact('user_id','rides'));
+        $branch=$user->branch_id;
+        $parks=Park::where('branch_id',$branch)->get();
+        return view('admin.user_parks.add',compact('user_id','parks'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -42,21 +44,21 @@ class RideUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RideUserRequest $request)
+    public function store(UserParkRequest $request)
     {
         $user=User::find($request['user_id']);
-        $user->rides()->sync($request['ride_id']);
-        alert()->success('Rides Added Successfully To user!');
+        $user->parks()->sync($request['park_id']);
+        alert()->success('Parks Added Successfully To user!');
         return redirect()->route('admin.users.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\RideUser  $rideUser
+     * @param  \App\Models\RideZone  $rideZone
      * @return \Illuminate\Http\Response
      */
-    public function show(RideUser $rideUser)
+    public function show(UserPark $userPark)
     {
         //
     }
@@ -64,42 +66,45 @@ class RideUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\RideUser  $rideUser
+     * @param  \App\Models\RideZone  $rideZone
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $user_id=$id;
-        $list=RideUser::where('user_id',$user_id)->pluck('ride_id')->toArray();
+        $list=UserPark::where('user_id',$user_id)->pluck('park_id')->toArray();
+
         $user =User::findOrFail($user_id);
-        $rides = $user->parks->pluck('rides')->all();
-        return view('admin.ride_users.edit',compact('user_id','user','rides','list'));
+        $branch=$user->branch_id;
+        $parks=Park::where('branch_id',$branch)->get();
+        return view('admin.user_parks.edit',compact('user_id','user','parks','list'));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RideUser  $rideUser
+     * @param  \App\Models\RideZone  $rideZone
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
        // return $id;
-        RideUser::where('user_id',$request->user_id)->delete();
+        UserPark::where('user_id',$request->user_id)->delete();
         $user=User::find($id);
-        $user->rides()->sync($request['ride_id']);
-        alert()->success('User Rides Updated Successfully !');
+        $user->parks()->sync($request['park_id']);
+        alert()->success('User Park Updated Successfully !');
         return redirect()->route('admin.users.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\RideUser  $rideUser
+     * @param  \App\Models\RideZone  $rideZone
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RideUser $rideUser)
+    public function destroy(UserPark $rideZone)
     {
         //
     }
