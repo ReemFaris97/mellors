@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('zones', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('zone_supervisor');
+        Schema::table('ride_inspection_lists', function (Blueprint $table) {
+            $table->enum('lists_type',['inspection_list','preopening','preclosing']);
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('zones', function (Blueprint $table) {
+        Schema::table('ride_inspection_lists', function (Blueprint $table) {
             //
         });
     }

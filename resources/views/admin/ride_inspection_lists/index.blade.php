@@ -7,7 +7,7 @@ Rides Inspection List
 @section('content')
 
 <div class="card-box">
-<h3>Add Inspection List To Rides</h3>
+<h3>Add Elements To Rides Inspection lists </h3>
 <br>
     <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer dt">
         <div class="row">
@@ -22,7 +22,13 @@ Rides Inspection List
                                 Ride
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Process
+                                Inspection List 
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Preopening Check List
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Preclosing Check List
                             </th>
                         </tr>
                     </thead>
@@ -35,9 +41,6 @@ Rides Inspection List
 
                             <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
-                            {!!Form::open( ['route' => ['admin.ride_inspection_lists.destroy',$item->id]
-                            ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
-                            {!!Form::close() !!}
                             <td>
                                 @if(auth()->user()->can('preopening_lists-edit'))
                                 @if(in_array($item->id, $data_exist))
@@ -56,16 +59,46 @@ Rides Inspection List
                                     </a>
                                     @endif
                                 @endif
-                            <!--     @if(auth()->user()->can('preopening_lists-delete'))
-
-                                <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                    data-url="{{ route('admin.ride_inspection_lists.destroy', $item) }}"
-                                    onclick="delete_form(this)">
-                                    Delete
-                                </a>
-                                @endif -->
-
                             </td>
+                            <td>
+                                @if(auth()->user()->can('preopening_lists-edit'))
+                                @if(in_array($item->id, $preopening_data_exist))
+
+                                <a href="{{url('edit_ride_preopen_list/'.$item->id)}}">
+                                        <button type="button" class="edit btn btn-success">
+                                        <i class="fa fa-edit"></i> Edit
+                                        </button>
+                                    </a>
+                                   
+                                    @else
+                                    <a href="{{url('add_ride_preopen_list/'.$item->id)}}">
+                                    <button type="button" class="add btn btn-info">
+                                    <i class="fa fa-plus"></i> Add
+                                    </button>
+                                    </a>
+                                    @endif
+                                @endif
+                            </td>
+                            <td>
+                                @if(auth()->user()->can('preopening_lists-edit'))
+                                @if(in_array($item->id, $data_exist))
+
+                                <a href="{{url('edit_ride_preclose_list/'.$item->id)}}">
+                                        <button type="button" class="edit btn btn-success">
+                                        <i class="fa fa-edit"></i> Edit
+                                        </button>
+                                    </a>
+                                   
+                                    @else
+                                    <a href="{{url('add_ride_preclose_list/'.$item->id)}}">
+                                    <button type="button" class="add btn btn-info">
+                                    <i class="fa fa-plus"></i> Add
+                                    </button>
+                                    </a>
+                                    @endif
+                                @endif
+                            </td>
+
 
                         </tr>
 

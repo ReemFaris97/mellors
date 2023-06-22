@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('zones', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('zone_supervisor');
+        Schema::table('preopening_lists', function (Blueprint $table) {
+            $table->dropColumn('list_type');
+            $table->enum('lists_type',['inspection_list','preopening','preclosing']);
+            $table->enum('is_checked',['yes','no']);
         });
     }
 
@@ -25,7 +27,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('zones', function (Blueprint $table) {
+        Schema::table('preopening_lists', function (Blueprint $table) {
             //
         });
     }
