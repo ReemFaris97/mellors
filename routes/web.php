@@ -181,4 +181,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::resource('ride_users', 'Admin\RideUserController');
     Route::get('/add_ride_user/{ride_id}', 'Admin\RideUserController@addRideUser')->name('addRideUser');
     
+    Route::get('/edit_ride_preclose_list/{ride_id}', 'Admin\RideInspectionListController@edit_ride_preclose_list');
+    Route::get('/add_preopening_list_to_ride/{ride_id}/{park_time_id}', 'Admin\PreopeningListController@add_preopening_list_to_ride');
+
 });

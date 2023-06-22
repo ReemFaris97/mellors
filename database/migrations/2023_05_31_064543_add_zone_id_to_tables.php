@@ -19,11 +19,9 @@ return new class extends Migration
             });
             Schema::table('ride_cycles', function (Blueprint $table) {
                 $table->foreignId('zone_id')->nullable()->constrained('zones');
-    
             });
             Schema::table('queues', function (Blueprint $table) {
                 $table->foreignId('zone_id')->nullable()->constrained('zones');
-    
             });
             Schema::table('preopening_lists', function (Blueprint $table) {
                 $table->foreignId('zone_id')->nullable()->constrained('zones');
