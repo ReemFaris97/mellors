@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -56,5 +57,11 @@ class Ride extends Model
     public function rideStoppages()
     {
         return $this->hasMany(RideStoppages::class, 'ride_id', 'id');
+    }
+
+    public function times()
+    {
+        return $this->hasMany(GameTime::class, 'ride_id', 'id')
+            ->where('date', '<=', Carbon::now()->toDateString())->where('close_date', '>=', Carbon::now()->toDateString());
     }
 }

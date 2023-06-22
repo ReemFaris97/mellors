@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RideResource extends JsonResource
@@ -14,7 +15,8 @@ class RideResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+
+        $data = [
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
@@ -31,6 +33,9 @@ class RideResource extends JsonResource
             'ride_type' => RideTypeResource::make($this->ride_type),
             'zone' => ZoneResource::make($this->zone),
             'park' => ParkResource::make($this->park),
+            'time' => RideTimeResource::make($this->times?->first())
         ];
+
+        return $data;
     }
 }
