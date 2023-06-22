@@ -16,11 +16,21 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $validated = $request->validated();
-        $cred = ['phone' => $validated['phone'], 'password' => $validated['password']];
+        if (filter_var($validated['name'], FILTER_VALIDATE_EMAIL)) {
+            $cred = ['email' => $validated['name'], 'password' => $validated['password']];
+        } else {
+            $cred = ['name' => $validated['name'], 'password' => $validated['password']];
+        }
         if (Auth::attempt($cred)) {
+
+            $user = Auth::user()->hasAnyRole(['Ride & Ops ', 'Ride & Ops', 'Operation', 'Operation ',
+                'Maintenance', 'Maintenance ', 'Health & Safety', 'Health & Safety ', '']);
+            if (!$user) {
+                return self::apiResponse(400, __('you dont have permission'));
+            }
             $user = Auth::user();
             $this->message = __('login successfully');
-            $this->body['rides'] = RideResource::collection($user->rides);
+            $this->body['user'] = UserResource::make($user);
             $this->body['accessToken'] = $user->createToken('user-token')->plainTextToken;
             return self::apiResponse(200, $this->message, $this->body);
         } else {
