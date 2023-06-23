@@ -18,6 +18,7 @@ Route::post('login',[AuthController::class,'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('home',[HomeController::class,'home']);
+    Route::get('ride/{id}',[HomeController::class,'ride']);
     Route::get('ride_preopening/{id}',[HomeController::class,'ridePreopening']);
     Route::get('ride_preclosing/{id}',[HomeController::class,'ridePreclosing']);
     Route::post('store_inspection',[HomeController::class,'storeInspection']);
