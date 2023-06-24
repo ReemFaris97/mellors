@@ -15,7 +15,7 @@ use App\Traits\Api\ApiResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
-class HomeController extends Controller
+class RideController extends Controller
 {
     use ApiResponse;
 
@@ -54,21 +54,21 @@ class HomeController extends Controller
     protected function storeInspection(InspectionsRequest $request)
     {
         $validate = $request->validated();
-//        foreach ($validate['inspection_list_id'] as $key => $inspection) {
-//            PreopeningList::query()->create([
-//                'ride_id' => $validate['ride_id'],
-//                'comment' => $validate['comment'],
-//                'opened_date' => $validate['opened_date'],
-//                'park_time_id' => $validate['park_time_id'],
-//                'zone_id' => $validate['zone_id'],
-//                'park_id' => $validate['park_id'],
-//                'lists_type' => $validate['lists_type'],
-//                'created_by_id' => \auth()->user()->id,
-//                'inspection_list_id' => $inspection,
-//                'status' => $validate['status'][$key],
-//                'is_checked' => $validate['is_checked'][$key],
-//            ]);
-//        }
+        foreach ($validate['inspection_list_id'] as $key => $inspection) {
+            PreopeningList::query()->create([
+                'ride_id' => $validate['ride_id'],
+                'comment' => $validate['comment'],
+                'opened_date' => $validate['opened_date'],
+                'park_time_id' => $validate['park_time_id'],
+                'zone_id' => $validate['zone_id'],
+                'park_id' => $validate['park_id'],
+                'lists_type' => $validate['lists_type'],
+                'created_by_id' => \auth()->user()->id,
+                'inspection_list_id' => $inspection,
+                'status' => $validate['status'][$key],
+                'is_checked' => $validate['is_checked'][$key],
+            ]);
+        }
         $zone = Zone::find($validate['zone_id']);
         $ride = Ride::find($validate['ride_id']);
 
@@ -84,6 +84,10 @@ class HomeController extends Controller
 
         return self::apiResponse(200, __('inspections created successfully'), []);
 
+    }
+
+    protected function rideStatus(){
+        
     }
 
 }
