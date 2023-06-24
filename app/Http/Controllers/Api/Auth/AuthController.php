@@ -16,10 +16,10 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $validated = $request->validated();
-        if (filter_var($validated['name'], FILTER_VALIDATE_EMAIL)) {
-            $cred = ['email' => $validated['name'], 'password' => $validated['password']];
+        if (filter_var($validated['username'], FILTER_VALIDATE_EMAIL)) {
+            $cred = ['email' => $validated['username'], 'password' => $validated['password']];
         } else {
-            $cred = ['name' => $validated['name'], 'password' => $validated['password']];
+            $cred = ['name' => $validated['username'], 'password' => $validated['password']];
         }
         if (Auth::attempt($cred)) {
 
