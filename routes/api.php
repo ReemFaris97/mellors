@@ -24,5 +24,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('store_inspection',[RideController::class,'storeInspection']);
 
     Route::get('get_ride_status',[RideController::class,'rideStatus']);
+    Route::post('add_ride_stoppage',[RideController::class,'addRideStoppage']);
+
+    Route::post('reopen',[RideController::class,'reopen']);
 
 });

@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\InspectionsRequest;
+use App\Http\Requests\Api\SubmitStoppageRequest;
 use App\Http\Resources\User\InspectionResource;
 use App\Http\Resources\User\Ride\StoppageResource;
 use App\Http\Resources\User\RideResource;
 use App\Models\PreopeningList;
 use App\Models\Ride;
 use App\Models\RideInspectionList;
+use App\Models\RideStoppages;
 use App\Models\StopageCategory;
 use App\Models\Zone;
 use App\Notifications\ZoneSupervisorNotifications;
 use App\Traits\Api\ApiResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -91,7 +94,6 @@ class RideController extends Controller
             'user_id' => \auth()->user()->id
         ];
         Notification::send($user, new ZoneSupervisorNotifications($data));
-
         return self::apiResponse(200, __('inspections created successfully'), []);
 
     }
@@ -102,6 +104,32 @@ class RideController extends Controller
         $this->body['stoppages_categories'] = StoppageResource::collection($stoppages);
 
         return self::apiResponse(200, __('stoppages categories'), $this->body);
+
+    }
+
+    protected function addRideStoppage(SubmitStoppageRequest $request)
+    {
+        $validate = $request->validated();
+        $validate['user_id'] = \auth()->user()->id;
+        $validate['ride_status'] = 'stopped';
+        $validate['stoppage_status'] = 'pending';
+        RideStoppages::query()->create($validate);
+        return self::apiResponse(200, __('stoppage added successfully'), []);
+
+    }
+
+    protected function reopen(Request $request)
+    {
+        $validate = $request->validate([
+            'ride_id' =>'required|exists:rides,id'
+        ]);
+        $ride = Ride::find($validate['ride_id']);
+        $last = $ride->rideStoppages->last();
+        $last->ride_status = 'active';
+        $last->save();
+        $this->body['ride'] = RideResource::make($ride);
+
+        return self::apiResponse(200, __('update ride status successfully'),  $this->body);
 
     }
 
