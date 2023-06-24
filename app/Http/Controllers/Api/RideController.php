@@ -16,6 +16,7 @@ use App\Notifications\ZoneSupervisorNotifications;
 use App\Traits\Api\ApiResponse;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class RideController extends Controller
@@ -25,6 +26,8 @@ class RideController extends Controller
     public function home()
     {
         $user = Auth::user();
+
+
         $this->body['rides'] = RideResource::collection($user->rides);
         return self::apiResponse(200, __('home page'), $this->body);
     }
@@ -32,6 +35,7 @@ class RideController extends Controller
     public function ride($id)
     {
         $ride = Ride::find($id);
+
         if (!$ride) {
             return self::apiResponse(404, __('not found ride'), []);
         }

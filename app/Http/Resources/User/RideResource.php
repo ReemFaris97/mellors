@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use App\Models\Ride;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -33,28 +34,10 @@ class RideResource extends JsonResource
             'ride_type' => RideTypeResource::make($this->ride_type),
             'zone' => ZoneResource::make($this->zone),
             'park' => ParkResource::make($this->park),
-            'time' => RideTimeResource::make($this->times?->first())
+            'time' => RideTimeResource::make($this->times?->first()),
+            'status' => $this->rideStoppages?->last()->ride_status ?? 'active'
         ];
-        $now = \Illuminate\Support\Carbon::now();
 
-        $startDateTime = \Illuminate\Support\Carbon::parse("$this->date $this->start");
-        $endDateTime = Carbon::parse("$this->close_date $this->end");
-        if ($now->between($startDateTime, $endDateTime)) {
-
-            if ($this->stoppageRideStatus != null) {
-                $data['available'] = $this->stoppageRideStatus;
-            } else {
-                $data['available'] = 'active';
-                $data['ride_notes'] = '';
-                $data['rideSroppageDescription'] = '';
-            }
-
-        } else {
-
-            $data['available'] = 'closed';
-            $data['ride_notes'] = 'out of park time slot ';
-            $data['rideSroppageDescription'] = '';
-        }
         return $data;
     }
 }
