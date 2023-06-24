@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\InspectionsRequest;
 use App\Http\Resources\User\InspectionResource;
+use App\Http\Resources\User\Ride\StoppageResource;
 use App\Http\Resources\User\RideResource;
 use App\Models\PreopeningList;
 use App\Models\Ride;
 use App\Models\RideInspectionList;
+use App\Models\StopageCategory;
 use App\Models\Zone;
 use App\Notifications\ZoneSupervisorNotifications;
 use App\Traits\Api\ApiResponse;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
@@ -25,13 +28,16 @@ class RideController extends Controller
         $this->body['rides'] = RideResource::collection($user->rides);
         return self::apiResponse(200, __('home page'), $this->body);
     }
+
     public function ride($id)
     {
         $ride = Ride::find($id);
-        if (!$ride){
+        if (!$ride) {
             return self::apiResponse(404, __('not found ride'), []);
         }
         $this->body['ride'] = RideResource::make($ride);
+
+
         return self::apiResponse(200, __('home page'), $this->body);
     }
 
@@ -78,7 +84,7 @@ class RideController extends Controller
         $data = [
             'title' => $validate['lists_type'] . ' check list added to ' . $ride->name,
             'ride_id' => $ride->id,
-            'user_id' =>\auth()->user()->id
+            'user_id' => \auth()->user()->id
         ];
         Notification::send($user, new ZoneSupervisorNotifications($data));
 
@@ -86,8 +92,13 @@ class RideController extends Controller
 
     }
 
-    protected function rideStatus(){
-        
+    protected function rideStatus()
+    {
+        $stoppages = StopageCategory::query()->get();
+        $this->body['stoppages_categories'] = StoppageResource::collection($stoppages);
+
+        return self::apiResponse(200, __('stoppages categories'), $this->body);
+
     }
 
 }

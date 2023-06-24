@@ -35,7 +35,26 @@ class RideResource extends JsonResource
             'park' => ParkResource::make($this->park),
             'time' => RideTimeResource::make($this->times?->first())
         ];
+        $now = \Illuminate\Support\Carbon::now();
 
+        $startDateTime = \Illuminate\Support\Carbon::parse("$this->date $this->start");
+        $endDateTime = Carbon::parse("$this->close_date $this->end");
+        if ($now->between($startDateTime, $endDateTime)) {
+
+            if ($this->stoppageRideStatus != null) {
+                $data['available'] = $this->stoppageRideStatus;
+            } else {
+                $data['available'] = 'active';
+                $data['ride_notes'] = '';
+                $data['rideSroppageDescription'] = '';
+            }
+
+        } else {
+
+            $data['available'] = 'closed';
+            $data['ride_notes'] = 'out of park time slot ';
+            $data['rideSroppageDescription'] = '';
+        }
         return $data;
     }
 }
