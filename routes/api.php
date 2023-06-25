@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
-use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\RideController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::post('login',[AuthController::class,'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('home',[HomeController::class,'home']);
-    Route::get('ride/{id}',[HomeController::class,'ride']);
-    Route::get('ride_preopening/{id}',[HomeController::class,'ridePreopening']);
-    Route::get('ride_preclosing/{id}',[HomeController::class,'ridePreclosing']);
-    Route::post('store_inspection',[HomeController::class,'storeInspection']);
+    Route::get('home',[RideController::class,'home']);
+    Route::get('ride/{id}',[RideController::class,'ride']);
+    Route::get('ride_preopening/{id}',[RideController::class,'ridePreopening']);
+    Route::get('ride_preclosing/{id}',[RideController::class,'ridePreclosing']);
+    Route::post('store_inspection',[RideController::class,'storeInspection']);
+
+    Route::get('get_ride_status',[RideController::class,'rideStatus']);
+    Route::post('add_ride_stoppage',[RideController::class,'addRideStoppage']);
+
+    Route::post('reopen',[RideController::class,'reopen']);
 
 });

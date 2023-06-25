@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use App\Models\Ride;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -33,7 +34,8 @@ class RideResource extends JsonResource
             'ride_type' => RideTypeResource::make($this->ride_type),
             'zone' => ZoneResource::make($this->zone),
             'park' => ParkResource::make($this->park),
-            'time' => RideTimeResource::make($this->times?->first())
+            'time' => RideTimeResource::make($this->times?->first()),
+            'status' => $this->rideStoppages?->last()->ride_status ?? 'active'
         ];
 
         return $data;
