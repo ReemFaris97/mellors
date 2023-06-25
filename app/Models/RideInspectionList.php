@@ -9,7 +9,7 @@ class RideInspectionList extends Model
 {
 
     protected $fillable = [
-        'ride_id','inspection_list_id'
+        'ride_id','inspection_list_id','lists_type'
     ];
     public function inspection_list()
     {

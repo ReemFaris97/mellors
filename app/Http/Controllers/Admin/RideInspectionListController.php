@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
-
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\InspectionList\RideInspectionListRequest;
 use App\Models\InspectionList;
@@ -30,20 +29,21 @@ class RideInspectionListController extends Controller
             $ride_inspect=Ride::wherein('zone_id', $zones)->pluck('id');
            // return  $rides;
         }
-        $data_exist = RideInspectionList::wherein('ride_id', $ride_inspect)->distinct()->pluck('ride_id')->toArray();
-       return view('admin.ride_inspection_lists.index',compact('rides','data_exist'));
+        $inspection_data_exist = RideInspectionList::where('lists_type','inspection_list')
+        ->wherein('ride_id', $ride_inspect)->distinct()->pluck('ride_id')->toArray();
+       
+        $preopening_data_exist = RideInspectionList::where('lists_type','preopening')
+        ->wherein('ride_id', $ride_inspect)->distinct()->pluck('ride_id')->toArray();
+        
+        $preclosing_data_exist = RideInspectionList::where('lists_type','preclosing')
+        ->wherein('ride_id', $ride_inspect)->distinct()->pluck('ride_id')->toArray();
+     
+        return view('admin.ride_inspection_lists.index',compact('rides','preopening_data_exist','preclosing_data_exist','inspection_data_exist'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $inspection_list=InspectionList::all();
-        $rides=Ride::pluck('name','id')->toArray();
-        return view('admin.ride_inspection_lists.add',compact('inspection_list','rides'));
+   
     }
     public function add_ride_inspection_lists ($ride_id)
     {
@@ -54,65 +54,44 @@ class RideInspectionListController extends Controller
     public function edit_ride_inspection_lists( $ride_id)
     {
         $ride=Ride::find($ride_id);
-        $list=RideInspectionList::where('ride_id',$ride_id)->pluck('inspection_list_id')->toArray();
+        $list=RideInspectionList::where('ride_id',$ride_id)
+        ->where('lists_type','inspection_list')->pluck('inspection_list_id')->toArray();
         $inspection_list=InspectionList::all();
         $rides=Ride::pluck('name','id')->toArray();    
-//       return $list;
         return view('admin.ride_inspection_lists.edit',compact('inspection_list','ride','list','ride_id'));
 
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(RideInspectionListRequest $request)
     {
-        $ride=Ride::find($request['ride_id']);
-        $ride->inspection_list()->sync($request['inspection_list_id']);
+        $ride = Ride::find($request['ride_id']);
+        $inspectionListIds = $request['inspection_list_id'];
+        $ride->inspection_list()->attach($inspectionListIds, ['lists_type' => 'inspection_list']);
         alert()->success('Ride Inspection Elements Added Successfully !');
         return redirect()->route('admin.ride_inspection_lists.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit( $id)
     {
        
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    
+  
     public function update_ride_inspection_lists(Request $request,  $ride_id)
     {
-        RideInspectionList::where('ride_id',$request->ride_id)->delete();
-        $ride=Ride::find($request->ride_id);
-        $ride->inspection_list()->sync($request['inspection_list_id']);
+        RideInspectionList::where('ride_id',$request->ride_id) ->where('lists_type','inspection_list')->delete();
+        $ride = Ride::find($request['ride_id']);
+        $inspectionListIds = $request['inspection_list_id'];
+        $ride->inspection_list()->attach($inspectionListIds, ['lists_type' => 'inspection_list']);
         alert()->success('Ride Inspection List Updated Successfully !');
         return redirect()->route('admin.ride_inspection_lists.index');
     }
     public function update(RideInspectionListRequest $request, RideInspectionList $rideInspectionList)
     {
-        return ($request);
-        RideInspectionList::where('ride_id',$request->ride_id)->delete();
-        $ride=Ride::find($request->ride_id);
-        $ride->inspection_list()->sync($request['inspection_list_id']);
-        alert()->success('Ride Inspection List Updated Successfully !');
-        return redirect()->route('admin.ride_inspection_lists.index');
+
     }
     /**
      * Remove the specified resource from storage.

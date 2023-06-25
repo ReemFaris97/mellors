@@ -62,6 +62,7 @@ class PreopeningListController extends Controller
        return view('admin.preopening_lists.add',compact('inspections','ride_id','zone_id','park_time_id'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -81,9 +82,6 @@ class PreopeningListController extends Controller
      */
     public function store(Request $request)
     {
-   // dd($request->all());
-    
-
    foreach ($request->inspection_list_id as $key=>$value){
     if ($request->status[$key] == 'yes' || $request->status[$key] == 'no' ){
         $preopening_list = new PreopeningList();

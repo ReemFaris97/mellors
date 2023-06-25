@@ -64,14 +64,14 @@ Rides Inspection List
                                 @if(auth()->user()->can('preopening_lists-edit'))
                                 @if(in_array($item->id, $preopening_data_exist))
 
-                                <a href="{{url('edit_ride_preopen_elements/'.$item->id)}}">
+                                <a href="{{url('edit_ride_preopen_list/'.$item->id)}}">
                                         <button type="button" class="edit btn btn-success">
                                         <i class="fa fa-edit"></i> Edit
                                         </button>
                                     </a>
                                    
                                     @else
-                                    <a href="{{url('add_ride_preopen_elements/'.$item->id)}}">
+                                    <a href="{{url('add_ride_preopen_list/'.$item->id)}}">
                                     <button type="button" class="add btn btn-info">
                                     <i class="fa fa-plus"></i> Add
                                     </button>
@@ -83,14 +83,14 @@ Rides Inspection List
                                 @if(auth()->user()->can('preopening_lists-edit'))
                                 @if(in_array($item->id, $preclosing_data_exist))
 
-                                <a href="{{url('edit_ride_preclose_elements/'.$item->id)}}">
+                                <a href="{{url('edit_ride_preclose_list/'.$item->id)}}">
                                         <button type="button" class="edit btn btn-success">
                                         <i class="fa fa-edit"></i> Edit
                                         </button>
                                     </a>
                                    
                                     @else
-                                    <a href="{{url('add_ride_preclose_elements/'.$item->id)}}">
+                                    <a href="{{url('add_ride_preclose_list/'.$item->id)}}">
                                     <button type="button" class="add btn btn-info">
                                     <i class="fa fa-plus"></i> Add
                                     </button>

@@ -26,8 +26,7 @@ class RideInspectionListRequest extends FormRequest
 
         $rules= [
             'ride_id' => 'required',
-            'inspection_list_id'=>'required',
-
+            'inspection_list_id'=>'required'
         ];
         if ($this->getMethod() == 'PATCH') {
             $rules = [
