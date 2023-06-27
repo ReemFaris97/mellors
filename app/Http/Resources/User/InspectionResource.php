@@ -15,8 +15,8 @@ class InspectionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->inspection_list->id,
-            'name' => $this->inspection_list->name,
+            'id' => $this->inspection_list?->id,
+            'name' => $this->inspection_list?->name,
         ];
     }
 }

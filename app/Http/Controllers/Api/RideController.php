@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\InspectionsRequest;
+use App\Http\Requests\Api\SubmitCycleRequest;
+use App\Http\Requests\Api\SubmitQueuesRequest;
 use App\Http\Requests\Api\SubmitStoppageRequest;
 use App\Http\Resources\User\InspectionResource;
 use App\Http\Resources\User\Ride\StoppageResource;
 use App\Http\Resources\User\RideResource;
 use App\Models\PreopeningList;
+use App\Models\Queue;
 use App\Models\Ride;
+use App\Models\RideCycles;
 use App\Models\RideInspectionList;
 use App\Models\RideStoppages;
 use App\Models\StopageCategory;
@@ -121,7 +125,7 @@ class RideController extends Controller
     protected function reopen(Request $request)
     {
         $validate = $request->validate([
-            'ride_id' =>'required|exists:rides,id'
+            'ride_id' => 'required|exists:rides,id'
         ]);
         $ride = Ride::find($validate['ride_id']);
         $last = $ride->rideStoppages->last();
@@ -129,8 +133,32 @@ class RideController extends Controller
         $last->save();
         $this->body['ride'] = RideResource::make($ride);
 
-        return self::apiResponse(200, __('update ride status successfully'),  $this->body);
+        return self::apiResponse(200, __('update ride status successfully'), $this->body);
 
     }
+
+    protected function addCycle(SubmitCycleRequest $request)
+    {
+        $validate = $request->validated();
+        $ride = Ride::query()->find($validate['ride_id']);
+        $validate['user_id'] = \auth()->user()->id;
+        $validate['sales'] = $validate['number_of_ft'] * $ride->ride_price_ft + $validate['riders_count'] * $ride->ride_price;
+        RideCycles::query()->create($validate);
+
+        return self::apiResponse(200, __('create ride cycle successfully'), []);
+
+    }
+
+    protected function addQueues(SubmitQueuesRequest $request)
+    {
+        $validate = $request->validated();
+        $validate['user_id'] = \auth()->user()->id;
+        $validate['queue_seconds'] = $validate['queue_minutes'] * 60;
+        Queue::query()->create($validate);
+
+        return self::apiResponse(200, __('create queues successfully'), []);
+
+    }
+
 
 }
