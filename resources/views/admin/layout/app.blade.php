@@ -12,7 +12,7 @@
 </head>
 
 <body class="fixed-left">
-    <ul class="circles">
+    <!-- <ul class="circles">
         <li></li>
         <li></li>
         <li></li>
@@ -22,13 +22,19 @@
         <li></li>
         <li></li>
 
-    </ul>
+    </ul> -->
     <div id="wrapper">
         <!-- Top Bar Start -->
         <div class="topbar">
 
-            <!-- LOGO -->
 
+  <!-- LOGO -->
+  <div class="topbar-left">
+                    <a href="index.html" class="logo">
+                    <img src="{{asset('/_admin/assets/images/logo1.png')}}" alt="Mellors-img" title="Mellors" class="image">
+
+                    </a>
+                </div>
 
             <!-- Button mobile view to collapse sidebar menu -->
             <div class="navbar navbar-default" role="navigation">
@@ -37,18 +43,21 @@
                     <!-- Page title -->
                     <ul class="nav navbar-nav navbar-left">
                         <li>
+                            <h4 class="page-title">@yield('title') </h4>
+                        </li>
+                        <li>
                             <button class="button-menu-mobile open-left">
                                 <i class="zmdi zmdi-menu"></i>
                             </button>
                         </li>
-                        <li>
-                            <h4 class="page-title">@yield('title') </h4>
-                        </li>
                     </ul>
-            <ul class="navbar-nav ml-auto">
+            <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
 
                     @auth
+                    <li>
+                    <div class="notification-box">
+                        <ul class="list-inline m-b-0">
                         <li class="dropdown dropdown-notification nav-item  dropdown-notifications">
                             <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
                                 <i class="fa fa-bell"> </i>
@@ -56,35 +65,27 @@
                                     class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow   notif-count"
                                     data-count="9">9</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                                <li class="dropdown-menu-header">
-                                    <h6 class="dropdown-header m-0 text-center">
-                                        <span class="grey darken-2 text-center"> الرسائل</span>
-                                    </h6>
-                                </li>
-                                <li class="scrollable-container ps-container ps-active-y media-list w-100">
-                                    <a href="">
-                                        <div class="media">
-                                            <div class="media-body">
-                                                <h6 class="media-heading text-right ">عنوان الاشعار </h6>
-                                                <p class="notification-text font-small-3 text-muted text-right"> نص الاشعار</p>
-                                                <small style="direction: ltr;">
-                                                    <p class=" text-muted text-right"
-                                                          style="direction: ltr;"> 20-05-2020 - 06:00 pm
-                                                    </p>
-                                                    <br>
-
-                                                </small>
-                                            </div>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-menu-header">الرسائل </li>
+                                <li class="">
+                                    <a href="#" class="media">
+                                        <div class="media-body">
+                                            <h6 class="media-heading">عنوان الاشعار </h6>
+                                            <p class="notification-text font-small-3 text-muted"> نص الاشعار</p>
                                         </div>
+                                        <span style="direction: ltr;" class="date"> 20-05-2020 - 06:00 pm</span>
                                     </a>
 
                                 </li>
-                                <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
-                                                                    href=""> جميع الاشعارات </a>
+                                <li role="separator" class="divider"></li> 
+                                <li class="dropdown-menu-footer">
+                                    <a class="dropdown-item text-muted text-center" href="#"> جميع الاشعارات </a>
                                 </li>
                             </ul>
                         </li>
+                        </ul>
+                        </div>
+                    </li>
                     @endauth
 
             </ul>

@@ -17,7 +17,7 @@
     <div class="clearfix"></div>
     <div class="wrapper-page">
         <div class="text-center">
-            <img src="{{asset('/_admin/assets/images/logo.jpg')}}" class="logo_im">
+            <img src="{{asset('/_admin/assets/images/logo1.png')}}" class="logo_im">
             <h5 class="text-muted m-t-0 font-600">Login To Dashboard</h5>
         </div>
         <div class="m-t-40 card-box">

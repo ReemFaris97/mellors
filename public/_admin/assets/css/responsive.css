@@ -90,7 +90,7 @@ File: Responsive
 }
 @media (max-width: 480px) {
   .side-menu {
-    z-index: 10 !important;
+    z-index: 999 !important;
   }
   .button-menu-mobile {
     display: block;
@@ -137,6 +137,7 @@ File: Responsive
   .wrapper-page .logo span {
     display: inline-block !important;
   }
+ 
   .content-page {
     margin-right: 0 !important;
   }
@@ -148,12 +149,18 @@ File: Responsive
   }
   .page-title {
     font-size: 15px;
-    line-height: 67px;
+    line-height: 50px;
     max-width: 250px;
     white-space: nowrap;
   }
   .navbar-default {
     padding: 0px;
+  }
+  .notification-box > ul > li > a , .button-menu-mobile{
+    line-height: 50px;
+  }
+  .side-menu {
+    top: 50px;
   }
   .navbar-default .navbar-left {
     padding-left: 0px !important;
