@@ -65,10 +65,10 @@ class QueueController extends Controller
     public function store(QueueRequest $request)
     {
        // return $request;
-       $park_time_id=$request->park_time_id;
-       $ride_id=$request->ride_id;
-       $ride=Ride::findOrFail($ride_id);
-       $zone_id=$ride->zone_id;
+        $park_time_id=$request->park_time_id;
+        $ride_id=$request->ride_id;
+        $ride=Ride::findOrFail($ride_id);
+        $zone_id=$ride->zone_id;
         $park_time=ParkTime::findOrFail($park_time_id);
         $park_id=$park_time->park_id;
         $opened_date=$park_time->date;
