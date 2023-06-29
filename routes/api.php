@@ -27,5 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('add_ride_stoppage',[RideController::class,'addRideStoppage']);
 
     Route::post('reopen',[RideController::class,'reopen']);
+    Route::post('add_cycle',[RideController::class,'addCycle']);
+    Route::post('add_queues',[RideController::class,'addQueues']);
 
 });
