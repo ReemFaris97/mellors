@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::Post('get-images', 'Admin\RideStoppageController@getImage')->name('getImage');
     Route::get('/show_stoppages/{ride_id}/{park_time_id}', 'Admin\RideStoppageController@show_stoppages')->name('showStoppages');
     Route::get('/add_stoppage/{ride_id}/{park_time_id}', 'Admin\RideStoppageController@add_stoppage')->name('addStoppage');
+    Route::PATCH('update_stoppage_status', 'Admin\RideStoppageController@update_stoppage_status')->name('rides-stoppages.updateStoppageStatus');
 
     Route::resource('rides-cycles', 'Admin\RideCyclesController');//done
     Route::Post('upload-cycles-with-excel', 'Admin\RideCyclesController@uploadCycleExcleFile')->name('uploadCycleExcleFile');
