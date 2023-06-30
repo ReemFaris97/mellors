@@ -7,7 +7,9 @@
 @section('content')
 
     <div class="card-box">
-  
+    <a href="{{url('add_stoppage/'.$ride_id.'/'.$park_time_id)}}">
+            <button type="button" class="btn btn-info">Create New Stoppage</button>
+        </a>
         <br><br>
         <form class="formSection" action="{{url('/search_stoppages')}}" method="GET">
             @csrf
