@@ -137,9 +137,11 @@ class HealthAndSafetyReportController extends Controller
     }
     public function search(Request $request){
         $health=[];
+        $park_id=$request->input('park_id');
+        $date=$request->input('date');
         $parkTime = ParkTime::query()
-            ->where('park_id',$request->input('park_id'))
-            ->Where('date', $request->input('date'))
+            ->where('park_id',$park_id)
+            ->Where('date', $date)
             ->first();
             if (auth()->user()->hasRole('Super Admin')){
                 $parks=Park::pluck('name','id')->all();
@@ -198,9 +200,9 @@ class HealthAndSafetyReportController extends Controller
             ->where('question','Additional comments:')->first();
 
             $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','h&s')->get();
-            return view('admin.reports.duty_report', compact('health','parks','redFlags'));
+            return view('admin.reports.duty_report', compact('health','parks','redFlags','park_id','date'));
         }else
-        return view('admin.reports.duty_report', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks','park_id','date'));
     }
     /**
      * Show the form for editing the specified resource.

@@ -98,6 +98,8 @@ class SkillGameReportController extends Controller
     public function search(Request $request)
     {
         $skillgame=[];
+        $park_id=$request->input('park_id');
+        $date=$request->input('date');
         $parkTime = ParkTime::query()
         ->where('park_id',$request->input('park_id'))
         ->Where('date', $request->input('date'))
@@ -136,9 +138,9 @@ class SkillGameReportController extends Controller
                 ->where('question','Additionl comments ( hows the day been ? Any isssues / Observations? )?')->first();
                 
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','skill_games')->get();
-        return view('admin.reports.duty_report', compact('skillgame','parks','redFlags'));
+        return view('admin.reports.duty_report', compact('skillgame','parks','redFlags','park_id','date'));
     }else
-        return view('admin.reports.duty_report', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks','park_id','date'));
     }
 
     public function show($id)

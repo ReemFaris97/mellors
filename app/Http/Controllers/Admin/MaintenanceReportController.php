@@ -158,6 +158,8 @@ class MaintenanceReportController extends Controller
 //        return redirect()->back();
     }
     public function search(Request $request){
+        $park_id=$request->input('park_id');
+        $date=$request->input('date');
         $parkTime = ParkTime::query()
         ->where('park_id',$request->input('park_id'))
         ->Where('date', $request->input('date'))
@@ -183,9 +185,9 @@ class MaintenanceReportController extends Controller
             
         $maintenanceRideStatus=MaintenanceRideStatusReport::query()->where('park_time_id',$parkTime->id)->get();
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','maintenance')->get();
-        return view('admin.reports.duty_report', compact('maintenance','parks','redFlags','maintenanceRideStatus'));
+        return view('admin.reports.duty_report', compact('maintenance','parks','redFlags','maintenanceRideStatus','park_id','date'));
     }else
-        return view('admin.reports.duty_report', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks','park_id','date'));
     }
  
     public function show($id)

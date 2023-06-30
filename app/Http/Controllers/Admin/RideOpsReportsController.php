@@ -87,6 +87,8 @@ class RideOpsReportsController extends Controller
 //        return redirect()->back();
     }
     public function search(Request $request){
+        $park_id=$request->input('park_id');
+        $date=$request->input('date');
         $rideops=[];
         $parkTime = ParkTime::query()
         ->where('park_id',$request->input('park_id'))
@@ -124,10 +126,11 @@ class RideOpsReportsController extends Controller
             $rideops['l'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
             ->where('question','How many swipper Issues?')->first();
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','ride_ops')->get();
-        return view('admin.reports.duty_report', compact('rideops','parks','redFlags'));
+
+        return view('admin.reports.duty_report', compact('rideops','parks','redFlags','park_id','date'));
     }else
 
-        return view('admin.reports.duty_report', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks','park_id','date'));
     }
  
 

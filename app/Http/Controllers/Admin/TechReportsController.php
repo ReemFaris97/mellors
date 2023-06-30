@@ -117,6 +117,8 @@ class TechReportsController extends Controller
 
     public function search(Request $request)
     {
+        $park_id=$request->input('park_id');
+        $date=$request->input('date');
         $tech=[];
         $parkTime = ParkTime::query()
             ->where('park_id',$request->input('park_id'))
@@ -145,9 +147,9 @@ class TechReportsController extends Controller
 
                 $techRideDown=TechRideDownReport::query()->where('park_time_id',$parkTime->id)->get();
             $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','tech')->get();
-            return view('admin.reports.duty_report', compact('tech','parks','redFlags','techRideDown'));
+            return view('admin.reports.duty_report', compact('tech','parks','redFlags','techRideDown','park_id','date'));
         }else
-        return view('admin.reports.duty_report', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks','park_id','date'));
     }
 
     /**

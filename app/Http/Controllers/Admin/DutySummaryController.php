@@ -61,6 +61,8 @@ class DutySummaryController extends Controller
 
     public function search(Request $request)
     {
+        $park_id=$request->input('park_id');
+        $date=$request->input('date');
         $parkTime = ParkTime::query()
             ->where('park_id',$request->input('park_id'))
             ->Where('date', $request->input('date'))
@@ -134,9 +136,9 @@ class DutySummaryController extends Controller
             
                 return view('admin.reports.duty_report', compact('parkTime','techData','ridesData','maintenanceData',
                 'skillGameData','healthData','parks','ridesRedFlag','healthRedFlag',
-                'skillRedFlag','maintenanceRedFlag','techRedFlag'));
+                'skillRedFlag','maintenanceRedFlag','techRedFlag','park_id','date'));
         }else
-        return view('admin.reports.duty_report', compact('parks'));
+        return view('admin.reports.duty_report', compact('parks','park_id','date'));
     }
 
     /**
