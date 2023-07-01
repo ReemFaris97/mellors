@@ -23,7 +23,7 @@ class timeSlotNotification implements ShouldBroadcastNow
 
     public function __construct($data= [])
     {
-        
+
         $this->user_id = $data['user_id'];
         $this->start = $data['start'];
         $this->end = $data['end'];
@@ -38,9 +38,9 @@ class timeSlotNotification implements ShouldBroadcastNow
 /*         return  ('timeSlot-notification');
  */    }
 
- public function broadcastAs() { 
-    
-    return 'new-message'; 
+ public function broadcastAs() {
+
+    return 'new-message';
 }
 
 

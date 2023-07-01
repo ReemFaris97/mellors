@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\PrivetChatEvent;
+use App\Events\timeSlotNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +39,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::resource('zones', 'Admin\ZoneController');//done
     Route::get('get_by_branch_id', 'Admin\ZoneController@get_by_branch')->name('zones.get_by_branch');
 
-    
+
     Route::resource('park_times', 'Admin\ParkTimeController');//done
     Route::get('/search_park_times/', 'Admin\ParkTimeController@search');
 
@@ -57,7 +59,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::resource('stoppage-sub-category', 'Admin\StoppageSubCategoryController');//done
     Route::resource('rides', 'Admin\RidesController');//done
     Route::Post('upload-rides-with-excel', 'Admin\RidesController@uploadExcleFile')->name('uploadExcleFile');
-   
+
     Route::resource('rides-stoppages', 'Admin\RideStoppageController');//done
     Route::get('/search_stoppages/', 'Admin\RideStoppageController@search')->name('searchStoppage');
     Route::Post('upload-stoppages-with-excel', 'Admin\RideStoppageController@uploadStoppagesExcleFile')->name('uploadStoppagesExcleFile');
@@ -79,7 +81,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('/add_queue/{ride_id}/{park_time_id}', 'Admin\QueueController@add_queue')->name('addQueue');
 
     Route::resource('inspection_lists', 'Admin\InspectionListController');//done
-    
+
 
     Route::resource('preopening_lists', 'Admin\PreopeningListController');//done
     Route::get('/add_preopening_list_to_ride/{ride_id}/{park_time_id}', 'Admin\PreopeningListController@add_preopening_list_to_ride');
@@ -88,7 +90,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('/cheack_preopening_list/', 'Admin\PreopeningListController@cheackPreopeningList')->name('cheackPreopeningList');
     Route::get('/show_preopening_list/{ride_id}/{park_time_id}', 'Admin\PreopeningListController@show_ride_preopening_list')->name('showPreopeningList');
 
-    
+
     Route::get('/zone_rides/{zone_id}', 'Admin\PreopeningListController@zone_rides')->name('zoneRides');
     Route::resource('ride_inspection_lists', 'Admin\RideInspectionListController');
     Route::get('/add_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@add_ride_inspection_lists')->name('addRideInspectionLists');
@@ -123,16 +125,16 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
 
     Route::resource('accidents', 'Admin\AccidentController');//done
     Route::get('/add_accident_report/{ride_id}/{park_time_id}', 'Admin\AccidentController@add_accident_report')->name('addAccidentReport');
-    
+
     Route::resource('health_and_safety_reports', 'Admin\HealthAndSafetyReportController');//done
     Route::get('/add_health_and_safety_report/{park_id}/{time_slot_id}', 'Admin\HealthAndSafetyReportController@add_health_and_safety_report')->name('addHealthAndSafetyReport');
     Route::get('/edit_health_and_safety_report/{time_slot_id}', 'Admin\HealthAndSafetyReportController@edit_health_and_safety_report')->name('editHealthAndSafetyReport');
     Route::post('/updateRequest/', 'Admin\HealthAndSafetyReportController@update_request')->name('updateRequest');
     Route::get('/search_health_and_safety/', 'Admin\HealthAndSafetyReportController@search')->name('searchHealthAndSafetyReport');
     Route::get('/cheack_health/', 'Admin\HealthAndSafetyReportController@cheackHealth')->name('cheackHealth');
-   /* Route::post('/updateRequest', function (Request $request) {
-        dd('aaaaaaaaa');
-    })->name('updateRequest');*/
+    /* Route::post('/updateRequest', function (Request $request) {
+         dd('aaaaaaaaa');
+     })->name('updateRequest');*/
     Route::resource('skill_game_reports', 'Admin\SkillGameReportController');//done
     Route::get('/add_skill_game_report/{park_id}/{time_slot_id}', 'Admin\SkillGameReportController@add_skill_game_report')->name('addSkillGameReport');
     Route::get('/edit_skill_game_report/{time_slot_id}', 'Admin\SkillGameReportController@edit_skill_game_report')->name('editSkillGameReport');
@@ -167,7 +169,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('inspection-list-report', 'Admin\ReportsController@inspectionListReport')->name('reports.inspectionListReport');
     Route::get('show-inspection-list-report', 'Admin\ReportsController@showInspectionListReport')->name('reports.showInspectionListReport');
 
-    
+
     Route::resource('ride_parks', 'Admin\RideParkController');
     Route::get('/add_ride_park/{ride_id}', 'Admin\RideParkController@addRidePark')->name('addRidePark');
     Route::resource('ride_zones', 'Admin\RideZoneController');
@@ -178,19 +180,24 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
 
     Route::resource('user_zones', 'Admin\UserZoneController');
     Route::get('/add_user_zone/{user_id}', 'Admin\UserZoneController@addUserZone')->name('addUserZone');
-   
+
     Route::resource('ride_users', 'Admin\RideUserController');
     Route::get('/add_ride_user/{ride_id}', 'Admin\RideUserController@addRideUser')->name('addRideUser');
-    
+
     Route::resource('ride_preopen', 'Admin\RidePreopeningController');
     Route::get('/add_ride_preopen_elements/{ride_id}', 'Admin\RidePreopeningController@add_ride_preopen_elements');
     Route::get('/edit_ride_preopen_elements/{ride_id}', 'Admin\RidePreopeningController@edit_ride_preopen_elements');
     Route::post('/update_ride_preopen_elements/{ride_id}', 'Admin\RidePreopeningController@update_ride_preopen_elements')->name('updatRidePreopenElements');
-   
+
     Route::resource('ride_preclose', 'Admin\RidePreclosingController');
     Route::get('/add_ride_preclose_elements/{ride_id}', 'Admin\RidePreclosingController@add_ride_preclose_elements');
     Route::get('/edit_ride_preclose_elements/{ride_id}', 'Admin\RidePreclosingController@edit_ride_preclose_elements');
     Route::post('/update_ride_preclose_elements/{ride_id}', 'Admin\RidePreclosingController@update_ride_preclose_elements')->name('updatRidePrecloseElements');
+    Route::get('test', function () {
 
-    
+        event(new \App\Events\test('tttttt'));
+        return "Event has been sent!";
+
+    });
+
 });
