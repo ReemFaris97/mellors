@@ -81,20 +81,29 @@ class IndexController extends Controller
         //  dd($total_riders);
 
         $rides = DB::table('rides')
-        ->groupBy('rides.id')
         ->join('parks', 'parks.id', '=', 'rides.park_id')
         ->leftJoin('park_times', function ($join) {
             $join->on('park_times.park_id', '=', 'parks.id')
-                 ->whereDate('park_times.date', '=', Carbon::now()->toDateString());
+                ->whereDate('park_times.date', '=', Carbon::now()->toDateString());
         })
         ->leftJoin('ride_stoppages', function ($join) {
-            $join->on('ride_stoppages.ride_id', '=', 'rides.id');
+            $join->on('ride_stoppages.ride_id', '=', 'rides.id')
+                ->where('ride_stoppages.created_at', function ($subquery) {
+                    $subquery->select(DB::raw('MAX(created_at)'))
+                        ->from('ride_stoppages')
+                        ->whereColumn('ride_stoppages.ride_id', 'rides.id');
+                });
         })
         ->select([
-            DB::raw('rides.*'),
-            DB::raw('parks.name as parkName'),
-            DB::raw('park_times.start,park_times.end,park_times.date,park_times.close_date'),
-            DB::raw('ride_stoppages.ride_status as stoppageRideStatus,ride_stoppages.ride_notes,ride_stoppages.description as rideSroppageDescription'),
+            'rides.*',
+            'parks.name as parkName',
+            'park_times.start',
+            'park_times.end',
+            'park_times.date',
+            'park_times.close_date',
+            'ride_stoppages.ride_status as stoppageRideStatus',
+            'ride_stoppages.ride_notes',
+            'ride_stoppages.description as rideSroppageDescription',
         ])
         ->whereIn('parks.id', $parks)
         ->get();
