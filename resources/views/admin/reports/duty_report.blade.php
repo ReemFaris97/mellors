@@ -34,26 +34,32 @@ Duty Report
 
     <div class="tab-content tabsContentDuty">
         <div id="Ride" class="tab-pane fade in active">
+            <!-- !! NOTE !! Kindly add class: (Rides) to <table> tag here in Rides condition -->
             @include('admin.reports.show')
         </div>
-
+        
         <div id="Health" class="tab-pane fade">
+            <!-- !! NOTE !! Kindly add class: (TechServices Health health1) to <table> tag here in Rides condition -->
             @include('admin.reports.show')
         </div>
 
         <div id="Maintenance" class="tab-pane fade">
+            <!-- !! NOTE !! Kindly add class: (Maintenance) to <table> tag here in Rides condition -->
             @include('admin.reports.show')
         </div>
 
         <div id="Teachnical" class="tab-pane fade">
+            <!-- !! NOTE !! Kindly add class: (TechServices) to <table> tag here in Rides condition -->
             @include('admin.reports.show')
         </div>
 
         <div id="Skill" class="tab-pane fade">
+            <!-- !! NOTE !! Kindly add class: (SkillGames) to <table> tag here in Rides condition -->
             @include('admin.reports.show')
         </div>
 
         <div id="Duty" class="tab-pane fade">
+            <!-- !! NOTE !! Kindly add class: (Rides) to <table> tag here in Rides condition -->
             @include('admin.reports.summery')
         </div>
     </div>
