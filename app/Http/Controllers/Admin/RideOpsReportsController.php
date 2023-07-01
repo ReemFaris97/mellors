@@ -127,7 +127,7 @@ class RideOpsReportsController extends Controller
             ->where('question','How many swipper Issues?')->first();
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','ride_ops')->get();
 
-        return view('admin.reports.duty_report', compact('rideops','parks','redFlags','park_id','date'));
+        return view('admin.reports.duty_report', compact('rideops','parks','redFlags','park_id','date','parkTime'));
     }else
 
         return view('admin.reports.duty_report', compact('parks','park_id','date'));

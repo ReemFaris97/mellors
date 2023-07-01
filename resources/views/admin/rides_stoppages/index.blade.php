@@ -7,9 +7,11 @@
 @section('content')
 
     <div class="card-box">
+    @if (request()->is('show_stoppages/*/*')) 
     <a href="{{url('add_stoppage/'.$ride_id.'/'.$park_time_id)}}">
             <button type="button" class="btn btn-info">Create New Stoppage</button>
-        </a>
+    </a>
+   @endif
         <br><br>
         <form class="formSection" action="{{url('/search_stoppages')}}" method="GET">
             @csrf
@@ -18,8 +20,6 @@
         <div class="form-group">
             <label for="middle_name">Time Slot Date </label>
             {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
-        
-
  </div>
     </div>
     <div class='col-md-2 mtButton'>
