@@ -18,8 +18,7 @@
         <div class="form-group">
             <label for="middle_name">Time Slot Date </label>
             {!! Form::date('date',null,['class'=>'form-control','id'=>'date']) !!}
-            <input type="hidden" name="park_time_id" value="{{$park_time_id}}">
-            <input type="hidden" name="ride_id" value="{{$ride_id}}">
+        
 
  </div>
     </div>
@@ -63,6 +62,9 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride_Status
                             </th>
+                         <!--    <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Change Stoppage Status
+                            </th> -->
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Stoppage Status
                             </th>
@@ -101,6 +103,67 @@
                                   <span class=" btn-xs btn-success">Active</span>
                                 @endif
                                 </td>
+                             <!--    <td>
+                             
+                                    <button type="button" class="btn btn-success  " data-toggle="modal"
+                                        data-target="#modal-{{ $item->id }}"><i class="fa fa-edit"></i> Change Status
+                                    </button>
+                                    <div class="modal fade" id="modal-{{ $item->id }}" tabindex="-1" aria-hidden="true"
+                                        role="dialog">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="defaultModalLabel">
+                                                        Change Stoppage Status</h4>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    {!!Form::model($item , ['route' =>
+                                                    ['admin.rides-stoppages.updateStoppageStatus' ,
+                                                    $item->id],'id' => 'ClientStore', 'method' => 'PATCH',
+                                                    'enctype'=>"multipart/form-data"]) !!}
+                                                    <label class="form-label"> Stoppage Status </label>
+                                                    <div class="form-line">
+                                                    {!! Form::select('stoppage_status', ["pending"=>'Pending',"working"=>'Working On',"done"=>'Solved'],null,
+                                                                array('class' =>
+                                                                'form-control ','placeholder'=>'Stoppage Status'))
+                                                    !!}
+
+                                                        @if ($errors->has('daily_entrance_count'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('daily_entrance_count') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                        <br><br>
+                                                        <label class="form-label"> Stoppage Description </label>
+                                                        <div class="form-line">
+                                                            {!! Form::textArea('description', null, ['class' =>
+                                                            'form-control summernote']) !!}
+
+                                                            @if ($errors->has('description'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('description') }}</strong>
+                                                            </span>
+                                                            @endif
+                                                            {!! Form::hidden('stoppage_id', $item->id, ['class' =>
+                                                            'form-control']) !!}
+                                                            {!! Form::hidden('parkTimeId', $item->park_time_id, ['class' =>
+                                                            'form-control']) !!}
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-primary waves-effect saveProject"
+                                                            type="submit">Save
+                                                        </button>
+                                                    </div>
+
+                                                    {!! Form::close() !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td> -->
+
                                 <td>
                                 @if($item->stoppage_status=='pending')
                                 <span class=" btn-xs btn-primary">Pending
@@ -154,6 +217,19 @@
 
 
 @endsection
+@push('scripts')
+<script type="text/javascript">
+$("#ClientStore").popover({
+    title: '<h4>Update Stoppage Status</h4>',
+    container: 'body',
+    placement: 'bottom',
+    html: true,
+    content: function() {
+        return $('#popover-form').html();
+    }
+});
+</script>
+@endpush
 
 @section('footer')
     @include('admin.datatable.scripts')

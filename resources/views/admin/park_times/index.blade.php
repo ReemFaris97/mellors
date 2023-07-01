@@ -344,8 +344,6 @@ $("#ClientStore").popover({
     }
 });
 </script>
-
-
 @endpush
 
 @section('footer')

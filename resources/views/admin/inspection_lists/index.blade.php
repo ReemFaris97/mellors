@@ -7,10 +7,11 @@ Inspection list elements
 @section('content')
 
     <div class="card-box">
-        <a href="{{ route('admin.inspection_lists.create')}}">
-            <button type="button" class="btn btn-info">Add New Element TO Inspection List </button>
-        </a>
-
+        <p class="text-muted font-14 mb-3">
+            <a href="{{ route('admin.inspection_lists.create')}}">
+                <button type="button" class="btn btn-info">Add New Element TO Inspection List </button>
+            </a>
+        </p>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">

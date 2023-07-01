@@ -104,7 +104,7 @@ class ReportsController extends Controller
        $to = $request->input('to');
        $park_id = $request->input('park_id');
        $items = PreopeningList::whereBetween('opened_date',[$from, $to])
-           ->where('park_id',$park_id)
+           ->where('park_id',$park_id)->where('lists_type','inspection_list')
            ->get();
       //     return $items;
            if($request->input('ride_id'))

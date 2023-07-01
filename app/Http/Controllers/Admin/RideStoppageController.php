@@ -14,6 +14,7 @@ use App\Traits\ImageOperations;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\Dashboard\Ride\RideStoppageRequest;
+use App\Http\Requests\Dashboard\Ride\RideStoppageStatusRequest;
 use App\Models\ParkTime;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -128,27 +129,76 @@ class RideStoppageController extends Controller
     public function update(RideStoppageRequest $request,$id)
     {
         $item = RideStoppages::findOrFail($id);
-        $ride_id=$item->ride_id;
-        $data=$request->validated();
-        $data['ride_status']=$item['ride_status'];
-        $park_time=ParkTime::findOrFail($request['park_time_id']);
-        $duration=$park_time->duration_time;
-        if($data['type']=='all_day')
-        {
-            $data['down_minutes']=$duration;
+        $ride_id = $item->ride_id;
+        $data = $request->validated();
+        $data['ride_status'] = $item['ride_status'];
+        $park_time = ParkTime::findOrFail($request['park_time_id']);
+        $duration = $park_time->duration_time;
+        
+        if ($data['type'] == 'all_day') {
+            $data['down_minutes'] = $duration;
         }
-       
-        if ($request['stoppage_status'] == "done"){
-           $data['ride_status']="active";
-            $data['stoppage_status']=$request['stoppage_status'];
-        }
+    
+        if ($request['stoppage_status'] == "done") {
+  // Get stoppage park time first part calculation
+            $stoppageParkTime = ParkTime::find($item->park_time_id);
+            $stoppageParkTimeEnd = Carbon::parse("$stoppageParkTime->close_date $stoppageParkTime->end");
+   // dd($stoppageParkTimeEnd);
+            $downtimeMinutes = 0;
 
-        elseif ( $data['stoppage_status']="working" || $data['stoppage_status']="pending"){
-            $data['stoppage_status']=$request['stoppage_status'];
-            $data['ride_status']="stopped";
+  // Stoppage end date and time rhird part
+            $time_slot_end = $request['time_slot_end'];
+            $stoppage_end_date = Carbon::now()->format('Y-m-d');
+    //get current parktime start time 
+            $currentParkTime=ParkTime::where('date',$stoppage_end_date)->first();
+            $currentParkTimeStart=$currentParkTime->start;
+            $currentParkTimeId=$currentParkTime->id;
+            $currentParkTimeStartTime = Carbon::parse("$stoppage_end_date $currentParkTimeStart");
 
+
+            $stoppageStartTime = Carbon::parse("$item->opened_date $item->time_slot_start");
+            $stoppageEndTime = Carbon::parse("$stoppage_end_date $time_slot_end");
+    
+            if ($currentParkTimeStartTime > $stoppageStartTime) {
+
+                $ids = ParkTime::whereBetween('date', [$item->opened_date, $stoppage_end_date])->pluck('id');
+                // Stoppage continues to the next park time
+                $downtimeMinutes += $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
+                  //  return($downtimeMinutes);
+                  $skipFirst = true;
+                  $lastIndex = count($ids) - 1;
+                  
+                  foreach ($ids as $index => $id) {
+                      if ($skipFirst) {
+                          $skipFirst = false;
+                          continue; // Skip the first iteration
+                      }
+                  
+                      if ($index === $lastIndex) {
+                          break; // Break out of the loop at the last iteration
+                      }
+                  
+                      $nextParkTime = ParkTime::find($id);
+                      $durationValue = (int) filter_var($nextParkTime->duration_time, FILTER_SANITIZE_NUMBER_INT);
+
+                    //  dd($durationValue);
+                      $downtimeMinutes += $durationValue;
+                  }
+                  $downtimeMinutes += $stoppageEndTime->diffInMinutes($currentParkTimeStartTime);
+               
+            } else {
+                // Stoppage ends within the current park time
+                $downtimeMinutes = $stoppageEndTime->diffInMinutes($stoppageStartTime);
+            }
+    
+            $data['ride_status'] = "active";
+            $data['down_minutes'] = $downtimeMinutes;
+            $data['stoppage_status'] = $request['stoppage_status'];
         }
+    
+        // Update the ride stoppage with the new data
         $item->update($data);
+    
 
         if ($request->has('images')) {
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' =>$id]);
@@ -158,12 +208,29 @@ class RideStoppageController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
+    public function update_stoppage_status(RideStoppageStatusRequest $request, RideStoppages $rideStoppage)
+    {
+        if ($request['stoppage_status'] === "done"){
+            $toUpdateColumns = ['stoppage_status' => $request['stoppage_status'],
+            'description' => $request['description'],
+            'ride_status'=>"active"
+           ];
+       
+         }
+         elseif ($request['stoppage_status']==="working" || $request['stoppage_status']==="pending"){
+            $toUpdateColumns = ['stoppage_status' => $request['stoppage_status'],
+            'description' => $request['description'],
+            'ride_status'=>"stopped"
+           ];
+         }
+      
+        $res = RideStoppages::findOrFail($request->stoppage_id);
+        $res->fill($toUpdateColumns);
+        $res->save();
+        alert()->success('Stoppage Status Updated successfully !');
+        return redirect()->back();
+    }
     public function destroy($id)
     {
         $rideStoppages = RideStoppages::find($id);
@@ -183,13 +250,10 @@ class RideStoppageController extends Controller
         return view('admin.rides_stoppages.append_images', compact('x'));
     }
     public function search(Request $request){
-        $ride_id = $request->input('ride_id');
-        $park_time_id = $request->input('park_time_id');
         $date = $request->input('date');
         $items = RideStoppages::query()
-            ->where('ride_id',$ride_id)
             ->Where('opened_date', $date)
             ->get();
-        return view('admin.rides_stoppages.index', compact('items','ride_id','park_time_id'));
+        return view('admin.rides_stoppages.index', compact('items'));
     }
 }

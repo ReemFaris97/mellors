@@ -9,25 +9,16 @@ var handleDataTableButtons = function() {
     "use strict";
     0 !== $("#datatable-buttons").length && $("#datatable-buttons").DataTable({
         dom: "Bfrtip",
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [ 0, 1, 2, 3 ] }, 
+            { "bSearchable": false, "aTargets": [ 0, 1, 2, 3 ] }
+        ],
+        searching:false ,
+        "bPaginate": false,
         language:{
             url:'//cdn.datatables.net/plug-ins/1.10.25/i18n/English.json'
         },
-        buttons: [{
-            extend: "copy",
-            className: "btn-sm"
-        }, {
-            extend: "csv",
-            className: "btn-sm"
-        }, {
-            extend: "excel",
-            className: "btn-sm"
-        }, {
-            extend: "pdf",
-            className: "btn-sm"
-        }, {
-            extend: "print",
-            className: "btn-sm"
-        }],
+        buttons: false,
         responsive: !0
     })
 },

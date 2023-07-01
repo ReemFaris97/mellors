@@ -38,7 +38,7 @@ html {
 
 .slimScrollBar {
     display: block !important;
-    background: #ffffff !important;
+    background: var(--themeColor) !important;
     width: 7px !important;
 }
 
