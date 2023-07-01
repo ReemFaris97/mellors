@@ -108,7 +108,7 @@ class IndexController extends Controller
                 if ($ride->stoppageRideStatus != null) {
                     $ride->available = $ride->stoppageRideStatus;
                 } else {
-                    $ride->available = $ride->stoppageRideStatus;
+                    $ride->available = 'active';
                     $ride->ride_notes = '';
                     $ride->rideSroppageDescription = '';
                 }
