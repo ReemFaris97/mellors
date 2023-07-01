@@ -106,7 +106,7 @@ class IndexController extends Controller
                 if ($ride->stoppageRideStatus != null) {
                     $ride->available = $ride->stoppageRideStatus;
                 } else {
-                    $ride->available = 'active';
+                    $ride->available = $ride->stoppageRideStatus;
                     $ride->ride_notes = '';
                     $ride->rideSroppageDescription = '';
                 }
@@ -118,9 +118,9 @@ class IndexController extends Controller
                 $ride->rideSroppageDescription = '';
             }
         }
-// dd( $rides);
+ //dd( $rides);
 
-
+dd($rides);
         $times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
 
 

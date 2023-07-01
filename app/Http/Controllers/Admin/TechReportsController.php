@@ -147,7 +147,7 @@ class TechReportsController extends Controller
 
                 $techRideDown=TechRideDownReport::query()->where('park_time_id',$parkTime->id)->get();
             $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','tech')->get();
-            return view('admin.reports.duty_report', compact('tech','parks','redFlags','techRideDown','park_id','date'));
+            return view('admin.reports.duty_report', compact('tech','parks','redFlags','parkTime','techRideDown','park_id','date'));
         }else
         return view('admin.reports.duty_report', compact('parks','park_id','date'));
     }

@@ -200,7 +200,7 @@ class HealthAndSafetyReportController extends Controller
             ->where('question','Additional comments:')->first();
 
             $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','h&s')->get();
-            return view('admin.reports.duty_report', compact('health','parks','redFlags','park_id','date'));
+            return view('admin.reports.duty_report', compact('health','parks','redFlags','park_id','date','parkTime'));
         }else
         return view('admin.reports.duty_report', compact('parks','park_id','date'));
     }

@@ -73,7 +73,6 @@ class DutySummaryController extends Controller
                 $parks=auth()->user()->parks->pluck('name','id')->all();
             }
             if($parkTime){
-
                 $techData = [];
                 $techData['How many rides have delayed opening?'] = TechReport::query()->where('park_time_id',$parkTime->id)
                 ->where('question','How many rides have delayed opening?')->pluck('answer')->first();

@@ -5,7 +5,61 @@
 <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
     <div class="row">
         <div class="col-sm-12">
-            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
+                <table id="datatable-buttons "
+                    class="table table-striped table-bordered  tableDates dt-responsive nowrap dayMonth">
+                    <thead>
+                        <tr role="row">
+                            <th colspan="5" class="sorting_asc" tabindex="0" aria-controls="datatable-buttons"
+                                rowspan="1" aria-sort="ascending" style="text-align: center;">
+                                @if(isset($parkTime))
+                                {{$parkTime->parks->name}}
+                                @endif - Duty Report
+                            </th>
+                        </tr>
+                        <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                aria-sort="ascending">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                Day/Month/Year
+                            </th>
+                            <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                                <i class="fa-solid fa-clock"></i>
+                                Opening Time:
+                            </th>
+                            <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                                Closing Time :
+                            </th>
+                            <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                                <i class="fa-solid fa-users"></i>
+                                Number of Guest:
+                            </th>
+                            <th class="sorting no" tabindex="0" aria-controls="datatable-buttons">
+                                <i class="fa-solid fa-cloud-sun-rain"></i>
+                                Weather: :
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(isset($parkTime))
+                        <tr>
+                            <td tabindex="0" class="sorting_1">{{$parkTime->date}}
+                                <!-- <span class="yelloBack">friday</span> -->
+                            </td>
+                            <td class=" align-center">{{$parkTime->start}}</td>
+                            <td>{{$parkTime->end}}</td>
+                            <td>{{$parkTime->daily_entrance_count}}</td>
+                            <td class="">
+                                {{$parkTime->general_weather}} - {{$parkTime->description}} - {{$parkTime->temp}} ْ
+                                - Windspeed avg : {{$parkTime->windspeed_avg}}km/h
+                            </td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            <table id="datatable-buttons" class="table {{ (request()->is('search_ride_ops_reports*')) ? 'Rides' : (request()->is('search_health_and_safety*')) ? 'TechServices Health health1' : '' }}
+             table-striped table-bordered dt-responsive nowrap">
                 <thead>
                     <tr role="row">
                         <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1"

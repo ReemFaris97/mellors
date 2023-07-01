@@ -138,7 +138,7 @@ class SkillGameReportController extends Controller
                 ->where('question','Additionl comments ( hows the day been ? Any isssues / Observations? )?')->first();
                 
         $redFlags=RedFlag::query()->where('park_time_id',$parkTime->id)->where('type','skill_games')->get();
-        return view('admin.reports.duty_report', compact('skillgame','parks','redFlags','park_id','date'));
+        return view('admin.reports.duty_report', compact('skillgame','parks','redFlags','park_id','date','parkTime'));
     }else
         return view('admin.reports.duty_report', compact('parks','park_id','date'));
     }
