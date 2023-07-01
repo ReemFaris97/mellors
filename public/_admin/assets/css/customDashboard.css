@@ -129,11 +129,11 @@ a:focus {
     border-right: 3px solid var(--secondary);
     /* color: #ffead1 !important; */
 }
-.user-box ul li a:hover,
+/* .user-box ul li a:hover,
 #sidebar-menu ul ul li.active a,
 #sidebar-menu ul ul a:hover {
     color: #ffead1;
-}
+} */
 .label-purple {
     background-color: var(--primary);
 }
@@ -529,6 +529,9 @@ div.dataTables_paginate {
     background-color: var(--themeColor);
     color: #fff;
 }
+table.dataTable td {
+    background: #f8f8f8;
+}
 .Rides tr td,
 .Rides tr th {
     background-color: #d9e2f3;
@@ -615,7 +618,7 @@ textarea.editTextArea {
 .tableDates tr td {
     background-color: #fff;
 }
-td.redflagTd {
+td.redflagTd, table tr td.redflagTd {
     background-color: #ffc7ce !important;
 }
 .content-input-fontawsome {
@@ -693,9 +696,7 @@ table.dataTable {
     background: #f8f8f8;
     margin-top: 15px;
 }
-table.dataTable td {
-    background: #f8f8f8;
-}
+
 td .btn-info {
     background-color: #a2743ccc !important;
     border-color: #a2743c !important;
@@ -889,6 +890,23 @@ table.dataTable.dtr-inline.collapsed
 .home-flex .card-box {
     height: 100%;
     margin: 0; 
+}
+.home-flex .playBox{
+    margin-bottom: 15px;
+    position: relative; 
+}
+.home-flex .playBox .tooltip-outer{
+    position: absolute; 
+    right: 1rem;
+    top: 1rem;
+    z-index: 9999; 
+}
+.home-flex .playBox .tooltip-icon{
+    color: var(--secondary);
+    cursor: pointer;
+}
+.home-flex .playBox:not(:last-child){
+    margin-right: 15px;
 }
 .widget-chart-1 .widget-detail-1 {
     word-wrap: break-word;
