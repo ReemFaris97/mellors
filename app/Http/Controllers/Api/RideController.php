@@ -71,6 +71,7 @@ class RideController extends Controller
     protected function storeInspection(InspectionsRequest $request)
     {
         $validate = $request->validated();
+
         foreach ($validate['inspection_list_id'] as $key => $inspection) {
             PreopeningList::query()->create([
                 'ride_id' => $validate['ride_id'],
@@ -82,8 +83,8 @@ class RideController extends Controller
                 'lists_type' => $validate['lists_type'],
                 'created_by_id' => \auth()->user()->id,
                 'inspection_list_id' => $inspection,
-                'status' => $validate['status'][$key],
-                'is_checked' => $validate['is_checked'][$key],
+                'status' => $validate['status'][$key] ?? 'no',
+                'is_checked' =>  $validate['is_checked'][$key] ?? 'no',
             ]);
         }
         $zone = Zone::find($validate['zone_id']);
