@@ -120,7 +120,6 @@ class IndexController extends Controller
         }
  //dd( $rides);
 
-dd($rides);
         $times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
 
 
