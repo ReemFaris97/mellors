@@ -95,12 +95,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td tabindex="0" class="sorting_1">Were there any ride breakdowns </td>
+                            <td tabindex="0" class="sorting_1">How many rides broke down </td>
                             <td
                                 class="{{($ridesData['How many rides have Breakdowns?'] == '0') ? 'yes align-center' : 'no align-center'}}">
                                 {{($ridesData['How many rides have Breakdowns?'] == '0') ? 'no' : 'yes'}}
                             </td>
-                            <td>How many breakdowns </td>
+                            <td>Total breakdowns </td>
                             <td
                                 class="{{($ridesData['How many rides have Breakdowns?'] == '0') ? 'yes align-center' : 'no align-center'}}">
                                 {{$ridesData['How many rides have Breakdowns?']}}
