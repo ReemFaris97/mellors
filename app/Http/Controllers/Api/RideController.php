@@ -96,7 +96,7 @@ class RideController extends Controller
         $data = [
             'title' => $validate['lists_type'] . ' check list added to ' . $ride?->name,
             'ride_id' => $ride->id,
-            'user_id' => \auth()->user()?->id
+            'user_id' => Auth::user()->id
         ];
         if ($user) {
             Notification::send($user, new ZoneSupervisorNotifications($data));
