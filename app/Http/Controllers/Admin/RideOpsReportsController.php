@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CustomerFeedbacks;
 use App\Models\Park;
 use App\Models\ParkTime;
 use App\Models\RedFlag;
+use App\Models\Ride;
 use App\Models\RideOpsReport;
+use App\Models\RideStoppages;
 use App\Models\TechReport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -38,7 +41,49 @@ class RideOpsReportsController extends Controller
     }
     public function add_ride_ops_report($park_id,$park_time_id)
     {
-        return view('admin.ride_ops_reports.add',compact('park_id','park_time_id'));
+        $park_time=ParkTime::find($park_time_id);
+        $open_date=$park_time->date;
+        $data = [];
+        
+        $data['How many unavailable rides?'] = Ride::whereHas('rideStoppages', function ($query) use ($park_time_id) {
+            $query->where('park_time_id', $park_time_id)->where('type','all_day');
+        })->count();
+
+        $data['Any medical assistance required?'] = RideStoppages::where('park_time_id', $park_time_id)
+        ->whereHas('stopageSubCategory', function ($subQuery) {
+            $subQuery->where('name','Medics Required');
+        })->count();
+
+        $data['Number of complaints received?']=CustomerFeedbacks::where('date', $open_date)->where('type','Complaint')->count();
+       
+        $data['How many rides Broke down?'] = Ride::whereHas('rideStoppages', function ($query) use ($park_time_id) {
+            $query->where('park_time_id', $park_time_id)->where('type','time_slot')
+                ->whereHas('stopageSubCategory', function ($subQuery) {
+                    $subQuery->whereIn('name', ['Extended Maintenance','Ride Fault', 'Ongoing Maintenance']);
+                });
+        })->count();
+
+        $data['Total Breakdowns'] = RideStoppages::where('park_time_id', $park_time_id)->where('type','time_slot')
+        ->whereHas('stopageSubCategory', function ($subQuery) {
+            $subQuery->whereIn('name', ['Extended Maintenance','Ride Fault', 'Ongoing Maintenance']);
+        })->count();
+
+        $data['How many Evacuations?'] = RideStoppages::where('park_time_id', $park_time_id)
+                ->whereHas('stopageSubCategory', function ($subQuery) {
+                    $subQuery->whereIn('name', ['Ride Evacuation Abnormal','Ride Evacuation Normal']);
+                })->count();
+
+        $data['How many stoppages?'] = RideStoppages::where('park_time_id', $park_time_id)->where('type','time_slot')
+        ->whereHas('stopageSubCategory', function ($subQuery) {
+            $subQuery->whereNotIn('name', ['Swipper','Extended Maintenance','Ride Fault', 'Ongoing Maintenance','Ride Evacuation Abnormal','Ride Evacuation Normal']);
+        })->count();
+
+        $data['How many swipper Issues?'] = RideStoppages::where('park_time_id', $park_time_id)
+        ->whereHas('stopageSubCategory', function ($subQuery) {
+            $subQuery->where('name','Swipper');
+        })->count();
+//dd($data);
+        return view('admin.ride_ops_reports.add',compact('park_id','park_time_id','data'));
     }
 
   
@@ -116,9 +161,9 @@ class RideOpsReportsController extends Controller
             $rideops['g'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
             ->where('question','How many unavailable rides?')->first();
             $rideops['h'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
-            ->where('question','How many Breakdowns?')->first();
+            ->where('question','How many rides Broke down?')->first();
             $rideops['i'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
-            ->where('question','How many rides have Breakdowns?')->first();
+            ->where('question','Total Breakdowns')->first();
             $rideops['j'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
             ->where('question','How many Evacuations?')->first();
             $rideops['k'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)

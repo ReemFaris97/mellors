@@ -279,10 +279,10 @@
                     <tr role="row" class="odd" id="row-{{1}}">
                         <td tabindex="0" class="sorting_1">{{1 }}</td>
                         <td>{{$rideops['a']->question ?? ''}}</td>
-                        <td class="{{($rideops['a']->answer ?? '  '  == 'no') ? 'no' : 'yes'}} align-center" >
-                            {{ $rideops['a']->answer ?? '  '  ?? '' }}
+                        <td class="{{($rideops['a']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
+                            {{ $rideops['a']->answer ?? ''  ?? '' }}
                         </td>
-                        <td>{!!$rideops['a']->comment ?? '  '  ?? '' !!}</td>
+                        <td>{!!$rideops['a']->comment ?? ''  ?? '' !!}</td>
                     </tr>
                     <tr role="row" class="odd" id="row-{{2}}">
                         <td tabindex="0" class="sorting_1">{{2}}</td>
@@ -303,7 +303,7 @@
                     <tr role="row" class="odd" id="row-{{4}}">
                         <td tabindex="0" class="sorting_1">{{4}}</td>
                         <td>{{$rideops['d']->question ?? '' }}</td>
-                        <td class="{{($rideops['d']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($rideops['d']->answer ?? '  '  == 'no') ? 'no' : 'yes'}} align-center" >
                             {{ $rideops['d']->answer ?? '  '   ?? ''}}
                         </td>
                         <td>{!!$rideops['d']->comment ?? '  '   ?? ''!!}</td>
@@ -311,7 +311,7 @@
                     <tr role="row" class="odd" id="row-{{5}}">
                         <td tabindex="0" class="sorting_1">{{5}}</td>
                         <td>{{$rideops['e']->question ?? ''}}</td>
-                        <td class="{{($rideops['e']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($rideops['e']->answer ?? '  '  == 'no') ? 'no' : 'yes'}} align-center" >
                             {{ $rideops['e']->answer ?? '  '   ?? ''}}
                         </td>
                         <td>{!!$rideops['e']->comment ?? '  '  ?? '' !!}</td>
@@ -319,7 +319,7 @@
                     <tr role="row" class="odd" id="row-{{6}}">
                         <td tabindex="0" class="sorting_1">{{6}}</td>
                         <td>{{$rideops['f']->question?? '' }}</td>
-                        <td class="{{($rideops['f']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($rideops['f']->answer ?? '  '  == 'no') ? 'no' : 'yes'}} align-center" >
                             {{ $rideops['f']->answer ?? '  '   ?? '' }}
                         </td>
                         <td>{!!$rideops['f']->comment ?? '  '   ?? '' !!}</td>

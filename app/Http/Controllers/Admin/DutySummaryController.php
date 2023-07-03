@@ -116,11 +116,13 @@ class DutySummaryController extends Controller
                 ->where('question','Any complaints received?')->pluck('answer')->first();
                 
                 $ridesData = [];
-                $ridesData['How many unavailable?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
-                ->where('question','How many unavailable?')->pluck('answer')->first();
-                $ridesData['How many rides have Breakdowns?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
-                ->where('question','How many rides have Breakdowns?')->pluck('answer')->first();
-                $ridesData['How many Evacuations?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+                $ridesData['How many unavailable rides?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many unavailable rides?')->pluck('answer')->first();
+                $ridesData['How many rides Broke down?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','How many rides Broke down?')->pluck('answer')->first();
+                $ridesData['Total Breakdowns'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
+                ->where('question','Total Breakdowns')->pluck('answer')->first();
+               $ridesData['How many Evacuations?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
                 ->where('question','How many Evacuations?')->pluck('answer')->first();
                 $ridesData['How many stoppages?'] = RideOpsReport::query()->where('park_time_id',$parkTime->id)
                 ->where('question','How many stoppages?')->pluck('answer')->first();

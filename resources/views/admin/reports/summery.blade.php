@@ -85,25 +85,25 @@
                         <tr>
                             <td tabindex="0" class="sorting_1">Were all rides available today </td>
                             <td
-                                class="{{($ridesData['How many unavailable?'] == '0') ? 'yes align-center' : 'no align-center'}}">
-                                {{($ridesData['How many unavailable?'] == '0') ? 'yes' : 'no'}}
+                                class="{{($ridesData['How many unavailable rides?'] == '0') ? 'yes align-center' : 'no align-center'}}">
+                                {{($ridesData['How many unavailable rides?'] == '0') ? 'yes' : 'no'}}
                             </td>
                             <td>How many unavailable </td>
                             <td
-                                class="{{($ridesData['How many unavailable?'] == '0') ? 'yes align-center' : 'no align-center'}}">
-                                {{$ridesData['How many unavailable?']}}
+                                class="{{($ridesData['How many unavailable rides?'] == '0') ? 'yes align-center' : 'no align-center'}}">
+                                {{$ridesData['How many unavailable rides?']}}
                             </td>
                         </tr>
                         <tr>
                             <td tabindex="0" class="sorting_1">How many rides broke down </td>
                             <td
-                                class="{{($ridesData['How many rides have Breakdowns?'] == '0') ? 'yes align-center' : 'no align-center'}}">
-                                {{($ridesData['How many rides have Breakdowns?'] == '0') ? 'no' : 'yes'}}
+                                class="{{($ridesData['How many rides Broke down?'] == '0') ? 'yes align-center' : 'no align-center'}}">
+                                {{$ridesData['How many rides Broke down?'] }}
                             </td>
                             <td>Total breakdowns </td>
                             <td
-                                class="{{($ridesData['How many rides have Breakdowns?'] == '0') ? 'yes align-center' : 'no align-center'}}">
-                                {{$ridesData['How many rides have Breakdowns?']}}
+                                class="{{($ridesData['Total Breakdowns'] == '0') ? 'yes align-center' : 'no align-center'}}">
+                                {{$ridesData['Total Breakdowns']}}
                             </td>
                         </tr>
                         <td tabindex="0" class="sorting_1">Any Evacuations </td>
@@ -111,7 +111,7 @@
                             class="{{($ridesData['How many Evacuations?'] == '0') ? 'yes align-center' : 'no align-center'}}">
                             {{($ridesData['How many Evacuations?'] == '0') ? 'no' : 'yes'}}
                         </td>
-                        <td>How many evacuations </td>
+                        <td>How Many Evacuations </td>
                         <td
                             class="{{($ridesData['How many Evacuations?'] == '0') ? 'yes align-center' : 'no align-center'}}">
                             {{$ridesData['How many Evacuations?']}}
@@ -125,7 +125,7 @@
                             </td>
                             <td>How many of these stoppages were for Swiper issues? </td>
                             <td
-                                class="{{($ridesData['How many swipper Issues?'] == '0') ? 'no align-center' : 'no align-center'}}">
+                                class="{{($ridesData['How many swipper Issues?'] == '0') ? 'yes align-center' : 'no align-center'}}">
                                 {{$ridesData['How many swipper Issues?']}}
                             </td>
                         </tr>

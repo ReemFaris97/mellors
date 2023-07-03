@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-  Add New Zone
+  Add New stoppage sub category
 @endsection
 
 @section('content')
