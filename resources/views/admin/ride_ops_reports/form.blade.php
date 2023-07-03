@@ -30,7 +30,8 @@
                        </td>
                        <td>
                            <label>
-                               <select name="answer[]" id="answer_id" class="form-control answer">
+                               <select name="answer[]" i
+                               d="answer_id" class="form-control answer">
                                    <option disabled> Choose...</option>
                                    <option value="yes">Yes</option>
                                    <option value="no">No</option>
@@ -51,7 +52,7 @@
                            </td>
                            <td>
                                <label>
-                               <input type="number" name="answer[]" class="answer" value="">
+                               <input type="number" name="answer[]" class="answer" value="{{$data['Number of complaints received?']}}">
 
                                </label>
                                           
@@ -72,17 +73,38 @@
                                <label>
                                    <select name="answer[]" id="answer_id" class="form-control answer">
                                        <option disabled> Choose...</option>
+                                       @if($data['Any medical assistance required?'] > 0)
                                        <option value="yes">Yes</option>
                                        <option value="no">No</option>
+                                       @else
+                                       <option value="no">No</option>
+                                       <option value="yes">Yes</option>
+                                       @endif
                                    </select>
                                </label>
-                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
 
                            </td>
                        </tr>
+                       <tr>
+                       <td>
+                           How many medical assistance required?
+                           <input type="hidden" name="question[]" class="question" value="medical assistance required?">
+
+                       </td>
+                       <td>
+                           <label>
+                               <input type="number" name="answer[]" class="answer" value="{{$data['Any medical assistance required?']}}">
+                           </label>
+                                      
+                       </td>
+                       <td>
+                           {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
+
+                       </td>
+                   </tr>
                        <tr>
                            <td>
                                Any issues with ride scanners?
@@ -97,11 +119,9 @@
                                        <option value="no">No</option>
                                    </select>
                                </label>
-                                          
                            </td>
                            <td>
                                {!! Form::textArea('comment[]',null, array('class' => 'form-control comment summernote')) !!}
-
                            </td>
                        </tr>
                        <tr>
@@ -155,7 +175,7 @@
                        </td>
                        <td>
                            <label>
-                               <input type="number" name="answer[]" class="answer" value="">
+                               <input type="number" name="answer[]" class="answer" value="{{$data['How many unavailable rides?']}}">
                            </label>
                                       
                        </td>
@@ -166,13 +186,13 @@
                    </tr>
                    <tr>
                        <td>
-                           How many Breakdowns?
-                           <input type="hidden" name="question[]" class="question" value="How many Breakdowns?">
+                           How many rides Broke down?
+                           <input type="hidden" name="question[]" class="question" value="How many rides Broke down?">
 
                        </td>
                        <td>
                            <label>
-                               <input type="number" name="answer[]" class="answer" value="">
+                               <input type="number" name="answer[]" class="answer" value="{{ $data['How many rides Broke down?'] }}">
                            </label>
                                       
                        </td>
@@ -183,13 +203,13 @@
                    </tr>
                    <tr>
                        <td>
-                           How many rides have Breakdowns?
-                           <input type="hidden" name="question[]" class="question" value="How many rides have Breakdowns?">
+                           Total Breakdowns
+                           <input type="hidden" name="question[]" class="question" value="Total Breakdowns">
 
                        </td>
                        <td>
                            <label>
-                               <input type="number" name="answer[]" class="answer" value="">
+                               <input type="number" name="answer[]" class="answer" value="{{$data['Total Breakdowns']}}">
                            </label>
                                       
                        </td>
@@ -206,7 +226,7 @@
                        </td>
                        <td>
                            <label>
-                               <input type="number" name="answer[]" class="answer" value="">
+                               <input type="number" name="answer[]" class="answer" value="{{$data['How many Evacuations?']}}">
                            </label>
                                       
                        </td>
@@ -223,7 +243,7 @@
                        </td>
                        <td>
                            <label>
-                               <input type="number" name="answer[]" class="answer" value="">
+                               <input type="number" name="answer[]" class="answer" value="{{$data['How many stoppages?'] }}">
                            </label>
                                       
                        </td>
@@ -240,7 +260,7 @@
                        </td>
                        <td>
                            <label>
-                               <input type="number" name="answer[]" class="answer" value="">
+                               <input type="number" name="answer[]" class="answer" value="{{$data['How many swipper Issues?']}}">
                            </label>
                                       
                        </td>
