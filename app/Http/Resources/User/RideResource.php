@@ -21,7 +21,7 @@ class RideResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'capacity_one_cycle' => $this->capacity_one_cycle,
+            'capacity_one_cycle' => $this->times?->first()?->no_of_seats,
             'one_cycle_duration_seconds' => $this->one_cycle_duration_seconds,
             'ride_cycle_mins' => $this->ride_cycle_mins,
             'ride_price' => $this->ride_price,

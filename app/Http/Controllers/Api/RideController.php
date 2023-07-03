@@ -84,7 +84,7 @@ class RideController extends Controller
                 'created_by_id' => \auth()->user()->id,
                 'inspection_list_id' => $inspection,
                 'status' => $validate['status'][$key] ?? 'no',
-                'is_checked' =>  $validate['is_checked'][$key] ?? 'no',
+                'is_checked' => $validate['is_checked'][$key] ?? 'no',
             ]);
         }
         $zone = Zone::find($validate['zone_id']);
@@ -94,11 +94,13 @@ class RideController extends Controller
             return $query->where('name', 'zone supervisor');
         })->first();
         $data = [
-            'title' => $validate['lists_type'] . ' check list added to ' . $ride->name,
+            'title' => $validate['lists_type'] . ' check list added to ' . $ride?->name,
             'ride_id' => $ride->id,
-            'user_id' => \auth()->user()->id
+            'user_id' => \auth()->user()?->id
         ];
-        Notification::send($user, new ZoneSupervisorNotifications($data));
+        if ($user) {
+            Notification::send($user, new ZoneSupervisorNotifications($data));
+        }
         return self::apiResponse(200, __('inspections created successfully'), []);
 
     }
