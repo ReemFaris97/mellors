@@ -15,7 +15,7 @@ class timeSlotNotification implements ShouldBroadcastNow
 
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $user_id;
+     public $user_name;
      public $start;
      public $end;
      public $date;
@@ -24,7 +24,7 @@ class timeSlotNotification implements ShouldBroadcastNow
     public function __construct($data= [])
     {
 
-        $this->user_id = $data['user_id'];
+        $this->user_name = $data['user_name'];
         $this->start = $data['start'];
         $this->end = $data['end'];
         $this->date = $data['date'];
@@ -37,10 +37,22 @@ class timeSlotNotification implements ShouldBroadcastNow
 
 /*         return  ('timeSlot-notification');
  */    }
-
+ public function broadcastWith()
+    {
+        return [
+            'message' => [
+                'start' => $this->start,
+                'end' => $this->end,
+                'date' => $this->date,
+                'user_name' => $this->user_name,
+                'close_date' => $this->close_date,
+//              'created_at' => $this->message->created_at,
+            ],
+        ];
+    }
  public function broadcastAs() {
 
-    return 'new-message';
+    return 'timeSlot-notification';
 }
 
 

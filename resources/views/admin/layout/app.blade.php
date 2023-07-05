@@ -30,7 +30,8 @@
 
   <!-- LOGO -->
   <div class="topbar-left">
-                    <a href="index.html" class="logo">
+                    <a href="# 
+                    " class="logo">
                     <img src="{{asset('/_admin/assets/images/logo1.png')}}" alt="Mellors-img" title="Mellors" class="image">
 
                     </a>
@@ -66,12 +67,12 @@
                                     data-count="9">9</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-menu-header">الرسائل </li>
+                                <li class="dropdown-menu-header">Messages </li>
                                 <li class="">
                                     <a href="#" class="media">
                                         <div class="media-body">
-                                            <h6 class="media-heading">عنوان الاشعار </h6>
-                                            <p class="notification-text font-small-3 text-muted"> نص الاشعار</p>
+                                            <h6 class="media-heading">Title</h6>
+                                            <p class="notification-text font-small-3 text-muted"> body</p>
                                         </div>
                                         <span style="direction: ltr;" class="date"> 20-05-2020 - 06:00 pm</span>
                                     </a>
@@ -79,7 +80,7 @@
                                 </li>
                                 <li role="separator" class="divider"></li> 
                                 <li class="dropdown-menu-footer">
-                                    <a class="dropdown-item text-muted text-center" href="#"> جميع الاشعارات </a>
+                                    <a class="dropdown-item text-muted text-center" href="#"> all notifications </a>
                                 </li>
                             </ul>
                         </li>

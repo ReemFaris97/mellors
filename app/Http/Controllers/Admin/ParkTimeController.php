@@ -106,7 +106,7 @@ class ParkTimeController extends Controller
             }
 
             $date=[
-                'user_id'=>auth()->user()->id,
+                'user_name'=>auth()->user()->name,
                 'start'=>$request->input('start'),
                 'end'=>$request->input('end'),
                 'date'=>$request->input('date'),

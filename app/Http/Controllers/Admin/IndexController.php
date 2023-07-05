@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Park;
 use App\Models\Zone;
 
+
 class IndexController extends Controller
 {
     /**
@@ -130,10 +131,16 @@ class IndexController extends Controller
             }
         }
  //dd( $rides);
+        $currentDateTime = Carbon::now();
 
-        $times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
+        $times = ParkTime::where('date', '<=',date('Y-m-d'))
+        ->where('close_date', '>=', date('Y-m-d'))
+        ->whereTime('end', '>=', $currentDateTime->format('H:i:s'))
+        ->wherein('park_id', $parks)->get();
+        
+       // $times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
 
-
+//dd($times);
         return view('admin.layout.home', compact('rides', 'queues', 'cycles', 'times', 'total_riders'));
     }
 }

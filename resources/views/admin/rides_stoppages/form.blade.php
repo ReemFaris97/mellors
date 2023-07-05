@@ -10,21 +10,6 @@
 @endif
 <div class="row">
    
-    <!--     <div class="col-lg-6 form-group stoppageCategory ">
-        <label class="block">Ride Status :</label>
-        <div class="">
-            {!! Form::select('ride_status', ["stopped"=>'stopped',"active"=>'active'],null, array('class' =>
-            'form-control ','placeholder'=>'Ride Status')) !!}
-    </div>
-@error('name')
-    <div class="invalid-feedback" style="color: #ef1010">
-{{ $message }}
-    </div>
-@enderror
-    </div>
- -->
-
-
     <div class="form-group stoppageSubCategory ">
         <label class="col-lg-12">Stoppage Reasons Main Category :</label>
         <div class="">
@@ -64,8 +49,6 @@
         @enderror
     </div>
 
-    <!--     @if(auth()->user()->hasRole('Technical')|| auth()->user()->hasRole('Super Admin'))
-        -->
     <div class="col-lg-12 form-group  stoppageCategory ">
         <label class="block">Stoppage Status :</label>
         <div class="">
@@ -79,20 +62,7 @@
         </div>
         @enderror
     </div>
-    <!--
-    @endif
-    -->
- <!--    <div class="form-group downTime hidden">
-        <label class="col-lg-12">Down Time :</label>
-        <div class="col-lg-12">
-            {!! Form::number('down_minutes',null,['class'=>'form-control','placeholder'=>'Down Time'])!!}
-        </div>
-        @error('down_minutes')
-        <div class="invalid-feedback" style="color: #ef1010">
-            {{--            {{ $message }}--}}
-        </div>
-        @enderror
-    </div> -->
+
     <div class="form-group">
         <div class="col-lg-12">
             {!! Form::label('Stoppage Start Date') !!}
@@ -138,22 +108,7 @@
         </div>
     </div>
 </div>
-<!--  
-<div class="form-group">
-<div class="col-lg-12">
-{!! Form::label('Close Date') !!}
-</div>
-<div class="col-lg-6">
-{!! Form::date('time_slot_end',null,['class'=>'form-control']) !!}
-@if ($errors->has('close_date'))
-    <span class="help-block">
-    <span class="help-block">
-    <strong>{{ $errors->first('close_date') }}</strong>
-    </span>
-@endif
-</div>
-</div>
-</div> -->
+
 @if(auth()->user()->hasRole('Technical') || auth()->user()->hasRole('Super Admin'))
 <br><br><br>
 <div class="form-group stoppageReason">
