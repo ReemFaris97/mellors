@@ -506,6 +506,9 @@ div.dataTables_paginate {
 .nav-tabs > li.active > a:focus {
     border: 0;
 }
+.tabsContentDuty .dt-buttons.btn-group, .tabsContentDuty .dataTables_filter, .tabsContentDuty .dataTables_paginate, .tabsContentDuty .dataTables_info {
+    display: none;
+}
 .tabsLinkDuty {
     display: flex;
     align-items: center;
