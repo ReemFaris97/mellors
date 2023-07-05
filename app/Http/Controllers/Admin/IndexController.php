@@ -131,14 +131,14 @@ class IndexController extends Controller
             }
         }
  //dd( $rides);
-        $currentDateTime = Carbon::now();
+    /*     $currentDateTime = Carbon::now();
 
-        $times = ParkTime::where('date', '<=',date('Y-m-d'))
+        $times12 = ParkTime::where('date', '<=',date('Y-m-d'))
         ->where('close_date', '>=', date('Y-m-d'))
         ->whereTime('end', '>=', $currentDateTime->format('H:i:s'))
-        ->wherein('park_id', $parks)->get();
+        ->wherein('park_id', $parks)->get(); */
         
-       // $times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
+        $times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
 
 //dd($times);
         return view('admin.layout.home', compact('rides', 'queues', 'cycles', 'times', 'total_riders'));
