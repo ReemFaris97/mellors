@@ -137,8 +137,14 @@ class IndexController extends Controller
         ->where('close_date', '>=', date('Y-m-d'))
         ->whereTime('end', '>=', $currentDateTime->format('H:i:s'))
         ->wherein('park_id', $parks)->get(); */
+        $times = ParkTime::where(function ($query) {
+            $query->where('date', date('Y-m-d'))
+                ->orWhere('close_date', date('Y-m-d'));
+        })
+        ->whereIn('park_id', $parks)
+        ->get();
         
-        $times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
+      //  $times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
 
 //dd($times);
         return view('admin.layout.home', compact('rides', 'queues', 'cycles', 'times', 'total_riders'));
