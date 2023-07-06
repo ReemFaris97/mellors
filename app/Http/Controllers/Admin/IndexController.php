@@ -131,18 +131,22 @@ class IndexController extends Controller
             }
         }
  //dd( $rides);
-    /*     $currentDateTime = Carbon::now();
 
-        $times12 = ParkTime::where('date', '<=',date('Y-m-d'))
-        ->where('close_date', '>=', date('Y-m-d'))
-        ->whereTime('end', '>=', $currentDateTime->format('H:i:s'))
-        ->wherein('park_id', $parks)->get(); */
-        $times = ParkTime::where(function ($query) {
-            $query->where('date', date('Y-m-d'))
-                ->orWhere('close_date', date('Y-m-d'));
-        })
-        ->whereIn('park_id', $parks)
-        ->get();
+        $now = Carbon::now();
+        $modifiedDate = Carbon::now()->addHours(2)->toDateString();
+
+        $times = ParkTime::where('date', $modifiedDate)
+            ->whereIn('park_id', $parks)
+            ->get();
+
+ /*    $times = ParkTime::where(function ($query) use ($now) {
+    $query->whereDate('date', '<=', $now->toDateString())
+        ->whereDate('close_date', '>=', $now->toDateString())
+        ->whereTime('start', '<=', $now->toTimeString())
+        ->whereTime('end', '>=', $now->toTimeString());
+})
+->whereIn('park_id', $parks)
+->get(); */
         
       //  $times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
 
