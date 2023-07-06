@@ -113,8 +113,6 @@ class IndexController extends Controller
             $now = Carbon::now();
             $startDateTime = Carbon::parse("$ride->date $ride->start");
             $endDateTime = Carbon::parse("$ride->close_date $ride->end");
-            if ($now->between($startDateTime, $endDateTime)) {
-
                 if ($ride->stoppageRideStatus != null) {
                     $ride->available = $ride->stoppageRideStatus;
                 } else {
@@ -123,34 +121,18 @@ class IndexController extends Controller
                     $ride->rideSroppageDescription = '';
                 }
 
-            } else {
-
-                $ride->available = 'closed';
-                $ride->ride_notes = 'out of park time slot ';
-                $ride->rideSroppageDescription = '';
-            }
-        }
+            } 
  //dd( $rides);
 
-        $now = Carbon::now();
-        $modifiedDate = Carbon::now()->addHours(2)->toDateString();
-
-        $times = ParkTime::where('date', $modifiedDate)
-            ->whereIn('park_id', $parks)
-            ->get();
-
- /*    $times = ParkTime::where(function ($query) use ($now) {
+    $now = Carbon::now();
+    $times = ParkTime::where(function ($query) use ($now) {
     $query->whereDate('date', '<=', $now->toDateString())
         ->whereDate('close_date', '>=', $now->toDateString())
-        ->whereTime('start', '<=', $now->toTimeString())
         ->whereTime('end', '>=', $now->toTimeString());
-})
-->whereIn('park_id', $parks)
-->get(); */
+        })
+        ->whereIn('park_id', $parks)
+        ->get();  
         
-      //  $times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->get();
-
-//dd($times);
-        return view('admin.layout.home', compact('rides', 'queues', 'cycles', 'times', 'total_riders'));
+return view('admin.layout.home', compact('rides', 'queues', 'cycles', 'times', 'total_riders'));
     }
 }
