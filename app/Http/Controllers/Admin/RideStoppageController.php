@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\NewStoppageAdded;
 use App\Http\Controllers\Controller;
 use App\Imports\RidesStoppageImport;
 use App\Models\Ride;
@@ -101,6 +102,8 @@ class RideStoppageController extends Controller
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' =>$stoppage->id]);
         }
         DB::commit();
+        event(new NewStoppageAdded($stoppage));
+
         alert()->success('Ride Stoppage Added successfully !');
 
         return redirect()->route('admin.showStoppages', ['ride_id'=>$ride_id,'park_time_id'=>$park_time_id]);

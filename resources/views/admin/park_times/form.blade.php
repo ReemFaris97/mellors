@@ -14,7 +14,7 @@
             {!! Form::label('Open Date') !!}
         </div>
         <div class="col-lg-12">
-        {!! Form::date('date', \Carbon\Carbon::now()->toDateString(), ['class' => 'form-control']) !!}
+        {!! Form::date('date',$time->date?? \Carbon\Carbon::now()->toDateString(), ['class' => 'form-control']) !!}
             @if ($errors->has('date'))
             <span class="help-block">
                 <strong>{{ $errors->first('date') }}</strong>
@@ -27,7 +27,7 @@
             {!! Form::label('Start Time') !!}
         </div>
         <div class="col-lg-12">
-        {!! Form::time('start', \Carbon\Carbon::now()->format('H:i'), ['class' => 'form-control']) !!}
+        {!! Form::time('start',$time->start?? \Carbon\Carbon::now()->format('H:i'), ['class' => 'form-control']) !!}
             @if ($errors->has('start'))
             <span class="help-block">
                 <strong>{{ $errors->first('start') }}</strong>
@@ -40,7 +40,7 @@
             {!! Form::label('Close Date') !!}
         </div>
         <div class="col-lg-12">
-        {!! Form::date('close_date', \Carbon\Carbon::now()->toDateString(), ['class' => 'form-control']) !!}
+        {!! Form::date('close_date',$time->close_date?? \Carbon\Carbon::now()->toDateString(), ['class' => 'form-control']) !!}
             @if ($errors->has('close_date'))
             <span class="help-block">
                 <strong>{{ $errors->first('close_date') }}</strong>
@@ -53,7 +53,7 @@
             {!! Form::label('Closed Time') !!}
         </div>
         <div class="col-lg-12">
-        {!! Form::time('end', \Carbon\Carbon::now()->format('H:i'), ['class' => 'form-control']) !!}
+        {!! Form::time('end',$time->end?? \Carbon\Carbon::now()->format('H:i'), ['class' => 'form-control']) !!}
             @if ($errors->has('end'))
             <span class="help-block">
                 <strong>{{ $errors->first('end') }}</strong>
@@ -61,7 +61,8 @@
             @endif
         </div>
     </div>
-
+    <br>
+    <br>
     <div class="col-xs-12 aligne-center contentbtn">
         <button class="btn btn-primary waves-effect" type="submit">Save</button>
     </div>

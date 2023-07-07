@@ -123,16 +123,16 @@ class IndexController extends Controller
 
             } 
  //dd( $rides);
-
-    $now = Carbon::now();
-    $times = ParkTime::where(function ($query) use ($now) {
-    $query->whereDate('date', '<=', $now->toDateString())
-        ->whereDate('close_date', '>=', $now->toDateString())
-        ->whereTime('end', '>=', $now->toTimeString());
-        })
-        ->whereIn('park_id', $parks)
-        ->get();  
+        $currentDate = Carbon::now()->toDateString();
+        $currentTime = Carbon::now()->format('H:i');
         
+        $times = ParkTime::where('date', $currentDate)                
+                ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
+                    $subquery->where('close_date', $currentDate)
+                        ->where('end', '>=', $currentTime);
+                })->whereIn('park_id', $parks)
+                ->get();
+
 return view('admin.layout.home', compact('rides', 'queues', 'cycles', 'times', 'total_riders'));
     }
 }

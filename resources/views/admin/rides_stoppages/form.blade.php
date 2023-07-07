@@ -68,7 +68,7 @@
             {!! Form::label('Stoppage Start Date') !!}
         </div>
         <div class="col-lg-12">
-            {!! Form::date('date',\Carbon\Carbon::now()->toDateString(),['class'=>'form-control']) !!}
+            {!! Form::date('date',$item->date?? \Carbon\Carbon::now()->toDateString(),['class'=>'form-control']) !!}
             @if ($errors->has('date'))
             <span class="help-block">
                 <span class="help-block">
