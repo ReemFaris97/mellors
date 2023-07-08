@@ -19,4 +19,8 @@ class RideInspectionList extends Model
     {
         return $this->belongsTo(Ride::class, 'ride_id')->withTrashed();
     }
+    public function  list()
+    {
+        return $this->belongsTo(InspectionList::class, 'inspection_list_id', 'id');
+    }
 }
