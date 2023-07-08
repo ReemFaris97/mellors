@@ -7,9 +7,12 @@ use App\Http\Requests\Api\InspectionsRequest;
 use App\Http\Requests\Api\SubmitCycleRequest;
 use App\Http\Requests\Api\SubmitQueuesRequest;
 use App\Http\Requests\Api\SubmitStoppageRequest;
+use App\Http\Requests\Api\UpdateCycleRequest;
 use App\Http\Resources\User\InspectionResource;
+use App\Http\Resources\User\Ride\RideCycleResource;
+use App\Http\Resources\User\Ride\RideQueueResource;
+use App\Http\Resources\User\Ride\RideResource;
 use App\Http\Resources\User\Ride\StoppageResource;
-use App\Http\Resources\User\RideResource;
 use App\Models\PreopeningList;
 use App\Models\Queue;
 use App\Models\Ride;
@@ -21,9 +24,7 @@ use App\Models\Zone;
 use App\Notifications\ZoneSupervisorNotifications;
 use App\Traits\Api\ApiResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class RideController extends Controller
@@ -146,9 +147,23 @@ class RideController extends Controller
         $ride = Ride::query()->find($validate['ride_id']);
         $validate['user_id'] = \auth()->user()->id;
         $validate['sales'] = $validate['number_of_ft'] * $ride->ride_price_ft + $validate['riders_count'] * $ride->ride_price;
-        RideCycles::query()->create($validate);
+        $cycle = RideCycles::query()->create($validate);
+        $this->body['cycle'] = RideCycleResource::make($cycle);
 
-        return self::apiResponse(200, __('create ride cycle successfully'), []);
+        return self::apiResponse(200, __('create ride cycle successfully'), $this->body);
+
+    }
+
+    protected function updateCycle(UpdateCycleRequest $request)
+    {
+        $validate = $request->validated();
+        $cycle = RideCycles::query()->find($validate['id']);
+        $ride = Ride::query()->find($cycle->ride_id);
+        $validate['sales'] = $validate['number_of_ft'] * $ride->ride_price_ft + $validate['riders_count'] * $ride->ride_price;
+        $cycle->update($validate);
+        $this->body['cycle'] = RideCycleResource::make($cycle);
+
+        return self::apiResponse(200, __('create ride cycle successfully'), $this->body);
 
     }
 
@@ -156,10 +171,26 @@ class RideController extends Controller
     {
         $validate = $request->validated();
         $validate['user_id'] = \auth()->user()->id;
-        $validate['queue_seconds'] = $validate['queue_minutes'] * 60;
-        Queue::query()->create($validate);
+//        $validate['queue_seconds'] = $validate['queue_minutes'] * 60;
+        $queue = Queue::query()->create($validate);
+        $this->body['queue'] = RideQueueResource::make($queue);
 
-        return self::apiResponse(200, __('create queues successfully'), []);
+        return self::apiResponse(200, __('create queues successfully'), $this->body);
+
+    }
+
+    protected function stopQueues(Request $request)
+    {
+        $validate = $request->validate([
+            'id' => 'required|exists:queues,id',
+            'queue_seconds' => 'required'
+        ]);
+
+        $queue = Queue::find($validate['id']);
+
+        $queue->update(['queue_seconds' => $validate['queue_seconds']]);
+        $this->body['queue'] = RideQueueResource::make($queue);
+        return self::apiResponse(200, __('update queues successfully'), $this->body);
 
     }
 
