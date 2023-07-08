@@ -33,7 +33,7 @@ class SubmitCycleRequest extends FormRequest
             'number_of_ft' => 'nullable',
             'riders_count' => 'required',
             'start_time' => 'required',
-            'duration_seconds' => 'required',
+
         ];
     }
 }

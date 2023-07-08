@@ -28,7 +28,7 @@ class UpdateCycleRequest extends FormRequest
             'number_of_disabled' => 'nullable',
             'number_of_ft' => 'nullable',
             'riders_count' => 'nullable',
-//            'duration_seconds' => 'nullable',
+            'duration_seconds' => 'required',
             'id' => 'required|exists:ride_cycles,id',
         ];
     }
