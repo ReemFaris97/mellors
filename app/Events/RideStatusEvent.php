@@ -13,22 +13,20 @@ class RideStatusEvent implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
-    public function __construct(private $id,private $status)
+    public function __construct(public $id,public $status)
     {
     }
 
     public function broadcastOn()
     {
-        return ['ride-status'];
+        return new \Illuminate\Broadcasting\Channel('ride-status');
 
-        /*         return  ('timeSlot-notification');
-         */
     }
 
     public function broadcastWith()
     {
         return [
-            'message' => [
+            'data' => [
                 'id' => $this->id,
                 'status' => $this->status,
 
@@ -36,11 +34,7 @@ class RideStatusEvent implements ShouldBroadcastNow
         ];
     }
 
-    public function broadcastAs()
-    {
 
-        return 'ride-status';
-    }
 
 
 }
