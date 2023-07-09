@@ -7,6 +7,7 @@ use App\Http\Requests\Api\InspectionsRequest;
 use App\Http\Requests\Api\SubmitCycleRequest;
 use App\Http\Requests\Api\SubmitQueuesRequest;
 use App\Http\Requests\Api\SubmitStoppageRequest;
+use App\Http\Requests\Api\UpdateCycleDurationRequest;
 use App\Http\Requests\Api\UpdateCycleRequest;
 use App\Http\Resources\User\InspectionResource;
 use App\Http\Resources\User\Ride\RideCycleResource;
@@ -154,7 +155,7 @@ class RideController extends Controller
 
     }
 
-    protected function updateCycle(UpdateCycleRequest $request)
+    protected function updateCycleCount(UpdateCycleRequest $request)
     {
         $validate = $request->validated();
         $cycle = RideCycles::query()->find($validate['id']);
@@ -163,7 +164,19 @@ class RideController extends Controller
         $cycle->update($validate);
         $this->body['cycle'] = RideCycleResource::make($cycle);
 
-        return self::apiResponse(200, __('create ride cycle successfully'), $this->body);
+        return self::apiResponse(200, __('update ride cycle successfully'), $this->body);
+
+    }
+
+    protected function updateCycleDuration(UpdateCycleDurationRequest $request)
+    {
+        $validate = $request->validated();
+        $cycle = RideCycles::query()->find($validate['id']);
+        $ride = Ride::query()->find($cycle->ride_id);
+        $cycle->update(['duration_seconds' => $validate['duration_seconds']]);
+        $this->body['cycle'] = RideCycleResource::make($cycle);
+
+        return self::apiResponse(200, __('update ride cycle duration seconds successfully'), $this->body);
 
     }
 
