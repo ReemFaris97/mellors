@@ -15,13 +15,14 @@ class timeSlotNotification implements ShouldBroadcastNow
 
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-     public $user_name;
-     public $start;
-     public $end;
-     public $date;
-     public $close_date;
 
-    public function __construct($data= [])
+    public $user_name;
+    public $start;
+    public $end;
+    public $date;
+    public $close_date;
+
+    public function __construct($data = [])
     {
 
         $this->user_name = $data['user_name'];
@@ -33,11 +34,10 @@ class timeSlotNotification implements ShouldBroadcastNow
 
     public function broadcastOn()
     {
-        return ['timeSlot-notification'];
+        return new \Illuminate\Broadcasting\Channel('timeSlot-notification');
+    }
 
-/*         return  ('timeSlot-notification');
- */    }
- public function broadcastWith()
+    public function broadcastWith()
     {
         return [
             'message' => [
@@ -50,10 +50,6 @@ class timeSlotNotification implements ShouldBroadcastNow
             ],
         ];
     }
- public function broadcastAs() {
-
-    return 'timeSlot-notification';
-}
 
 
 }

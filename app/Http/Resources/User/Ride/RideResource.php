@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\User\Ride;
 
-use App\Models\Ride;
-use Carbon\Carbon;
+use App\Http\Resources\User\ParkResource;
+use App\Http\Resources\User\ZoneResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RideResource extends JsonResource

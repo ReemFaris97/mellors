@@ -20,3 +20,7 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 Broadcast::channel('timeSlot-notification', function ($user) {
     return true;
 });
+
+Broadcast::channel('ride-status', function ($user) {
+    return true;
+});

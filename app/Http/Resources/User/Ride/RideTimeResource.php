@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\User\Ride;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RideTypeResource extends JsonResource
+class RideTimeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,11 @@ class RideTypeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'start' => $this->start,
+            'end' => $this->end,
+            'park_id' => $this->park_id,
+            'park_time_id' => $this->park_time_id,
+
         ];
     }
 }

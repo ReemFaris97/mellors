@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubmitCycleRequest extends FormRequest
+class UpdateCycleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,12 @@ class SubmitCycleRequest extends FormRequest
     public function rules()
     {
         return [
-            'ride_id' => 'required|exists:rides,id',
-            'park_id' => 'required|exists:parks,id',
-            'zone_id' => 'required|exists:zones,id',
-            'park_time_id' => 'nullable|exists:park_times,id',
             'number_of_vip' => 'nullable',
             'number_of_disabled' => 'nullable',
             'number_of_ft' => 'nullable',
-            'riders_count' => 'required',
-            'start_time' => 'required',
-
+            'riders_count' => 'nullable',
+//            'duration_seconds' => 'required',
+            'id' => 'required|exists:ride_cycles,id',
         ];
     }
 }

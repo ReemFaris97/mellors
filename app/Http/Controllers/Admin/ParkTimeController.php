@@ -22,33 +22,33 @@ use RakibDevs\Weather\Weather;
 
 class ParkTimeController extends Controller
 {
-   
+
     public function index()
     {
         $times=[];
         $currentDate = Carbon::now()->toDateString();
         $currentTime = Carbon::now()->format('H:i');
         if (auth()->user()->hasRole('Super Admin')) {
-            $items  = ParkTime::where('date', $currentDate)                
+            $items  = ParkTime::where('date', $currentDate)
                     ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
                         $subquery->where('close_date', $currentDate)
                             ->where('end', '>=', $currentTime);
                     })->get();
 
-            $items_check = ParkTime::where('date', $currentDate)                
+            $items_check = ParkTime::where('date', $currentDate)
             ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
                 $subquery->where('close_date', $currentDate)
                     ->where('end', '>=', $currentTime);
             })->pluck('id');
         } else {
             $parks = auth()->user()->parks->pluck('id');
-            $items = ParkTime::where('date', $currentDate)                
+            $items = ParkTime::where('date', $currentDate)
             ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
                 $subquery->where('close_date', $currentDate)
                     ->where('end', '>=', $currentTime);
             })->whereIn('park_id', $parks)
             ->get();
-            $items_check= ParkTime::where('date', $currentDate)                
+            $items_check= ParkTime::where('date', $currentDate)
             ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
                 $subquery->where('close_date', $currentDate)
                     ->where('end', '>=', $currentTime);
@@ -64,7 +64,7 @@ class ParkTimeController extends Controller
         return view('admin.park_times.index', compact('items','tech_data_exist','ops_data_exist','maintenance_data_exist','health_data_exist','skill_data_exist'));
     }
 
-  
+
 
     public function create()
     {
@@ -76,7 +76,7 @@ class ParkTimeController extends Controller
         return view('admin.park_times.add', compact('parks'));
     }
 
-   
+
     public function store(ParkTimeRequest $request)
     {
         $dateExists = ParkTime::where([
@@ -113,8 +113,8 @@ class ParkTimeController extends Controller
         ->get();
         
             foreach ($lists as $list) {
-            $list->start = $request->input('start'); 
-            $list->end = $request->input('end'); 
+            $list->start = $request->input('start');
+            $list->end = $request->input('end');
             $list->close_date = $data['close_date'];
             $list->park_time_id = $lastInsertedId;
             $list->save();
@@ -142,10 +142,10 @@ class ParkTimeController extends Controller
             if (auth()->user()->hasRole('Super Admin')) {
                 $items_check = ParkTime::where('date', '>=', $date )->pluck('id');;
             } else {
-                $parks = auth()->user()->parks->pluck('id');              
+                $parks = auth()->user()->parks->pluck('id');
                 $items_check= ParkTime::where('date', '>=', $date )
                 ->wherein('park_id', $parks)->pluck('id');
-    
+
             }
             $tech_data_exist=TechReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();
             $ops_data_exist=RideOpsReport::wherein('park_time_id',$items_check)->distinct()->pluck('park_time_id')->toArray();
@@ -155,13 +155,13 @@ class ParkTimeController extends Controller
 
             return view('admin.park_times.index', compact('items','tech_data_exist','ops_data_exist','maintenance_data_exist','health_data_exist','skill_data_exist'));
            }
-  
+
     public function show(ParkTime $parkTime)
     {
         //
     }
 
-  
+
     public function edit($id)
     {
         $time = ParkTime::find($id);
@@ -169,7 +169,7 @@ class ParkTimeController extends Controller
         return view('admin.park_times.edit', compact('parks', 'time'));
     }
 
-  
+
     public function update(ParkTimeRequest $request, ParkTime $parkTime)
     {
         $data=$request->validated();
@@ -186,7 +186,7 @@ class ParkTimeController extends Controller
         return redirect()->route('admin.park_times.index');
     }
 
-   
+
     public function destroy($id)
     {
 

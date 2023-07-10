@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubmitQueuesRequest extends FormRequest
+class UpdateCycleDurationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,9 @@ class SubmitQueuesRequest extends FormRequest
     public function rules()
     {
         return [
-            'ride_id' => 'required|exists:rides,id',
-            'park_time_id' => 'nullable|exists:park_times,id',
-//            'queue_minutes' => 'required|integer',
-            'current_wait_time' => 'nullable',
-            'riders_count' => 'required',
-//            'current_queue_occupancy' => 'required',
-            'start_time' => 'required',
-         ];
+
+            'duration_seconds' => 'required',
+            'id' => 'required|exists:ride_cycles,id',
+        ];
     }
 }
