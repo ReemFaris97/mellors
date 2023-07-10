@@ -76,7 +76,7 @@ class RideController extends Controller
         foreach ($validate['inspection_list_id'] as $key => $inspection) {
             PreopeningList::query()->create([
                 'ride_id' => $validate['ride_id'],
-                'comment' => $validate['comment'] ?? null,
+                'comment' => $validate['comment'][$key] ?? null,
                 'opened_date' => $validate['opened_date'],
                 'park_time_id' => $validate['park_time_id'] ?? null,
                 'zone_id' => $validate['zone_id'],

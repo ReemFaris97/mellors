@@ -29,7 +29,7 @@ class InspectionsRequest extends FormRequest
 //            'inspection_list_id' => 'array',
             'status' => 'required|array',
             'is_checked' => 'required|array',
-            'comment' => 'nullable',
+            'comment' => 'nullable|array',
             'opened_date' => 'required|date',
             'park_time_id' => 'nullable|exists:park_times,id',
             'zone_id' => 'required|exists:zones,id',
