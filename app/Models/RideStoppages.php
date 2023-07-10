@@ -29,7 +29,7 @@ class RideStoppages extends Model
         'stoppage_status',
         'type',
         'time_slot_start',
-        'time_slot_end',
+        'time_slot_end','end_date',
         'park_time_id','description','zone_id'
     ];
 
