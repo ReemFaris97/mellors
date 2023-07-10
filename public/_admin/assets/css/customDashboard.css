@@ -63,8 +63,8 @@ a:focus {
 .left.side-menu {
     /* background: var(--themeColor);
     background: linear-gradient(167deg, var(--themeColor) 0%, var(--themeColor-light) 70%, var(--themeColor-light2) 100%); */
-    background: rgb(255 246 235); 
-    padding-bottom: 1rem; 
+    background: rgb(255 246 235);
+    padding-bottom: 1rem;
 }
 .user-box h5 a , i.zmdi.zmdi-power , li.text-muted.menu-title{
     color: var(--secondary);
@@ -111,7 +111,7 @@ a:focus {
 }
 #sidebar-menu ul ul a {
     /* color: var(--greyBg); */
-    padding: 10px 20px 10px 50px; 
+    padding: 10px 20px 10px 50px;
 }
 #sidebar-menu > ul > li > a {
     /* color: #ffead1; */
@@ -294,7 +294,7 @@ td .btn-success i, td .btn-info i {
     max-width: 210px;
 }
 .account-pages {
-    background: url(../images/big/park.svg) no-repeat bottom right; 
+    background: url(../images/big/park.svg) no-repeat bottom right;
     background-size: 40% 80%;
 }
 .btn-bordred.btn-custom {
@@ -349,7 +349,7 @@ body.authentication-bg {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem; 
+    margin-bottom: 1rem;
 }
 .report-title , .report-link {
     font-weight: bold;
@@ -362,7 +362,7 @@ body.authentication-bg {
 .report-logo .image{
     object-fit: contain;
     max-width: 140px;
-    max-height: 94px; 
+    max-height: 94px;
 }
 /**********************************************************************/
 /******************** Responsive *********************************/
@@ -374,14 +374,14 @@ body.authentication-bg {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        transform: translateY(25px); 
+        transform: translateY(25px);
     }
 }
 @media (max-width: 991px) {
     .account-pages {
         background-size: contain;
         opacity: .4;
-        background-position: center; 
+        background-position: center;
     }
 }
 @media (max-width: 767.98px) {
@@ -437,7 +437,7 @@ div.dataTables_paginate {
 }
 .navbar-default {
     background-color: transparent;
-    background: transparent; 
+    background: transparent;
 }
 .navbar-left {
     float: left !important;
@@ -447,18 +447,18 @@ div.dataTables_paginate {
       float: right !important;
       margin-right: -15px;
       margin-left: 0;
-  } 
+  }
 }
 .notification-box > ul > li > a {
     /* color: var(--secondary2); */
-    position: relative; 
+    position: relative;
 }
 .notification-box ul li a  .badge{
-    position: absolute; 
+    position: absolute;
     top: 1rem;
     left: 0;
-    font-size: 1rem; 
-    background-color: var(--themeColor-light3); 
+    font-size: 1rem;
+    background-color: var(--themeColor-light3);
 }
 .nav .notification-box .open>a, .nav .notification-box .open>a:hover, .nav .notification-box .open>a:focus {
     background-color: transparent;
@@ -469,20 +469,20 @@ div.dataTables_paginate {
     left: auto;
 }
 .navbar-nav .open .dropdown-menu{
-    position: absolute; 
-    background-color: #fff; 
-    padding: 12px 6px; 
+    position: absolute;
+    background-color: #fff;
+    padding: 12px 6px;
 }
 .navbar-right .dropdown-menu {
-    text-align: right; 
+    text-align: right;
     max-height: 200px;
     overflow: hidden;
     overflow-y: auto;
-} 
+}
 .notification-box .media{
     display: flex;
-    flex-direction: row-reverse; 
-    line-height: 1; 
+    flex-direction: row-reverse;
+    line-height: 1;
 }
 .notification-box .media-body {
     width: max-content;
@@ -495,7 +495,7 @@ div.dataTables_paginate {
 .notification-box .date{
     font-size: 1rem;
     color: var(--text);
-    margin-right: 1rem; 
+    margin-right: 1rem;
 }
 .notification-box .media-list a {
     display: block;
@@ -589,10 +589,10 @@ td.no.noImportant {
     background-color: #ffc7ce !important;
 }
 .yes.yesImportant .card-box {
-    background-color: #c6efce !important;
+    background-color: #c6efce ;
 }
 .no.noImportant .card-box {
-    background-color: #ffc7ce !important;
+    background-color: #ffc7ce ;
 }
 .bold {
     font-weight: bold;
@@ -638,8 +638,8 @@ td.redflagTd, table tr td.redflagTd {
 }
 .content-input-fontawsome input {
     text-indent: 13px;
-    color: var(--themeColor) !important; 
-    height: 42px; 
+    color: var(--themeColor) !important;
+    height: 42px;
 }
 span.select2 {
     border: 1px solid #e3e3e3;
@@ -667,7 +667,7 @@ span.select2.select2-container.select2-container--bootstrap {
 }
 body {
     font-family: "Nunito_Sans";
-    padding-bottom: 50px; 
+    padding-bottom: 50px;
 }
 span.select2.select2-container.select2-container--bootstrap {
     width: 100% !important;
@@ -751,7 +751,7 @@ table.dataTable.dtr-inline.collapsed
     > tr[role="row"]
     > th:first-child:before {
     background-color: var(--themeColor);
-} 
+}
 .btn-info {
     background-color: var(--themeColor) !important;
     border-color: var(--themeColor) !important;
@@ -888,22 +888,22 @@ table.dataTable.dtr-inline.collapsed
     align-items: stretch;
 }
 .home-flex .col {
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 .home-flex .card-box {
     height: 100%;
-    margin: 0; 
+    margin: 0;
 }
 .home-flex .playBox{
     margin-bottom: 15px;
-    position: relative; 
-    
+    position: relative;
+
 }
 .home-flex .playBox .tooltip-outer{
-    position: absolute; 
+    position: absolute;
     right: 1rem;
     top: 1rem;
-    z-index: 9999; 
+    z-index: 9999;
 }
 .home-flex .playBox .tooltip-icon{
     color: var(--secondary);
@@ -925,14 +925,14 @@ table.dataTable.dtr-inline.collapsed
         background: linear-gradient(90deg, var(--themeColor) 0%, var(--themeColor-light) 70%, var(--themeColor-light2) 100%);
     }
     .topbar .topbar-left{
-        background: #f8f5f0; 
+        background: #f8f5f0;
     }
     .page-title  , .notification-box > ul > li > a , .button-menu-mobile{
-        color: #fff !important; 
+        color: #fff !important;
       }
 }
 @media (max-width: 767px) {
-  
+
     div#datatable-buttons_filter {
         position: relative;
         right: unset;

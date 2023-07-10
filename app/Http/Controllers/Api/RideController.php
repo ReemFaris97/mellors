@@ -76,7 +76,7 @@ class RideController extends Controller
         foreach ($validate['inspection_list_id'] as $key => $inspection) {
             PreopeningList::query()->create([
                 'ride_id' => $validate['ride_id'],
-                'comment' => $validate['comment'] ?? null,
+                'comment' => $validate['comment'][$key] ?? null,
                 'opened_date' => $validate['opened_date'],
                 'park_time_id' => $validate['park_time_id'] ?? null,
                 'zone_id' => $validate['zone_id'],
@@ -121,7 +121,12 @@ class RideController extends Controller
         $validate['user_id'] = \auth()->user()->id;
         $validate['ride_status'] = 'stopped';
         $validate['stoppage_status'] = 'pending';
+        $ride = Ride::find($validate['ride_id']);
+        $last = $ride->times->last();
+        $validate['opened_date'] = $last->date;
+//        dd($last);
         RideStoppages::query()->create($validate);
+        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'stopped'));
         return self::apiResponse(200, __('stoppage added successfully'), []);
 
     }
@@ -136,6 +141,7 @@ class RideController extends Controller
         $last->ride_status = 'active';
         $last->save();
         $this->body['ride'] = RideResource::make($ride);
+        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'active'));
 
         return self::apiResponse(200, __('update ride status successfully'), $this->body);
 
