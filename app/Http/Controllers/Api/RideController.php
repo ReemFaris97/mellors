@@ -141,6 +141,7 @@ class RideController extends Controller
         $last->ride_status = 'active';
         $last->save();
         $this->body['ride'] = RideResource::make($ride);
+        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'active'));
 
         return self::apiResponse(200, __('update ride status successfully'), $this->body);
 
