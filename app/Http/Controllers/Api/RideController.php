@@ -121,7 +121,12 @@ class RideController extends Controller
         $validate['user_id'] = \auth()->user()->id;
         $validate['ride_status'] = 'stopped';
         $validate['stoppage_status'] = 'pending';
+        $ride = Ride::find($validate['ride_id']);
+        $last = $ride->times->last();
+        $validate['opened_date'] = $last->date;
+//        dd($last);
         RideStoppages::query()->create($validate);
+        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'stopped'));
         return self::apiResponse(200, __('stoppage added successfully'), []);
 
     }
