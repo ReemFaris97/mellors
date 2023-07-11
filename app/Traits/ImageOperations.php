@@ -37,11 +37,11 @@ trait ImageOperations
     {
         if (!empty($filename)) {
             $base_url = url('/');
-/*             return $base_url . '/../storage/app/public/' . $filename;
- */        
-               return $base_url . '/storage/' . $filename;
+            /*             return $base_url . '/../storage/app/public/' . $filename;
+             */
+            return $base_url . '/storage/' . $filename;
 
-} else {
+        } else {
             return '';
         }
 
@@ -50,24 +50,25 @@ trait ImageOperations
     public function Gallery($request, $model, $item)
     {
         foreach ($request['images'] as $key => $image) {
-        /*   //  $imageName = $path = \Storage::disk('public')->putFile('photos', $image['file']);
-            $imageName =time().$image['file']->getClientOriginalName();
-            Storage::putFile('images',$image['file'],$imageName); */
-            $path= Storage::disk('s3')->put('images',$image['file']);
+            /*   //  $imageName = $path = \Storage::disk('public')->putFile('photos', $image['file']);
+                $imageName =time().$image['file']->getClientOriginalName();
+                Storage::putFile('images',$image['file'],$imageName); */
+            $path = Storage::disk('s3')->put('images', $image['file']);
 
             $model->create(['image' => $path, 'comment' => $image['comment']] + $item);
 
-        } 
+        }
     }
+
     public function Images($request, $model, $item)
     {
         foreach ($request['image'] as $key => $image) {
-            $path= Storage::disk('s3')->put('images',$image);
-          
-           $model->create(['image' => $path] + $item);
+            $path = Storage::disk('s3')->put('images', $image);
+
+            $model->create(['image' => $path] + $item);
 
         }
 
 
-} 
+    }
 }

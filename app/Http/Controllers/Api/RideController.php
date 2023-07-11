@@ -36,10 +36,10 @@ class RideController extends Controller
     {
         $user = Auth::user();
 
-
         $this->body['rides'] = RideResource::collection($user->rides);
         return self::apiResponse(200, __('home page'), $this->body);
     }
+
 
     public function ride($id)
     {

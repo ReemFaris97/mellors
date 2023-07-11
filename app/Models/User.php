@@ -69,4 +69,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Ride::class, 'ride_users');
     }
+
+
 }
