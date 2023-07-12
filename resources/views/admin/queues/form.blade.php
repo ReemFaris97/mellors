@@ -14,10 +14,10 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-lg-12">  Queue minutes :</label>
+        <label class="col-lg-12">  Queue seconds :</label>
         <div class="    ">
-            {!! Form::number("queue_minutes",null,['class'=>'form-control','placeholder'=>'Queue minutes'])!!}
-            @error('queue_minutes')
+            {!! Form::number("queue_seconds",null,['class'=>'form-control','placeholder'=>'Queue seconds'])!!}
+            @error('queue_seconds')
             <div class="invalid-feedback" style="color: #ef1010">
                 {{ $message }}
             </div>

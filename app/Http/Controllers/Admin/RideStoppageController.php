@@ -146,11 +146,14 @@ class RideStoppageController extends Controller
         $data['ride_status'] = $item['ride_status'];
         $park_time = ParkTime::findOrFail($request['park_time_id']);
         $duration = $park_time->duration_time;
+        $opened_date=$request['date'];
+        $time_slot_end= $request['time_slot_end'];
+        $time_slot_start= $request['time_slot_start'];
 
         if ($data['type'] == 'all_day') {
             $data['down_minutes'] = $duration;
         } else {
-            $stoppageStartTime = Carbon::parse("$park_time->opened_date $request->time_slot_start");
+            $stoppageStartTime = Carbon::parse("$park_time->date $request->time_slot_start");
             $stoppageParkTimeEnd = Carbon::parse("$park_time->close_date $park_time->end");
             $data['down_minutes'] = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
         }
@@ -163,25 +166,19 @@ class RideStoppageController extends Controller
             $downtimeMinutes = 0;
 
             // Stoppage end date and time rhird part
-            $time_slot_end = $request['time_slot_end'];
-            $stoppage_end_date = Carbon::now()->format('Y-m-d');
+            $stoppage_end_date = $request['end_date'];
             //get current parktime start time
             $currentParkTime = ParkTime::where('date', $stoppage_end_date)->first();
+            if (isset($currentParkTime) ){
             $currentParkTimeStart = $currentParkTime->start;
-            $currentParkTimeId = $currentParkTime->id;
             $currentParkTimeStartTime = Carbon::parse("$stoppage_end_date $currentParkTimeStart");
+            }
 
+            $stoppageStartTime = Carbon::parse("$opened_date $time_slot_start");
 
-            $stoppageStartTime = Carbon::parse("$item->opened_date $item->time_slot_start");
             $stoppageEndTime = Carbon::parse("$stoppage_end_date $time_slot_end");
-            //stoppage updated to done in same day
-            /*   if($currentParkTime->date === $item->opened_date ){
-               $stoppageStartSameTime = Carbon::parse("$item->opened_date $item->time_slot_start");
-               $stoppageEndSameTime = Carbon::parse("$item->opened_date $item->time_slot_end");
-               $downtimeMinutes += $stoppageEndSameTime->diffInMinutes($stoppageStartSameTime);
 
-              } */
-            if ($currentParkTimeStartTime > $stoppageStartTime) {
+            if ($data['type'] == 'all_day') {
 
                 $ids = ParkTime::whereBetween('date', [$item->opened_date, $stoppage_end_date])->pluck('id');
                 // Stoppage continues to the next park time
@@ -189,6 +186,7 @@ class RideStoppageController extends Controller
                 //  return($downtimeMinutes);
                 $skipFirst = true;
                 $lastIndex = count($ids) - 1;
+
 
                 foreach ($ids as $index => $id) {
                     if ($skipFirst) {
@@ -206,11 +204,16 @@ class RideStoppageController extends Controller
                     //  dd($durationValue);
                     $downtimeMinutes += $durationValue;
                 }
+                if($currentParkTime ){
                 $downtimeMinutes += $stoppageEndTime->diffInMinutes($currentParkTimeStartTime);
+                }
 
             } else {
                 // Stoppage ends within the current park time
-                $stoppageEndSameTime = Carbon::parse("$item->opened_date $item->time_slot_end");
+                $stoppageEndSameTime = Carbon::parse("$opened_date $time_slot_end");
+               // return ( $stoppageStartTime );
+                //return (  $stoppageEndSameTime);
+
                 $downtimeMinutes = $stoppageEndSameTime->diffInMinutes($stoppageStartTime);
             }
 

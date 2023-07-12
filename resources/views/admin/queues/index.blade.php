@@ -59,7 +59,7 @@ Show Queues On Selected Ride
                             </th>
                           
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Queue Minites
+                                Queue Seconds
                             </th>
                              <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                  Current Wait Time
@@ -93,7 +93,7 @@ Show Queues On Selected Ride
                                 <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->ride->park->name ?? "" }}</td>
                                 <td>{{ $item->start_time }}</td>
-                                <td>{{ $item->queue_minutes }}</td>
+                                <td>{{ $item->queue_seconds }}</td>
                                 <td>{{ $item->current_wait_time??"" }}</td>
                                 <td>{{ $item->max_queue_capacity??""  }}</td>
                                 <td>{{ $item->current_queue_occupancy??""  }}</td>

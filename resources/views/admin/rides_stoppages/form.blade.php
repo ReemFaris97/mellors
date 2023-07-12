@@ -93,6 +93,21 @@
         </div>
     </div>
 </div>
+<div class="form-group">
+        <div class="col-lg-12">
+            {!! Form::label('Stoppage End Date') !!}
+        </div>
+        <div class="col-lg-12">
+            {!! Form::date('end_date',null,['class'=>'form-control']) !!}
+            @if ($errors->has('end_date'))
+            <span class="help-block">
+                <span class="help-block">
+                    <strong>{{ $errors->first('end_date') }}</strong>
+                </span>
+                @endif
+        </div>
+    </div>
+
 <div class="timeSlot hidden">
     <div class="form-group">
         <div class="col-lg-12">
@@ -109,7 +124,6 @@
     </div>
 </div>
 
-@if(auth()->user()->hasRole('Technical') || auth()->user()->hasRole('Super Admin'))
 <br><br><br>
 <div class="form-group stoppageReason">
     <label class="col-lg-12">Stoppage description :</label>
@@ -117,7 +131,6 @@
         {!! Form::textarea("description",null,['class'=>'form-control','placeholder'=>'Stoppage description'])!!}
     </div>
 </div>
-@endif
 <br><br><br>
 
 <div class="col-lg-12 form-group stoppageReason">

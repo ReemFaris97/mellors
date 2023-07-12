@@ -111,6 +111,7 @@ class ParkTimeController extends Controller
         $lists = GameTime::where('park_id', $request->park_id)
         ->where('date', $request['date'])
         ->get();
+        
             foreach ($lists as $list) {
             $list->start = $request->input('start');
             $list->end = $request->input('end');
