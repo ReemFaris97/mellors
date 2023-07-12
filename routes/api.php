@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\RideController;
+use App\Http\Controllers\Api\SupervisorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('login',[AuthController::class,'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    // operators
     Route::get('home',[RideController::class,'home']);
+
     Route::get('ride/{id}',[RideController::class,'ride']);
     Route::get('ride_preopening/{id}',[RideController::class,'ridePreopening']);
     Route::get('ride_preclosing/{id}',[RideController::class,'ridePreclosing']);
@@ -34,5 +37,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('add_queues',[RideController::class,'addQueues']);
     Route::post('stop_queues',[RideController::class,'stopQueues']);
+
+    //zone supervisor
+    Route::get('home_zone_supervisor',[SupervisorController::class,'home']);
+    Route::get('preopening_list/{id}',[SupervisorController::class,'preopeningList']);
+    Route::post('add_feedback',[SupervisorController::class,'storeCustomerFeedback']);
+
 
 });

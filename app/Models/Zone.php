@@ -40,5 +40,11 @@ class Zone extends Model
         return $this->belongsToMany(User::class, 'user_zones');
     }
 
+    public function rides()
+    {
+        return $this->hasMany(Ride::class,'zone_id','id');
+
+    }
+
 
 }
