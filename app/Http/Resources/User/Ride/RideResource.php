@@ -16,7 +16,7 @@ class RideResource extends JsonResource
      */
     public function toArray($request)
     {
-
+//        dd(dateTime());
         $data = [
             'id' => $this->id,
             'name' => $this->name,
@@ -34,11 +34,14 @@ class RideResource extends JsonResource
             'ride_type' => RideTypeResource::make($this->ride_type),
             'zone' => ZoneResource::make($this->zone),
             'park' => ParkResource::make($this->park),
-//            'time' => RideTimeResource::make($this->times?->last()),
             'status' => $this->rideStoppages?->last()->ride_status ?? 'active',
 
         ];
-//        $data['queues'] => QueueResource::collection($this->queues);
+
+        $queues = $this->queues->whereBetween('start_time',[dateTime()?->date,dateTime()?->close_date]);
+        $riders = $this->cycle->where('duration_seconds',0)?->whereBetween('start_time',[dateTime()?->date,dateTime()?->close_date]);
+        $data['queues'] = QueueResource::collection($queues);
+        $data['total_riders'] = $riders->sum('number_of_vip') + $riders->sum('number_of_disabled') + $riders->sum('riders_count') + $riders->sum('number_of_ft');
         return $data;
     }
 }

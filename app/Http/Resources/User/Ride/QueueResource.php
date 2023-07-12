@@ -17,11 +17,11 @@ class QueueResource extends JsonResource
     public function toArray($request)
     {
 
-        $data = [
+        return [
             'id' => $this->id,
-            'name' => $this->name,
+            'active' => !($this->queue_seconds == 0),
+            'start_time' => $this->start_time,
         ];
 
-        return $data;
     }
 }
