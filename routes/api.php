@@ -20,7 +20,7 @@ Route::post('login',[AuthController::class,'login']);
 Route::middleware('auth:sanctum')->group(function () {
     // operators
     Route::get('home',[RideController::class,'home']);
-    Route::get('time_slot',[RideController::class,'timeSlot']);
+    Route::get('settings',[RideController::class,'timeSlot']);
 
     Route::get('ride/{id}',[RideController::class,'ride']);
     Route::get('ride_preopening/{id}',[RideController::class,'ridePreopening']);
