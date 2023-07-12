@@ -26,7 +26,7 @@ class QueueRequest extends FormRequest
             $rules = [
                 'ride_id'=>'required',
                 'park_time_id'=>'required',
-                'queue_minutes'=>'required',
+                'queue_seconds'=>'required',
                 'date'=>'nullable',
                 'start_time'=>'nullable',
                 'current_queue_occupancy'=>'nullable',
