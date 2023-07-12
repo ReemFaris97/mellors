@@ -68,4 +68,9 @@ class Ride extends Model
     {
         return $this->hasMany(PreopeningList::class, 'ride_id', 'id');
     }
+
+    public function queues()
+    {
+        return $this->hasMany(Queue::class, 'ride_id', 'id');
+    }
 }

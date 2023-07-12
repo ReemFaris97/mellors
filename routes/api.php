@@ -20,6 +20,7 @@ Route::post('login',[AuthController::class,'login']);
 Route::middleware('auth:sanctum')->group(function () {
     // operators
     Route::get('home',[RideController::class,'home']);
+    Route::get('time_slot',[RideController::class,'timeSlot']);
 
     Route::get('ride/{id}',[RideController::class,'ride']);
     Route::get('ride_preopening/{id}',[RideController::class,'ridePreopening']);
@@ -42,6 +43,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('home_zone_supervisor',[SupervisorController::class,'home']);
     Route::get('preopening_list/{id}',[SupervisorController::class,'preopeningList']);
     Route::post('add_feedback',[SupervisorController::class,'storeCustomerFeedback']);
+
+    Route::post('logout',[AuthController::class,'logout']);
+
 
 
 });

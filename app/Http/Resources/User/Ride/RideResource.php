@@ -34,10 +34,11 @@ class RideResource extends JsonResource
             'ride_type' => RideTypeResource::make($this->ride_type),
             'zone' => ZoneResource::make($this->zone),
             'park' => ParkResource::make($this->park),
-            'time' => RideTimeResource::make($this->times?->last()),
-            'status' => $this->rideStoppages?->last()->ride_status ?? 'active'
-        ];
+//            'time' => RideTimeResource::make($this->times?->last()),
+            'status' => $this->rideStoppages?->last()->ride_status ?? 'active',
 
+        ];
+//        $data['queues'] => QueueResource::collection($this->queues);
         return $data;
     }
 }

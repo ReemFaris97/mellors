@@ -14,6 +14,8 @@ use App\Http\Resources\User\Ride\RideCycleResource;
 use App\Http\Resources\User\Ride\RideQueueResource;
 use App\Http\Resources\User\Ride\RideResource;
 use App\Http\Resources\User\Ride\StoppageResource;
+use App\Http\Resources\User\TimeSlotResource;
+use App\Models\ParkTime;
 use App\Models\PreopeningList;
 use App\Models\Queue;
 use App\Models\Ride;
@@ -25,6 +27,7 @@ use App\Models\Zone;
 use App\Notifications\ZoneSupervisorNotifications;
 use App\Traits\Api\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
@@ -124,7 +127,6 @@ class RideController extends Controller
         $ride = Ride::find($validate['ride_id']);
         $last = $ride->times->last();
         $validate['opened_date'] = $last->date;
-//        dd($last);
         RideStoppages::query()->create($validate);
         event(new \App\Events\RideStatusEvent($validate['ride_id'], 'stopped'));
         return self::apiResponse(200, __('stoppage added successfully'), []);
@@ -210,6 +212,31 @@ class RideController extends Controller
         $this->body['queue'] = RideQueueResource::make($queue);
         return self::apiResponse(200, __('update queues successfully'), $this->body);
 
+    }
+
+    protected function timeSlot()
+    {
+        $time = $this->dateTime();
+        if (!$time) {
+            return self::apiResponse(400, __('not found time slot'), $this->body);
+        }
+        $this->body['time_slot'] = TimeSlotResource::make($time);
+        return self::apiResponse(200, __('time slot info'), $this->body);
+
+    }
+
+    private function dateTime()
+    {
+        $currentDate = Carbon::now()->toDateString();
+        $currentTime = Carbon::now()->format('H:i');
+        $parks = auth()->user()->parks->pluck('id');
+        $time = ParkTime::where('date', $currentDate)
+            ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
+                $subquery->where('close_date', $currentDate)
+                    ->where('end', '>=', $currentTime);
+            })->whereIn('park_id', $parks)
+            ->first();
+        return $time;
     }
 
 
