@@ -49,7 +49,7 @@ class RideStoppageRequest extends FormRequest
             'date_time'=>'nullable',
             'end_date'=>'nullable',
             'time_slot_start'=>'nullable',
-            'time_slot_end'=>'nullable',
+            'time_slot_end' => '|date_format:H:i|after:time_slot_start',
             'description'=>'nullable',
             'type'=>'required',
             'images.*'=>'nullable',

@@ -69,7 +69,7 @@
                                 Stoppage Status
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride_Stoppage_Category
+                                Ride Stoppage Category
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Notes
@@ -103,10 +103,32 @@
                                   <span class=" btn-xs btn-success">Active</span>
                                 @endif
                                 </td>
-                             <!--    <td>
-                             
-                                    <button type="button" class="btn btn-success  " data-toggle="modal"
-                                        data-target="#modal-{{ $item->id }}"><i class="fa fa-edit"></i> Change Status
+
+                                <td>
+                                @if($item->stoppage_status=='pending')
+                                <span class=" btn-xs btn-primary">Pending
+                                  @elseif($item->stoppage_status=='working')
+                                  <span class=" btn-xs btn-danger">Working On
+                                  @else
+                                  <span class=" btn-xs btn-success">Solved
+                                @endif
+                                </td>
+                                <td>{{ $item->stopageSubCategory->name ?? "name" }}</td>
+                                <td>{{ $item->ride_notes }}</td>
+                                <td>{{ $item->down_minutes?? "Stop All Day" }}</td>
+                                {!!Form::open( ['route' => ['admin.rides-stoppages.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
+                                <td>
+                                 @if(auth()->user()->can('rsr_reports-creat'))
+
+                                    <a href="{{url('add_rsr_stoppage_report/'.$item->id)}}"
+                                       class="btn btn-info">Add RSR report</a>
+                                 @endif
+                                 @if(auth()->user()->can('rides-stoppages-edit'))
+                                 @if($item->ride_status=='stopped' && $item->type=='all_day' )
+
+                                   <button type="button" class="btn btn-warning  " data-toggle="modal"
+                                        data-target="#modal-{{ $item->id }}"><i class="fa fa-edit"></i> Extend
                                     </button>
                                     <div class="modal fade" id="modal-{{ $item->id }}" tabindex="-1" aria-hidden="true"
                                         role="dialog">
@@ -114,7 +136,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title" id="defaultModalLabel">
-                                                        Change Stoppage Status</h4>
+                                                        Extend</h4>
                                                 </div>
                                                 <div class="modal-body">
 
@@ -122,16 +144,41 @@
                                                     ['admin.rides-stoppages.updateStoppageStatus' ,
                                                     $item->id],'id' => 'ClientStore', 'method' => 'PATCH',
                                                     'enctype'=>"multipart/form-data"]) !!}
+                                                    <label class="form-label">Stoppage Reasons Main Category</label>
+                                                        <div class="form-line">
+                                                        {!! Form::select('stopage_category_id',@$stopage_category?$stopage_category:[],null, array('class' => ' form-control
+                                                                mai_category','placeholder'=>'Stoppage main Category')) !!}
+
+                                                            @if ($errors->has('stopage_category_id'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('stopage_category_id') }}</strong>
+                                                            </span>
+                                                            @endif
+                                                        </div>
+                                                        <label class="form-label">Stoppage Sub Category</label>
+                                                        <div class="form-line">
+                                                        {!! Form::select("stopage_sub_category_id",
+                                                                    isset($item)?[$item->stopage_sub_category_id =>$item->stopageSubCategory->name]:[],
+                                                                    isset($item)?$item->stopage_sub_category_id:null,
+                                                                    ['class'=>'form-control js-example-basic-single ms  subCategory','id'=>'subCategory','placeholder'=>'Choose Main Category first'])!!}
+
+           
+                                                            @if ($errors->has('stopage_sub_category_id'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('stopage_sub_category_id') }}</strong>
+                                                            </span>
+                                                            @endif
+                                                        </div>
                                                     <label class="form-label"> Stoppage Status </label>
                                                     <div class="form-line">
-                                                    {!! Form::select('stoppage_status', ["pending"=>'Pending',"working"=>'Working On',"done"=>'Solved'],null,
+                                                    {!! Form::select('stoppage_status', ["working"=>'Working On',"done"=>'Solved'],null,
                                                                 array('class' =>
                                                                 'form-control ','placeholder'=>'Stoppage Status'))
                                                     !!}
 
-                                                        @if ($errors->has('daily_entrance_count'))
+                                                        @if ($errors->has('stoppage_status'))
                                                         <span class="help-block">
-                                                            <strong>{{ $errors->first('daily_entrance_count') }}</strong>
+                                                            <strong>{{ $errors->first('stoppage_status') }}</strong>
                                                         </span>
                                                         @endif
                                                         <br><br>
@@ -162,41 +209,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td> -->
+                                    @endif
 
-                                <td>
-                                @if($item->stoppage_status=='pending')
-                                <span class=" btn-xs btn-primary">Pending
-                                  @elseif($item->stoppage_status=='working')
-                                  <span class=" btn-xs btn-danger">Working On
-                                  @else
-                                  <span class=" btn-xs btn-success">Solved
-                                @endif
-                                </td>
-                                <td>{{ $item->stopageSubCategory->name ?? "name" }}</td>
-                                <td>{{ $item->ride_notes }}</td>
-                                <td>{{ $item->down_minutes?? "Stop All Day" }}</td>
-                                {!!Form::open( ['route' => ['admin.rides-stoppages.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
-                                {!!Form::close() !!}
-                                <td>
-                                @if(auth()->user()->can('rsr_reports-creat'))
 
-                                    <a href="{{url('add_rsr_stoppage_report/'.$item->id)}}"
-                                       class="btn btn-info">Add RSR report</a>
-                                       @endif
-                                       @if(auth()->user()->can('rides-stoppages-edit'))
 
                                     <a href="{{ route('admin.rides-stoppages.edit', $item) }}"
                                        class="btn btn-info">Edit</a>
-                                       @endif
-                                       @if(auth()->user()->can('rides-stoppages-delete'))
+                                 @endif
+                                 @if(auth()->user()->can('rides-stoppages-delete'))
 
                                         <a class="btn btn-danger" data-name="{{ $item->name }}"
                                            data-url="{{ route('admin.rides-stoppages.destroy', $item) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>
-                                        @endif
+                                 @endif
 
 
                                 </td>
@@ -229,6 +256,29 @@ $("#ClientStore").popover({
     }
 });
 </script>
+<script type="text/javascript">
+$('.mai_category').change(function() {
+    var val = $(this).val();
+    $.ajax({
+        type: "post",
+        url: "{{ route('admin.getSubStoppageCategories') }}",
+        data: {
+            'stopage_category_id': val,
+            '_token': "{{ @csrf_token() }}"
+        },
+        success: function(data) {
+            var options = '<option disabled>Choose Main Category</option>';
+            $.each(data.subCategory, function(key, value) {
+                options += '<option value="' + value.id + '">' + value.name +
+                    '</option>';
+
+            });
+            $("#subCategory").empty().append(options);
+        }
+    });
+});
+</script>
+
 @endpush
 
 @section('footer')
