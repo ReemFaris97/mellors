@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\RideController;
+use App\Http\Controllers\Api\RideStoppageController;
 use App\Http\Controllers\Api\SupervisorController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::post('login',[AuthController::class,'login']);
 Route::middleware('auth:sanctum')->group(function () {
     // operators
     Route::get('home',[RideController::class,'home']);
+    Route::get('settings',[RideController::class,'timeSlot']);
 
     Route::get('ride/{id}',[RideController::class,'ride']);
     Route::get('ride_preopening/{id}',[RideController::class,'ridePreopening']);
@@ -27,9 +29,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('store_inspection',[RideController::class,'storeInspection']);
 
     Route::get('get_ride_status',[RideController::class,'rideStatus']);
-    Route::post('add_ride_stoppage',[RideController::class,'addRideStoppage']);
+    Route::post('add_ride_stoppage',[RideStoppageController::class,'addRideStoppage']);
+    Route::get('get_ride_stoppages/{id}',[RideStoppageController::class,'getRideStoppages']);
+    Route::post('update_stoppage',[RideStoppageController::class,'UpdateRideStoppages']);
 
-    Route::post('reopen',[RideController::class,'reopen']);
+    Route::post('reopen',[RideStoppageController::class,'reopen']);
 
     Route::post('add_cycle',[RideController::class,'addCycle']);
     Route::post('update_cycle_count',[RideController::class,'updateCycleCount']);
@@ -42,6 +46,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('home_zone_supervisor',[SupervisorController::class,'home']);
     Route::get('preopening_list/{id}',[SupervisorController::class,'preopeningList']);
     Route::post('add_feedback',[SupervisorController::class,'storeCustomerFeedback']);
+
+    Route::post('logout',[AuthController::class,'logout']);
+
 
 
 });

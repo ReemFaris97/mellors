@@ -68,4 +68,13 @@ class Ride extends Model
     {
         return $this->hasMany(PreopeningList::class, 'ride_id', 'id');
     }
+
+    public function queue()
+    {
+        return $this->hasOne(Queue::class, 'ride_id', 'id')->orderBy('id','DESC');
+    }
+    public function cycle()
+    {
+        return $this->hasMany(RideCycles::class, 'ride_id', 'id');
+    }
 }

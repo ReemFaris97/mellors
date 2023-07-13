@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginRequest;
 use App\Http\Resources\User\UserResource;
+use App\Models\UserLog;
 use App\Traits\Api\ApiResponse;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -23,11 +25,13 @@ class AuthController extends Controller
         if (Auth::attempt($cred)) {
 
             $user = Auth::user()->hasAnyRole(['Ride & Ops ', 'Ride & Ops', 'Operation', 'Operation ',
-                'Maintenance', 'Maintenance ', 'Health & Safety', 'Health & Safety ', '']);
+                'Maintenance', 'Maintenance ', 'Health & Safety', 'Health & Safety ', 'zone supervisor']);
             if (!$user) {
                 return self::apiResponse(400, __('you dont have permission'));
             }
             $user = Auth::user();
+            UserLog::query()->create(['user_id' => $user->id,
+                'type' => 'login', 'date' => Carbon::now(),'time' => Carbon::now()->toTimeString()]);
             $this->message = __('login successfully');
             $this->body['user'] = UserResource::make($user);
             $this->body['accessToken'] = $user->createToken('user-token')->plainTextToken;
@@ -36,6 +40,16 @@ class AuthController extends Controller
             $this->message = __('auth failed');
             return self::apiResponse(400, $this->message);
         }
+
+    }
+
+    public function logout()
+    {
+        UserLog::query()->create(['user_id' => auth()->user('sanctum')->id,
+            'type' => 'logout', 'date' => Carbon::now()->toDateString() ,'time' => Carbon::now()->toTimeString()]);
+        auth()->user('sanctum')->tokens()->delete();
+        $this->message = __('Logged out successfully');
+        return self::apiResponse(200, $this->message, []);
 
     }
 

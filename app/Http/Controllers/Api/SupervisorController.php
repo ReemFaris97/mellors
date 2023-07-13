@@ -19,6 +19,7 @@ use App\Http\Resources\User\Ride\StoppageResource;
 use App\Http\Resources\User\Zone\ZoneResource;
 use App\Models\CustomerFeedbackImage;
 use App\Models\CustomerFeedbacks;
+use App\Models\ParkTime;
 use App\Models\PreopeningList;
 use App\Models\Queue;
 use App\Models\Ride;
@@ -31,6 +32,7 @@ use App\Notifications\ZoneSupervisorNotifications;
 use App\Traits\Api\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -52,8 +54,14 @@ class SupervisorController extends Controller
         if (!$ride) {
             return self::apiResponse(404, __('ride not found'), []);
         }
-        $this->body['preopening_list'] = PreopeningListResource::collection($ride->preopening_lists);
+        $currentDate = Carbon::now()->toDateString();
 
+        $pre = $ride->preopening_lists?->where('lists_type', 'preopening')->where('opened_date', $currentDate);
+
+        if ($pre->isEmpty()) {
+            return self::apiResponse(400, __('not found'), []);
+        }
+        $this->body['preopening_list'] = PreopeningListResource::collection($pre);
         return self::apiResponse(200, __('preopening list'), $this->body);
     }
 
@@ -76,14 +84,13 @@ class SupervisorController extends Controller
         return self::apiResponse(200, __('send customer feedback successfully'), []);
 
     }
+
     private function Images($images, $model, $item)
     {
         foreach ($images as $image) {
             $path = Storage::disk('s3')->put('images', $image);
             $model->create(['image' => $path] + $item);
         }
-
-
     }
 
 
