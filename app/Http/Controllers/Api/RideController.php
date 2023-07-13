@@ -35,7 +35,7 @@ class RideController extends Controller
 {
     use ApiResponse;
 
-    public function home()
+    protected function home()
     {
         $user = Auth::user();
 
@@ -44,7 +44,7 @@ class RideController extends Controller
     }
 
 
-    public function ride($id)
+    protected function ride($id)
     {
         $ride = Ride::find($id);
 
@@ -57,7 +57,7 @@ class RideController extends Controller
         return self::apiResponse(200, __('home page'), $this->body);
     }
 
-    public function ridePreopening($id)
+    protected function ridePreopening($id)
     {
         $inspects = RideInspectionList::where('ride_id', $id)->where('lists_type', 'preopening')->get();
         $this->body['inspections'] = InspectionResource::collection($inspects);
@@ -65,7 +65,7 @@ class RideController extends Controller
 
     }
 
-    public function ridePreclosing($id)
+    protected function ridePreclosing($id)
     {
         $inspects = RideInspectionList::where('ride_id', $id)->where('lists_type', 'preclosing')->get();
         $this->body['inspections'] = InspectionResource::collection($inspects);
@@ -118,36 +118,6 @@ class RideController extends Controller
 
     }
 
-    protected function addRideStoppage(SubmitStoppageRequest $request)
-    {
-        $validate = $request->validated();
-        $validate['user_id'] = \auth()->user()->id;
-        $validate['ride_status'] = 'stopped';
-        $validate['stoppage_status'] = 'pending';
-        $ride = Ride::find($validate['ride_id']);
-        $last = $ride->times->last();
-        $validate['opened_date'] = $last->date;
-        RideStoppages::query()->create($validate);
-        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'stopped'));
-        return self::apiResponse(200, __('stoppage added successfully'), []);
-
-    }
-
-    protected function reopen(Request $request)
-    {
-        $validate = $request->validate([
-            'ride_id' => 'required|exists:rides,id'
-        ]);
-        $ride = Ride::find($validate['ride_id']);
-        $last = $ride->rideStoppages->last();
-        $last->ride_status = 'active';
-        $last->save();
-        $this->body['ride'] = RideResource::make($ride);
-        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'active'));
-
-        return self::apiResponse(200, __('update ride status successfully'), $this->body);
-
-    }
 
     protected function addCycle(SubmitCycleRequest $request)
     {
@@ -216,27 +186,13 @@ class RideController extends Controller
 
     protected function timeSlot()
     {
-        $time = $this->dateTime();
+        $time = dateTime();
         if (!$time) {
-            return self::apiResponse(400, __('not found time slot'), $this->body);
+            return self::apiResponse(400, __('not found time slot'), []);
         }
         $this->body['time_slot'] = TimeSlotResource::make($time);
         return self::apiResponse(200, __('time slot info'), $this->body);
 
-    }
-
-    private function dateTime()
-    {
-        $currentDate = Carbon::now()->toDateString();
-        $currentTime = Carbon::now()->format('H:i');
-        $parks = auth()->user()->parks->pluck('id');
-        $time = ParkTime::where('date', $currentDate)
-            ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
-                $subquery->where('close_date', $currentDate)
-                    ->where('end', '>=', $currentTime);
-            })->whereIn('park_id', $parks)
-            ->first();
-        return $time;
     }
 
 
