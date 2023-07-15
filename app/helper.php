@@ -29,7 +29,7 @@ if (!function_exists('addNewDateStappage')) {
         $stoppageStartTime = Carbon::parse("$open $time_slot_start");
         $stoppageParkTimeEnd = Carbon::parse("$park_time->close_date $park_time->end");
         $validate['down_minutes'] = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
-        $validate['opened_date'] = $open;
+        $validate['opened_date'] = $park_time->date;
         $validate['time'] = $time_slot_start;
         $validate['time_slot_start'] = $park_time->start;
         $validate['date'] = $open;
