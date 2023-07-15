@@ -37,7 +37,8 @@ if (!function_exists('addNewDateStappage')) {
         $validate['parent_id'] = $stoppage->id;
         $validate['stopage_sub_category_id'] = $stoppage->stopage_sub_category_id;
         $validate['stopage_category_id'] = $stoppage->stopage_category_id;
-        $validate['park_time_id'] = $stoppage->park_time_id;
+        $validate['park_time_id'] = $park_time->id;
+        $validate['user_id'] = auth()->user()->id;
 
         RideStoppages::query()->create($validate);
     }
