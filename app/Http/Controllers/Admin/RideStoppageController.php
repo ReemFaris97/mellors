@@ -64,8 +64,16 @@ class RideStoppageController extends Controller
 
     public function show_stoppages($ride_id, $park_time_id)
     {
-        $items = RideStoppages::where('park_time_id', $park_time_id)
-            ->where('ride_id', $ride_id)->get();
+        $items = RideStoppages::where(function ($query) use ($park_time_id, $ride_id) {
+            $query->where('park_time_id', $park_time_id)
+                ->where('ride_id', $ride_id);
+        })
+        ->orWhere(function ($query) use ($ride_id) {
+            $query->where('ride_id', $ride_id)
+                ->where('ride_status', 'stopped')->where('type','all_day');
+        })
+        ->latest() // Order the results by a specific column in descending order (e.g., created_at)
+        ->get();    
             $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
             $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
         return view('admin.rides_stoppages.index', compact('items', 'ride_id', 'park_time_id', 'stopage_category', 'stopage_sub_category'));
@@ -253,25 +261,31 @@ class RideStoppageController extends Controller
             $oldStoppageData=RideStoppages::findOrFail($request['stoppage_id']);
             $data['opened_date'] =  $oldStoppageData->opened_date;
             $data['park_id'] = $oldStoppageData->park_id;
+            $data['stopage_category_id'] = $request['stopage_category_id'];
+            $data['stopage_sub_category_id'] = $request['stopage_sub_category_id'];
             $data['zone_id'] = $oldStoppageData->zone_id;
-            $data['ride_id'] = $oldStoppageData->zone_id;
+            $data['ride_id'] = $oldStoppageData->ride_id;
             $data['user_id'] = auth()->user()->id;
             $data['ride_status'] = "stopped";
-         
+            $park_time = ParkTime::where('date',date('Y-m-d'))->where('park_id',$data['park_id'] )->first();
+            if(isset($park_time)){
+                $data['park_time_id'] = $park_time->id;
             if ($request['type'] == 'all_day') {
-                $park_time = ParkTime::where('date',date('Y-m-d'))->where('park_id',$data['park_id'] )->first();
-                if(isset($park_time)){
                 $duration = $park_time->duration_time;
                 $data['down_minutes'] = $duration;
-                $data['park_time_id'] = $park_time->id;
                 $stoppage = RideStoppages::create($data);
-                }else{
-                alert()->danger('Please, Set Time Slot First To Extend This Stoppage !');
+                
+            }elseif ($request['type'] == 'time_slot') {
+                $time_slot_start = $park_time->start;
+                $soppage_end_time=$request['time_slot_end'];
+                $data['down_minutes'] = $soppage_end_time->diffInMinutes($time_slot_start);
+                $stoppage = RideStoppages::create($data);
+            }
+            
+        }  else{
+                alert()->error('Please, Set Time Slot First To Extend This Stoppage !');
                 return redirect()->back();
                      }
-            }elseif ($request['type'] == 'time_slot') {
-
-            }
 
           
         }

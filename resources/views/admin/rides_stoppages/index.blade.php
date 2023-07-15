@@ -169,6 +169,17 @@
                                                             </span>
                                                             @endif
                                                         </div>
+                                                        <label class="form-label"> Stoppage Type </label>
+                                                    <div class="form-line">
+                                                    {!! Form::select('type', ['all_day'=>'All day','time_slot'=>'Time slot'],null, array('class' =>
+                                                       'form-control stoppageType','id'=>'type','placeholder'=>'Stoppage type')) !!}
+
+                                                        @if ($errors->has('type'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('type') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                        <br><br>
                                                     <label class="form-label"> Stoppage Status </label>
                                                     <div class="form-line">
                                                     {!! Form::select('stoppage_status', ["working"=>'Working On',"done"=>'Solved'],null,
@@ -181,6 +192,19 @@
                                                             <strong>{{ $errors->first('stoppage_status') }}</strong>
                                                         </span>
                                                         @endif
+                                                        <br><br>
+                                                        <div class="timeSlot hidden">
+
+                                                        <label class="form-label"> Stoppage End Time </label>
+                                                    <div class="form-line">
+                                                    {!! Form::time('time_slot_end',null,['class'=>'form-control']) !!}
+                                                        @if ($errors->has('time_slot_end'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('time_slot_end') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                    </div>
+                                                        </div>
                                                         <br><br>
                                                         <label class="form-label"> Stoppage Description </label>
                                                         <div class="form-line">
@@ -276,6 +300,19 @@ $('.mai_category').change(function() {
             $("#subCategory").empty().append(options);
         }
     });
+});
+
+$('.stoppageType').change(function() {
+    var val = $(this).val();
+    console.log(val);
+    if (val == "time_slot") {
+        $('.downTime').removeClass('hidden');
+        $('.timeSlot').removeClass('hidden');
+    }
+    if (val == "all_day") {
+        $('.downTime').addClass('hidden');
+        $('.timeSlot').addClass('hidden');
+    }
 });
 </script>
 

@@ -106,7 +106,7 @@ class ReportsController extends Controller
        $items = PreopeningList::whereBetween('opened_date',[$from, $to])
            ->where('park_id',$park_id)->where('lists_type','inspection_list')
            ->get();
-      //     return $items;
+     // return $request;
            if($request->input('ride_id'))
            {
                $items->where('ride_id',$request->input('ride_id'));
