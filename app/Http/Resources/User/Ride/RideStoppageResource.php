@@ -5,6 +5,7 @@ namespace App\Http\Resources\User\Ride;
 use App\Http\Resources\User\ParkResource;
 use App\Http\Resources\User\ZoneResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class RideStoppageResource extends JsonResource
 {
@@ -28,6 +29,7 @@ class RideStoppageResource extends JsonResource
 //            'ride_notes' => $this->ride_notes,
             'time_slot_start' => $this->time_slot_start,
             'stopage_category_id' => $this->stopage_category_id,
+            'date_time' => $this->date .' '.$this->time_slot_start,
 
         ];
 
