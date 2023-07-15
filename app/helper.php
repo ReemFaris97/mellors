@@ -31,7 +31,7 @@ if (!function_exists('addNewDateStappage')) {
         $validate['down_minutes'] = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
         $validate['opened_date'] = $open;
         $validate['time'] = $time_slot_start;
-        $validate['time_slot_start'] = $time_slot_start;
+        $validate['time_slot_start'] = $park_time->start;
         $validate['date'] = $open;
         $validate['ride_id'] = $ride->id;
         $validate['parent_id'] = $stoppage->id;
