@@ -481,21 +481,27 @@ div.dataTables_paginate {
 }
 .notification-box .media{
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column-reverse;
     line-height: 1;
+    flex-wrap: wrap;
+    padding: 0.5rem; 
 }
 .notification-box .media-body {
-    width: max-content;
-    display: block;
-
+    width: 100%;
+    text-align: left; 
+    display: block; 
+}
+.notification-box .media-body .notification-text {
+    padding-left: 0.5rem;
 }
 .notification-box .dropdown-menu-header{
     color: var(--text);
+    text-align: center; 
 }
 .notification-box .date{
     font-size: 1rem;
     color: var(--text);
-    margin-right: 1rem;
+    text-align: right;
 }
 .notification-box .media-list a {
     display: block;
@@ -896,18 +902,30 @@ table.dataTable.dtr-inline.collapsed
 }
 .home-flex .playBox{
     margin-bottom: 15px;
-    position: relative;
-
+    position: relative; 
+}
+.home-flex .playBox .card-box {
+    border: 3px solid transparent;
+}
+.home-flex .playBox.playHasQue .card-box {
+    border-color: #ebab43;
 }
 .home-flex .playBox .tooltip-outer{
     position: absolute;
-    right: 1rem;
-    top: 1rem;
+    right: .5rem;
+    top: .5rem;
     z-index: 9999;
 }
 .home-flex .playBox .tooltip-icon{
     color: var(--secondary);
     cursor: pointer;
+}
+.tooltip-outer .tooltip .tooltip-inner {
+    min-width: 120px;
+    background-color: var(--secondary);
+}
+.tooltip.top .tooltip-arrow {
+    border-top-color: var(--secondary);
 }
 .home-flex .playBox:not(:last-child){
     margin-right: 15px;

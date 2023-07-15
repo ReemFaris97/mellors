@@ -92,7 +92,11 @@ class RideStoppageController extends Controller
         if (!$ride) {
             return self::apiResponse(200, __('ride not found'), []);
         }
+
         $stoppage = $ride->rideStoppages->whereBetween('date', [dateTime()?->date, dateTime()?->close_date]);
+        if (dateTime() == null) {
+            $this->body['ride_stoppage'] = [];
+        }
         $this->body['ride_stoppage'] = RideStoppageResource::collection($stoppage);
         return self::apiResponse(200, __('get ride stoppage'), $this->body);
     }
@@ -101,7 +105,9 @@ class RideStoppageController extends Controller
     {
         $validate = $request->validated();
         $park_time = dateTime();
-
+        if ($park_time == null) {
+            return self::apiResponse(200, __('not found time slot'), []);
+        }
         foreach ($validate['id'] as $key => $id) {
             $stoppage = RideStoppages::find($id);
             $time = $validate['time'][$key];

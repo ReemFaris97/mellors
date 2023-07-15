@@ -27,7 +27,7 @@ class SubmitStoppageRequest extends FormRequest
             'ride_id' => 'required|exists:rides,id',
             'park_time_id'=>'nullable|exists:park_times,id',
             'stopage_sub_category_id'=>'required|exists:stopage_sub_categories,id',
-            'ride_notes'=>'nullable',
+//            'ride_notes'=>'nullable',
             'date_time'=>'nullable',
             'description'=>'nullable',
             'time_slot_start'=>'nullable',

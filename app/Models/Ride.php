@@ -71,7 +71,7 @@ class Ride extends Model
 
     public function queue()
     {
-        return $this->hasOne(Queue::class, 'ride_id', 'id')->orderBy('id','DESC');
+        return $this->hasOne(Queue::class, 'ride_id', 'id');
     }
     public function cycle()
     {

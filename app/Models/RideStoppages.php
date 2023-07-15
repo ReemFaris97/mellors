@@ -30,7 +30,7 @@ class RideStoppages extends Model
         'type',
         'time_slot_start',
         'time_slot_end','end_date',
-        'park_time_id','description','zone_id'
+        'park_time_id','description','zone_id','parent_id'
     ];
 
     public function ride()
