@@ -25,7 +25,7 @@ class RideStoppageResource extends JsonResource
             'opened_date' => $this->opened_date,
             'type' => $this->type,
             'description' => $this->description,
-            'ride_notes' => $this->ride_notes,
+//            'ride_notes' => $this->ride_notes,
             'time_slot_start' => $this->time_slot_start,
             'stopage_category_id' => $this->stopage_category_id,
 

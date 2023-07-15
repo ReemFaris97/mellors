@@ -94,7 +94,7 @@ class RideStoppageController extends Controller
         }
 
         $stoppage = $ride->rideStoppages->whereBetween('date', [dateTime()?->date, dateTime()?->close_date]);
-        if (dateTime() == null){
+        if (dateTime() == null) {
             $this->body['ride_stoppage'] = [];
         }
         $this->body['ride_stoppage'] = RideStoppageResource::collection($stoppage);
@@ -105,7 +105,7 @@ class RideStoppageController extends Controller
     {
         $validate = $request->validated();
         $park_time = dateTime();
-        if ($park_time == null){
+        if ($park_time == null) {
             return self::apiResponse(200, __('not found time slot'), []);
         }
         foreach ($validate['id'] as $key => $id) {

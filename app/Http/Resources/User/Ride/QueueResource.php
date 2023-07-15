@@ -19,7 +19,7 @@ class QueueResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'active' => !($this->queue_seconds == 0), //if queue run active
+            'active' => !($this->queue_seconds != 0), //if queue run active
             'start_time' => $this->start_time,
         ];
 
