@@ -481,21 +481,27 @@ div.dataTables_paginate {
 }
 .notification-box .media{
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column-reverse;
     line-height: 1;
+    flex-wrap: wrap;
+    padding: 0.5rem; 
 }
 .notification-box .media-body {
-    width: max-content;
-    display: block;
-
+    width: 100%;
+    text-align: left; 
+    display: block; 
+}
+.notification-box .media-body .notification-text {
+    padding-left: 0.5rem;
 }
 .notification-box .dropdown-menu-header{
     color: var(--text);
+    text-align: center; 
 }
 .notification-box .date{
     font-size: 1rem;
     color: var(--text);
-    margin-right: 1rem;
+    text-align: right;
 }
 .notification-box .media-list a {
     display: block;
@@ -899,10 +905,10 @@ table.dataTable.dtr-inline.collapsed
     position: relative; 
 }
 .home-flex .playBox .card-box {
-    border: 2px solid transparent;
+    border: 3px solid transparent;
 }
 .home-flex .playBox.playHasQue .card-box {
-    border-color: #dfba58;
+    border-color: #ebab43;
 }
 .home-flex .playBox .tooltip-outer{
     position: absolute;
