@@ -13,7 +13,7 @@ class RideStatusEvent implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
-    public function __construct(public $id,public $status)
+    public function __construct(public $id,public $status,public $subCat)
     {
     }
 
@@ -29,7 +29,7 @@ class RideStatusEvent implements ShouldBroadcastNow
             'data' => [
                 'id' => $this->id,
                 'status' => $this->status,
-
+                'sub_cat' => $this->subCat,
             ],
         ];
     }

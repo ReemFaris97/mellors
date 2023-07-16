@@ -30,10 +30,15 @@ channel.bind('App\\Events\\timeSlotNotification', function (data) {
     console.log(data);
 });
 home.bind('App\\Events\\RideStatusEvent', function (data) {
+    console.log(data);
+
     if (data.data.status === "active") {
         document.getElementById("rideStatus" + data.data.id).style.backgroundColor = "#c6efce";
+        $("#tooltip" + data.data.id).attr("data-original-title", data.data.sub_cat);
+
     } else {
         document.getElementById("rideStatus" + data.data.id).style.backgroundColor = "#ffc7ce";
+        $("#tooltip" + data.data.id).attr("data-original-title", data.data.sub_cat);
     }
 
 });

@@ -53,8 +53,8 @@ class RideStoppageController extends Controller
         $validate['down_minutes'] = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
         $validate['opened_date'] = $open;
         $validate['time'] = \Carbon\Carbon::now()->toTimeString();
-        RideStoppages::query()->create($validate);
-        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'stopped'));
+        $stoppage = RideStoppages::query()->create($validate);
+        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'stopped',$stoppage->stopageSubCategory?->name));
         return self::apiResponse(200, __('stoppage added successfully'), []);
 
     }
@@ -80,7 +80,7 @@ class RideStoppageController extends Controller
         $last->save();
 
         $this->body['ride'] = RideResource::make($ride);
-        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'active'));
+        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'active',$last->stopageSubCategory?->name));
 
         return self::apiResponse(200, __('update ride status successfully'), $this->body);
 
