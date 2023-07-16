@@ -18,7 +18,7 @@
                             @if ($ride->park_id === $time->parks->id)
                                 @if ($ride->available == "active")
                                     <!-- NOTE : kindly add class : (playHasQue) to (playBox) div if the play has Que --->
-                                    <div class="playBox yes cardGame">
+                                    <div class="playBox yes cardGame " id="rideQueue{{$ride->id}}">
                                         <!-- Start Tooltip -->
                                         <div class="tooltip-outer">
                                             <div class="tooltip-icon" data-toggle="tooltip" id="tooltip{{$ride->id}}"
@@ -33,7 +33,7 @@
                                         </a>
                                     </div>
                                 @elseif($ride->available == "stopped" || "closed")
-                                    <div class="playBox no cardGame">
+                                    <div class="playBox no cardGame " id="rideQueue{{$ride->id}}">
                                         <!-- Start Tooltip -->
                                         <div class="tooltip-outer">
                                             <div class="tooltip-icon" id="tooltip{{$ride->id}}" data-toggle="tooltip"

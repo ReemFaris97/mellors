@@ -25,7 +25,9 @@ use App\Models\RideCycles;
 use App\Models\RideInspectionList;
 use App\Models\RideStoppages;
 use App\Models\StopageCategory;
+use App\Models\User;
 use App\Models\Zone;
+use App\Notifications\StoppageNotifications;
 use App\Notifications\ZoneSupervisorNotifications;
 use App\Traits\Api\ApiResponse;
 use Illuminate\Http\Request;
@@ -55,6 +57,19 @@ class RideStoppageController extends Controller
         $validate['time'] = \Carbon\Carbon::now()->toTimeString();
         $stoppage = RideStoppages::query()->create($validate);
         event(new \App\Events\RideStatusEvent($validate['ride_id'], 'stopped',$stoppage->stopageSubCategory?->name));
+
+        $users = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'Super Admin');
+        })->get();
+
+        $data = [
+            'title' =>  $stoppage->ride?->name .' '.'has stoppage status',
+            'ride_id' => $validate['ride_id'],
+            'user_id' => Auth::user()->id
+        ];
+        if ($users) {
+            Notification::send($users, new StoppageNotifications($data));
+        }
         return self::apiResponse(200, __('stoppage added successfully'), []);
 
     }
@@ -82,6 +97,18 @@ class RideStoppageController extends Controller
         $this->body['ride'] = RideResource::make($ride);
         event(new \App\Events\RideStatusEvent($validate['ride_id'], 'active',$last->stopageSubCategory?->name));
 
+        $users = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'Super Admin');
+        })->get();
+
+        $data = [
+            'title' =>  $ride?->name .' '.'has active status',
+            'ride_id' => $validate['ride_id'],
+            'user_id' => Auth::user()->id
+        ];
+        if ($users) {
+            Notification::send($users, new StoppageNotifications($data));
+        }
         return self::apiResponse(200, __('update ride status successfully'), $this->body);
 
     }

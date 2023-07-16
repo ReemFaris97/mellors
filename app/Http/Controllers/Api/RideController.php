@@ -97,6 +97,7 @@ class RideController extends Controller
         $user = $zone->users()->whereHas('roles', function ($query) {
             return $query->where('name', 'zone supervisor');
         })->first();
+
         $data = [
             'title' => $validate['lists_type'] . ' check list added to ' . $ride?->name,
             'ride_id' => $ride->id,
@@ -165,6 +166,8 @@ class RideController extends Controller
         $queue = Queue::query()->create($validate);
         $this->body['queue'] = RideQueueResource::make($queue);
 
+        event(new \App\Events\RideQueueEvent($validate['ride_id'], 'active'));
+
         return self::apiResponse(200, __('create queues successfully'), $this->body);
 
     }
@@ -180,6 +183,9 @@ class RideController extends Controller
 
         $queue->update(['queue_seconds' => $validate['queue_seconds']]);
         $this->body['queue'] = RideQueueResource::make($queue);
+
+        event(new \App\Events\RideQueueEvent($validate['ride_id'], 'not-active'));
+
         return self::apiResponse(200, __('update queues successfully'), $this->body);
 
     }

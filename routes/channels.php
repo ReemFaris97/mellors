@@ -24,3 +24,7 @@ Broadcast::channel('timeSlot-notification', function ($user) {
 Broadcast::channel('ride-status', function ($user) {
     return true;
 });
+
+Broadcast::channel('ride-queue', function ($user) {
+    return true;
+});
