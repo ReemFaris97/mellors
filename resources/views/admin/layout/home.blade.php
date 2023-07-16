@@ -34,7 +34,7 @@ Main Page
                 <div class="playBox no cardGame">
                     <!-- Start Tooltip -->
                     <div class="tooltip-outer">
-                        <div class="tooltip-icon" data-toggle="tooltip" title="Play Details HereSome tooltip text!"><i class="fa fa-info-circle"> </i></div>
+                        <div class="tooltip-icon" id="tooltip{{$ride->id}}" data-toggle="tooltip" title="Play Details HereSome tooltip text!"><i class="fa fa-info-circle"> </i></div>
                     </div>
                     <!-- !!End Tooltip -->
                     <a href="{{url('/all-rides/'.$ride->park_id.'/'.$time->id)}}">

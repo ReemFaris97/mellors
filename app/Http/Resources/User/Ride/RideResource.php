@@ -49,7 +49,7 @@ class RideResource extends JsonResource
 
         $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->first();
 
-        if ($stoppageNewDate?->date < dateTime()?->date && dateTime() != null) {
+        if ($stoppageNewDate && $stoppageNewDate?->date < dateTime()?->date && dateTime() != null) {
             addNewDateStappage($stoppageNewDate, $this);
         }
         return $data;
