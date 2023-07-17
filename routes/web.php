@@ -195,7 +195,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::post('/update_ride_preclose_elements/{ride_id}', 'Admin\RidePreclosingController@update_ride_preclose_elements')->name('updatRidePrecloseElements');
     Route::get('test', function () {
 
-        event(new \App\Events\RideStatusEvent('1','active'));
+        event(new \App\Events\RideQueueEvent('1','active'));
         return "Event has been sent!";
 
     });

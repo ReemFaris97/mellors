@@ -113,7 +113,7 @@ class RideStoppageController extends Controller
         $data['time'] = Carbon::now()->toTimeString();
         $stoppage = RideStoppages::create($data);
 
-        event(new RideStatusEvent($ride_id, $data['ride_status']));
+        event(new RideStatusEvent($ride_id, $data['ride_status'],$stoppage->stopageSubCategory?->name));
 
         if ($request->has('images')) {
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' => $stoppage->id]);
@@ -179,7 +179,7 @@ class RideStoppageController extends Controller
         // Update the ride stoppage with the new data
         $item->update($data);
 
-        event(new RideStatusEvent($ride_id, $data['ride_status']));
+        event(new RideStatusEvent($ride_id, $data['ride_status'],$item->stopageSubCategory?->name));
 
         if ($request->has('images')) {
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' => $id]);
@@ -229,7 +229,7 @@ class RideStoppageController extends Controller
                      }
         
 
-        event(new RideStatusEvent($data['ride_id'],  $data['ride_status']));
+        event(new RideStatusEvent($data['ride_id'],  $data['ride_status'], $data['stopageSubCategory']?->name));
 
         alert()->success('Stoppage Status ِAdded Successfully !');
         return redirect()->back();

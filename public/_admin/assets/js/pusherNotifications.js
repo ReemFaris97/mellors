@@ -13,7 +13,8 @@ var notificationsCountElem = notificationsToggle.find('span[data-count]');
 var notificationsCount = parseInt(notificationsCountElem.data('count'));
 var notifications = notificationsWrapper.find('li.scrollable-container');
 var channel = pusher.subscribe('timeSlot-notification');
-var home = pusher.subscribe('ride-status');
+var rideStatus = pusher.subscribe('ride-status');
+var rideQueue = pusher.subscribe('ride-queue');
 
 
 channel.bind('App\\Events\\timeSlotNotification', function (data) {
@@ -29,11 +30,28 @@ channel.bind('App\\Events\\timeSlotNotification', function (data) {
 
     console.log(data);
 });
-home.bind('App\\Events\\RideStatusEvent', function (data) {
+rideStatus.bind('App\\Events\\RideStatusEvent', function (data) {
+    console.log(data);
+
     if (data.data.status === "active") {
         document.getElementById("rideStatus" + data.data.id).style.backgroundColor = "#c6efce";
+        $("#tooltip" + data.data.id).attr("data-original-title", data.data.sub_cat);
+
     } else {
         document.getElementById("rideStatus" + data.data.id).style.backgroundColor = "#ffc7ce";
+        $("#tooltip" + data.data.id).attr("data-original-title", data.data.sub_cat);
+    }
+
+});
+rideQueue.bind('App\\Events\\RideQueueEvent', function (data) {
+    console.log(data);
+
+    if (data.data.status === "active") {
+        $("#rideQueue" + data.data.id).addClass("playHasQue");
+
+    } else {
+        $("#rideQueue" + data.data.id).removeClass("playHasQue");
+
     }
 
 });

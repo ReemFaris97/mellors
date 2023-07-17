@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Notification;
 use App\Models\ParkTime;
 use App\Models\RideStoppages;
+
 use Illuminate\Support\Carbon;
 
 if (!function_exists('dateTime')) {
@@ -21,7 +23,7 @@ if (!function_exists('dateTime')) {
 }
 
 if (!function_exists('addNewDateStappage')) {
-    function addNewDateStappage($stoppage ,$ride)
+    function addNewDateStappage($stoppage, $ride)
     {
         $open = \Carbon\Carbon::now()->toDateString();
         $park_time = dateTime();
@@ -41,6 +43,14 @@ if (!function_exists('addNewDateStappage')) {
         $validate['user_id'] = auth()->user()->id;
 
         RideStoppages::query()->create($validate);
+    }
+}
+
+
+if (!function_exists('notifications')) {
+    function notifications()
+    {
+        return Notification::where('notifiable_id',auth()->user()->id)->get();
     }
 }
 

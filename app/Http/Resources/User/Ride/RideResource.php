@@ -47,9 +47,10 @@ class RideResource extends JsonResource
         $data['stoppage_minutes'] = $this->rideStoppages?->where('ride_status', 'stopped')->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])?->sum('down_minutes');
         $data['stoppage_count'] = $this->rideStoppages?->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])?->count();
 
-        $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->last();
+        $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->first();
+        $stoppageLastDate = $this->rideStoppages?->where('ride_status', 'stopped')->last();
 
-        if ($stoppageNewDate->date < dateTime()?->date) {
+        if ($stoppageLastDate && $stoppageLastDate?->date < dateTime()?->date && dateTime() != null) {
             addNewDateStappage($stoppageNewDate, $this);
         }
         return $data;

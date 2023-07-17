@@ -7,19 +7,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class RideStatusEvent implements ShouldBroadcastNow
+class RideQueueEvent implements ShouldBroadcastNow
 
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
-    public function __construct(public $id,public $status,public $subCat)
+    public function __construct(public $id, public $status)
     {
     }
 
     public function broadcastOn()
     {
-        return new \Illuminate\Broadcasting\Channel('ride-status');
+        return new \Illuminate\Broadcasting\Channel('ride-queue');
 
     }
 
@@ -29,12 +29,9 @@ class RideStatusEvent implements ShouldBroadcastNow
             'data' => [
                 'id' => $this->id,
                 'status' => $this->status,
-                'sub_cat' => $this->subCat,
             ],
         ];
     }
-
-
 
 
 }
