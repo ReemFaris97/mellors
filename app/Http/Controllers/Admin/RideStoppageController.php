@@ -66,17 +66,17 @@ class RideStoppageController extends Controller
     {
         $items = RideStoppages::where(function ($query) use ($park_time_id, $ride_id) {
             $query->where('park_time_id', $park_time_id)
-                ->where('ride_id', $ride_id);
-        })
-        ->orWhere(function ($query) use ($ride_id) {
+                  ->where('type','time_slot')
+                  ->where('ride_id', $ride_id);
+        })->get(); 
+        $all_day_stoppages= RideStoppages::where(function ($query) use ($ride_id) {
             $query->where('ride_id', $ride_id)
-                ->where('ride_status', 'stopped')->where('type','all_day');
-        })
-        ->latest() // Order the results by a specific column in descending order (e.g., created_at)
-        ->get();    
+                  ->where('ride_status', 'stopped')
+                  ->where('type','all_day');
+        })->latest()->first();   
             $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
             $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
-        return view('admin.rides_stoppages.index', compact('items', 'ride_id', 'park_time_id', 'stopage_category', 'stopage_sub_category'));
+        return view('admin.rides_stoppages.index', compact('items','all_day_stoppages', 'ride_id', 'park_time_id', 'stopage_category', 'stopage_sub_category'));
     }
 
     /**
@@ -154,85 +154,28 @@ class RideStoppageController extends Controller
         $item = RideStoppages::findOrFail($id);
         $ride_id = $item->ride_id;
         $data = $request->validated();
-        $data['ride_status'] = $item['ride_status'];
         $park_time = ParkTime::findOrFail($request['park_time_id']);
-        $duration = $park_time->duration_time;
-        $opened_date=$request['date'];
         $time_slot_end= $request['time_slot_end'];
+        $data['ride_status']= $item['ride_status'];
+        $data['opened_date']= $park_time->date;
+        $data['park_time_id']= $request['park_time_id'];
         $time_slot_start= $request['time_slot_start'];
 
-        if ($data['type'] == 'all_day') {
-            $data['down_minutes'] = $duration;
-        } else {
-            $stoppageStartTime = Carbon::parse("$park_time->date $request->time_slot_start");
+        if ($data['type'] == 'all_day' && $request['stoppage_status'] == "working"){
+            $stoppageStartTime = Carbon::parse("$park_time->date $time_slot_start");
             $stoppageParkTimeEnd = Carbon::parse("$park_time->close_date $park_time->end");
             $data['down_minutes'] = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
+            $data['ride_status']="stopped";
+
+        } elseif ($data['type'] == 'time_slot' && $request['stoppage_status'] == "done") {
+            $stopageStartTime=Carbon::parse("$park_time->date $time_slot_start");
+            $stopageEndTime=Carbon::parse("$park_time->date $time_slot_end");
+            $data['down_minutes'] = $stopageEndTime->diffInMinutes($stopageStartTime);
+            $data['ride_status']="active";
+
         }
 
-        if ($request['stoppage_status'] == "done") {
-            // Get stoppage park time first part calculation
-            $stoppageParkTime = ParkTime::find($item->park_time_id);
-            $stoppageParkTimeEnd = Carbon::parse("$stoppageParkTime->close_date $stoppageParkTime->end");
-            // dd($stoppageParkTimeEnd);
-            $downtimeMinutes = 0;
-
-            // Stoppage end date and time rhird part
-            $stoppage_end_date = $request['end_date'];
-            //get current parktime start time
-            $currentParkTime = ParkTime::where('date', $stoppage_end_date)->first();
-            if (isset($currentParkTime) ){
-            $currentParkTimeStart = $currentParkTime->start;
-            $currentParkTimeStartTime = Carbon::parse("$stoppage_end_date $currentParkTimeStart");
-            }
-
-
-            $stoppageStartTime = Carbon::parse("$opened_date $time_slot_start");
-
-            $stoppageEndTime = Carbon::parse("$stoppage_end_date $time_slot_end");
-
-            if ($data['type'] == 'all_day') {
-
-                $ids = ParkTime::whereBetween('date', [$item->opened_date, $stoppage_end_date])->pluck('id');
-                // Stoppage continues to the next park time
-                $downtimeMinutes += $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
-                //  return($downtimeMinutes);
-                $skipFirst = true;
-                $lastIndex = count($ids) - 1;
-
-                foreach ($ids as $index => $id) {
-                    if ($skipFirst) {
-                        $skipFirst = false;
-                        continue; // Skip the first iteration
-                    }
-
-                    if ($index === $lastIndex) {
-                        break; // Break out of the loop at the last iteration
-                    }
-
-                    $nextParkTime = ParkTime::find($id);
-                    $durationValue = (int)filter_var($nextParkTime->duration_time, FILTER_SANITIZE_NUMBER_INT);
-
-                    //  dd($durationValue);
-                    $downtimeMinutes += $durationValue;
-                }
-                if($currentParkTime ){
-                $downtimeMinutes += $stoppageEndTime->diffInMinutes($currentParkTimeStartTime);
-                }
-
-            } else {
-                // Stoppage ends within the current park time
-                $stoppageEndSameTime = Carbon::parse("$opened_date $time_slot_end");
-               // return ( $stoppageStartTime );
-                //return (  $stoppageEndSameTime);
-
-                $downtimeMinutes = $stoppageEndSameTime->diffInMinutes($stoppageStartTime);
-            }
-
-            $data['ride_status'] = "active";
-            $data['down_minutes'] = $downtimeMinutes;
-            $data['stoppage_status'] = $request['stoppage_status'];
-        }
-
+       
         // Update the ride stoppage with the new data
         $item->update($data);
 
@@ -249,46 +192,42 @@ class RideStoppageController extends Controller
 
     public function update_stoppage_status(RideStoppageStatusRequest $request, RideStoppages $rideStoppage)
     {
-        if ($request['stoppage_status'] === "done") {
-            $toUpdateColumns = ['stoppage_status' => $request['stoppage_status'],
-                'description' => $request['description'],
-                'ride_status' => "active"
-            ];
-
-        } elseif ($request['stoppage_status'] === "working") {
-          //  return $request;
-            $data = $request->validated();
-            $oldStoppageData=RideStoppages::findOrFail($request['stoppage_id']);
-            $data['opened_date'] =  $oldStoppageData->opened_date;
-            $data['park_id'] = $oldStoppageData->park_id;
+        $data = $request->validated();
+        $oldStoppageData=RideStoppages::findOrFail($request['stoppage_id']);
+        $data['park_id'] = $oldStoppageData->park_id;
+        $data['zone_id'] = $oldStoppageData->zone_id;
+        $data['ride_id'] = $oldStoppageData->ride_id;
+        $park_time = ParkTime::where('date',date('Y-m-d'))->where('park_id',$data['park_id'] )->first();
+        if(isset($park_time)){
+            $data['park_time_id'] = $park_time->id;
+            $duration = $park_time->duration_time;
+            $data['down_minutes'] = $duration;
+            $opened_date= $park_time->date;
+            $data['opened_date'] =$opened_date ;
             $data['stopage_category_id'] = $request['stopage_category_id'];
             $data['stopage_sub_category_id'] = $request['stopage_sub_category_id'];
-            $data['zone_id'] = $oldStoppageData->zone_id;
-            $data['ride_id'] = $oldStoppageData->ride_id;
             $data['user_id'] = auth()->user()->id;
+        if ($request['stoppage_status'] === "done") {
+            $data['ride_status'] = "active";
+            $stopageEndTime=$request['time_slot_end'];
+            $parkTimeStart = Carbon::parse("$opened_date $park_time->start");
+            $stoppageEnd = Carbon::parse("$park_time $stopageEndTime");
+            $data['down_minutes'] = $stoppageEnd->diffInMinutes($parkTimeStart);
+           
+        } elseif ($request['stoppage_status'] === "working") {
             $data['ride_status'] = "stopped";
-            $park_time = ParkTime::where('date',date('Y-m-d'))->where('park_id',$data['park_id'] )->first();
-            if(isset($park_time)){
-                $data['park_time_id'] = $park_time->id;
             if ($request['type'] == 'all_day') {
-                $duration = $park_time->duration_time;
-                $data['down_minutes'] = $duration;
-                $stoppage = RideStoppages::create($data);
-                
+                $data['type']='all_day';
             }elseif ($request['type'] == 'time_slot') {
-                $time_slot_start = $park_time->start;
-                $soppage_end_time=$request['time_slot_end'];
-                $data['down_minutes'] = $soppage_end_time->diffInMinutes($time_slot_start);
-                $stoppage = RideStoppages::create($data);
+                $data['type']="time_slot";
             }
-            
+            $stoppage = RideStoppages::create($data);
+        }
         }  else{
                 alert()->error('Please, Set Time Slot First To Extend This Stoppage !');
                 return redirect()->back();
                      }
-
-          
-        }
+        
 
         event(new RideStatusEvent($data['ride_id'],  $data['ride_status']));
 

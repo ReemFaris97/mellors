@@ -86,8 +86,10 @@
                         </thead>
 
                         <tbody>
+                        @if(isset($items) )
 
                         @foreach ($items as $item)
+                        
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $loop->iteration }}</td>
                                 <td>{{ $item->ride->name }}</td>
@@ -125,12 +127,68 @@
                                        class="btn btn-info">Add RSR report</a>
                                  @endif
                                  @if(auth()->user()->can('rides-stoppages-edit'))
-                                 @if($item->ride_status=='stopped' && $item->type=='all_day' )
+                                    <a href="{{ route('admin.rides-stoppages.edit', $item) }}"
+                                       class="btn btn-info">Edit</a>
+                                 @endif
+                                 @if(auth()->user()->can('rides-stoppages-delete'))
 
+                                        <a class="btn btn-danger" data-name="{{ $item->name }}"
+                                           data-url="{{ route('admin.rides-stoppages.destroy', $item) }}"
+                                           onclick="delete_form(this)">
+                                            Delete
+                                        </a>
+                                 @endif
+
+
+                                </td>
+
+                            </tr>
+
+                        @endforeach
+                        @endif
+
+                        @if(isset($all_day_stoppages) )
+                        <tr role="row" class="odd" id="row-{{ $all_day_stoppages->id }}">
+                                <td tabindex="0" class="sorting_1">{{ $all_day_stoppages->id }}</td>
+                                <td>{{ $all_day_stoppages->ride->name }}</td>
+                                <td>{{ $all_day_stoppages->ride->id }}</td>
+                                <td>{{ $all_day_stoppages->user->user_number??"" }}</td>
+                                <td>{{ $all_day_stoppages->user->name }}</td>
+                                <td>{{ $all_day_stoppages->opened_date }}</td>
+                                <td>{{ $all_day_stoppages->time }}</td>
+                                <td>
+                                @if($all_day_stoppages->ride_status=='stopped')
+                                <span class=" btn-xs btn-danger">Stopped</span>
+                                  @else
+                                  <span class=" btn-xs btn-success">Active</span>
+                                @endif
+                                </td>
+
+                                <td>
+                                @if($all_day_stoppages->stoppage_status=='pending')
+                                <span class=" btn-xs btn-primary">Pending
+                                  @elseif($all_day_stoppages->stoppage_status=='working')
+                                  <span class=" btn-xs btn-danger">Working On
+                                  @else
+                                  <span class=" btn-xs btn-success">Solved
+                                @endif
+                                </td>
+                                <td>{{ $all_day_stoppages->stopageSubCategory->name ?? "name" }}</td>
+                                <td>{{ $all_day_stoppages->ride_notes }}</td>
+                                <td>{{ $all_day_stoppages->down_minutes?? "Stop All Day" }}</td>
+                                {!!Form::open( ['route' => ['admin.rides-stoppages.destroy',$all_day_stoppages->id] ,'id'=>'delete-form'.$all_day_stoppages->id, 'method' => 'Delete']) !!}
+                                {!!Form::close() !!}
+                                <td>
+                                 @if(auth()->user()->can('rsr_reports-creat'))
+
+                                    <a href="{{url('add_rsr_stoppage_report/'.$all_day_stoppages->id)}}"
+                                       class="btn btn-info">Add RSR report</a>
+                                 @endif
+                                 @if(auth()->user()->can('rides-stoppages-edit'))
                                    <button type="button" class="btn btn-warning  " data-toggle="modal"
-                                        data-target="#modal-{{ $item->id }}"><i class="fa fa-edit"></i> Extend
+                                        data-target="#modal-{{ $all_day_stoppages->id }}"><i class="fa fa-edit"></i> Extend
                                     </button>
-                                    <div class="modal fade" id="modal-{{ $item->id }}" tabindex="-1" aria-hidden="true"
+                                    <div class="modal fade" id="modal-{{ $all_day_stoppages->id }}" tabindex="-1" aria-hidden="true"
                                         role="dialog">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
@@ -140,9 +198,9 @@
                                                 </div>
                                                 <div class="modal-body">
 
-                                                    {!!Form::model($item , ['route' =>
+                                                    {!!Form::model($all_day_stoppages , ['route' =>
                                                     ['admin.rides-stoppages.updateStoppageStatus' ,
-                                                    $item->id],'id' => 'ClientStore', 'method' => 'PATCH',
+                                                    $all_day_stoppages->id],'id' => 'ClientStore', 'method' => 'PATCH',
                                                     'enctype'=>"multipart/form-data"]) !!}
                                                     <label class="form-label">Stoppage Reasons Main Category</label>
                                                         <div class="form-line">
@@ -158,8 +216,8 @@
                                                         <label class="form-label">Stoppage Sub Category</label>
                                                         <div class="form-line">
                                                         {!! Form::select("stopage_sub_category_id",
-                                                                    isset($item)?[$item->stopage_sub_category_id =>$item->stopageSubCategory->name]:[],
-                                                                    isset($item)?$item->stopage_sub_category_id:null,
+                                                                    isset($all_day_stoppages)?[$all_day_stoppages->stopage_sub_category_id =>$all_day_stoppages->stopageSubCategory->name]:[],
+                                                                    isset($all_day_stoppages)?$all_day_stoppages->stopage_sub_category_id:null,
                                                                     ['class'=>'form-control js-example-basic-single ms  subCategory','id'=>'subCategory','placeholder'=>'Choose Main Category first'])!!}
 
            
@@ -216,9 +274,9 @@
                                                                 <strong>{{ $errors->first('description') }}</strong>
                                                             </span>
                                                             @endif
-                                                            {!! Form::hidden('stoppage_id', $item->id, ['class' =>
+                                                            {!! Form::hidden('stoppage_id', $all_day_stoppages->id, ['class' =>
                                                             'form-control']) !!}
-                                                            {!! Form::hidden('parkTimeId', $item->park_time_id, ['class' =>
+                                                            {!! Form::hidden('parkTimeId', $all_day_stoppages->park_time_id, ['class' =>
                                                             'form-control']) !!}
                                                         </div>
                                                     </div>
@@ -233,33 +291,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @endif
-
-
-
-                                    <a href="{{ route('admin.rides-stoppages.edit', $item) }}"
-                                       class="btn btn-info">Edit</a>
                                  @endif
                                  @if(auth()->user()->can('rides-stoppages-delete'))
 
-                                        <a class="btn btn-danger" data-name="{{ $item->name }}"
-                                           data-url="{{ route('admin.rides-stoppages.destroy', $item) }}"
+                                        <a class="btn btn-danger" data-name="{{ $all_day_stoppages->name }}"
+                                           data-url="{{ route('admin.rides-stoppages.destroy', $all_day_stoppages) }}"
                                            onclick="delete_form(this)">
                                             Delete
                                         </a>
                                  @endif
-
-
                                 </td>
-
                             </tr>
-
-                        @endforeach
-
+                        @endif
                         </tbody>
                     </table>
-
-
                 </div>
             </div>
 
