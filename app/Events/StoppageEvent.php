@@ -11,20 +11,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewStoppageAdded
+class StoppageEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $item;
+
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(RideStoppages $item)
+    public function __construct(public $id,public $title)
     {
-   //     dd('eeeee');
-        $this->item = $item;
     }
 
     /**
@@ -34,6 +32,17 @@ class NewStoppageAdded
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new Channel('User.Notifications.'.$this->id);
     }
+    public function broadcastWith()
+    {
+        return [
+            'data' => [
+                'id' => $this->id,
+                'title' => $this->title,
+            ],
+        ];
+    }
+
+
 }

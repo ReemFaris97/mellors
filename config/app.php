@@ -213,7 +213,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Weather' => RakibDevs\Weather\Weather::class,	
+        'Weather' => RakibDevs\Weather\Weather::class,
         'AWS' => Aws\Laravel\AwsFacade::class,
         'Carbon' => Illuminate\Support\Carbon::class,
         'Pusher' => Pusher\Pusher::class,

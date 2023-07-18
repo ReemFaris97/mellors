@@ -17,7 +17,6 @@ class PreopeningListResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'name' => $this->name,
             'inspection_list' => InspectionResource::make($this->inspection_list),
             'status' =>$this->status,
             'is_checked' =>$this->is_checked,
@@ -26,6 +25,7 @@ class PreopeningListResource extends JsonResource
             'park_id' =>$this->park_id,
             'opened_date' =>$this->opened_date,
             'lists_type' =>$this->lists_type,
+            'date_time' =>$this->created_at,
 
         ];
     }

@@ -44,7 +44,7 @@ class SupervisorController extends Controller
     protected function home()
     {
         $user = Auth::user();
-        $this->body['rides'] = ZoneResource::collection($user->zones);
+        $this->body['zones'] = ZoneResource::collection($user->zones);
         return self::apiResponse(200, __('home page supervisor'), $this->body);
     }
 
@@ -54,9 +54,7 @@ class SupervisorController extends Controller
         if (!$ride) {
             return self::apiResponse(404, __('ride not found'), []);
         }
-        $currentDate = Carbon::now()->toDateString();
-
-        $pre = $ride->preopening_lists?->where('lists_type', 'preopening')->where('opened_date', $currentDate);
+        $pre = $ride->preopening_lists?->where('lists_type', 'preopening')->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date]);
 
         if ($pre->isEmpty()) {
             return self::apiResponse(400, __('not found'), []);
@@ -74,10 +72,10 @@ class SupervisorController extends Controller
         if ($is_skill_game == 'Skill Game') {
             $validate['is_skill_game'] = 'skill_game';
         }
+
         $validated = Arr::except($validate, 'image');
         $cs = CustomerFeedbacks::query()->create($validated);
-
-        if (isset($validate['image'])) {
+        if (isset($validate['image']) && $validate['image'] != null) {
             $this->Images($validate['image'], new CustomerFeedbackImage(), ['customer_feedback_id' => $cs->id]);
         }
 

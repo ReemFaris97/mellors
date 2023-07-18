@@ -38,7 +38,7 @@ var resizefunc = [];
 <script src="{{asset('_admin/assets/summernote.js')}}"></script>
 
 <script src="{{asset('_admin/assets/js/select2.min.js')}}"></script>
- 
+
 
 
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>

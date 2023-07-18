@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Events\NewStoppageAdded;
+use App\Events\StoppageEvent;
 use App\Events\RideStatusEvent;
 use App\Http\Controllers\Controller;
 use App\Imports\RidesStoppageImport;
