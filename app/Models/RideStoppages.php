@@ -50,7 +50,7 @@ class RideStoppages extends Model
     }
     public function stopageSubCategory()
     {
-        return $this->belongsTo(StopageSubCategory::class)->withDefault()->withTrashed();
+        return $this->belongsTo(StopageSubCategory::class,'stopage_sub_category_id')->withDefault()->withTrashed();
     }
 
     public function user()

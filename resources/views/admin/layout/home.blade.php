@@ -19,25 +19,19 @@
                                 @if ($ride->available == "active")
                                     <!-- NOTE : kindly add class : (playHasQue) to (playBox) div if the play has Que --->
                                     <div class="playBox yes cardGame " id="rideQueue{{$ride->id}}">
-                                        <!-- Start Tooltip -->
-                                        <div class="tooltip-outer">
-                                            <div class="tooltip-icon" data-toggle="tooltip" id="tooltip{{$ride->id}}"
-                                                 title="Play Details HereSome tooltip text!"><i
-                                                    class="fa fa-info-circle"> </i></div>
-                                        </div>
-                                        <!-- !!End Tooltip -->
+                                       
                                         <a href="{{url('/all-rides/'.$ride->park_id.'/'.$time->id)}}">
                                             <div class="card-box" id="rideStatus{{$ride->id}}">
                                                 <h4 class="header-title m-t-0 m-b-0">{{$ride->name}}</h4>
                                             </div>
                                         </a>
                                     </div>
-                                @elseif($ride->available == "stopped" || "closed")
+                                 @elseif($ride->available == "stopped" || "closed")
                                     <div class="playBox no cardGame " id="rideQueue{{$ride->id}}">
                                         <!-- Start Tooltip -->
                                         <div class="tooltip-outer">
                                             <div class="tooltip-icon" id="tooltip{{$ride->id}}" data-toggle="tooltip"
-                                                 title="Play Details HereSome tooltip text!"><i
+                                                 title="Stopped !!"><i
                                                     class="fa fa-info-circle"> </i></div>
                                         </div>
                                         <!-- !!End Tooltip -->
@@ -57,6 +51,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-xs-12">
+                            @if(!($total_riders))
                             <h4> Total Riders :
                                 @foreach($total_riders as $total_rider_id => $total_rider_rides)
                                     @if ($total_rider_id === $time->id)
@@ -66,6 +61,7 @@
                                     @endif
                                 @endforeach
                             </h4>
+                            @endif
                             @foreach($cycles as $cycle_rides)
                                 @foreach($queues as $queue)
                                     @if ($cycle_rides->park_time_id === $time->id & $queue->park_time_id === $time->id )

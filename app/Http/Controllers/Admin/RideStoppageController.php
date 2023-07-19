@@ -198,7 +198,10 @@ class RideStoppageController extends Controller
         $data['zone_id'] = $oldStoppageData->zone_id;
         $data['ride_id'] = $oldStoppageData->ride_id;
         $park_time = ParkTime::where('date',date('Y-m-d'))->where('park_id',$data['park_id'] )->first();
-        if(isset($park_time)){
+        if(!($park_time)){
+            alert()->error('Please, Set Time Slot First To Extend This Stoppage !');
+            return redirect()->back();
+                 } else{
             $data['park_time_id'] = $park_time->id;
             $duration = $park_time->duration_time;
             $data['down_minutes'] = $duration;
@@ -211,7 +214,7 @@ class RideStoppageController extends Controller
             $data['ride_status'] = "active";
             $stopageEndTime=$request['time_slot_end'];
             $parkTimeStart = Carbon::parse("$opened_date $park_time->start");
-            $stoppageEnd = Carbon::parse("$park_time $stopageEndTime");
+            $stoppageEnd = Carbon::parse("$park_time->date $stopageEndTime");
             $data['down_minutes'] = $stoppageEnd->diffInMinutes($parkTimeStart);
            
         } elseif ($request['stoppage_status'] === "working") {
@@ -221,15 +224,17 @@ class RideStoppageController extends Controller
             }elseif ($request['type'] == 'time_slot') {
                 $data['type']="time_slot";
             }
-            $stoppage = RideStoppages::create($data);
         }
-        }  else{
-                alert()->error('Please, Set Time Slot First To Extend This Stoppage !');
-                return redirect()->back();
+        $stoppage = RideStoppages::create($data);
+        }  
+                     $stoppageSubCategoryName = '';
+                     if ($data['stopage_sub_category_id']) {
+                         $stoppageSubCategory = StopageSubCategory::find($data['stopage_sub_category_id']);
+                         if ($stoppageSubCategory) {
+                             $stoppageSubCategoryName = $stoppageSubCategory->name;
+                         }
                      }
-        
-
-        event(new RideStatusEvent($data['ride_id'],  $data['ride_status'], $data['stopageSubCategory']?->name));
+        event(new RideStatusEvent($data['ride_id'],  $data['ride_status'],$stoppageSubCategoryName));
 
         alert()->success('Stoppage Status ِAdded Successfully !');
         return redirect()->back();

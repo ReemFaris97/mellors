@@ -78,6 +78,7 @@ class QueueController extends Controller
         $data['zone_id'] = $zone_id;
         $data['user_id'] = auth()->user()->id;
         Queue::create($data);
+        event(new \App\Events\RideQueueEvent($ride_id, 'active'));
 
         alert()->success('Queue Added Successfully To The Ride !');
 
