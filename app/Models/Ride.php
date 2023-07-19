@@ -77,4 +77,8 @@ class Ride extends Model
     {
         return $this->hasMany(RideCycles::class, 'ride_id', 'id');
     }
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'ride_users');
+    }
 }

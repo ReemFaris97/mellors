@@ -11,6 +11,7 @@ use App\Http\Requests\Api\UpdateCycleRequest;
 use App\Http\Requests\Api\UpdateInspectionsRequest;
 use App\Http\Resources\User\InspectionResource;
 use App\Http\Resources\User\Ride\RideCycleResource;
+use App\Http\Resources\User\Ride\RideInfoResource;
 use App\Http\Resources\User\Ride\RideQueueResource;
 use App\Http\Resources\User\Ride\RideResource;
 use App\Http\Resources\User\Ride\StoppageResource;
@@ -51,7 +52,7 @@ class RideController extends Controller
         if (!$ride) {
             return self::apiResponse(404, __('not found ride'), []);
         }
-        $this->body['ride'] = RideResource::make($ride);
+        $this->body['ride'] = RideInfoResource::make($ride);
 
 
         return self::apiResponse(200, __('home page'), $this->body);
@@ -95,7 +96,7 @@ class RideController extends Controller
         $ride = Ride::find($validate['ride_id']);
 
         $user = $zone->users()->whereHas('roles', function ($query) {
-            return $query->where('name', 'zone supervisor');
+            return $query->where('name', 'Operation ');
         })->first();
 
         $data = [
