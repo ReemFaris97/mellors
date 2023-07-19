@@ -54,7 +54,7 @@ class SupervisorController extends Controller
         if (!$ride) {
             return self::apiResponse(404, __('ride not found'), []);
         }
-        $ridePre = $ride->preopening_lists ?? collect(); // Provide an empty collection if $ride->rideStoppages is null
+        $ridePre = $ride->preopening_lists ?? collect(); // Provide an empty collection if $ride->preopening_lists is null
 
         $pre = $ridePre->where('lists_type', 'preopening')->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date]);
         
@@ -77,7 +77,7 @@ class SupervisorController extends Controller
 
         $validated = Arr::except($validate, 'image');
         $cs = CustomerFeedbacks::query()->create($validated);
-        if (isset($validate['image']) && $validate['image'] != null) {
+        if (!empty($validate['image'])) {
             $this->Images($validate['image'], new CustomerFeedbackImage(), ['customer_feedback_id' => $cs->id]);
         }
 
