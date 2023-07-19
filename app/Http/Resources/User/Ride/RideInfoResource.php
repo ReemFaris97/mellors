@@ -49,6 +49,11 @@ class RideInfoResource extends JsonResource
             ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
         : null;
 
+        $cycles = $this->cycle
+            ? $this->cycle
+                ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
+            : null;
+
         $user = $this->users()?->whereHas('roles', function ($query) {
             return $query->whereIn('name',['Operation','Operation ']);
         })->first();
@@ -58,7 +63,7 @@ class RideInfoResource extends JsonResource
         $data['total_riders'] = $riders?->sum('number_of_vip') + $riders?->sum('number_of_disabled') + $riders?->sum('riders_count') + $riders?->sum('number_of_ft');
         $data['stoppage_minutes'] = $this->rideStoppages?->where('ride_status', 'stopped')->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])?->sum('down_minutes');
         $data['stoppage_count'] = $this->rideStoppages?->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])?->count();
-        $data['cycle_count'] = $riders?->count();
+        $data['cycle_count'] = $cycles?->count();
         $data['user'] = UserResource::make($user);
 
         $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->first();
