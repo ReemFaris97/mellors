@@ -38,9 +38,17 @@ class RideResource extends JsonResource
             'status' => $this->rideStoppages?->last()->ride_status ?? 'active',
 
         ];
-
-        $queues = $this->queue?->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])?->latest()?->first();
-        $riders = $this->cycle?->where('duration_seconds', 0)?->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date]);
+        $queues = $this->queue
+        ? $this->queue
+            ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
+            ->latest()
+            ->first()
+        : null;
+        $riders = $this->cycle
+        ? $this->cycle
+            ->where('duration_seconds', 0)
+            ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
+        : null;
         $data['queues'] = QueueResource::make($queues);
         $data['queues_count'] = $this->queue->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])?->count();
         $data['total_riders'] = $riders?->sum('number_of_vip') + $riders?->sum('number_of_disabled') + $riders?->sum('riders_count') + $riders?->sum('number_of_ft');
