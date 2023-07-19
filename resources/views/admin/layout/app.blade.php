@@ -8,6 +8,7 @@
     <meta name="author" content="Coderthemes">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <title>Dashboard - @yield('title')</title>
+{{--    @vite('resources/js/app.js')--}}
     @yield('header')
     @include('admin.layout.styles')
 </head>
@@ -162,11 +163,15 @@
 @include('sweetalert::alert')
 @yield('footer')
 @stack('scripts')
+<script>
+    var currentUser = "{{auth()->id()}}";
+</script>
+
 <script src="{{asset('_admin/assets/summernote.js')}}"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script src="{{ asset('js/app.js') }}"  ></script>
 <script type="module" src="{{asset('_admin/assets/js/pusherNotifications.js')}}"></script>
 <script type="text/javascript" src="{{asset('_admin/assets/js/laravel-echo.js')}}"></script>
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('.summernote').summernote({

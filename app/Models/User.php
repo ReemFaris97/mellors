@@ -17,7 +17,7 @@ class User extends Authenticatable
 {
     use SoftDeletes;
 
-    use  Notifiable,bcryptPass, HasRoles,HasApiTokens;
+    use  Notifiable,bcryptPass, HasRoles,HasApiTokens,Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -68,6 +68,11 @@ class User extends Authenticatable
     public function rides()
     {
         return $this->belongsToMany(Ride::class, 'ride_users');
+    }
+
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'User.Notifications.'.$this->id;
     }
 
 

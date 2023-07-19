@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\StoppageEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\InspectionsRequest;
 use App\Http\Requests\Api\SubmitCycleRequest;
@@ -56,19 +57,21 @@ class RideStoppageController extends Controller
         $validate['opened_date'] = $open;
         $validate['time'] = \Carbon\Carbon::now()->toTimeString();
         $stoppage = RideStoppages::query()->create($validate);
-        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'stopped',$stoppage->stopageSubCategory?->name));
+        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'stopped', $stoppage->stopageSubCategory?->name));
 
         $users = User::whereHas('roles', function ($query) {
             return $query->where('name', 'Super Admin');
         })->get();
 
         $data = [
-            'title' =>  $stoppage->ride?->name .' '.'has stoppage status',
+            'title' => $stoppage->ride?->name . ' ' . 'has stoppage status',
             'ride_id' => $validate['ride_id'],
             'user_id' => Auth::user()->id
         ];
-        if ($users) {
-            Notification::send($users, new StoppageNotifications($data));
+        foreach ($users as $user) {
+            Notification::send($user, new StoppageNotifications($data));
+            event(new StoppageEvent($user->id, $data['title']));
+
         }
         return self::apiResponse(200, __('stoppage added successfully'), []);
 
@@ -81,10 +84,11 @@ class RideStoppageController extends Controller
             'park_time_id' => 'required|exists:park_times,id',
             'time' => 'required',
         ]);
+
         $time = $validate['time'];
         $ride = Ride::find($validate['ride_id']);
-
         $last = $ride->rideStoppages->last();
+
         $park_time = ParkTime::findOrFail($validate['park_time_id']);
         $stoppageStartTime = Carbon::parse("$park_time->date $last->time_slot_start");
         $stoppageParkTimeEnd = Carbon::parse("$park_time->date $time");
@@ -94,15 +98,18 @@ class RideStoppageController extends Controller
         $last->time_slot_end = $validate['time'];
         $last->save();
 
+        $ride->rideStoppages()?->where('ride_status','stopped')?->update(['ride_status'=> 'active','stoppage_status'=> 'working']);
+        $ride = Ride::find($validate['ride_id']);
+
         $this->body['ride'] = RideResource::make($ride);
-        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'active',$last->stopageSubCategory?->name));
+        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'active', $last->stopageSubCategory?->name));
 
         $users = User::whereHas('roles', function ($query) {
             return $query->where('name', 'Super Admin');
         })->get();
 
         $data = [
-            'title' =>  $ride?->name .' '.'has active status',
+            'title' => $ride?->name . ' ' . 'has active status',
             'ride_id' => $validate['ride_id'],
             'user_id' => Auth::user()->id
         ];

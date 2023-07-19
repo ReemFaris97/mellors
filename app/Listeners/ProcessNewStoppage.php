@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\NewStoppageAdded;
+use App\Events\StoppageEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -15,18 +15,18 @@ class ProcessNewStoppage
      */
     public function __construct()
     {
-        dd('ccccc') ;  
+        dd('ccccc') ;
      }
 
     /**
      * Handle the event.
      *
-     * @param  \App\Events\NewStoppageAdded  $event
+     * @param  \App\Events\StoppageEvent  $event
      * @return void
      */
-    public function handle(NewStoppageAdded $event)
+    public function handle(StoppageEvent $event)
     {
-        dd('aaaaaaaaaa') ;  
+        dd('aaaaaaaaaa') ;
 
            // Redirect to the admin index route
            return redirect()->route('admin.index');

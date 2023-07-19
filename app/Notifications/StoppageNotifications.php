@@ -29,7 +29,7 @@ class StoppageNotifications extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database','broadcast'];
     }
     public function toDatabase($notifiable)
     {
@@ -39,38 +39,24 @@ class StoppageNotifications extends Notification
             'user_id' => $this->data['user_id'],
         ];
     }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-//    public function toMail($notifiable)
-//    {
-//        return (new MailMessage)
-//                    ->line('The introduction to the notification.')
-//                    ->action('Notification Action', url('/'))
-//                    ->line('Thank you for using our application!');
-//    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return BroadcastMessage
-     */
-
-    public function toBroadcast($notifiable)
+    public function toArray($notifiable)
     {
-        return new BroadcastMessage([
+        return [
             'title' => $this->data['title'],
             'ride_id' => $this->data['ride_id'],
             'user_id' => $this->data['user_id'],
-        ]);
+        ];
     }
-    public function broadcastType()
-    {
-        return 'AddTimeNotification';
-    }
+
+
+//    public function toBroadcast($notifiable)
+//    {
+//        return new BroadcastMessage([
+//            'title' => $this->data['title'],
+//        ]);
+//    }
+//    public function broadcastType()
+//    {
+//        return 'timeSlot-notification';
+//    }
 }
