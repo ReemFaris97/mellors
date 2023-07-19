@@ -126,9 +126,11 @@ class RideStoppageController extends Controller
         if (!$ride) {
             return self::apiResponse(200, __('ride not found'), []);
         }
+        $rideStoppages = $ride->rideStoppages ?? collect(); // Provide an empty collection if $ride->rideStoppages is null
 
-        $stoppage = $ride->rideStoppages->whereBetween('date', [dateTime()?->date, dateTime()?->close_date]);
-        if (dateTime() == null) {
+        $stoppage = $rideStoppages->whereBetween('date', [dateTime()?->date, dateTime()?->close_date]);
+        
+                if (dateTime() == null) {
             $this->body['ride_stoppage'] = [];
         }
         $this->body['ride_stoppage'] = RideStoppageResource::collection($stoppage);
