@@ -66,12 +66,12 @@ class RideStoppageController extends Controller
         $data = [
             'title' => $stoppage->ride?->name . ' ' . 'has stoppage status',
             'ride_id' => $validate['ride_id'],
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+
         ];
         foreach ($users as $user) {
             Notification::send($user, new StoppageNotifications($data));
-            event(new StoppageEvent($user->id, $data['title']));
-
+            event(new StoppageEvent($user->id, $data['title'],$stoppage->date));
         }
         return self::apiResponse(200, __('stoppage added successfully'), []);
 
@@ -98,7 +98,7 @@ class RideStoppageController extends Controller
         $last->time_slot_end = $validate['time'];
         $last->save();
 
-        $ride->rideStoppages()?->where('ride_status','stopped')?->update(['ride_status'=> 'active','stoppage_status'=> 'working']);
+        $ride->rideStoppages()?->where('ride_status', 'stopped')?->update(['ride_status' => 'active', 'stoppage_status' => 'working']);
         $ride = Ride::find($validate['ride_id']);
 
         $this->body['ride'] = RideResource::make($ride);
@@ -129,8 +129,8 @@ class RideStoppageController extends Controller
         $rideStoppages = $ride->rideStoppages ?? collect(); // Provide an empty collection if $ride->rideStoppages is null
 
         $stoppage = $rideStoppages->whereBetween('date', [dateTime()?->date, dateTime()?->close_date]);
-        
-                if (dateTime() == null) {
+
+        if (dateTime() == null) {
             $this->body['ride_stoppage'] = [];
         }
         $this->body['ride_stoppage'] = RideStoppageResource::collection($stoppage);

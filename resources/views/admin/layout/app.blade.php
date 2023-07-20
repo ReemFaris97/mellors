@@ -68,14 +68,13 @@
                                                 data-count="{{notifications()->count()}}">{{notifications()->count()}}</span>
                                         </a>
 
-                                        <ul class="dropdown-menu" style="width:300px">
-                                            <li class="dropdown-menu-header">Messages</li>
+                                        <ul class="dropdown-menu"  id="appendNotifications" style="width:300px">
+
                                             @forelse(notifications() as $not)
 
                                             <li class="">
                                                 <a href="#" class="media">
                                                     <div class="media-body">
-{{--                                                        <h6 class="media-heading">Title</h6>--}}
                                                         <p class="notification-text font-small-3 text-muted"> {{ data_get($not->data,'title')}}</p>
                                                     </div>
                                                     <span style="direction: ltr;"
