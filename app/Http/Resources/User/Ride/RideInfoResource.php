@@ -57,7 +57,14 @@ class RideInfoResource extends JsonResource
         $user = $this->users()?->whereHas('roles', function ($query) {
             return $query->whereIn('name',['Operation','Operation ']);
         })->first();
-
+        $inspaction = $this->preopening_lists?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
+        if (!empty($inspaction) && in_array(null,$inspaction) || in_array('no',$inspaction)) {
+            $inspaction = false;
+        } elseif(empty($inspaction)) {
+            $inspaction = false;
+        }else{
+            $inspaction = true;
+        }
         $data['queues'] = QueueResource::make($queues);
         $data['queues_count'] = $this->queue?->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])?->count();
         $data['total_riders'] = $riders?->sum('number_of_vip') + $riders?->sum('number_of_disabled') + $riders?->sum('riders_count') + $riders?->sum('number_of_ft');
@@ -65,6 +72,7 @@ class RideInfoResource extends JsonResource
         $data['stoppage_count'] = $this->rideStoppages?->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])?->count();
         $data['cycle_count'] = $cycles?->count();
         $data['user'] = UserResource::make($user);
+        $data['open'] = $inspaction;
 
         $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->first();
         $stoppageLastDate = $this->rideStoppages?->where('ride_status', 'stopped')->last();
