@@ -71,7 +71,7 @@ class RideStoppageController extends Controller
         ];
         foreach ($users as $user) {
             Notification::send($user, new StoppageNotifications($data));
-            event(new StoppageEvent($user->id, $data['title'],$stoppage->date));
+            event(new StoppageEvent($user->id, $data['title'],$stoppage->created_at));
         }
         return self::apiResponse(200, __('stoppage added successfully'), []);
 

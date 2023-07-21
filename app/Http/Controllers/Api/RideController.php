@@ -200,7 +200,7 @@ class RideController extends Controller
         $queue->update(['queue_seconds' => $validate['queue_seconds']]);
         $this->body['queue'] = RideQueueResource::make($queue);
 
-        event(new \App\Events\RideQueueEvent($validate['ride_id'], 'not-active'));
+        event(new \App\Events\RideQueueEvent($queue->ride_id, 'not-active'));
 
         return self::apiResponse(200, __('update queues successfully'), $this->body);
 

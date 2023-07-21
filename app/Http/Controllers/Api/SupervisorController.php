@@ -52,14 +52,14 @@ class SupervisorController extends Controller
     {
         $ride = Ride::find($id);
         if (!$ride) {
-            return self::apiResponse(404, __('ride not found'), []);
+            return self::apiResponse(200, __('ride not found'), []);
         }
         $ridePre = $ride->preopening_lists ?? collect(); // Provide an empty collection if $ride->preopening_lists is null
 
         $pre = $ridePre->where('lists_type', 'preopening')->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date]);
-        
+
         if ($pre->isEmpty()) {
-            return self::apiResponse(400, __('not found'), []);
+            return self::apiResponse(200, __('not found'), []);
         }
         $this->body['preopening_list'] = PreopeningListResource::collection($pre);
         return self::apiResponse(200, __('preopening list'), $this->body);
