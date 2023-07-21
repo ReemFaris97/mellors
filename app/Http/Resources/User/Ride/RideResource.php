@@ -49,7 +49,7 @@ class RideResource extends JsonResource
                 ->where('duration_seconds', 0)
                 ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
             : null;
-        $inspaction = $this->preopening_lists?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
+        $inspaction = $this->preopening_lists?->where('lists_type','preopening')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
         if (!empty($inspaction) && in_array(null,$inspaction) || in_array('no',$inspaction)) {
             $inspaction = false;
         } elseif(empty($inspaction)) {

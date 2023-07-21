@@ -57,7 +57,7 @@ class RideInfoResource extends JsonResource
         $user = $this->users()?->whereHas('roles', function ($query) {
             return $query->whereIn('name',['Operation','Operation ']);
         })->first();
-        $inspaction = $this->preopening_lists?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
+        $inspaction = $this->preopening_lists?->where('lists_type','preopening')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
         if (!empty($inspaction) && in_array(null,$inspaction) || in_array('no',$inspaction)) {
             $inspaction = false;
         } elseif(empty($inspaction)) {
