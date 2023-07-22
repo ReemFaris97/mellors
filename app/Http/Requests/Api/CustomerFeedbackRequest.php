@@ -28,7 +28,9 @@ class CustomerFeedbackRequest extends FormRequest
             'ride_id' => 'required|exists:rides,id',
             'date' => 'required',
             'type' => 'required',
-            'image' => 'nullable|array'
+            'image' => 'nullable|array',
+            'zone_id' => 'required|exists:zones,id',
+            'park_id' => 'required|exists:parks,id',
 
         ];
     }

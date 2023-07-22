@@ -8,10 +8,11 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class StoppageEvent
+class StoppageEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -21,7 +22,7 @@ class StoppageEvent
      *
      * @return void
      */
-    public function __construct(public $id,public $title)
+    public function __construct(public $id,public $title,public  $date)
     {
     }
 
@@ -40,6 +41,7 @@ class StoppageEvent
             'data' => [
                 'id' => $this->id,
                 'title' => $this->title,
+                'date' => $this->date,
             ],
         ];
     }

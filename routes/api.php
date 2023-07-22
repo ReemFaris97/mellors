@@ -27,7 +27,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('ride_preopening/{id}',[RideController::class,'ridePreopening']);
     Route::get('ride_preclosing/{id}',[RideController::class,'ridePreclosing']);
     Route::post('store_inspection',[RideController::class,'storeInspection']);
-    Route::post('update_inspection',[RideController::class,'updateInspectionList']);
 
     Route::get('get_ride_status',[RideController::class,'rideStatus']);
     Route::post('add_ride_stoppage',[RideStoppageController::class,'addRideStoppage']);
@@ -46,7 +45,9 @@ Route::middleware('auth:sanctum')->group(function () {
     //zone supervisor
     Route::get('home_zone_supervisor',[SupervisorController::class,'home']);
     Route::get('preopening_list/{id}',[SupervisorController::class,'preopeningList']);
+    Route::get('preclosing_list/{id}',[SupervisorController::class,'preclosingList']);
     Route::post('add_feedback',[SupervisorController::class,'storeCustomerFeedback']);
+    Route::post('update_inspection',[SupervisorController::class,'updateInspectionList']);
 
     Route::post('logout',[AuthController::class,'logout']);
 

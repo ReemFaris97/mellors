@@ -11,6 +11,7 @@ use App\Http\Requests\Api\UpdateCycleRequest;
 use App\Http\Requests\Api\UpdateInspectionsRequest;
 use App\Http\Resources\User\InspectionResource;
 use App\Http\Resources\User\Ride\RideCycleResource;
+use App\Http\Resources\User\Ride\RideInfoResource;
 use App\Http\Resources\User\Ride\RideQueueResource;
 use App\Http\Resources\User\Ride\RideResource;
 use App\Http\Resources\User\Ride\StoppageResource;
@@ -51,7 +52,7 @@ class RideController extends Controller
         if (!$ride) {
             return self::apiResponse(404, __('not found ride'), []);
         }
-        $this->body['ride'] = RideResource::make($ride);
+        $this->body['ride'] = RideInfoResource::make($ride);
 
 
         return self::apiResponse(200, __('home page'), $this->body);
@@ -87,7 +88,7 @@ class RideController extends Controller
                 'lists_type' => $validate['lists_type'],
                 'created_by_id' => \auth()->user()->id,
                 'inspection_list_id' => $inspection,
-                'status' => $validate['status'][$key] ?? 'no',
+                'status' => $validate['status'][$key] ?? null,
                 'is_checked' => $validate['is_checked'][$key] ?? null,
             ]);
         }
@@ -95,7 +96,7 @@ class RideController extends Controller
         $ride = Ride::find($validate['ride_id']);
 
         $user = $zone->users()->whereHas('roles', function ($query) {
-            return $query->where('name', 'zone supervisor');
+            return $query->where('name', 'Operation ');
         })->first();
 
         $data = [
@@ -110,20 +111,6 @@ class RideController extends Controller
 
     }
 
-    protected function updateInspectionList(UpdateInspectionsRequest $request)
-    {
-
-        $validate = $request->validated();
-
-
-        foreach ($validate['id'] as $key => $id) {
-            $inpection = PreopeningList::find($id);
-            $inpection->update(['is_checked' => $validate['is_checked'][$key] ?? null]);
-        }
-        return self::apiResponse(200, __(' update inspections successfully'), []);
-
-
-    }
 
     protected function rideStatus()
     {
@@ -199,7 +186,7 @@ class RideController extends Controller
         $queue->update(['queue_seconds' => $validate['queue_seconds']]);
         $this->body['queue'] = RideQueueResource::make($queue);
 
-        event(new \App\Events\RideQueueEvent($validate['ride_id'], 'not-active'));
+        event(new \App\Events\RideQueueEvent($queue->ride_id, 'not-active'));
 
         return self::apiResponse(200, __('update queues successfully'), $this->body);
 

@@ -2,6 +2,8 @@
 
 namespace App\Notifications;
 
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
@@ -24,21 +26,23 @@ class StoppageNotifications extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function via($notifiable)
     {
-        return ['database','broadcast'];
+        return ['database', 'broadcast'];
     }
+
     public function toDatabase($notifiable)
     {
-         return [
+        return [
             'title' => $this->data['title'],
             'ride_id' => $this->data['ride_id'],
             'user_id' => $this->data['user_id'],
         ];
     }
+
     public function toArray($notifiable)
     {
         return [
@@ -49,12 +53,18 @@ class StoppageNotifications extends Notification
     }
 
 
-//    public function toBroadcast($notifiable)
-//    {
-//        return new BroadcastMessage([
-//            'title' => $this->data['title'],
-//        ]);
-//    }
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'title' => $this->data['title'],
+        ]);
+    }
+
+    public function broadcastOn()
+    {
+        return new Channel('User.Notifications.'.$this->id);
+
+    }
 //    public function broadcastType()
 //    {
 //        return 'timeSlot-notification';

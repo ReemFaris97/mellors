@@ -10,6 +10,7 @@ use App\Http\Requests\Api\SubmitQueuesRequest;
 use App\Http\Requests\Api\SubmitStoppageRequest;
 use App\Http\Requests\Api\UpdateCycleDurationRequest;
 use App\Http\Requests\Api\UpdateCycleRequest;
+use App\Http\Requests\Api\UpdateInspectionsRequest;
 use App\Http\Resources\User\InspectionResource;
 use App\Http\Resources\User\Ride\PreopeningListResource;
 use App\Http\Resources\User\Ride\RideCycleResource;
@@ -52,14 +53,14 @@ class SupervisorController extends Controller
     {
         $ride = Ride::find($id);
         if (!$ride) {
-            return self::apiResponse(404, __('ride not found'), []);
+            return self::apiResponse(200, __('ride not found'), []);
         }
         $ridePre = $ride->preopening_lists ?? collect(); // Provide an empty collection if $ride->preopening_lists is null
 
         $pre = $ridePre->where('lists_type', 'preopening')->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date]);
-        
+
         if ($pre->isEmpty()) {
-            return self::apiResponse(400, __('not found'), []);
+            return self::apiResponse(200, __('not found'), []);
         }
         $this->body['preopening_list'] = PreopeningListResource::collection($pre);
         return self::apiResponse(200, __('preopening list'), $this->body);
@@ -93,5 +94,35 @@ class SupervisorController extends Controller
         }
     }
 
+    protected function preclosingList($id)
+    {
+        $ride = Ride::find($id);
+        if (!$ride) {
+            return self::apiResponse(200, __('ride not found'), []);
+        }
+        $ridePre = $ride->preopening_lists ?? collect(); // Provide an empty collection if $ride->preopening_lists is null
+
+        $pre = $ridePre->where('lists_type', 'preclosing')->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date]);
+
+        if ($pre->isEmpty()) {
+            return self::apiResponse(200, __('not found'), []);
+        }
+        $this->body['preclosing_list'] = PreopeningListResource::collection($pre);
+        return self::apiResponse(200, __('preopening list'), $this->body);
+    }
+
+    protected function updateInspectionList(UpdateInspectionsRequest $request)
+    {
+        $validate = $request->validated();
+        foreach ($validate['id'] as $key => $id) {
+            $inpection = PreopeningList::find($id);
+            $inpection->update([
+                'is_checked' => $validate['is_checked'][$key] ?? null,
+                'status' => $validate['status'][$key] ?? null,
+                'comment' => $validate['comment'][$key] ?? null,
+            ]);
+        }
+        return self::apiResponse(200, __(' update inspections successfully'), []);
+    }
 
 }

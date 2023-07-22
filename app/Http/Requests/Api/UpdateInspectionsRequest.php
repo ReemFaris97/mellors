@@ -26,6 +26,8 @@ class UpdateInspectionsRequest extends FormRequest
         return [
             'id' => 'required|array|exists:preopening_lists,id',
             'is_checked' => 'required|array',
+            'status' => 'nullable|array',
+            'comment' => 'nullable|array',
         ];
     }
 }

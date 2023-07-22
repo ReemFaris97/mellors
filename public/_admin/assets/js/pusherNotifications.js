@@ -1,7 +1,7 @@
-
 Pusher.logToConsole = true;
 
 var pusher = new Pusher('d4b71e3af5d51391b4ea', {
+    cluster: 'mt1',
     encrypted: true
 
 
@@ -16,22 +16,11 @@ var notifications = notificationsWrapper.find('li.scrollable-container');
 var channel = pusher.subscribe('timeSlot-notification');
 var rideStatus = pusher.subscribe('ride-status');
 var rideQueue = pusher.subscribe('ride-queue');
-var not = pusher.subscribe('User.Notifications.'+currentUser);
+var not = pusher.subscribe('User.Notifications.' + currentUser);
 
 console.log(not);
- channel.bind('App\\Events\\timeSlotNotification', function (data) {
-    console.log('working');
-    console.log(data);
-    var existingNotifications = notifications.html();
-    var newNotificationHtml = '<a href="' + data.user_id + '"><div class="media-body"><h6 class="media-heading text-right">' + data.start + '</h6> <p class="notification-text font-small-3 text-muted text-right">' + data.end + '</p><small style="direction: ltr;"><p class="media-meta text-muted text-right" style="direction: ltr;">' + data.date + data.close_date + '</p> </small></div></div></a>';
-    notifications.html(newNotificationHtml + existingNotifications);
-    notificationsCount += 1;
-    notificationsCountElem.attr('data-count', notificationsCount);
-    notificationsWrapper.find('.notif-count').text(notificationsCount);
-    notificationsWrapper.show();
+channel.bind('App\\Events\\timeSlotNotification', function (data) {
 
-
-    console.log(data);
 });
 rideStatus.bind('App\\Events\\RideStatusEvent', function (data) {
     console.log(data);
@@ -48,7 +37,6 @@ rideStatus.bind('App\\Events\\RideStatusEvent', function (data) {
 });
 rideQueue.bind('App\\Events\\RideQueueEvent', function (data) {
     console.log(data);
-
     if (data.data.status === "active") {
         $("#rideQueue" + data.data.id).addClass("playHasQue");
 
@@ -60,24 +48,12 @@ rideQueue.bind('App\\Events\\RideQueueEvent', function (data) {
 });
 
 not.bind('App\\Events\\StoppageEvent', function (data) {
+    var newNotificationHtml = '<li class=""> <a href="#" class="media"> <div class="media-body"> <p class="notification-text font-small-3 text-muted"> ' + data.data.title + '</p> </div> <span style="direction: ltr;"class="date">' + data.data.date + '</span> </a> </li>';
+    $('#appendNotifications').prepend(newNotificationHtml)
+    notificationsCount += 1;
+    notificationsCountElem.attr('data-count', notificationsCount);
+    notificationsWrapper.find('.notif-count').text(notificationsCount);
+    notificationsWrapper.show();
+
     console.log(data);
-
 });
-// window.Echo.channel('User.Notifications.'+currentUser)
-//     .listen('App\\Events\\StoppageEvent', (e) => {
-//         console.log(e);
-//     });
-
-
-
-
-// var channel2 = Echo.channel('User.Notifications.'+currentUser);
-// console.log(channel2)
-// channel2.listen('StoppageEvent', function(data) {
-//     alert(JSON.stringify(data));
-// });
-Echo.private(`User.Notifications.${currentUser}`)
-    .notification((notification) => {
-        console.log(notification);
-
-    });
