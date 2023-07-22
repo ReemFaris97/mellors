@@ -71,7 +71,7 @@ class RideStoppageController extends Controller
         ];
         foreach ($users as $user) {
             Notification::send($user, new StoppageNotifications($data));
-            event(new StoppageEvent($user->id, $data['title'],$stoppage->created_at));
+            event(new StoppageEvent($user->id, $data['title'], $stoppage->created_at));
         }
         return self::apiResponse(200, __('stoppage added successfully'), []);
 
@@ -145,7 +145,9 @@ class RideStoppageController extends Controller
             return self::apiResponse(200, __('not found time slot'), []);
         }
         foreach ($validate['id'] as $key => $id) {
+
             $stoppage = RideStoppages::find($id);
+            $ride = Ride::find($stoppage->ride_id);
             $time = $validate['time'][$key];
             $stoppageStartTime = Carbon::parse("$park_time->date $stoppage->time_slot_start");
             $stoppageParkTimeEnd = Carbon::parse("$park_time->date $time");
@@ -154,6 +156,7 @@ class RideStoppageController extends Controller
             $stoppage->stoppage_status = $validate['type'][$key] == 'active' ? 'done' : 'pending';
             $stoppage->time_slot_end = $time;
             $stoppage->save();
+            $ride->rideStoppages()?->where('ride_status', 'stopped')?->update(['ride_status' => 'active', 'stoppage_status' => 'working']);
         }
 
         return self::apiResponse(200, __('update ride stoppage'), []);
