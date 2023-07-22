@@ -364,6 +364,7 @@ body.authentication-bg {
     max-width: 140px;
     max-height: 94px;
 }
+/**********************************************************************/ 
 /**********************************************************************/
 /******************** Responsive *********************************/
 @media (min-width: 992px) {
@@ -998,3 +999,36 @@ table.dataTable.dtr-inline.collapsed
         position: fixed !important;
     }
 }
+
+/**********************************************************************/
+/******************** Print *********************************/
+.printBtn {
+    margin: 0 auto 1rem auto;
+    display: block;
+}
+.printOnly{
+    text-align: center; 
+    margin-bottom: 1rem; 
+    display: none;
+}
+.printOnly .logo {
+    display: block;
+}
+.printOnly .logo .image {
+    max-height: 100px;
+    object-fit: contain;
+    min-height: 80px; 
+}
+.printOnly .table-title {
+    font-weight: bold;
+}
+@page { size:  auto; margin: 25mm 25mm 25mm 25mm; } 
+@media print{
+    .printOnly{
+        display: table;
+    }
+    .btn-group, .btn-group-vertical , .dataTables_filter ,  div.dataTables_paginate , .printBtn , .card-box{
+        display: none;
+    }
+}
+/**********************************************************************/
