@@ -119,6 +119,7 @@ class SupervisorController extends Controller
             $inpection->update([
                 'is_checked' => $validate['is_checked'][$key] ?? null,
                 'status' => $validate['status'][$key] ?? null,
+                'comment' => $validate['comment'][$key] ?? null,
             ]);
         }
         return self::apiResponse(200, __(' update inspections successfully'), []);

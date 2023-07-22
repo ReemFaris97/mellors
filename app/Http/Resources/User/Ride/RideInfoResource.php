@@ -38,16 +38,16 @@ class RideInfoResource extends JsonResource
 
         ];
         $queues = $this->queue
-        ? $this->queue
-            ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
-            ->latest()
-            ->first()
-        : null;
+            ? $this->queue
+                ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
+                ->latest()
+                ->first()
+            : null;
         $riders = $this->cycle
-        ? $this->cycle
-            ->where('duration_seconds', 0)
-            ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
-        : null;
+            ? $this->cycle
+                ->where('duration_seconds', 0)
+                ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
+            : null;
 
         $cycles = $this->cycle
             ? $this->cycle
@@ -55,15 +55,23 @@ class RideInfoResource extends JsonResource
             : null;
 
         $user = $this->users()?->whereHas('roles', function ($query) {
-            return $query->whereIn('name',['Operation','Operation ']);
+            return $query->whereIn('name', ['Operation', 'Operation ']);
         })->first();
-        $inspaction = $this->preopening_lists?->where('lists_type','preopening')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
-        if (!empty($inspaction) && in_array(null,$inspaction) || in_array('no',$inspaction)) {
+        $inspaction = $this->preopening_lists?->where('lists_type', 'preopening')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
+        if (!empty($inspaction) && in_array(null, $inspaction) || in_array('no', $inspaction)) {
             $inspaction = false;
-        } elseif(empty($inspaction)) {
+        } elseif (empty($inspaction)) {
             $inspaction = false;
-        }else{
+        } else {
             $inspaction = true;
+        }
+        $preclosing = $this->preopening_lists?->where('lists_type', 'preclosing')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
+        if (!empty($preclosing) && in_array(null, $preclosing) || in_array('no', $preclosing)) {
+            $preclosing = false;
+        } elseif (empty($preclosing)) {
+            $preclosing = false;
+        } else {
+            $preclosing = true;
         }
         $data['queues'] = QueueResource::make($queues);
         $data['queues_count'] = $this->queue?->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])?->count();
@@ -73,6 +81,7 @@ class RideInfoResource extends JsonResource
         $data['cycle_count'] = $cycles?->count();
         $data['user'] = UserResource::make($user);
         $data['open'] = $inspaction;
+        $data['close'] = $preclosing;
 
         $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->first();
         $stoppageLastDate = $this->rideStoppages?->where('ride_status', 'stopped')->last();
