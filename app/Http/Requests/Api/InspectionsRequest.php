@@ -26,8 +26,7 @@ class InspectionsRequest extends FormRequest
         return [
             'ride_id' => 'required|exists:rides,id',
             'inspection_list_id' => 'required|array|exists:inspection_lists,id',
-//            'inspection_list_id' => 'array',
-            'status' => 'required|array',
+            'status' => 'nullable|array',
             'is_checked' => 'nullable|array',
             'comment' => 'nullable|array',
             'opened_date' => 'required|date',

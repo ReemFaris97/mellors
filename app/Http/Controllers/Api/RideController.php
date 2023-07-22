@@ -88,7 +88,7 @@ class RideController extends Controller
                 'lists_type' => $validate['lists_type'],
                 'created_by_id' => \auth()->user()->id,
                 'inspection_list_id' => $inspection,
-                'status' => $validate['status'][$key] ?? 'no',
+                'status' => $validate['status'][$key] ?? null,
                 'is_checked' => $validate['is_checked'][$key] ?? null,
             ]);
         }
@@ -111,20 +111,6 @@ class RideController extends Controller
 
     }
 
-    protected function updateInspectionList(UpdateInspectionsRequest $request)
-    {
-
-        $validate = $request->validated();
-
-
-        foreach ($validate['id'] as $key => $id) {
-            $inpection = PreopeningList::find($id);
-            $inpection->update(['is_checked' => $validate['is_checked'][$key] ?? null]);
-        }
-        return self::apiResponse(200, __(' update inspections successfully'), []);
-
-
-    }
 
     protected function rideStatus()
     {
