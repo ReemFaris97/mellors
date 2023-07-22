@@ -49,6 +49,7 @@ class RideResource extends JsonResource
                 ->where('duration_seconds', 0)
                 ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
             : null;
+
         $inspaction = $this->preopening_lists?->where('lists_type','preopening')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
         if (!empty($inspaction) && in_array(null,$inspaction) || in_array('no',$inspaction)) {
             $inspaction = false;
@@ -58,13 +59,22 @@ class RideResource extends JsonResource
             $inspaction = true;
         }
 
+        $preclosing = $this->preopening_lists?->where('lists_type','preclosing')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
+        if (!empty($preclosing) && in_array(null,$preclosing) || in_array('no',$preclosing)) {
+            $preclosing = false;
+        } elseif(empty($preclosing)) {
+            $preclosing = false;
+        }else{
+            $preclosing = true;
+        }
+
         $data['queues'] = QueueResource::make($queues);
         $data['queues_count'] = $this->queue?->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])?->count();
         $data['total_riders'] = $riders?->sum('number_of_vip') + $riders?->sum('number_of_disabled') + $riders?->sum('riders_count') + $riders?->sum('number_of_ft');
         $data['stoppage_minutes'] = $this->rideStoppages?->where('ride_status', 'stopped')->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])?->sum('down_minutes');
         $data['stoppage_count'] = $this->rideStoppages?->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])?->count();
         $data['open'] = $inspaction;
-
+        $data['close'] = $preclosing;
         $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->first();
         $stoppageLastDate = $this->rideStoppages?->where('ride_status', 'stopped')->last();
 
