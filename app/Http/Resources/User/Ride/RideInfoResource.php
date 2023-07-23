@@ -43,6 +43,7 @@ class RideInfoResource extends JsonResource
                 ->latest()
                 ->first()
             : null;
+
         $riders = $this->cycle
             ? $this->cycle
                 ->where('duration_seconds', 0)
@@ -57,7 +58,8 @@ class RideInfoResource extends JsonResource
         $user = $this->users()?->whereHas('roles', function ($query) {
             return $query->whereIn('name', ['Operation', 'Operation ']);
         })->first();
-        $inspaction = $this->preopening_lists?->where('lists_type', 'preopening')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
+        $preopining = $this->preopening_lists?->where('lists_type', 'preopening')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date]);
+        $inspaction = $preopining?->pluck('is_checked')?->toArray();
         if (!empty($inspaction) && in_array(null, $inspaction) || in_array('no', $inspaction)) {
             $inspaction = false;
         } elseif (empty($inspaction)) {
@@ -65,7 +67,8 @@ class RideInfoResource extends JsonResource
         } else {
             $inspaction = true;
         }
-        $preclosing = $this->preopening_lists?->where('lists_type', 'preclosing')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date])?->pluck('is_checked')?->toArray();
+        $closing = $this->preopening_lists?->where('lists_type', 'preclosing')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date]);
+        $preclosing = $closing?->pluck('is_checked')?->toArray();
         if (!empty($preclosing) && in_array(null, $preclosing) || in_array('no', $preclosing)) {
             $preclosing = false;
         } elseif (empty($preclosing)) {
@@ -82,6 +85,9 @@ class RideInfoResource extends JsonResource
         $data['user'] = UserResource::make($user);
         $data['open'] = $inspaction;
         $data['close'] = $preclosing;
+
+        $data['isPreopeningRequested'] = count($preopining) > 0;
+        $data['isPreclosingRequested'] = count($closing) > 0;
 
         $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->first();
         $stoppageLastDate = $this->rideStoppages?->where('ride_status', 'stopped')->last();
