@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('login',[AuthController::class,'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum','settimezone'])->group(function () {
     // operators
     Route::get('home',[RideController::class,'home']);
     Route::get('settings',[RideController::class,'timeSlot']);
