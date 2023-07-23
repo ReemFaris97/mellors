@@ -146,7 +146,7 @@
 
                         @endforeach
                         @endif
-
+                        @if ($items->isEmpty())
                         @if(isset($all_day_stoppages) )
                         <tr role="row" class="odd" id="row-{{ $all_day_stoppages->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $all_day_stoppages->id }}</td>
@@ -302,7 +302,8 @@
                                  @endif
                                 </td>
                             </tr>
-                        @endif
+                            @endif
+                            @endif
                         </tbody>
                     </table>
                 </div>
