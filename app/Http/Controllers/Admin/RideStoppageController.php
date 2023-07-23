@@ -86,6 +86,7 @@ class RideStoppageController extends Controller
      */
     public function store(RideStoppageRequest $request)
     {
+        
         // dd($request);
         \DB::beginTransaction();
         $park_time_id = $request->park_time_id;
@@ -93,6 +94,10 @@ class RideStoppageController extends Controller
         $ride = Ride::findOrFail($ride_id);
         $zone_id = $ride->zone_id;
         $park_time = ParkTime::findOrFail($park_time_id);
+        if(($request->date > $park_time->date) || ($request->time_slot_start > $park_time->start)){
+            alert()->danger('Stoppage Time Can’t Be Gretter Than time slot Time !');
+            return redirect()->back();
+        }
         $park_id = $park_time->park_id;
         $opened_date = $park_time->date;
         $duration = $park_time->duration_time;
@@ -160,7 +165,7 @@ class RideStoppageController extends Controller
         $data['park_time_id']= $request['park_time_id'];
         $time_slot_start= $request['time_slot_start'];
         $stoppageStartDate= $request['date'];
-
+       
         if ($data['type'] == 'all_day' && $request['stoppage_status'] == "working"){
             $stoppageStartTime = Carbon::parse("$stoppageStartDate $time_slot_start");
             $stoppageParkTimeEnd = Carbon::parse("$park_time->close_date $park_time->end");
@@ -168,6 +173,10 @@ class RideStoppageController extends Controller
             $data['ride_status']="stopped";
 
         } elseif ($data['type'] == 'time_slot' && $request['stoppage_status'] == "done") {
+            if(($request['end_date'] < $request['date']) || ($time_slot_end < $time_slot_start)){
+                alert()->danger('Stoppage Time Can’t Be Gretter Than time slot Time !');
+                return redirect()->back();
+            }
             $stopageEnddate=$request['end_date'];
             $stopageStartTime=Carbon::parse("$stoppageStartDate $time_slot_start");
             $stopageEndTime=Carbon::parse("$stopageEnddate $time_slot_end");
