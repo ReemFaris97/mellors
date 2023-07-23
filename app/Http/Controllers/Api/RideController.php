@@ -68,7 +68,7 @@ class RideController extends Controller
 
     protected function ridePreclosing($id)
     {
-        $inspects = RideInspectionList::where('ride_id', $id)->where('lists_type', 'preclosing')->get();
+        $inspects = RideInspectionList::where('ride_id', $id)->where('lists_type', '  ')->get();
         $this->body['inspections'] = InspectionResource::collection($inspects);
         return self::apiResponse(200, __('inspections'), $this->body);
 
