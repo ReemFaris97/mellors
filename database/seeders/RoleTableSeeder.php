@@ -81,6 +81,22 @@ class RoleTableSeeder extends Seeder
         'created_at' => NULL,
         'updated_at' => NULL,
     ),
+        8 =>
+        array (
+        'id' => 9,
+        'name' => 'Branch Admin',
+        'guard_name' => 'web',
+        'created_at' => NULL,
+        'updated_at' => NULL,
+        ),
+        9 =>
+        array (
+        'id' => 10,
+        'name' => 'Park Admin',
+        'guard_name' => 'web',
+        'created_at' => NULL,
+        'updated_at' => NULL,
+        ),
         ));
     }
 }
