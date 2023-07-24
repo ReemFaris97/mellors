@@ -30,8 +30,14 @@ class AuthController extends Controller
                 return self::apiResponse(400, __('you dont have permission'));
             }
             $user = Auth::user();
-            UserLog::query()->create(['user_id' => $user->id,
-                'type' => 'login', 'date' => Carbon::now(),'time' => Carbon::now()->toTimeString()]);
+            $data = ['user_id' => $user->id,
+                'type' => 'login', 'date' => Carbon::now()->toDateString(), 'time' => Carbon::now()->toTimeString()];
+            $role = $user->roles->first()?->name == 'Operation';
+            if ($role) {
+                $data['ride_id'] = $user->rides[0]->id;
+            }
+            UserLog::query()->create($data);
+
             $this->message = __('login successfully');
             $this->body['user'] = UserResource::make($user);
             $this->body['accessToken'] = $user->createToken('user-token')->plainTextToken;
@@ -45,8 +51,18 @@ class AuthController extends Controller
 
     public function logout()
     {
-        UserLog::query()->create(['user_id' => auth()->user('sanctum')->id,
-            'type' => 'logout', 'date' => Carbon::now()->toDateString() ,'time' => Carbon::now()->toTimeString()]);
+        $user = auth()->user('sanctum');
+        $data = ['user_id' => $user->id,
+            'type' => 'logout', 'date' => Carbon::now()->toDateString(), 'time' => Carbon::now()->toTimeString()];
+        $role = $user->roles->first()?->name == 'Operation';
+        $log = UserLog::where('user_id', $user->id)->where('type', 'login')->latest()->first();
+        if ($role && $log) {
+            $startTime = Carbon::parse($log->time);
+            $finishTime = Carbon::now()->toTimeString();
+            $data['ride_id'] = $user->rides[0]->id;
+            $data['shift_hours'] = $startTime->diffInHours($finishTime);
+        }
+        UserLog::query()->create($data);
         auth()->user('sanctum')->tokens()->delete();
         $this->message = __('Logged out successfully');
         return self::apiResponse(200, $this->message, []);

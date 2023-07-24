@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('user_logs', function (Blueprint $table) {
-            $table->foreignId('ride_id')->constrained('rides')->nullable();
+            $table->foreignId('ride_id')->nullable()->constrained('rides');
             $table->decimal('shift_hours')->nullable();
         });
     }

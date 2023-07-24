@@ -83,9 +83,8 @@ class RideInfoResource extends JsonResource
         $data['stoppage_count'] = $this->rideStoppages?->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])?->count();
         $data['cycle_count'] = $cycles?->count();
         $data['user'] = UserResource::make($user);
-        $data['open'] = $inspaction;
-        $data['close'] = $preclosing;
-
+        $data['isPreopeningChecked'] = $inspaction;
+        $data['isPreclosingChecked'] = $preclosing;
         $data['isPreopeningRequested'] = count($preopining) > 0;
         $data['isPreclosingRequested'] = count($closing) > 0;
 
