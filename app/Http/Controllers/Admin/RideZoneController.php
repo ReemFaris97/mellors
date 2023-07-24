@@ -21,10 +21,17 @@ class RideZoneController extends Controller
     }
     public function addRideZone($ride_id)
     {
-        $zones = Zone::get();
         $ride=Ride::findOrFail($ride_id);
+        $park_id=$ride->park_id;
+        if($park_id){
+        $zones = Zone::where('park_id',$park_id)->get();
         $zone_id []= $ride->zone_id;
         return view('admin.ride_zones.add',compact('ride_id','zones','zone_id'));
+        }else{
+            alert()->danger('Please Assign Park first To This Ride !');
+                return redirect()->back();
+        }
+       
     }
     /**
      * Show the form for creating a new resource.

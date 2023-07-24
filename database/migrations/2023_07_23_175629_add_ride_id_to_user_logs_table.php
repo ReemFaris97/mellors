@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::table('user_logs', function (Blueprint $table) {
             $table->foreignId('ride_id')->nullable()->constrained('rides');
             $table->decimal('shift_hours')->nullable();
-
         });
     }
 

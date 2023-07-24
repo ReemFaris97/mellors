@@ -116,6 +116,8 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('show-availability-report', 'Admin\AvailabilityReportController@showAvailabilityReport')->name('reports.showAvailabilityReport');
 
     Route::get('rides-status', 'Admin\ReportsController@rideStatus')->name('reports.rideStatus');
+    Route::get('operator-time-report', 'Admin\ReportsController@operatorTimeReport')->name('reports.operatorTimeReport');
+    Route::get('show-operator-time-report', 'Admin\ReportsController@showOperatorTimeReport')->name('reports.showOperatorTimeReport');
     Route::get('stoppages-report', 'Admin\ReportsController@stoppagesReport')->name('reports.stoppagesReport');
     Route::get('show-stoppages-report', 'Admin\ReportsController@showstoppagesReport')->name('reports.showStoppagesReport');
 
