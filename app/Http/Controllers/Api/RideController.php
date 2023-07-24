@@ -73,6 +73,13 @@ class RideController extends Controller
         return self::apiResponse(200, __('inspections'), $this->body);
 
     }
+    protected function rideInspectionList($id)
+    {
+        $inspects = RideInspectionList::where('ride_id', $id)->where('lists_type', 'inspection_list')->get();
+        $this->body['inspections'] = InspectionResource::collection($inspects);
+        return self::apiResponse(200, __('inspections'), $this->body);
+
+    }
 
     protected function storeInspection(InspectionsRequest $request)
     {
