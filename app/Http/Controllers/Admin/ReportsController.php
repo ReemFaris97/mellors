@@ -7,6 +7,8 @@ use App\Models\Park;
 use App\Models\PreopeningList;
 use App\Models\Ride;
 use App\Models\RideStoppages;
+use App\Models\User;
+use App\Models\UserLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -119,5 +121,29 @@ class ReportsController extends Controller
 
        return view('admin.reports.inspection_list_report', compact('items','parks','request'));
    }
-    
+   public function operatorTimeReport()
+   {
+
+    $users = User::whereHas('roles', function ($query) {
+        $query->where('name', 'Operation');
+    })->pluck('name','id');  
+         return view('admin.reports.operator_time_report', compact('users'));
+
+   }
+   public function showOperatorTimeReport(Request $request)
+   {
+    $from = $request->input('from');
+    $to = $request->input('to');
+    $user_id = $request->input('user_id');
+    $items = UserLog::selectRaw('ride_id, SUM(shift_hours) as total_hours')
+    ->whereBetween('date', [$from, $to])
+    ->where('user_id', $user_id)
+    ->groupBy('ride_id')
+    ->get();
+    $users = User::whereHas('roles', function ($query) {
+        $query->where('name', 'Operation');
+    })->pluck('name','id');
+    $currentUser=User::selectRaw('name')->where('id', $user_id)->first();
+    return view('admin.reports.operator_time_report', compact('items','currentUser','users'));
+}
 }
