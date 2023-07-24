@@ -114,7 +114,10 @@ class RideStoppageController extends Controller
             'user_id' => Auth::user()->id
         ];
         if ($users) {
-            Notification::send($users, new StoppageNotifications($data));
+            foreach ($users as $user) {
+                Notification::send($user, new StoppageNotifications($data));
+                event(new StoppageEvent($user->id, $data['title'], $last->created_at));
+            }
         }
         return self::apiResponse(200, __('update ride status successfully'), $this->body);
 
@@ -144,6 +147,9 @@ class RideStoppageController extends Controller
         if ($park_time == null) {
             return self::apiResponse(200, __('not found time slot'), []);
         }
+        $users = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'Super Admin');
+        })->get();
         foreach ($validate['id'] as $key => $id) {
 
             $stoppage = RideStoppages::find($id);
@@ -157,6 +163,17 @@ class RideStoppageController extends Controller
             $stoppage->time_slot_end = $time;
             $stoppage->save();
             $ride->rideStoppages()?->where('ride_status', 'stopped')?->update(['ride_status' => 'active', 'stoppage_status' => 'working']);
+
+            $data = [
+                'title' => $stoppage->ride?->name . ' ' . 'has ' . $validate['type'][$key] . ' status',
+                'ride_id' => $stoppage->ride_id,
+                'user_id' => Auth::user()->id,
+
+            ];
+            foreach ($users as $user) {
+                Notification::send($user, new StoppageNotifications($data));
+                event(new StoppageEvent($user->id, $data['title'], $stoppage->created_at));
+            }
         }
 
         return self::apiResponse(200, __('update ride stoppage'), []);

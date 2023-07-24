@@ -44,4 +44,8 @@ class RsrReport extends Model
     {
         return $this->hasMany(RsrReportsImages::class,'rsr_report_id','id');
     }
+    public function ride()
+    {
+        return $this->belongsTo(Ride::class, 'ride_id', 'id');
+    }
 }
