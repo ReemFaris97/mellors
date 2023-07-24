@@ -33,8 +33,8 @@ class RideResource extends JsonResource
             'ride_cat' => $this->ride_cat,
 //            'no_of_gondolas' => $this->number_of_seats,
 //            'ride_type' => RideTypeResource::make($this->ride_type),
-//            'zone' => ZoneResource::make($this->zone),
-//            'park' => ParkResource::make($this->park),
+            'zone' => ZoneResource::make($this->zone),
+            'park' => ParkResource::make($this->park),
             'status' => $this->rideStoppages?->last()->ride_status ?? 'active',
 
         ];
