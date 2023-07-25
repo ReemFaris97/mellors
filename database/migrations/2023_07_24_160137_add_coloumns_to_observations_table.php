@@ -17,9 +17,13 @@ return new class extends Migration
             $table->foreignId('ride_id')->constrained('rides');
             $table->date('date_reported');
             $table->date('date_resolved')->nullable();
-            $table->string('snag')->nullable();
+            $table->string('snag');
             $table->string('maintenance_feedback')->nullable();
-            $table->string('reported_on_tech_sheet')->nullable();
+            $table->enum('reported_on_tech_sheet',['yes','no'])->nullable();
+            $table->string('rf_number')->nullable();
+            $table->foreignId('department_id')->constrained('departments')->nullable();
+            $table->string('image')->nullable();
+
         });
     }
 

@@ -19,7 +19,6 @@ use App\Models\Ride;
 
 use App\Models\User;
 use App\Notifications\UserNotifications;
-use App\Notifications\ZoneSupervisorNotifications;
 use App\Traits\Api\ApiResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -128,11 +127,14 @@ class SupervisorController extends Controller
         $validate = $request->validated();
         $data = [
             'ride_id' => $validate['ride_id'],
-            'date_reported' => $validate['date_reported'],
+            'date_reported' => $validate['date'],
             'snag' => $validate['snag'],
-            'created_by_id' => \auth()->id(),
         ];
-        Observation::query()->create($data);
+        $observation = Observation::query()->create($data);
+        if (!empty($validate['image'])) {
+            $path = Storage::disk('s3')->put('images', $validate['image']);
+            $observation->update(['image' => $path]);
+        }
         return self::apiResponse(200, __('create observation successfully'), []);
 
     }

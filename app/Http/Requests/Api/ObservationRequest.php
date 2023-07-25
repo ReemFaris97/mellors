@@ -24,8 +24,8 @@ class ObservationRequest extends FormRequest
     public function rules()
     {
         return [
-            'ride_id' => 'required|array|exists:rides,id',
-            'date_reported' => 'required',
+            'ride_id' => 'required|exists:rides,id',
+            'date' => 'required',
             'snag' => 'nullable|string',
             'image' => 'nullable|image',
         ];
