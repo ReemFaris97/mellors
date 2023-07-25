@@ -71,7 +71,9 @@ class AuthController extends Controller
 
     protected function notifications()
     {
+
         $this->body['notifications'] = NotificationResource::collection(auth()->user()->notifications()?->paginate(10));
+        $this->body['count_of_pages'] = auth()->user()->notifications()?->paginate(10)->lastPage();
         return self::apiResponse(200, 'notifications', $this->body);
 
     }
