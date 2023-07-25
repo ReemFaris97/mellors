@@ -30,3 +30,11 @@ Broadcast::channel('ride-status', function ($user) {
 Broadcast::channel('ride-queue', function ($user) {
     return true;
 });
+
+Broadcast::channel('rsr_report', function ($user) {
+    return true;
+});
+
+Broadcast::channel('report', function ($user) {
+    return true;
+});

@@ -103,7 +103,7 @@ class RideController extends Controller
         $ride = Ride::find($validate['ride_id']);
 
         $user = $zone->users()->whereHas('roles', function ($query) {
-            return $query->where('name', 'Operation ');
+            return $query->where('name', 'Operation');
         })->first();
 
         $data = [

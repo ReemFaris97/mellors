@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\ReportEvent;
 use App\Events\StoppageEvent;
 use App\Models\MaintenanceRideStatusReport;
 use App\Models\User;
+use App\Notifications\ReportNotifications;
 use App\Notifications\StoppageNotifications;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -49,7 +51,6 @@ class AvailabilityReportController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
         $users = User::whereHas('roles', function ($query) {
             return $query->where('name', 'Super Admin');
         })->get();
@@ -66,19 +67,18 @@ class AvailabilityReportController extends Controller
             $list->user_id = auth()->user()->id;
             $list->save();
 
-//            $data = [
-//                'title' => $list?->name . ' ' . 'has active status',
-//                'ride_id' => $validate['ride_id'],
-//                'user_id' => Auth::user()->id
-//            ];
-//            if ($users) {
-//                foreach ($users as $user) {
-//                    Notification::send($user, new StoppageNotifications($data));
-//                    event(new StoppageEvent($user->id, $data['title'], $last->created_at));
-//                }
-//            }
-        }
 
+        }
+        $data = [
+            'title' => 'Availability Report Added successfully !',
+            'user_id' => Auth::user()->id
+        ];
+        if ($users) {
+            foreach ($users as $user) {
+                Notification::send($user, new ReportNotifications($data));
+                event(new ReportEvent($user->id, $data['title'], Carbon::now()));
+            }
+        }
         alert()->success('Availability Report Added successfully !');
         return redirect()->route('admin.parks.index');
 
@@ -115,7 +115,19 @@ class AvailabilityReportController extends Controller
             $gameTime->comment = $request->comment[$key];
             $gameTime->update();
         }
-
+        $users = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'Super Admin');
+        })->get();
+        $data = [
+            'title' => 'Availability Report Added successfully !',
+            'user_id' => Auth::user()->id
+        ];
+        if ($users) {
+            foreach ($users as $user) {
+                Notification::send($user, new ReportNotifications($data));
+                event(new ReportEvent($user->id, $data['title'], Carbon::now()));
+            }
+        }
 
         alert()->success('Second Status Added successfully To Report !');
         return redirect()->route('admin.parks.index');

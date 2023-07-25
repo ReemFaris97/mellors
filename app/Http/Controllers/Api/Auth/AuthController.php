@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginRequest;
+use App\Http\Resources\User\NotificationResource;
 use App\Http\Resources\User\UserResource;
 use App\Models\UserLog;
 use App\Traits\Api\ApiResponse;
@@ -24,8 +25,7 @@ class AuthController extends Controller
         }
         if (Auth::attempt($cred)) {
 
-            $user = Auth::user()->hasAnyRole(['Ride & Ops ', 'Ride & Ops', 'Operation', 'Operation ',
-                'Maintenance', 'Maintenance ', 'Health & Safety', 'Health & Safety ', 'zone supervisor']);
+            $user = Auth::user()->hasAnyRole(['Ride & Ops', 'Operation', 'Maintenance', 'Health & Safety', 'zone supervisor']);
             if (!$user) {
                 return self::apiResponse(400, __('you dont have permission'));
             }
@@ -66,6 +66,13 @@ class AuthController extends Controller
         auth()->user('sanctum')->tokens()->delete();
         $this->message = __('Logged out successfully');
         return self::apiResponse(200, $this->message, []);
+
+    }
+
+    protected function notifications()
+    {
+        $this->body['notifications'] = NotificationResource::collection(auth()->user()->notifications()?->paginate(5));
+        return self::apiResponse(200, 'notifications', $this->body);
 
     }
 

@@ -4,36 +4,24 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CustomerFeedbackRequest;
-use App\Http\Requests\Api\InspectionsRequest;
-use App\Http\Requests\Api\SubmitCycleRequest;
-use App\Http\Requests\Api\SubmitQueuesRequest;
-use App\Http\Requests\Api\SubmitStoppageRequest;
-use App\Http\Requests\Api\UpdateCycleDurationRequest;
-use App\Http\Requests\Api\UpdateCycleRequest;
+use App\Http\Requests\Api\ObservationRequest;
 use App\Http\Requests\Api\UpdateInspectionsRequest;
-use App\Http\Resources\User\InspectionResource;
 use App\Http\Resources\User\Ride\PreopeningListResource;
-use App\Http\Resources\User\Ride\RideCycleResource;
-use App\Http\Resources\User\Ride\RideQueueResource;
-use App\Http\Resources\User\Ride\RideResource;
-use App\Http\Resources\User\Ride\StoppageResource;
+
+;
+
 use App\Http\Resources\User\Zone\ZoneResource;
 use App\Models\CustomerFeedbackImage;
 use App\Models\CustomerFeedbacks;
-use App\Models\ParkTime;
+use App\Models\Observation;
 use App\Models\PreopeningList;
-use App\Models\Queue;
 use App\Models\Ride;
-use App\Models\RideCycles;
-use App\Models\RideInspectionList;
-use App\Models\RideStoppages;
-use App\Models\StopageCategory;
-use App\Models\Zone;
+
+use App\Models\User;
+use App\Notifications\UserNotifications;
 use App\Notifications\ZoneSupervisorNotifications;
 use App\Traits\Api\ApiResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -122,7 +110,31 @@ class SupervisorController extends Controller
                 'comment' => $validate['comment'][$key] ?? null,
             ]);
         }
+        $user = User::find($inpection->created_by_id);
+        $data = [
+            'title' => 'supervisor update inspection to ' . $inpection->ride?->name,
+            'ride_id' => $inpection->ride_id,
+            'user_id' => Auth::user()->id
+        ];
+        if ($user) {
+            Notification::send($user, new UserNotifications($data));
+        }
+
         return self::apiResponse(200, __(' update inspections successfully'), []);
+    }
+
+    protected function observation(ObservationRequest $request)
+    {
+        $validate = $request->validated();
+        $data = [
+            'ride_id' => $validate['ride_id'],
+            'date_reported' => $validate['date_reported'],
+            'snag' => $validate['snag'],
+            'created_by_id' => \auth()->id(),
+        ];
+        Observation::query()->create($data);
+        return self::apiResponse(200, __('create observation successfully'), []);
+
     }
 
 }

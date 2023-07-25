@@ -51,6 +51,7 @@ Route::middleware(['auth:sanctum','settimezone'])->group(function () {
     Route::post('update_inspection',[SupervisorController::class,'updateInspectionList']);
 
     Route::post('logout',[AuthController::class,'logout']);
+    Route::get('notifications',[AuthController::class,'notifications']);
 
 
 
