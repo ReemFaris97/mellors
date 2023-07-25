@@ -26,6 +26,7 @@ Route::middleware(['auth:sanctum','settimezone'])->group(function () {
     Route::get('ride/{id}',[RideController::class,'ride']);
     Route::get('ride_preopening/{id}',[RideController::class,'ridePreopening']);
     Route::get('ride_preclosing/{id}',[RideController::class,'ridePreclosing']);
+    Route::get('ride_inspection_list/{id}',[RideController::class,'rideInspectionList']);
     Route::post('store_inspection',[RideController::class,'storeInspection']);
 
     Route::get('get_ride_status',[RideController::class,'rideStatus']);
