@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class NotificationResource extends JsonResource
@@ -17,7 +18,8 @@ class NotificationResource extends JsonResource
         return [
             'title' => (string)data_get($this->data, 'title'),
             'ride_id' => (string)data_get($this->data, 'ride_id'),
-            'date' => $this->created_at,
+            'date' => date('Y-m-d H:i:s', strtotime($this->created_at))
+
         ];
     }
 }
