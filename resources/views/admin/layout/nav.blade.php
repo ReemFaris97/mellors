@@ -5,7 +5,11 @@
         <span>Main Page </span>
     </a>
 </li>
-
+<li>
+    <a href="{{route('admin.statistics')}}" class="waves-effect"><i class="zmdi zmdi-view-dashboard"></i>
+        <span>Statistics </span>
+    </a>
+</li>
 @if(auth()->user()->can('role-list') ||auth()->user()->can('role-create'))
 <li class="has_sub">
     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-week"></i> <span>Roles and Permissions
@@ -244,6 +248,21 @@ auth()->user()->can('uploadCycleExcleFile'))
     </ul>
 </li>
 @endif
+
+@if(auth()->user()->can('customer_feedbacks-list')|| auth()->user()->can('customer_feedbacks-create'))
+
+<li class="has_sub">
+    <a href="javascript:void(0);" class="waves-effect"><i class="fa-solid fa-comment-dots"></i><span>Maintenance
+            </span> <span class="menu-arrow"></span></a>
+    <ul class="list-unstyled">
+        @can('customer_feedbacks-list')
+        <li><a href="{{route('admin.observations.index')}}"> Show Observations</a></li>
+       @endcan
+      
+
+    </ul>
+</li>
+@endif
 @if(auth()->user()->can('duty-report-list')|| auth()->user()->can('stoppagesReport')||
 auth()->user()->can('inspectionListReport')|| auth()->user()->can('rideStatus'))
 
@@ -270,18 +289,3 @@ auth()->user()->can('inspectionListReport')|| auth()->user()->can('rideStatus'))
 </li>
 @endif
 
-<!-- @if(auth()->user()->can('rides-list')|| auth()->user()->can('rides-create'))
-
-    <li class="has_sub">
-        <a href="javascript:void(0);" class="waves-effect"><i
-                class="zmdi zmdi-playstation"></i><span>Duty Report </span> <span class="menu-arrow"></span></a>
-        <ul class="list-unstyled">
-        <li><a href="{{route('admin.health_and_safety_reports.index')}}">Health & safety</a></li>
-            <li><a href="{{route('admin.ride-ops-reports.index')}}"> Ride Ops</a></li>
-            <li><a href="{{route('admin.maintenance_reports.index')}}"> Maintenance</a></li>
-            <li><a href="{{route('admin.tech-reports.index')}}"> Teachnical Services</a></li>
-            <li><a href="{{route('admin.skill_game_reports.index')}}"> Skill Games</a></li>
-            <li><a href="{{route('admin.health_and_safety_reports.index')}}"> Duty Summary</a></li>
-        </ul>
-    </li>
-@endif -->

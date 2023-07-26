@@ -23,14 +23,10 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-
-
         if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Visitor')) {
             $parks = Park::pluck('id');
-            //  $zones=Zone::pluck('id');
         } else {
             $parks = auth()->user()->parks->pluck('id');
-            // $zones=auth()->user()->zones->pluck('id');
         }
         $park_times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->pluck('id');
 
@@ -41,16 +37,16 @@ class IndexController extends Controller
             ->select(['rides.ride_cat', 'park_times.id as park_time_id',
                 DB::raw('AVG(ride_cycles.duration_seconds) as avg_duration'),
                 DB::raw(' SUM(COALESCE(ride_cycles.riders_count, 0)) +
-    SUM(COALESCE(ride_cycles.number_of_disabled, 0)) +
-    SUM(COALESCE(ride_cycles.number_of_vip, 0)) +
-    SUM(COALESCE(ride_cycles.number_of_ft, 0)) as total_rider ')])
+                          SUM(COALESCE(ride_cycles.number_of_disabled, 0)) +
+                          SUM(COALESCE(ride_cycles.number_of_vip, 0)) +
+                          SUM(COALESCE(ride_cycles.number_of_ft, 0)) as total_rider ')])
             ->groupBy('rides.ride_cat', 'park_times.id')
             ->whereIn('park_times.id', $park_times)
             ->whereIn('parks.id', $parks)
             ->orderBy('park_times.id')
             ->get();
-        // dd($cycles);
-
+        
+//get queue avg
         $queues = DB::table('rides')
             ->join('queues', 'rides.id', '=', 'queues.ride_id')
             ->join('park_times', 'queues.park_time_id', '=', 'park_times.id')
@@ -62,25 +58,25 @@ class IndexController extends Controller
             ->whereIn('parks.id', $parks)
             ->orderBy('park_times.id')
             ->get();
-        // dd($queues);
 
+//get total riders
         $total_riders = DB::table('rides')
             ->join('ride_cycles', 'rides.id', '=', 'ride_cycles.ride_id')
             ->join('park_times', 'ride_cycles.park_time_id', '=', 'park_times.id')
             ->join('parks', 'park_times.park_id', '=', 'parks.id')
             ->select('park_times.id',
-                DB::raw(' SUM(COALESCE(ride_cycles.riders_count, 0)) +
-    SUM(COALESCE(ride_cycles.number_of_disabled, 0)) +
-    SUM(COALESCE(ride_cycles.number_of_vip, 0)) +
-    SUM(COALESCE(ride_cycles.number_of_ft, 0)) as total_rider'))
+                DB::raw('SUM(COALESCE(ride_cycles.riders_count, 0)) +
+                        SUM(COALESCE(ride_cycles.number_of_disabled, 0)) +
+                        SUM(COALESCE(ride_cycles.number_of_vip, 0)) +
+                        SUM(COALESCE(ride_cycles.number_of_ft, 0)) as total_rider'))
             ->whereIn('park_times.id', $park_times)
             ->whereIn('parks.id', $parks)
             ->groupBy('park_times.id')
             ->orderBy('park_times.id')
             ->get()
             ->groupBy('id');
-        //  dd($total_riders);
 
+  //get ride status
         $rides = DB::table('rides')
         ->join('parks', 'parks.id', '=', 'rides.park_id')
         ->leftJoin('park_times', function ($join) {
@@ -122,7 +118,6 @@ class IndexController extends Controller
                 }
 
             } 
- //dd( $rides);
         $currentDate = Carbon::now()->toDateString();
         $currentTime = Carbon::now()->format('H:i');
         
@@ -134,5 +129,9 @@ class IndexController extends Controller
                 ->get();
 
 return view('admin.layout.home', compact('rides', 'queues', 'cycles', 'times', 'total_riders'));
+    }
+
+    public function statistics(){
+        return view('admin.layout.statistics');
     }
 }
