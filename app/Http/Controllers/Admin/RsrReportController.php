@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\RsrReportEvent;
 use App\Events\StoppageEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Ride\RsrReportRequest;
@@ -9,7 +10,9 @@ use App\Models\Park;
 use App\Models\Ride;
 use App\Models\RsrReport;
 use App\Models\User;
+use App\Notifications\RsrReportNotifications;
 use App\Notifications\StoppageNotifications;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\RsrReportsImages;
 use Illuminate\Support\Facades\Auth;
@@ -99,14 +102,14 @@ class RsrReportController extends Controller
             'user_id' => Auth::user()->id
         ];
         if ($request->has('stoppage_id')) {
-            $data['title'] = 'RSR Report For Stoppage Added to ' . $rsrReport->ride?->name . ' successfully !';
+            $data['title'] = 'RSR Report For Stoppage Added to ' . $rsrReport->ride?->name . ' successfully!';
         } else {
-            $data['title'] = 'RSR Report Added to ' . $rsrReport->ride?->name . ' successfully !';
+            $data['title'] = 'RSR Report Added to ' . $rsrReport->ride?->name . ' successfully!';
         }
         if ($users) {
             foreach ($users as $user) {
-                Notification::send($user, new StoppageNotifications($data));
-                event(new StoppageEvent($user->id, $data['title'], $rsrReport->created_at));
+                Notification::send($user, new RsrReportNotifications($data));
+                event(new RsrReportEvent($user->id, $data['title'], $rsrReport->created_at));
             }
         }
         if ($request->has('stoppage_id')) {
@@ -197,6 +200,21 @@ class RsrReportController extends Controller
         $rsr->status = 'approved';
         $rsr->verified_by_id = \auth()->user()->id;
         $rsr->save();
+        $users = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'Super Admin');
+        })->get();
+
+        $data = [
+            'ride_id' => $rsr->ride_id,
+            'user_id' => Auth::user()->id,
+            'title' => 'approved ' . $rsr->ride?->name . ' successfully!'
+        ];
+        if ($users) {
+            foreach ($users as $user) {
+                Notification::send($user, new RsrReportNotifications($data));
+                event(new RsrReportEvent($user->id, $data['title'], Carbon::now()));
+            }
+        }
         alert()->success('RSR Report Approved successfully !');
         return redirect()->route('admin.rsr_reports.index');
     }

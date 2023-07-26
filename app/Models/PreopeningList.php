@@ -56,5 +56,10 @@ class PreopeningList extends Model
         ]);
 
     }
+    public function ride()
+    {
+        return $this->belongsTo(Ride::class,'ride_id');
+
+    }
 
 }

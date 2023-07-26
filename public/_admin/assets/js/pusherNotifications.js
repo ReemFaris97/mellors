@@ -16,6 +16,7 @@ var notifications = notificationsWrapper.find('li.scrollable-container');
 var channel = pusher.subscribe('timeSlot-notification');
 var rideStatus = pusher.subscribe('ride-status');
 var rideQueue = pusher.subscribe('ride-queue');
+
 var not = pusher.subscribe('User.Notifications.' + currentUser);
 
 console.log(not);
@@ -48,6 +49,27 @@ rideQueue.bind('App\\Events\\RideQueueEvent', function (data) {
 });
 
 not.bind('App\\Events\\StoppageEvent', function (data) {
+    var newNotificationHtml = '<li class=""> <a href="#" class="media"> <div class="media-body"> <p class="notification-text font-small-3 text-muted"> ' + data.data.title + '</p> </div> <span style="direction: ltr;"class="date">' + data.data.date + '</span> </a> </li>';
+    $('#appendNotifications').prepend(newNotificationHtml)
+    notificationsCount += 1;
+    notificationsCountElem.attr('data-count', notificationsCount);
+    notificationsWrapper.find('.notif-count').text(notificationsCount);
+    notificationsWrapper.show();
+
+    console.log(data);
+});
+not.bind('App\\Events\\ReportEvent', function (data) {
+    var newNotificationHtml = '<li class=""> <a href="#" class="media"> <div class="media-body"> <p class="notification-text font-small-3 text-muted"> ' + data.data.title + '</p> </div> <span style="direction: ltr;"class="date">' + data.data.date + '</span> </a> </li>';
+    $('#appendNotifications').prepend(newNotificationHtml)
+    notificationsCount += 1;
+    notificationsCountElem.attr('data-count', notificationsCount);
+    notificationsWrapper.find('.notif-count').text(notificationsCount);
+    notificationsWrapper.show();
+
+    console.log(data);
+});
+
+not.bind('App\\Events\\RsrReportEvent', function (data) {
     var newNotificationHtml = '<li class=""> <a href="#" class="media"> <div class="media-body"> <p class="notification-text font-small-3 text-muted"> ' + data.data.title + '</p> </div> <span style="direction: ltr;"class="date">' + data.data.date + '</span> </a> </li>';
     $('#appendNotifications').prepend(newNotificationHtml)
     notificationsCount += 1;
