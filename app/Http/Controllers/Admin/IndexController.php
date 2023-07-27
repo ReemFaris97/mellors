@@ -79,7 +79,7 @@ class IndexController extends Controller
             ->orderBy('park_times.id')
             ->get()
             ->groupBy('id');
-        //  dd($total_riders);
+//          dd($total_riders);
 
         $rides = DB::table('rides')
         ->join('parks', 'parks.id', '=', 'rides.park_id')
@@ -121,12 +121,12 @@ class IndexController extends Controller
                     $ride->rideSroppageDescription = '';
                 }
 
-            } 
+            }
  //dd( $rides);
         $currentDate = Carbon::now()->toDateString();
         $currentTime = Carbon::now()->format('H:i');
-        
-        $times = ParkTime::where('date', $currentDate)                
+
+        $times = ParkTime::where('date', $currentDate)
                 ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
                     $subquery->where('close_date', $currentDate)
                         ->where('end', '>=', $currentTime);

@@ -2,51 +2,45 @@
 
 namespace App\Events;
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class test implements ShouldBroadcast
+class TotalRidersEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public $message;
-
-
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct(public $id, public $count)
     {
-        $this->message  = $message;
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return Channel|array
+     * @return \Illuminate\Broadcasting\Channel|array
      */
     public function broadcastOn()
     {
-        return ['timeSlot-notification'];
+        return new Channel('total_riders');
     }
+
     public function broadcastWith()
     {
         return [
-            'message' => [
-                'message' => $this->message,
-//                'created_at' => $this->message->created_at,
+            'data' => [
+                'id' => $this->id,
+                'count' => $this->count,
             ],
         ];
     }
+
+
 }

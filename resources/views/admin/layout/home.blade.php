@@ -19,14 +19,14 @@
                                 @if ($ride->available == "active")
                                     <!-- NOTE : kindly add class : (playHasQue) to (playBox) div if the play has Que --->
                                     <div class="playBox yes cardGame " id="rideQueue{{$ride->id}}">
-                                       
+
                                         <a href="{{url('/all-rides/'.$ride->park_id.'/'.$time->id)}}">
                                             <div class="card-box" id="rideStatus{{$ride->id}}">
                                                 <h4 class="header-title m-t-0 m-b-0">{{$ride->name}}</h4>
                                             </div>
                                         </a>
                                     </div>
-                                 @elseif($ride->available == "stopped" || "closed")
+                                @elseif($ride->available == "stopped" || "closed")
                                     <div class="playBox no cardGame " id="rideQueue{{$ride->id}}">
                                         <!-- Start Tooltip -->
                                         <div class="tooltip-outer">
@@ -51,16 +51,18 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-xs-12">
-                            @if(!($total_riders))
-                            <h4> Total Riders :
-                                @foreach($total_riders as $total_rider_id => $total_rider_rides)
-                                    @if ($total_rider_id === $time->id)
-                                        @foreach($total_rider_rides as $ride)
-                                            {{ $ride->total_rider }}
-                                        @endforeach
-                                    @endif
-                                @endforeach
-                            </h4>
+                            @if(!empty($total_riders))
+                                <h4> Total Riders :
+                                    @foreach($total_riders as $total_rider_id => $total_rider_rides)
+
+                                        @if ($total_rider_id === $time->id)
+
+                                            @foreach($total_rider_rides as $ride)
+                                                <span id="park-{{$time->park_id}}">{{ $ride->total_rider}}</span>
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                </h4>
                             @endif
                             @foreach($cycles as $cycle_rides)
                                 @foreach($queues as $queue)

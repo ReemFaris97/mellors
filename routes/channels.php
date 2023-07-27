@@ -38,3 +38,7 @@ Broadcast::channel('rsr_report', function ($user) {
 Broadcast::channel('report', function ($user) {
     return true;
 });
+
+Broadcast::channel('total_riders', function ($user) {
+    return true;
+});

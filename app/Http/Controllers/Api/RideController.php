@@ -73,6 +73,7 @@ class RideController extends Controller
         return self::apiResponse(200, __('inspections'), $this->body);
 
     }
+
     protected function rideInspectionList($id)
     {
         $inspects = RideInspectionList::where('ride_id', $id)->where('lists_type', 'inspection_list')->get();
@@ -137,6 +138,8 @@ class RideController extends Controller
         $validate['sales'] = $validate['number_of_ft'] * $ride->ride_price_ft + $validate['riders_count'] * $ride->ride_price;
         $cycle = RideCycles::query()->create($validate);
         $this->body['cycle'] = RideCycleResource::make($cycle);
+        $totalRiders = $validate['riders_count'] + $validate['number_of_disabled'] + $validate['number_of_vip'] + $validate['number_of_ft'];
+        event(new \App\Events\TotalRidersEvent($cycle->park_id, $totalRiders));
 
         return self::apiResponse(200, __('create ride cycle successfully'), $this->body);
 
@@ -151,6 +154,12 @@ class RideController extends Controller
         $cycle->update($validate);
         $this->body['cycle'] = RideCycleResource::make($cycle);
 
+        $totalRiders = $cycle->riders_count + $cycle->number_of_disabled + $cycle->number_of_vip + $cycle->number_of_ft;
+        $newRiders =  $validate['number_of_ft'] + $validate['riders_count'] + $validate['number_of_vip'] + $validate['number_of_disabled'] ;
+        if ($newRiders > $totalRiders) {
+            $total =  $newRiders - $totalRiders;
+            event(new \App\Events\TotalRidersEvent($cycle->park_id, $total));
+        }
         return self::apiResponse(200, __('update ride cycle successfully'), $this->body);
 
     }
