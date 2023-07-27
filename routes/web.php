@@ -28,6 +28,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], function () {
     Route::get('/', 'Admin\IndexController')->name('index');
+    Route::get('statistics', 'Admin\IndexController@statistics')->name('statistics');
 
     Route::resource('roles', 'Admin\RoleController'); // done
     Route::resource('users', 'Admin\UserController'); // done
@@ -195,6 +196,9 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('/add_ride_preclose_elements/{ride_id}', 'Admin\RidePreclosingController@add_ride_preclose_elements');
     Route::get('/edit_ride_preclose_elements/{ride_id}', 'Admin\RidePreclosingController@edit_ride_preclose_elements');
     Route::post('/update_ride_preclose_elements/{ride_id}', 'Admin\RidePreclosingController@update_ride_preclose_elements')->name('updatRidePrecloseElements');
+  
+    Route::resource('observations', 'Admin\ObservationController');
+
     Route::get('test', function () {
 
         event(new \App\Events\RideQueueEvent('1','active'));

@@ -186,7 +186,7 @@ class PreopeningListController extends Controller
      */
     public function update(PreopeningListRequest $request, PreopeningList $preopening_list)
     {
-        return $request;
+       // return $request;
         
         $preopening_list->update([
         'ride_id'=>$request->validated('ride_id'),
