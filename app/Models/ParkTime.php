@@ -20,4 +20,16 @@ class ParkTime extends Model
         ]);
 
     }
+
+    public function rides()
+    {
+        return $this->hasMany(Ride::class,'park_id','park_id');
+
+    }
+
+    public function cycles()
+    {
+        return $this->hasMany(RideCycles::class,'park_time_id','id');
+
+    }
 }

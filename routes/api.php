@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\RideController;
 use App\Http\Controllers\Api\RideStoppageController;
 use App\Http\Controllers\Api\SupervisorController;
@@ -54,6 +55,7 @@ Route::middleware(['auth:sanctum','settimezone'])->group(function () {
     Route::post('logout',[AuthController::class,'logout']);
     Route::get('notifications',[AuthController::class,'notifications']);
 
+    Route::get('main_page',[HomeController::class,'home']);
 
 
 });

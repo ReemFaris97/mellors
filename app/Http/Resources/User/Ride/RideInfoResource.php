@@ -6,6 +6,7 @@ use App\Http\Resources\User\ParkResource;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\ZoneResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class RideInfoResource extends JsonResource
 {
@@ -76,10 +77,23 @@ class RideInfoResource extends JsonResource
         } else {
             $preclosing = true;
         }
+        $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->first();
+        $stoppageLastDate = $this->rideStoppages?->where('ride_status', 'stopped')->last();
+        $stoppages = $this->rideStoppages?->where( 'ride_status', 'stopped' );
+        if ( $stoppageLastDate->stoppage_status == 'pending' && $stoppageLastDate->parent_id == null ) {
+            $stoppageStartTime = Carbon::now();
+            $date = Carbon::now()->toDateString();
+            $stoppageParkTimeEnd = Carbon::parse( "$date $stoppageLastDate->time_slot_start" );
+            $down_minutes = $stoppageParkTimeEnd->diffInMinutes( $stoppageStartTime );
+
+        } else {
+            $down_minutes = $stoppages?->sum( 'down_minutes' );
+        }
+
         $data['queues'] = QueueResource::make($queues);
         $data['queues_count'] = $this->queue?->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])?->count();
         $data['total_riders'] = $riders?->sum('number_of_vip') + $riders?->sum('number_of_disabled') + $riders?->sum('riders_count') + $riders?->sum('number_of_ft');
-        $data['stoppage_minutes'] = $this->rideStoppages?->where('ride_status', 'stopped')->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])?->sum('down_minutes');
+        $data['stoppage_minutes'] =  $down_minutes;
         $data['stoppage_count'] = $this->rideStoppages?->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])?->count();
         $data['cycle_count'] = $cycles?->count();
         $data['user'] = UserResource::make($user);
@@ -88,8 +102,7 @@ class RideInfoResource extends JsonResource
         $data['isPreopeningRequested'] = count($preopining) > 0;
         $data['isPreclosingRequested'] = count($closing) > 0;
 
-        $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->first();
-        $stoppageLastDate = $this->rideStoppages?->where('ride_status', 'stopped')->last();
+
 
         if ($stoppageLastDate && $stoppageLastDate?->date < dateTime()?->date && dateTime() != null) {
             addNewDateStappage($stoppageNewDate, $this);
