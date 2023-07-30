@@ -18,24 +18,12 @@ class RideMainPageResource extends JsonResource {
         $data = [
             'id' => $this->id,
             'name' => $this->name,
-            'park' => ParkResource::make( $this->park ),
             'status' => $this->rideStoppages?->last()->ride_status ?? 'active',
 
         ];
 
-
         $stoppageNewDate = $this->rideStoppages?->where( 'ride_status', 'stopped' )->first();
         $stoppageLastDate = $this->rideStoppages?->where( 'ride_status', 'stopped' )->last();
-        $stoppages = $this->rideStoppages?->where( 'ride_status', 'stopped' );
-        if ($stoppageLastDate && $stoppageLastDate?->stoppage_status == 'pending' && $stoppageLastDate?->parent_id == null ) {
-            $stoppageStartTime = Carbon::now();
-            $date = Carbon::now()->toDateString();
-            $stoppageParkTimeEnd = Carbon::parse( "$date $stoppageLastDate->time_slot_start" );
-            $down_minutes = $stoppageParkTimeEnd->diffInMinutes( $stoppageStartTime );
-
-        } else {
-            $down_minutes = $stoppages?->sum( 'down_minutes' );
-        }
 
         $queues = $this->queue
         ? $this->queue

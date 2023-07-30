@@ -25,7 +25,9 @@ class AuthController extends Controller
         }
         if (Auth::attempt($cred)) {
 
-            $user = Auth::user()->hasAnyRole(['Ride & Ops', 'Operation', 'Maintenance', 'Health & Safety', 'zone supervisor']);
+            // $user = Auth::user()->hasAnyRole(['Ride & Ops', 'Operation', 'Maintenance', 'Health & Safety', 'zone supervisor']);
+            $user = Auth::user();
+
             if (!$user) {
                 return self::apiResponse(400, __('you dont have permission'));
             }
