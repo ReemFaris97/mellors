@@ -12,5 +12,10 @@ class Observation extends Model
     {
         return $this->belongsTo(Ride::class)->withDefault();
     }
+    public function department()
+    {
+        return $this->belongsTo(Department::class,'department_id');
+    }
+
 }
 

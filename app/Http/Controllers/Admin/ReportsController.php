@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Observation;
 use App\Models\Park;
 use App\Models\PreopeningList;
 use App\Models\Ride;
@@ -15,8 +16,8 @@ use Illuminate\Support\Facades\DB;
 
 class ReportsController extends Controller
 {
-    
-   
+
+
 
     public function rideStatus()
     {
@@ -44,106 +45,137 @@ class ReportsController extends Controller
 
             if ($now->between($startDateTime, $endDateTime)) {
 
-                if ($ride->stoppageRideStatus != null ){
-                    $ride->available=$ride->stoppageRideStatus;
-                }else{
-                    $ride->available='active';
-                    $ride->ride_notes='';
-                    $ride->rideSroppageDescription='';
+                if ($ride->stoppageRideStatus != null) {
+                    $ride->available = $ride->stoppageRideStatus;
+                } else {
+                    $ride->available = 'active';
+                    $ride->ride_notes = '';
+                    $ride->rideSroppageDescription = '';
                 }
 
-            }else{
+            } else {
 
-                $ride->available='closed';
-                $ride->ride_notes='out of park time slot ';
-                $ride->rideSroppageDescription='';
+                $ride->available = 'closed';
+                $ride->ride_notes = 'out of park time slot ';
+                $ride->rideSroppageDescription = '';
             }
         }
         return view('admin.reports.ride_status', compact('rides'));
     }
     public function stoppagesReport()
     {
-        if (auth()->user()->hasRole('Super Admin')){
-            $parks=Park::pluck('name','id')->all();
-        }else{
-            $parks=auth()->user()->parks->pluck('name','id')->all();
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+        } else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
         }
         return view('admin.reports.stoppage_report', compact('parks'));
 
     }
-    public function showstoppagesReport(Request $request){
-         $from = $request->input('from');
+    public function showstoppagesReport(Request $request)
+    {
+        $from = $request->input('from');
         $to = $request->input('to');
         $park_id = $request->input('park_id');
-        $items = RideStoppages::whereBetween('opened_date',[$from, $to])
-            ->where('park_id',$park_id)
+        $items = RideStoppages::whereBetween('opened_date', [$from, $to])
+            ->where('park_id', $park_id)
             ->get();
-       //     return $items;
-            if($request->input('ride_id'))
-            {
-                $items->where('ride_id',$request->input('ride_id'));
-            } 
-            if (auth()->user()->hasRole('Super Admin')){
-                $parks=Park::pluck('name','id')->all();
-            }else{
-                $parks=auth()->user()->parks->pluck('name','id')->all();
-            }
+        //     return $items;
+        if ($request->input('ride_id')) {
+            $items->where('ride_id', $request->input('ride_id'));
+        }
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+        } else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
+        }
 
-        return view('admin.reports.stoppage_report', compact('items','parks','request'));
+        return view('admin.reports.stoppage_report', compact('items', 'parks', 'request'));
     }
     public function inspectionListReport()
     {
-        if (auth()->user()->hasRole('Super Admin')){
-            $parks=Park::pluck('name','id')->all();
-        }else{
-            $parks=auth()->user()->parks->pluck('name','id')->all();
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+        } else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
         }
         return view('admin.reports.inspection_list_report', compact('parks'));
 
     }
-    public function showInspectionListReport(Request $request){
-       $from = $request->input('from');
-       $to = $request->input('to');
-       $park_id = $request->input('park_id');
-       $items = PreopeningList::whereBetween('opened_date',[$from, $to])
-           ->where('park_id',$park_id)->where('lists_type','inspection_list')
-           ->get();
-     // return $request;
-           if($request->input('ride_id'))
-           {
-               $items->where('ride_id',$request->input('ride_id'));
-           } 
-           if (auth()->user()->hasRole('Super Admin')){
-               $parks=Park::pluck('name','id')->all();
-           }else{
-               $parks=auth()->user()->parks->pluck('name','id')->all();
-           }
+    public function showInspectionListReport(Request $request)
+    {
+        $from = $request->input('from');
+        $to = $request->input('to');
+        $park_id = $request->input('park_id');
+        $items = PreopeningList::whereBetween('opened_date', [$from, $to])
+            ->where('park_id', $park_id)->where('lists_type', 'inspection_list')
+            ->get();
+        // return $request;
+        if ($request->input('ride_id')) {
+            $items->where('ride_id', $request->input('ride_id'));
+        }
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+        } else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
+        }
+        //    dd($items);
 
-       return view('admin.reports.inspection_list_report', compact('items','parks','request'));
-   }
-   public function operatorTimeReport()
-   {
+        return view('admin.reports.inspection_list_report', compact('items', 'parks', 'request'));
+    }
+    public function operatorTimeReport()
+    {
 
-    $users = User::whereHas('roles', function ($query) {
-        $query->where('name', 'Operation');
-    })->pluck('name','id');  
-         return view('admin.reports.operator_time_report', compact('users'));
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Operation');
+        })->pluck('name', 'id');
+        return view('admin.reports.operator_time_report', compact('users'));
 
-   }
-   public function showOperatorTimeReport(Request $request)
-   {
-    $from = $request->input('from');
-    $to = $request->input('to');
-    $user_id = $request->input('user_id');
-    $items = UserLog::selectRaw('ride_id, SUM(shift_hours) as total_hours')
-    ->whereBetween('date', [$from, $to])
-    ->where('user_id', $user_id)
-    ->groupBy('ride_id')
-    ->get();
-    $users = User::whereHas('roles', function ($query) {
-        $query->where('name', 'Operation');
-    })->pluck('name','id');
-    $currentUser=User::selectRaw('name')->where('id', $user_id)->first();
-    return view('admin.reports.operator_time_report', compact('items','currentUser','users'));
-}
+    }
+    public function showOperatorTimeReport(Request $request)
+    {
+        $from = $request->input('from');
+        $to = $request->input('to');
+        $user_id = $request->input('user_id');
+        $items = UserLog::selectRaw('ride_id, SUM(shift_hours) as total_hours')
+            ->whereBetween('date', [$from, $to])
+            ->where('user_id', $user_id)
+            ->groupBy('ride_id')
+            ->get();
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Operation');
+        })->pluck('name', 'id');
+        $currentUser = User::selectRaw('name')->where('id', $user_id)->first();
+        return view('admin.reports.operator_time_report', compact('items', 'currentUser', 'users'));
+    }
+
+    public function observationReport()
+    {
+        if (auth()->user()->hasRole('Super Admin')) {
+            $rides = Ride::pluck('name', 'id')->all();
+        } else {
+            $rides = auth()->user()->rides->pluck('name', 'id')->all();
+        }
+        return view('admin.reports.observation_report', compact('rides'));
+
+    }
+    public function showObservationReport(Request $request)
+    {
+        $from = $request->input('from');
+        $to = $request->input('to');
+
+        $items = Observation::whereBetween('date_reported', [$from, $to])
+            ->get();
+        if ($request->input('ride_id')) {
+            $items->where('ride_id', $request->input('ride_id'));
+        }
+        if (auth()->user()->hasRole('Super Admin')) {
+            $rides = Ride::pluck('name', 'id')->all();
+        } else {
+            $rides = auth()->user()->rides->pluck('name', 'id')->all();
+        }
+        //    dd($items);
+
+        return view('admin.reports.observation_report', compact('items', 'request','rides'));
+    }
 }

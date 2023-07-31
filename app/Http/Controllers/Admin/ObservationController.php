@@ -36,7 +36,7 @@ class ObservationController extends Controller
     public function store(ObservationRequest $request)
     {
         $validate = $request->validated();
-        $data = Arr::except($validate, 'image');
+         $data = Arr::except($validate, 'image');
 
         $observation = Observation::query()->create($data);
         if (!empty($validate['image'])) {
