@@ -99,7 +99,7 @@
 
 @if(auth()->user()->can('zones-list')|| auth()->user()->can('zones-create'))
 <li class="has_sub">
-    <a href="javascript:void(0);" class="waves-effect"><i class="fa-solid fa-list"></i><span>Zones 
+    <a href="javascript:void(0);" class="waves-effect"><i class="fa-solid fa-list"></i><span>Zones
         </span><span class="menu-arrow"></span></a>
     <ul class="list-unstyled">
         @can('zones-list')
@@ -189,7 +189,7 @@
         @can('rides-create')
     <li><a href="{{route('admin.rides.create')}}">Add New Rides</a></li>
     @endcan
-   
+
 </ul>
 </li>
 @endif
@@ -258,7 +258,7 @@ auth()->user()->can('uploadCycleExcleFile'))
         @can('customer_feedbacks-list')
         <li><a href="{{route('admin.observations.index')}}"> Show Observations</a></li>
        @endcan
-      
+
 
     </ul>
 </li>
@@ -281,10 +281,11 @@ auth()->user()->can('inspectionListReport')|| auth()->user()->can('rideStatus'))
     @endcan
     @can('duty-report-list')
     <li><a href="{{route('admin.reports.operatorTimeReport')}}">Operator Time Report</a></li>
-    @endcan 
+    @endcan
     @can('rideStatus')
     <li><a href="{{route('admin.availability_reports.index')}}">Ride Availability Report</a></li>
     @endcan
+    <li><a href="{{route('admin.reports.observationReport')}}">Observation Report</a></li>
 </ul>
 </li>
 @endif
