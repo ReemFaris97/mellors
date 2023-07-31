@@ -29,7 +29,7 @@ Observations
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Picture
                             </th>
-                            
+
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Process
                             </th>
@@ -62,9 +62,9 @@ Observations
                                 <a >
                                     <img class="img-preview"
                                     src="{{ Storage::disk('s3')->temporaryUrl('images/'.baseName($item->image),now()->addMinutes(30)) }}"
-                                    style="height: 40px; width: 40px"></a> 
+                                    style="height: 40px; width: 40px"></a>
                                 </td>
-                              
+
                                 <td>
                                     @if(auth()->user()->can('branches-edit'))
                                         <a href="{{ route('admin.observations.edit', $item->id) }}"

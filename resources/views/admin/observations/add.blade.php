@@ -14,7 +14,7 @@
                         @include('admin.observations.form')
                         <div class="form-group">
                         <label for="name"> Upload Image </label>
-                        {!! Form::file('image[]' , [
+                        {!! Form::file('image' , [
                                                 "class" => "form-control  file_upload_preview",
                                                 "multiple" => "multiple",
                                                 "data-preview-file-type" => "text"

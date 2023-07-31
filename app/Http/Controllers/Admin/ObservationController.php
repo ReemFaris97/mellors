@@ -8,6 +8,8 @@ use App\Http\Requests\Dashboard\Observation\ObservationRequest;
 use App\Models\Department;
 use App\Models\Observation;
 use App\Traits\ImageOperations;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 
 
 class ObservationController extends Controller
@@ -20,12 +22,12 @@ class ObservationController extends Controller
         return view('admin.observations.index',compact('items'));
     }
 
-   
+
     public function create()
     {
         return view('admin.branches.add');
     }
-    
+
     public function add_observation($ride_id)
     {
         $departments=Department::pluck('name','id');
@@ -33,20 +35,19 @@ class ObservationController extends Controller
     }
     public function store(ObservationRequest $request)
     {
-        $observation = new Observation();
-        $observation->fill($request->validated());
-        $observation->save();
-        $observation_id = $observation->id;
-    
-        if ($request->has('image')) {
-            $this->Images($request, $observation, ['observation_id' => $observation_id]);
+        $validate = $request->validated();
+        $data = Arr::except($validate, 'image');
+
+        $observation = Observation::query()->create($data);
+        if (!empty($validate['image'])) {
+            $path = Storage::disk('s3')->put('images', $validate['image']);
+            $observation->update(['image' => $path]);
         }
-    
         alert()->success('Observation Added successfully !');
         return redirect()->back();
     }
 
-   
+
     public function edit($id)
     {
         $observation=Observation::find($id);
@@ -55,7 +56,7 @@ class ObservationController extends Controller
 
     }
 
-   
+
     public function update(ObservationRequest $request, Observation $observation)
     {
         $observation->update($request->validated());
@@ -64,7 +65,7 @@ class ObservationController extends Controller
         alert()->success('Updated successfully !');
         return redirect()->route('admin.observations.index');
     }
-  
+
     public function destroy($id)
     {
         $branch=Observation::find($id);
