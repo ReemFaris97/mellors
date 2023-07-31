@@ -5,6 +5,7 @@ namespace App\Http\Resources\User\Ride;
 use App\Http\Resources\User\ParkResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
+use App\Http\Resources\User\ZoneResource;
 
 class RideMainPageResource extends JsonResource {
     /**
@@ -19,6 +20,7 @@ class RideMainPageResource extends JsonResource {
             'id' => $this->id,
             'name' => $this->name,
             'status' => $this->rideStoppages?->last()->ride_status ?? 'active',
+            'zone' => ZoneResource::make( $this->zone ),
 
         ];
 
