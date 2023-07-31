@@ -198,6 +198,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::post('/update_ride_preclose_elements/{ride_id}', 'Admin\RidePreclosingController@update_ride_preclose_elements')->name('updatRidePrecloseElements');
   
     Route::resource('observations', 'Admin\ObservationController');
+    Route::get('/add_observation/{ride_id}', 'Admin\ObservationController@add_observation');
 
     Route::get('test', function () {
 

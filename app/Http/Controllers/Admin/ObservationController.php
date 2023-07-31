@@ -7,9 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Observation\ObservationRequest;
 use App\Models\Department;
 use App\Models\Observation;
+use App\Traits\ImageOperations;
+
 
 class ObservationController extends Controller
 {
+    use ImageOperations;
+
     public function index()
     {
         $items=Observation::where('date_resolved',Null)->get();
@@ -21,13 +25,25 @@ class ObservationController extends Controller
     {
         return view('admin.branches.add');
     }
-
-  
+    
+    public function add_observation($ride_id)
+    {
+        $departments=Department::pluck('name','id');
+        return view('admin.observations.add',compact('ride_id','departments'));
+    }
     public function store(ObservationRequest $request)
     {
-        Observation::create($request->validated());
-        alert()->success('Branch Added successfully !');
-        return redirect()->route('admin.branches.index');
+        $observation = new Observation();
+        $observation->fill($request->validated());
+        $observation->save();
+        $observation_id = $observation->id;
+    
+        if ($request->has('image')) {
+            $this->Images($request, $observation, ['observation_id' => $observation_id]);
+        }
+    
+        alert()->success('Observation Added successfully !');
+        return redirect()->back();
     }
 
    
@@ -51,7 +67,7 @@ class ObservationController extends Controller
   
     public function destroy($id)
     {
-        $branch=Branch::find($id);
+        $branch=Observation::find($id);
         if ($branch){
             $branch->delete();
             alert()->success('Branch deleted successfully');

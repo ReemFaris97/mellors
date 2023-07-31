@@ -50,9 +50,7 @@ trait ImageOperations
     public function Gallery($request, $model, $item)
     {
         foreach ($request['images'] as $key => $image) {
-            /*   //  $imageName = $path = \Storage::disk('public')->putFile('photos', $image['file']);
-                $imageName =time().$image['file']->getClientOriginalName();
-                Storage::putFile('images',$image['file'],$imageName); */
+           
             $path = Storage::disk('s3')->put('images', $image['file']);
 
             $model->create(['image' => $path, 'comment' => $image['comment']] + $item);

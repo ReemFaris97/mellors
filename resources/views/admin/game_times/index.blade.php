@@ -91,6 +91,11 @@
                                         <i class="fa fa-plus"></i>  Inspection Lists
                                         </button>
                                         </a>
+                                        <a href="{{url('add_observation/'.$item->id)}}">
+                                        <button type="button" id="add" class="add btn btn-danger">
+                                        <i class="fa fa-plus"></i> Add Observation 
+                                        </button>
+                                        </a>
                                       @endif
                                   </td>
 

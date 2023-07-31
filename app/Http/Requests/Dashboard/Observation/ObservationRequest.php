@@ -24,12 +24,21 @@ class ObservationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-        'date_resolved'=>'required',
-        'maintenance_feedback'=>'required',
-        'rf_number'=>'nullable',
+        'ride_id'=>'required',
+        'snag'=>'required',
+        'date_reported'=>'required',
         'department_id'=>'nullable',
-        'reported_on_tech_sheet'=>'nullable',
+        'image'=>'nullable',
     ];
+    if ($this->getMethod() == 'PATCH') {
+        $rules = [
+            'date_resolved'=>'required',
+            'maintenance_feedback'=>'required',
+            'rf_number'=>'nullable',
+            'reported_on_tech_sheet'=>'nullable'
+
+        ];
+    }
         
         return $rules;
 
