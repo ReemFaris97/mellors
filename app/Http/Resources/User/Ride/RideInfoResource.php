@@ -80,7 +80,7 @@ class RideInfoResource extends JsonResource
         $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->first();
         $stoppageLastDate = $this->rideStoppages?->where('ride_status', 'stopped')->last();
         $stoppages = $this->rideStoppages?->where( 'ride_status', 'stopped' );
-        if ( $stoppageLastDate->stoppage_status == 'pending' && $stoppageLastDate->parent_id == null ) {
+        if ( $stoppageLastDate && $stoppageLastDate?->stoppage_status == 'pending' && $stoppageLastDate?->parent_id == null ) {
             $stoppageStartTime = Carbon::now();
             $date = Carbon::now()->toDateString();
             $stoppageParkTimeEnd = Carbon::parse( "$date $stoppageLastDate->time_slot_start" );

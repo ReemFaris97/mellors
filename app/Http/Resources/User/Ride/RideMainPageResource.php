@@ -20,7 +20,7 @@ class RideMainPageResource extends JsonResource {
             'id' => $this->id,
             'name' => $this->name,
             'status' => $this->rideStoppages?->last()->ride_status ?? 'active',
-            'zone' => ZoneResource::make( $this->zone ),
+            'zone' => ZoneResource::make( $this->zone ), 
 
         ];
 
