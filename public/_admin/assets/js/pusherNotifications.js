@@ -44,8 +44,8 @@ rideQueue.bind('App\\Events\\RideQueueEvent', function (data) {
 
 });
 
-function notification() {
-    var newNotificationHtml = '<li class=""> <a href="#" class="media"> <div class="media-body"> <p class="notification-text font-small-3 text-muted"> ' + data.data.title + '</p> </div> <span style="direction: ltr;"class="date">' + data.data.date + '</span> </a> </li>';
+function notification(data) {
+    var newNotificationHtml = '<li class=""> <a href="'+data.data.action+'" class="media"> <div class="media-body"> <p class="notification-text font-small-3 text-muted"> ' + data.data.title + '</p> </div> <span style="direction: ltr;"class="date">' + data.data.date + '</span> </a> </li>';
     $('#appendNotifications').prepend(newNotificationHtml);
     notificationsCount += 1;
     notificationsCountElem.attr('data-count', notificationsCount);
@@ -53,17 +53,22 @@ function notification() {
     notificationsWrapper.show();
 }
 
-not.bind('App\\Events\\StoppageEvent', function (data) {
-    notification();
-    console.log(data);
-});
-not.bind('App\\Events\\ReportEvent', function (data) {
-    notification();
+not.bind('App\\Events\\RsrReportEvent', function (data) {
+
+    notification( data);
+
 });
 
-not.bind('App\\Events\\RsrReportEvent', function (data) {
-    notification();
+not.bind('App\\Events\\StoppageEvent', function (data) {
+
+    notification(data);
 });
+not.bind('App\\Events\\ReportEvent', function (data) {
+    console.log(data)
+    notification(data);
+});
+
+
 
 totalRiders.bind('App\\Events\\TotalRidersEvent', function (data) {
     console.log(data);

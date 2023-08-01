@@ -5,9 +5,6 @@ namespace App\Events;
 use App\Models\RideStoppages;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -22,8 +19,10 @@ class StoppageEvent implements ShouldBroadcastNow
      *
      * @return void
      */
-    public function __construct(public $id,public $title,public  $date)
+    public $action;
+    public function __construct(public $id, public $title, public $date, public $time_id, public $ride_id)
     {
+        $this->action = route('admin.showStoppages', ['ride_id' => $ride_id, 'park_time_id' => $time_id]);
     }
 
     /**
@@ -33,7 +32,7 @@ class StoppageEvent implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('User.Notifications.'.$this->id);
+        return new Channel('User.Notifications.' . $this->id);
     }
     public function broadcastWith()
     {
@@ -42,6 +41,9 @@ class StoppageEvent implements ShouldBroadcastNow
                 'id' => $this->id,
                 'title' => $this->title,
                 'date' => $this->date,
+                'time_id' => $this->time_id,
+                'ride_id' => $this->ride_id,
+                'action' => $this->action
             ],
         ];
     }

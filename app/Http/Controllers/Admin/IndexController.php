@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Park;
 use App\Models\Zone;
+use App\Models\Notification;
 
 
 class IndexController extends Controller
@@ -133,5 +134,15 @@ return view('admin.layout.home', compact('rides', 'queues', 'cycles', 'times', '
 
     public function statistics(){
         return view('admin.layout.statistics');
+    }
+
+    protected function makeAllRead(){
+        auth()->user()->notifications()->update(['read_at'=> Carbon::now()]);
+        return redirect()->back();
+    }
+
+    protected function allNotifications(){
+        $notifications = Notification::where('notifiable_id',auth()->user()->id)->latest()?->get();
+        return view('admin.notification.index',compact('notifications'));
     }
 }

@@ -11,7 +11,6 @@ use App\Models\Ride;
 use App\Models\RsrReport;
 use App\Models\User;
 use App\Notifications\RsrReportNotifications;
-use App\Notifications\StoppageNotifications;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\RsrReportsImages;
@@ -97,9 +96,11 @@ class RsrReportController extends Controller
             return $query->where('name', 'Super Admin');
         })->get();
 
+
         $data = [
             'ride_id' => $request->input('ride_id'),
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'id' => $rsrReport->id
         ];
         if ($request->has('stoppage_id')) {
             $data['title'] = 'RSR Report For Stoppage Added to ' . $rsrReport->ride?->name . ' successfully!';
@@ -108,8 +109,8 @@ class RsrReportController extends Controller
         }
         if ($users) {
             foreach ($users as $user) {
+                event(new RsrReportEvent($user->id, $data['title'], $rsrReport->created_at, $rsrReport->id));
                 Notification::send($user, new RsrReportNotifications($data));
-                event(new RsrReportEvent($user->id, $data['title'], $rsrReport->created_at));
             }
         }
         if ($request->has('stoppage_id')) {
@@ -159,7 +160,7 @@ class RsrReportController extends Controller
             'ride_inspection' => $request->validated('ride_inspection'),
             'corrective_actions_taken' => $request->validated('corrective_actions_taken'),
             'conclusion' => $request->validated('conclusion'),
-//            'type'=>$request->validated('type'),
+            //            'type'=>$request->validated('type'),
             'date' => $request->validated('date'),
             'status' => 'approved',
             'verified_by_id' => \auth()->user()->id
@@ -207,12 +208,13 @@ class RsrReportController extends Controller
         $data = [
             'ride_id' => $rsr->ride_id,
             'user_id' => Auth::user()->id,
-            'title' => 'approved ' . $rsr->ride?->name . ' successfully!'
+            'title' => 'approved ' . $rsr->ride?->name . ' successfully!',
+            'id' => $rsr->id
         ];
         if ($users) {
             foreach ($users as $user) {
                 Notification::send($user, new RsrReportNotifications($data));
-                event(new RsrReportEvent($user->id, $data['title'], Carbon::now()));
+                event(new RsrReportEvent($user->id, $data['title'], Carbon::now(), $rsr->id));
             }
         }
         alert()->success('RSR Report Approved successfully !');

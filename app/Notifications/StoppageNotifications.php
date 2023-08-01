@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
@@ -17,9 +16,12 @@ class StoppageNotifications extends Notification
      *
      * @return void
      */
+    public $action;
     public function __construct($data)
     {
         $this->data = $data;
+        $this->action = route('admin.showStoppages', ['ride_id' => $this->data['ride_id'], 'park_time_id' => dateTime()?->id]);
+
 
     }
 
@@ -40,6 +42,8 @@ class StoppageNotifications extends Notification
             'title' => $this->data['title'],
             'ride_id' => $this->data['ride_id'],
             'user_id' => $this->data['user_id'],
+            'action' => $this->action
+
         ];
     }
 
@@ -49,6 +53,8 @@ class StoppageNotifications extends Notification
             'title' => $this->data['title'],
             'ride_id' => $this->data['ride_id'],
             'user_id' => $this->data['user_id'],
+            'action' => $this->action
+
         ];
     }
 
@@ -62,11 +68,8 @@ class StoppageNotifications extends Notification
 
     public function broadcastOn()
     {
-        return new Channel('User.Notifications.'.$this->id);
+        return new Channel('User.Notifications.' . $this->id);
 
     }
-//    public function broadcastType()
-//    {
-//        return 'timeSlot-notification';
-//    }
+
 }

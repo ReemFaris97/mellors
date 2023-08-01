@@ -18,8 +18,11 @@ class RsrReportEvent implements ShouldBroadcastNow
      *
      * @return void
      */
-    public function __construct(public $id,public $title,public  $date)
+    public $action;
+    public function __construct(public $user_id, public $title, public $date, public $id)
     {
+        $this->action = route('admin.rsr_reports.show', $this->id);
+
     }
 
     /**
@@ -29,15 +32,19 @@ class RsrReportEvent implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('User.Notifications.'.$this->id);
+        return new Channel('User.Notifications.' . $this->user_id);
     }
     public function broadcastWith()
     {
+
         return [
             'data' => [
-                'id' => $this->id,
+                'user_id' => $this->user_id,
                 'title' => $this->title,
                 'date' => $this->date,
+                'id' => $this->id,
+                'action'=>$this->action
+
             ],
         ];
     }

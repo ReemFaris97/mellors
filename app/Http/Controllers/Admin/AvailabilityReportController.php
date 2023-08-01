@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\ReportEvent;
-use App\Events\StoppageEvent;
-use App\Models\MaintenanceRideStatusReport;
 use App\Models\User;
 use App\Notifications\ReportNotifications;
-use App\Notifications\StoppageNotifications;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\GameTime;
@@ -71,7 +68,8 @@ class AvailabilityReportController extends Controller
         }
         $data = [
             'title' => 'Availability Report Added successfully !',
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+    
         ];
         if ($users) {
             foreach ($users as $user) {

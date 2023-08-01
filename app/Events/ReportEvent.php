@@ -18,8 +18,11 @@ class ReportEvent implements ShouldBroadcastNow
      *
      * @return void
      */
+    public $action;
     public function __construct(public $id,public $title,public  $date)
     {
+        $this->action = route('admin.reports.showAvailabilityReport', ['park_id' => dateTime()?->park_id, 'from' => dateTime()?->date, 'to' => dateTime()?->date]);
+
     }
 
     /**
@@ -38,6 +41,7 @@ class ReportEvent implements ShouldBroadcastNow
                 'id' => $this->id,
                 'title' => $this->title,
                 'date' => $this->date,
+                'action' =>$this->action
             ],
         ];
     }

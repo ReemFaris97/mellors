@@ -50,7 +50,7 @@ if (!function_exists('addNewDateStappage')) {
 if (!function_exists('notifications')) {
     function notifications()
     {
-        return Notification::where('notifiable_id',auth()->user()->id)->get();
+        return Notification::where('notifiable_id',auth()->user()->id)->whereNull('read_at')->latest()?->get();
     }
 }
 

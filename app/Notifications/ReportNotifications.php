@@ -16,9 +16,12 @@ class ReportNotifications extends Notification
      *
      * @return void
      */
+    public $action;
     public function __construct($data)
     {
         $this->data = $data;
+        $this->action = route('admin.reports.showAvailabilityReport', ['park_id' => dateTime()?->park_id, 'from' => dateTime()?->date, 'to' => dateTime()?->date]);
+
 
     }
 
@@ -38,6 +41,8 @@ class ReportNotifications extends Notification
         return [
             'title' => $this->data['title'],
             'user_id' => $this->data['user_id'],
+            'action' => $this->action
+
         ];
     }
 
@@ -46,6 +51,8 @@ class ReportNotifications extends Notification
         return [
             'title' => $this->data['title'],
             'user_id' => $this->data['user_id'],
+            'action' => $this->action
+
         ];
     }
 
@@ -54,6 +61,7 @@ class ReportNotifications extends Notification
     {
         return new BroadcastMessage([
             'title' => $this->data['title'],
+
         ]);
     }
 

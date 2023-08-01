@@ -16,9 +16,11 @@ class RsrReportNotifications extends Notification
      *
      * @return void
      */
+    public $action;
     public function __construct($data)
     {
         $this->data = $data;
+        $this->action = route('admin.rsr_reports.show', $this->data['id']);
 
     }
 
@@ -39,6 +41,8 @@ class RsrReportNotifications extends Notification
             'title' => $this->data['title'],
             'ride_id' => $this->data['ride_id'],
             'user_id' => $this->data['user_id'],
+            'id' => $this->data['id'],
+            'action' => $this->action
         ];
     }
 
@@ -48,6 +52,9 @@ class RsrReportNotifications extends Notification
             'title' => $this->data['title'],
             'ride_id' => $this->data['ride_id'],
             'user_id' => $this->data['user_id'],
+            'id' => $this->data['id'],
+            'action' => $this->action
+
         ];
     }
 
@@ -56,6 +63,9 @@ class RsrReportNotifications extends Notification
     {
         return new BroadcastMessage([
             'title' => $this->data['title'],
+            'id' => $this->data['id'],
+            'type' => 'rsr_report'
+
         ]);
     }
 

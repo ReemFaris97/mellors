@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\PrivetChatEvent;
+use App\Events\RsrReportEvent;
 use App\Events\timeSlotNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,8 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], function () {
     Route::get('/', 'Admin\IndexController')->name('index');
     Route::get('statistics', 'Admin\IndexController@statistics')->name('statistics');
-
+    Route::get('make_all_read', 'Admin\IndexController@makeAllRead')->name('makeAllRead');
+    Route::get('all_notifications', 'Admin\IndexController@allNotifications')->name('allNotifications');
     Route::resource('roles', 'Admin\RoleController'); // done
     Route::resource('users', 'Admin\UserController'); // done
     Route::resource('departments', 'Admin\DepartmentController');
@@ -205,7 +207,8 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
 
     Route::get('test', function () {
 
-        event(new \App\Events\RideQueueEvent('1','active'));
+        event(new RsrReportEvent(2, 'qqq', 'ddd', 1));
+
         return "Event has been sent!";
 
     });
