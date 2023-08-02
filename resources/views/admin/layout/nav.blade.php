@@ -5,11 +5,14 @@
         <span>Main Page </span>
     </a>
 </li>
+@if (!auth()->user()->hasRole('Client'))
 <li>
     <a href="{{route('admin.statistics')}}" class="waves-effect"><i class="zmdi zmdi-view-dashboard"></i>
         <span>Statistics </span>
     </a>
 </li>
+@endif
+
 @if(auth()->user()->can('role-list') ||auth()->user()->can('role-create'))
 <li class="has_sub">
     <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-week"></i> <span>Roles and Permissions
