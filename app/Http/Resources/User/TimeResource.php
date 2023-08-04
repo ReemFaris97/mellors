@@ -23,6 +23,7 @@ class TimeResource extends JsonResource
             'date' => $this->date,
             'start' => $this->start,
             'end' => $this->end,
+            'close_date' => $this->close_date,
             'park_id' => $this->park_id,
             'park' => ParkResource::make($this->parks),
             'rides' => RideMainPageResource::collection($this->rides),
