@@ -168,14 +168,19 @@ class RideStoppageController extends Controller
     }
     protected function UpdateStoppageCategory(Request $request)
     {
-        $vatidate = $request->validate([
+        $validate = $request->validate([
             'id' => 'required|exists:ride_stoppages,id',
             'stopage_category_id' => 'required|exists:stopage_categories,id',
             'stopage_sub_category_id' => 'required|exists:stopage_sub_categories,id',
+            'type'=>'required',
+            'description' =>'nullable'
         ]);
-        RideStoppages::find($vatidate['id'])->update([
-            'stopage_category_id' => $vatidate['stopage_category_id'],
-            'stopage_sub_category_id' => $vatidate['stopage_sub_category_id'],
+        RideStoppages::find($validate['id'])->update([
+            'stopage_category_id' => $validate['stopage_category_id'],
+            'stopage_sub_category_id' => $validate['stopage_sub_category_id'],
+            'type' =>$validate['type'],
+            'description' =>$validate['description'],
+
         ]);
         return self::apiResponse(200, __('update stoppage categories successfully!'), []);
 
