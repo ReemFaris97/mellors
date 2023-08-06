@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="card-box">
-    @if (request()->is('show_stoppages/*/*')) 
+    @if (request()->is('show_stoppages/*/*'))
     <a href="{{url('add_stoppage/'.$ride_id.'/'.$park_time_id)}}">
             <button type="button" class="btn btn-info">Create New Stoppage</button>
     </a>
@@ -46,7 +46,7 @@
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Number
                             </th>
-                        
+
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Operator Number
                             </th>
@@ -89,7 +89,7 @@
                         @if(isset($items) )
 
                         @foreach ($items as $item)
-                        
+
                             <tr role="row" class="odd" id="row-{{ $item->id }}">
                                 <td tabindex="0" class="sorting_1">{{ $loop->iteration }}</td>
                                 <td>{{ $item->ride->name }}</td>
@@ -220,7 +220,7 @@
                                                                     isset($all_day_stoppages)?$all_day_stoppages->stopage_sub_category_id:null,
                                                                     ['class'=>'form-control js-example-basic-single ms  subCategory','id'=>'subCategory','placeholder'=>'Choose Main Category first'])!!}
 
-           
+
                                                             @if ($errors->has('stopage_sub_category_id'))
                                                             <span class="help-block">
                                                                 <strong>{{ $errors->first('stopage_sub_category_id') }}</strong>

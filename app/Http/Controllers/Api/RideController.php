@@ -2,35 +2,36 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\InspectionsRequest;
-use App\Http\Requests\Api\SubmitCycleRequest;
-use App\Http\Requests\Api\SubmitQueuesRequest;
-use App\Http\Requests\Api\UpdateCycleDurationRequest;
-use App\Http\Requests\Api\UpdateCycleRequest;
-use App\Http\Requests\Api\UpdateInspectionsRequest;
-use App\Http\Resources\User\InspectionResource;
-use App\Http\Resources\User\Ride\RideCycleResource;
-use App\Http\Resources\User\Ride\RideInfoResource;
-use App\Http\Resources\User\Ride\RideQueueResource;
-use App\Http\Resources\User\Ride\RideResource;
-use App\Http\Resources\User\Ride\StoppageResource;
-use App\Http\Resources\User\TimeSlotResource;
-use App\Models\ParkTime;
-use App\Models\PreopeningList;
-use App\Models\Queue;
 use App\Models\Ride;
-use App\Models\RideCycles;
-use App\Models\RideInspectionList;
-use App\Models\RideStoppages;
-use App\Models\StopageCategory;
 use App\Models\Zone;
-use App\Notifications\ZoneSupervisorNotifications;
-use App\Traits\Api\ApiResponse;
+use App\Models\Queue;
+use App\Models\ParkTime;
+use App\Models\RideCycles;
 use Illuminate\Http\Request;
+use App\Events\StoppageEvent;
+use App\Models\RideStoppages;
+use App\Models\PreopeningList;
 use Illuminate\Support\Carbon;
+use App\Models\StopageCategory;
+use App\Traits\Api\ApiResponse;
+use App\Models\RideInspectionList;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use App\Http\Requests\Api\InspectionsRequest;
+use App\Http\Requests\Api\SubmitCycleRequest;
+use App\Http\Requests\Api\UpdateCycleRequest;
+use App\Http\Resources\User\TimeSlotResource;
+use App\Http\Requests\Api\SubmitQueuesRequest;
+use App\Http\Resources\User\Ride\RideResource;
+use App\Http\Resources\User\InspectionResource;
+use App\Http\Resources\User\Ride\RideInfoResource;
+use App\Http\Resources\User\Ride\StoppageResource;
+use App\Notifications\ZoneSupervisorNotifications;
+use App\Http\Requests\Api\UpdateInspectionsRequest;
+use App\Http\Resources\User\Ride\RideCycleResource;
+use App\Http\Resources\User\Ride\RideQueueResource;
+use App\Http\Requests\Api\UpdateCycleDurationRequest;
 
 class RideController extends Controller
 {
@@ -113,6 +114,7 @@ class RideController extends Controller
             'user_id' => Auth::user()->id
         ];
         if ($user) {
+            event(new StoppageEvent($user->id, $data['title'], Carbon::now()->toDateTimeString(), dateTime()?->id, $ride->id));
             Notification::send($user, new ZoneSupervisorNotifications($data));
         }
         return self::apiResponse(200, __('inspections created successfully'), []);

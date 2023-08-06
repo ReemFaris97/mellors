@@ -39,25 +39,26 @@ class RideInfoResource extends JsonResource
 
         ];
         $queues = $this->queue
-            ? $this->queue
+            ? $this->queues()
                 ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
+                ->orWhereDate('start_time',dateTime()?->date)
                 ->latest()
                 ->first()
             : null;
 
         $riders = $this->cycle
-            ? $this->cycle
+            ? $this->cycle()
                 ->where('duration_seconds', 0)
-                ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
+                ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])->orWhereDate('start_time',dateTime()?->date)
             : null;
 
         $cycles = $this->cycle
-            ? $this->cycle
-                ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
+            ? $this->cycle()
+                ->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])->orWhereDate('start_time', dateTime()?->date)
             : null;
 
         $user = $this->users()?->whereHas('roles', function ($query) {
-            return $query->whereIn('name', ['Operation', 'Operation ']);
+            return $query->whereIn('name', ['Operation']);
         })->first();
         $preopining = $this->preopening_lists?->where('lists_type', 'preopening')?->whereBetween('opened_date', [dateTime()?->date, dateTime()?->close_date]);
         $inspaction = $preopining?->pluck('is_checked')?->toArray();
@@ -79,22 +80,22 @@ class RideInfoResource extends JsonResource
         }
         $stoppageNewDate = $this->rideStoppages?->where('ride_status', 'stopped')->first();
         $stoppageLastDate = $this->rideStoppages?->where('ride_status', 'stopped')->last();
-        $stoppages = $this->rideStoppages?->where( 'ride_status', 'stopped' );
-        if ( $stoppageLastDate && $stoppageLastDate?->stoppage_status == 'pending' && $stoppageLastDate?->parent_id == null ) {
+        $stoppages = $this->rideStoppages?->where('ride_status', 'stopped');
+        if ($stoppageLastDate && $stoppageLastDate?->stoppage_status == 'pending' && $stoppageLastDate?->parent_id == null) {
             $stoppageStartTime = Carbon::now();
             $date = Carbon::now()->toDateString();
-            $stoppageParkTimeEnd = Carbon::parse( "$date $stoppageLastDate->time_slot_start" );
-            $down_minutes = $stoppageParkTimeEnd->diffInMinutes( $stoppageStartTime );
+            $stoppageParkTimeEnd = Carbon::parse("$date $stoppageLastDate->time_slot_start");
+            $down_minutes = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
 
         } else {
-            $down_minutes = $stoppages?->sum( 'down_minutes' );
+            $down_minutes = $stoppages?->sum('down_minutes');
         }
 
         $data['queues'] = QueueResource::make($queues);
-        $data['queues_count'] = $this->queue?->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])?->count();
+        $data['queues_count'] = $this->queues()?->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])->orWhereDate('start_time',dateTime()?->date)?->count();
         $data['total_riders'] = $riders?->sum('number_of_vip') + $riders?->sum('number_of_disabled') + $riders?->sum('riders_count') + $riders?->sum('number_of_ft');
-        $data['stoppage_minutes'] =  $down_minutes;
-        $data['stoppage_count'] = $this->rideStoppages?->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])?->count();
+        $data['stoppage_minutes'] = $down_minutes;
+        $data['stoppage_count'] = $this->rideStoppages()?->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])->orWhereDate('date',dateTime()?->date)?->count();
         $data['cycle_count'] = $cycles?->count();
         $data['user'] = UserResource::make($user);
         $data['isPreopeningChecked'] = $inspaction;

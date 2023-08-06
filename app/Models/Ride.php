@@ -73,6 +73,11 @@ class Ride extends Model
     {
         return $this->hasOne(Queue::class, 'ride_id', 'id');
     }
+
+    public function queues()
+    {
+        return $this->hasMany(Queue::class, 'ride_id', 'id');
+    }
     public function cycle()
     {
         return $this->hasMany(RideCycles::class, 'ride_id', 'id');

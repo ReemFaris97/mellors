@@ -1,6 +1,6 @@
 Pusher.logToConsole = true;
 
-var pusher = new Pusher('d4b71e3af5d51391b4ea', {
+var pusher = new Pusher('ceda1182e958c5909414', {
     cluster: 'mt1',
     encrypted: true
 
