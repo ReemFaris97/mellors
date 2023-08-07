@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Ride;
+use App\Models\User;
+use App\Models\ParkTime;
+use Illuminate\Http\Request;
 use App\Events\StoppageEvent;
+use App\Models\RideStoppages;
+use Illuminate\Support\Carbon;
+use App\Traits\Api\ApiResponse;
+use App\Events\showNotification;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\StoppageNotifications;
+use Illuminate\Support\Facades\Notification;
+use App\Http\Resources\User\Ride\RideResource;
 use App\Http\Requests\Api\SubmitStoppageRequest;
 use App\Http\Requests\Api\UpdateStoppageRequest;
-use App\Http\Resources\User\Ride\RideResource;
 use App\Http\Resources\User\Ride\RideStoppageResource;
-use App\Models\ParkTime;
-use App\Models\Ride;
-use App\Models\RideStoppages;
-use App\Models\User;
-use App\Notifications\StoppageNotifications;
-use App\Traits\Api\ApiResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
 
 class RideStoppageController extends Controller
 {
@@ -40,6 +41,7 @@ class RideStoppageController extends Controller
         $validate['opened_date'] = $open;
         $validate['time'] = \Carbon\Carbon::now()->toTimeString();
         $stoppage = RideStoppages::query()->create($validate);
+
         event(new \App\Events\RideStatusEvent($validate['ride_id'], 'stopped', $stoppage->stopageSubCategory?->name));
 
         $users = User::whereHas('roles', function ($query) {
@@ -57,6 +59,13 @@ class RideStoppageController extends Controller
             Notification::send($user, new StoppageNotifications($data));
             event(new StoppageEvent($user->id, $data['title'], $stoppage->created_at, dateTime()?->id, $validate['ride_id']));
         }
+        $zone = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'zone supervisor');
+        })->first();
+        if ($zone) {
+            Notification::send($zone, new StoppageNotifications($data));
+            event(new showNotification($zone->id, $data['title'], $stoppage->created_at, dateTime()?->id, $validate['ride_id']));
+        }
         return self::apiResponse(200, __('stoppage added successfully'), []);
 
     }
@@ -68,6 +77,7 @@ class RideStoppageController extends Controller
             'park_time_id' => 'required|exists:park_times,id',
             'time' => 'required',
         ]);
+
 
         $time = $validate['time'];
         $ride = Ride::find($validate['ride_id']);
@@ -105,6 +115,9 @@ class RideStoppageController extends Controller
                 event(new StoppageEvent($user->id, $data['title'], $last->created_at, dateTime()?->id, $validate['ride_id']));
             }
         }
+
+
+
         return self::apiResponse(200, __('update ride status successfully'), $this->body);
 
     }

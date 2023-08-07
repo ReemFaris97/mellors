@@ -14,6 +14,7 @@ use App\Models\PreopeningList;
 use Illuminate\Support\Carbon;
 use App\Models\StopageCategory;
 use App\Traits\Api\ApiResponse;
+use App\Events\showNotification;
 use App\Models\RideInspectionList;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -105,7 +106,7 @@ class RideController extends Controller
         $ride = Ride::find($validate['ride_id']);
 
         $user = $zone->users()->whereHas('roles', function ($query) {
-            return $query->where('name', 'Operation');
+            return $query->where('name', 'zone supervisor');
         })->first();
 
         $data = [
@@ -113,8 +114,8 @@ class RideController extends Controller
             'ride_id' => $ride->id,
             'user_id' => Auth::user()->id
         ];
-        if ($user) {
-            event(new StoppageEvent($user->id, $data['title'], Carbon::now()->toDateTimeString(), dateTime()?->id, $ride->id));
+        if ($user && $validate['lists_type'] != 'inspection_list') {
+            event(new showNotification($user->id, $data['title'], Carbon::now()->toDateTimeString(), dateTime()?->id, $ride->id));
             Notification::send($user, new ZoneSupervisorNotifications($data));
         }
         return self::apiResponse(200, __('inspections created successfully'), []);
