@@ -45,7 +45,7 @@ rideQueue.bind('App\\Events\\RideQueueEvent', function (data) {
 });
 
 function notification(data) {
-    var newNotificationHtml = '<li class=""> <a href="'+data.data.action+'" class="media"> <div class="media-body"> <p class="notification-text font-small-3 text-muted"> ' + data.data.title + '</p> </div> <span style="direction: ltr;"class="date">' + data.data.date + '</span> </a> </li>';
+    var newNotificationHtml = '<li class=""> <a href="' + data.data.action + '" class="media"> <div class="media-body"> <p class="notification-text font-small-3 text-muted"> ' + data.data.title + '</p> </div> <span style="direction: ltr;"class="date">' + data.data.date + '</span> </a> </li>';
     $('#appendNotifications').prepend(newNotificationHtml);
     notificationsCount += 1;
     notificationsCountElem.attr('data-count', notificationsCount);
@@ -55,7 +55,7 @@ function notification(data) {
 
 not.bind('App\\Events\\RsrReportEvent', function (data) {
 
-    notification( data);
+    notification(data);
 
 });
 
@@ -75,3 +75,15 @@ totalRiders.bind('App\\Events\\TotalRidersEvent', function (data) {
     var oldnumber = $("#park-" + data.data.id).html();
     $("#park-" + data.data.id).html(parseInt(oldnumber) + parseInt(data.data.count));
 });
+
+
+
+const beamsClient = new PusherPushNotifications.Client({
+    instanceId: '108f46b7-7e81-4a23-b0e1-e6f44d4fdc64',
+});
+
+beamsClient.start()
+    .then(() => beamsClient.addDeviceInterest('hello'))
+    .then(() => console.log('Successfully registered and subscribed!'))
+    .catch(console.error);
+

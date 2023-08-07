@@ -43,3 +43,6 @@ var resizefunc = [];
 
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 <script src="{{asset('_admin/assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+
+
+<script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
