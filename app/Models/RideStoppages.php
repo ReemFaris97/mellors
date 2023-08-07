@@ -57,7 +57,10 @@ class RideStoppages extends Model
     {
         return $this->belongsTo(User::class)->withDefault();
     }
-
+    public function parkTime()
+    {
+        return $this->belongsTo(ParkTime::class,'park_time_id')->withDefault();
+    }
     public  function album(){
 
         return $this->hasMany(rideStoppagesImages::class,'ride_stoppages_id','id');

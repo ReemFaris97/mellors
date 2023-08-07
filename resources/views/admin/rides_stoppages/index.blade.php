@@ -97,7 +97,7 @@
                                 <td>{{ $item->user->user_number??"" }}</td>
                                 <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->opened_date }}</td>
-                                <td>{{ $item->time }}</td>
+                                <td>{{ $item->time_slot_start?? $item->parkTime->start}}</td>
                                 <td>
                                 @if($item->ride_status=='stopped')
                                 <span class=" btn-xs btn-danger">Stopped</span>
