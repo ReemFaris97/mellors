@@ -79,7 +79,7 @@ totalRiders.bind('App\\Events\\TotalRidersEvent', function (data) {
 
 
 const beamsClient = new PusherPushNotifications.Client({
-    instanceId: '108f46b7-7e81-4a23-b0e1-e6f44d4fdc64',
+    instanceId: '5ff5290c-319d-46b8-b077-84ad0350650c',
 });
 
 beamsClient.start()
