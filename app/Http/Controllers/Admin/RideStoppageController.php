@@ -88,7 +88,7 @@ class RideStoppageController extends Controller
     {
         
         // dd($request);
-        \DB::beginTransaction();
+      //  \DB::beginTransaction();
         $park_time_id = $request->park_time_id;
         $ride_id = $request->ride_id;
         $ride = Ride::findOrFail($ride_id);
@@ -102,6 +102,15 @@ class RideStoppageController extends Controller
         $data['park_id'] = $park_id;
         $data['zone_id'] = $zone_id;
         $data['user_id'] = auth()->user()->id;
+        $stoppageStartTime = Carbon::parse("$request->date $request->time_slot_start");
+        $stoppageEndTime = Carbon::parse("$request->end_date $request->time_slot_end");
+        $stoppageParkTimeEnd = Carbon::parse("$park_time->close_date $park_time->end");
+        $stoppageParkTimeStart = Carbon::parse("$park_time->date $park_time->start");
+        if($data['stoppage_status'] == "done"){
+            $data['ride_status'] = "active";
+            $data['down_minutes'] = $stoppageEndTime->diffInMinutes($stoppageStartTime);
+        }
+        else{
         $data['ride_status'] = "stopped";
         if ($data['type'] == 'all_day') {
             if($request->date === $park_time->date){
@@ -111,9 +120,7 @@ class RideStoppageController extends Controller
                 return redirect()->back();
             }
         } else{
-            $stoppageStartTime = Carbon::parse("$request->date $request->time_slot_start");
-            $stoppageParkTimeEnd = Carbon::parse("$park_time->close_date $park_time->end");
-            $stoppageParkTimeStart = Carbon::parse("$park_time->date $park_time->start");
+        
             if($stoppageStartTime >= $stoppageParkTimeStart){
             $data['down_minutes'] = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
             }else{
@@ -121,6 +128,7 @@ class RideStoppageController extends Controller
                 return redirect()->back();
             }
         }
+    }
         $data['time'] = Carbon::now()->toTimeString();
         $stoppage = RideStoppages::create($data);
 
@@ -129,7 +137,7 @@ class RideStoppageController extends Controller
         if ($request->has('images')) {
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' => $stoppage->id]);
         }
-        DB::commit();
+     //   DB::commit();
 
         alert()->success('Ride Stoppage Added successfully !');
 
