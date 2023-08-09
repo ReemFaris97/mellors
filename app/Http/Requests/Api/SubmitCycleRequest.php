@@ -27,7 +27,7 @@ class SubmitCycleRequest extends FormRequest
             'ride_id' => 'required|exists:rides,id',
             'park_id' => 'required|exists:parks,id',
             'zone_id' => 'required|exists:zones,id',
-            'park_time_id' => 'nullable|exists:park_times,id',
+            'park_time_id' => 'required|exists:park_times,id',
             'number_of_vip' => 'nullable',
             'number_of_disabled' => 'nullable',
             'number_of_ft' => 'nullable',

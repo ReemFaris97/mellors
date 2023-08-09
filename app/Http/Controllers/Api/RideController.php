@@ -139,6 +139,7 @@ class RideController extends Controller
         $ride = Ride::query()->find($validate['ride_id']);
         $validate['user_id'] = \auth()->user()->id;
         $validate['sales'] = $validate['number_of_ft'] * $ride->ride_price_ft + $validate['riders_count'] * $ride->ride_price;
+        $validate['opened_date'] = Carbon::now()->toDateString();
         $cycle = RideCycles::query()->create($validate);
         $this->body['cycle'] = RideCycleResource::make($cycle);
         $totalRiders = $validate['riders_count'] + $validate['number_of_disabled'] + $validate['number_of_vip'] + $validate['number_of_ft'];
@@ -159,9 +160,9 @@ class RideController extends Controller
         $this->body['cycle'] = RideCycleResource::make($cycle);
 
         $totalRiders = $cycle->riders_count + $cycle->number_of_disabled + $cycle->number_of_vip + $cycle->number_of_ft;
-        $newRiders =  $validate['number_of_ft'] + $validate['riders_count'] + $validate['number_of_vip'] + $validate['number_of_disabled'] ;
+        $newRiders = $validate['number_of_ft'] + $validate['riders_count'] + $validate['number_of_vip'] + $validate['number_of_disabled'];
         if ($newRiders > $totalRiders) {
-            $total =  $newRiders - $totalRiders;
+            $total = $newRiders - $totalRiders;
             event(new \App\Events\TotalRidersEvent($cycle->park_id, $total));
         }
         return self::apiResponse(200, __('update ride cycle successfully'), $this->body);
@@ -184,7 +185,9 @@ class RideController extends Controller
     {
         $validate = $request->validated();
         $validate['user_id'] = \auth()->user()->id;
-//        $validate['queue_seconds'] = $validate['queue_minutes'] * 60;
+        //        $validate['queue_seconds'] = $validate['queue_minutes'] * 60;
+        $validate['opened_date'] = Carbon::now()->toDateString();
+
         $queue = Queue::query()->create($validate);
         $this->body['queue'] = RideQueueResource::make($queue);
 
