@@ -56,6 +56,7 @@ Route::middleware(['auth:sanctum','settimezone'])->group(function () {
     Route::get('notifications',[AuthController::class,'notifications']);
 
     Route::get('main_page',[HomeController::class,'home']);
+    Route::get('test_event',[HomeController::class,'event']);
 
 
 });
