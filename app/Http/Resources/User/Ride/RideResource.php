@@ -49,7 +49,7 @@ class RideResource extends JsonResource {
 
         $riders = $this->cycle
         ? $this->cycle()
-        ->where( 'duration_seconds', 0 )
+        ->where( 'duration_seconds','!=', 0 )
         ->where(function ($query) {
             $query->whereBetween( 'start_time', [ dateTime()?->date, dateTime()?->close_date ] )
              ->orWhereDate('start_time',dateTime()?->date);
@@ -80,18 +80,20 @@ class RideResource extends JsonResource {
              ->orWhereDate('start_time',dateTime()?->date);
         })
         : null;
-
-        $stoppageNewDate = $this->rideStoppages?->where( 'ride_status', 'stopped' )->first();
-        $stoppageLastDate = $this->rideStoppages?->where( 'ride_status', 'stopped' )->last();
-        $stoppages = $this->rideStoppages?->where( 'ride_status', 'stopped' );
-        if ($stoppageLastDate && $stoppageLastDate?->stoppage_status == 'pending' && $stoppageLastDate?->parent_id == null ) {
+        $allStopagges = $this->rideStoppages()?->where(function ($query) {
+            $query->whereBetween( 'date', [ dateTime()?->date, dateTime()?->close_date ] )
+             ->orWhereDate('date',dateTime()?->date);
+        })->where( 'ride_status', 'stopped' );
+        $stoppageNewDate = $allStopagges?->first();
+        $stoppageLastDate = $allStopagges?->latest()->first();
+        if ($stoppageLastDate && $stoppageLastDate?->stoppage_status == 'pending' && $stoppageLastDate?->parent_id == null && $allStopagges->count() == 1) {
             $stoppageStartTime = Carbon::now();
             $date = Carbon::now()->toDateString();
             $stoppageParkTimeEnd = Carbon::parse( "$date $stoppageLastDate->time_slot_start" );
             $down_minutes = $stoppageParkTimeEnd->diffInMinutes( $stoppageStartTime );
 
         } else {
-            $down_minutes = $stoppages?->sum( 'down_minutes' );
+            $down_minutes = $allStopagges?->sum( 'down_minutes' );
         }
 
         $data[ 'queues' ] = QueueResource::make( $queues );
