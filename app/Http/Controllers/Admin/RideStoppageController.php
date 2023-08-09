@@ -217,9 +217,11 @@ class RideStoppageController extends Controller
         $data = $request->validated();
         $oldStoppageData=RideStoppages::findOrFail($request['stoppage_id']);
         $data['park_id'] = $oldStoppageData->park_id;
+        //dd($request['stoppage_id']);
         $data['zone_id'] = $oldStoppageData->zone_id;
         $data['ride_id'] = $oldStoppageData->ride_id;
-        $park_time = ParkTime::where('date',date('Y-m-d'))->where('park_id',$data['park_id'] )->first();
+        $park_time = ParkTime::query()->where('date',date('Y-m-d'))->where('park_id',$data['park_id'] )->get();
+      // dd($park_time);
         if(!($park_time)){
             alert()->error('Please, Set Time Slot First To Extend This Stoppage !');
             return redirect()->back();

@@ -115,8 +115,8 @@
                                <label>
                                    <select name="answer[]" id="answer_id" class="form-control answer">
                                        <option disabled> Choose...</option>
-                                       <option value="yes">Yes</option>
                                        <option value="no">No</option>
+                                       <option value="yes">Yes</option>
                                    </select>
                                </label>
                            </td>
@@ -134,8 +134,9 @@
                                <label>
                                    <select name="answer[]" id="answer_id" class="form-control answer">
                                        <option disabled> Choose...</option>
-                                       <option value="yes">Yes</option>
                                        <option value="no">No</option>
+                                       <option value="yes">Yes</option>
+
                                    </select>
                                </label>
                                           
@@ -156,8 +157,8 @@
                                <label>
                                    <select name="answer[]" id="answer_id" class="form-control answer">
                                        <option disabled> Choose...</option>
-                                       <option value="yes">Yes</option>
                                        <option value="no">No</option>
+                                       <option value="yes">Yes</option>
                                    </select>
                                </label>
                                           

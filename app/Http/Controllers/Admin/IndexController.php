@@ -24,7 +24,7 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Visitor')) {
+        if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Client')) {
             $parks = Park::pluck('id');
         } else {
             $parks = auth()->user()->parks->pluck('id');

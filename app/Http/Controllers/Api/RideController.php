@@ -142,6 +142,7 @@ class RideController extends Controller
         $cycle = RideCycles::query()->create($validate);
         $this->body['cycle'] = RideCycleResource::make($cycle);
         $totalRiders = $validate['riders_count'] + $validate['number_of_disabled'] + $validate['number_of_vip'] + $validate['number_of_ft'];
+      
         event(new \App\Events\TotalRidersEvent($cycle->park_id, $totalRiders));
 
         return self::apiResponse(200, __('create ride cycle successfully'), $this->body);

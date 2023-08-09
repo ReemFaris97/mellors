@@ -31,13 +31,13 @@ class RideStoppageRequest extends FormRequest
             'stopage_sub_category_id'=>'required',
             'ride_notes'=>'nullable',
             'date_time'=>'nullable',
-            'end_date'=>'nullable',
+            'date'=>'required',
+            'end_date' => 'nullable|date|after_or_equal:date',
             'description'=>'nullable',
             'time_slot_start'=>'nullable',
             'time_slot_end'=>'nullable',
             'type'=>'required',
             'images.*'=>'nullable',
-            'date'=>'nullable',
             'stopage_category_id'=>'nullable'
         ];
         
@@ -47,13 +47,13 @@ class RideStoppageRequest extends FormRequest
             'stopage_sub_category_id'=>'required',
             'ride_notes'=>'nullable',
             'date_time'=>'nullable',
-            'end_date'=>'nullable',
+            'date'=>'required',
+            'end_date' => 'nullable|date|after_or_equal:date',
             'time_slot_start'=>'nullable',
             'time_slot_end' => '|date_format:H:i|after:time_slot_start',
             'description'=>'nullable',
             'type'=>'required',
             'images.*'=>'nullable',
-            'date'=>'nullable',
             'stopage_category_id'=>'required'       
                ];
         }
