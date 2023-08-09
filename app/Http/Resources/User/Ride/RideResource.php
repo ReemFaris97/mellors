@@ -37,18 +37,23 @@ class RideResource extends JsonResource {
             'status' => $this->rideStoppages?->last()->ride_status ?? 'active',
 
         ];
-        $queues = $this->queues
-        ? $this->queues()
-        ->whereBetween( 'start_time', [ dateTime()?->date, dateTime()?->close_date ] )
-        ->orWhereDate('start_time',dateTime()?->date)
-        ->latest()
+
+
+        $queues = $this->queue
+        ? $this->queue()->where(function ($query) {
+            $query->whereBetween( 'start_time', [ dateTime()?->date, dateTime()?->close_date ] )
+             ->orWhereDate('start_time',dateTime()?->date);
+        })->latest()
         ->first()
         : null;
 
         $riders = $this->cycle
         ? $this->cycle()
         ->where( 'duration_seconds', 0 )
-        ->whereBetween( 'start_time', [ dateTime()?->date, dateTime()?->close_date ] )->orWhereDate('start_time',dateTime()?->date)
+        ->where(function ($query) {
+            $query->whereBetween( 'start_time', [ dateTime()?->date, dateTime()?->close_date ] )
+             ->orWhereDate('start_time',dateTime()?->date);
+        })
         : null;
 
         $inspaction = $this->preopening_lists?->where( 'lists_type', 'preopening' )?->whereBetween( 'opened_date', [ dateTime()?->date, dateTime()?->close_date ] )?->pluck( 'is_checked' )?->toArray();
@@ -70,7 +75,10 @@ class RideResource extends JsonResource {
         }
         $cycles = $this->cycle
         ? $this->cycle()
-        ->whereBetween( 'start_time', [ dateTime()?->date, dateTime()?->close_date ] )->orWhereDate('start_time',dateTime()?->date)
+        ->where(function ($query) {
+            $query->whereBetween( 'start_time', [ dateTime()?->date, dateTime()?->close_date ] )
+             ->orWhereDate('start_time',dateTime()?->date);
+        })
         : null;
 
         $stoppageNewDate = $this->rideStoppages?->where( 'ride_status', 'stopped' )->first();
@@ -87,10 +95,16 @@ class RideResource extends JsonResource {
         }
 
         $data[ 'queues' ] = QueueResource::make( $queues );
-        $data[ 'queues_count' ] = $this->queues()?->whereBetween( 'start_time', [ dateTime()?->date, dateTime()?->close_date ] )->orWhereDate('start_time',dateTime()?->date)?->count();
+        $data[ 'queues_count' ] = $this->queues()?->where(function ($query) {
+            $query->whereBetween( 'start_time', [ dateTime()?->date, dateTime()?->close_date ] )
+             ->orWhereDate('start_time',dateTime()?->date);
+        })?->count();
         $data[ 'total_riders' ] = $riders?->sum( 'number_of_vip' ) + $riders?->sum( 'number_of_disabled' ) + $riders?->sum( 'riders_count' ) + $riders?->sum( 'number_of_ft' );
         $data[ 'stoppage_minutes' ] = $down_minutes;
-        $data['stoppage_count'] = $this->rideStoppages()?->whereBetween('date', [dateTime()?->date, dateTime()?->close_date])->orWhereDate('date',dateTime()?->date)?->count();
+        $data['stoppage_count'] = $this->rideStoppages()?->where(function ($query) {
+            $query->whereBetween( 'date', [ dateTime()?->date, dateTime()?->close_date ] )
+             ->orWhereDate('date',dateTime()?->date);
+        })?->count();
         $data[ 'cycle_count' ] = $cycles?->count();
 
         $data[ 'isPreopeningChecked' ] = $inspaction;

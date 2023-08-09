@@ -68,7 +68,10 @@ not.bind('App\\Events\\ReportEvent', function (data) {
     notification(data);
 });
 
+// not.bind('App\\Events\\showNotification', function (data) {
+//     console.log(data);
 
+// });
 
 totalRiders.bind('App\\Events\\TotalRidersEvent', function (data) {
     console.log(data);
