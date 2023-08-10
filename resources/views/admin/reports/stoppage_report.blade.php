@@ -77,13 +77,16 @@
                                 Time
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride_Status
+                                Ride Status
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Stoppage Status
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Ride_Stoppage_Category
+                                Stoppage Category
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
+                                Stoppage Sub Category
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 Ride Notes
@@ -125,6 +128,7 @@
                                   <span class=" btn-xs btn-success">Solved
                                 @endif
                                 </td>
+                                <td>{{ $item->stopageCategory->name ?? "name" }}</td>
                                 <td>{{ $item->stopageSubCategory->name ?? "name" }}</td>
                                 <td>{{ $item->ride_notes }}</td>
                                 <td>{{ $item->down_minutes?? "Stop All Day" }}</td>

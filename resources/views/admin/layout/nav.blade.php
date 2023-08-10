@@ -262,7 +262,7 @@
 @if (auth()->user()->can('customer_feedbacks-list') ||
         auth()->user()->can('customer_feedbacks-create'))
     <li class="has_sub">
-        <a href="javascript:void(0);" class="waves-effect"><i class="fa-solid fa-comment-dots"></i><span>Maintenance
+        <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-tools"></i><span>Maintenance
             </span> <span class="menu-arrow"></span></a>
         <ul class="list-unstyled">
             @can('customer_feedbacks-list')

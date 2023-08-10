@@ -32,12 +32,13 @@ class showNotification implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('User.Notifications.' . $this->id);
+        return ['user-data-'.$this->data->id];
     }
     public function broadcastAs()
     {
         return 'show-notification' ;
     }
+    
 
     public function broadcastWith()
     {
