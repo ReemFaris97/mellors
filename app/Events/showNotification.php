@@ -31,7 +31,7 @@ class showNotification implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return ['User.Notification.'.$this->data->id];
+        return ['User.Notifications.'.$this->id];
     }
     public function broadcastAs()
     {
