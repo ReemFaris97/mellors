@@ -24,7 +24,6 @@ class showNotification implements ShouldBroadcastNow
     {
         $this->action = route('admin.showStoppages', ['ride_id' => $ride_id, 'park_time_id' => $time_id]);
     }
-
     /**
      * Get the channels the event should broadcast on.
      *
@@ -32,7 +31,7 @@ class showNotification implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return ['user-data-'.$this->data->id];
+        return ['User.Notification.'.$this->data->id];
     }
     public function broadcastAs()
     {
