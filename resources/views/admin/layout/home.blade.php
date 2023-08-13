@@ -32,7 +32,7 @@
                                         <!-- Start Tooltip -->
                                         <div class="tooltip-outer">
                                             <div class="tooltip-icon" id="tooltip{{ $ride->id }}" data-toggle="tooltip"
-                                                title="Stopped !!"><i class="fa fa-info-circle"> </i></div>
+                                                title="{{$ride->stoppageSubCategoryName}}!"><i class="fa fa-info-circle"> </i></div>
                                         </div>
                                         <!-- !!End Tooltip -->
                                         <a href="{{ url('/all-rides/' . $ride->park_id . '/' . $time->id) }}">

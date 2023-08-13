@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Park;
 use App\Models\Zone;
+use App\Models\StopageSubCategory;
 use App\Models\Notification;
 
 
@@ -101,6 +102,7 @@ class IndexController extends Controller
             'park_times.close_date',
             'ride_stoppages.ride_status as stoppageRideStatus',
             'ride_stoppages.ride_notes',
+            'ride_stoppages.stopage_sub_category_id as stoppageSubCategory',
             'ride_stoppages.description as rideSroppageDescription',
         ])
         ->whereIn('parks.id', $parks)
@@ -112,6 +114,11 @@ class IndexController extends Controller
             $endDateTime = Carbon::parse("$ride->close_date $ride->end");
                 if ($ride->stoppageRideStatus != null) {
                     $ride->available = $ride->stoppageRideStatus;
+                   
+                    if (!is_null($ride->stoppageSubCategory)) {
+                    $stoppageSubCategory = StopageSubCategory::find($ride->stoppageSubCategory);
+                    $ride->stoppageSubCategoryName = $stoppageSubCategory->name;
+                    }
                 } else {
                     $ride->available = 'active';
                     $ride->ride_notes = '';
