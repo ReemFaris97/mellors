@@ -22,6 +22,7 @@ class RideCycleResource extends JsonResource
             'number_of_vip' => $this->number_of_vip,
             'number_of_disabled' => $this->number_of_disabled??0,
             'riders_count' => $this->riders_count,
+            'duration_seconds' => $this->duration_seconds,
         ];
 
 

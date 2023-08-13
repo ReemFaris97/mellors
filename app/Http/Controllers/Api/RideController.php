@@ -185,7 +185,7 @@ class RideController extends Controller
     {
         $validate = $request->validated();
         $validate['user_id'] = \auth()->user()->id;
-        //        $validate['queue_seconds'] = $validate['queue_minutes'] * 60;
+        //$validate['queue_seconds'] = $validate['queue_minutes'] * 60;
         $validate['opened_date'] = Carbon::now()->toDateString();
 
         $queue = Queue::query()->create($validate);

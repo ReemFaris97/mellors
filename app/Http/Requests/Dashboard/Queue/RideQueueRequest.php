@@ -27,7 +27,7 @@ class RideQueueRequest extends FormRequest
             'ride_id'=>'required',
             'park_id'=>'required',
             'user_id'=>'required',
-            'queue_minutes'=>'required',
+            'queue_seconds'=>'required',
             'date'=>'nullable',
             'time'=>'nullable',
             'opened_date'=>'nullable',

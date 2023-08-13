@@ -69,7 +69,7 @@ class TimeResource extends JsonResource
             ->select([
                 'rides.ride_cat',
                 'park_times.id as park_time_id',
-                DB::raw('AVG(queues.queue_minutes) as avg_queue_minutes')
+                DB::raw('AVG(queues.queue_seconds / 60) as avg_queue_minutes')
             ])
             ->groupBy('rides.ride_cat', 'park_times.id')
             ->where('park_times.id', $this->id)

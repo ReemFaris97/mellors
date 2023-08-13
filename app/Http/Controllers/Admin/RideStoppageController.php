@@ -88,7 +88,7 @@ class RideStoppageController extends Controller
     {
         
         // dd($request);
-      //  \DB::beginTransaction();
+        \DB::beginTransaction();
         $park_time_id = $request->park_time_id;
         $ride_id = $request->ride_id;
         $ride = Ride::findOrFail($ride_id);
@@ -137,7 +137,7 @@ class RideStoppageController extends Controller
         if ($request->has('images')) {
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' => $stoppage->id]);
         }
-     //   DB::commit();
+        DB::commit();
 
         alert()->success('Ride Stoppage Added successfully !');
 

@@ -25,7 +25,7 @@ class SubmitQueuesRequest extends FormRequest
     {
         return [
             'ride_id' => 'required|exists:rides,id',
-            'park_time_id' => 'nullable|exists:park_times,id',
+            'park_time_id' => 'required|exists:park_times,id',
 //            'queue_minutes' => 'required|integer',
             'current_wait_time' => 'nullable',
             'riders_count' => 'required',

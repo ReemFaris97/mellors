@@ -53,7 +53,7 @@ class IndexController extends Controller
             ->join('park_times', 'queues.park_time_id', '=', 'park_times.id')
             ->join('parks', 'park_times.park_id', '=', 'parks.id')
             ->select(['rides.ride_cat', 'park_times.id as park_time_id',
-                DB::raw('AVG(queues.queue_minutes) as avg_queue_minutes')])
+                DB::raw('AVG(queues.queue_seconds  / 60) as avg_queue_minutes')])
             ->groupBy('rides.ride_cat', 'park_times.id')
             ->whereIn('park_times.id', $park_times)
             ->whereIn('parks.id', $parks)

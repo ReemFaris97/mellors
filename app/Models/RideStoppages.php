@@ -54,7 +54,7 @@ class RideStoppages extends Model
     }
     public function stopageCategory()
     {
-        return $this->belongsTo(stopageCategory::class,'stopage_category_id')->withDefault()->withTrashed();
+        return $this->belongsTo(StopageCategory::class,'stopage_category_id')->withDefault()->withTrashed();
     }
     
 
