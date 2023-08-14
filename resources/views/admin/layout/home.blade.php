@@ -96,24 +96,8 @@
                         </div>
 
                         <div class="col-lg-6 col-xs-12">
-                            <style>
-                                .item:hover .innerText {
-                                    display: block;
-                                }
-                            </style>
-                            <div class="wrapper">
-                                <div class="box pastries">
-                                    <div class="box item cupcake">Category
-                                        <div class="innerText">
-                                            <p>Ice cream fruitcake cotton candy.</p>
-                                        </div>
-                                    </div>
 
-                                </div>
-                                <div class="box textInfo">
-                                    <h2>Please, select a category first!</h2>
-                                </div>
-                            </div>
+                               
                         </div>
 
 
