@@ -24,11 +24,16 @@ rideStatus.bind('App\\Events\\RideStatusEvent', function (data) {
 
     if (data.data.status === "active") {
         document.getElementById("rideStatus" + data.data.id).style.backgroundColor = "#c6efce";
-        $("#tooltip" + data.data.id).attr("data-original-title", data.data.sub_cat);
+        $("#tooltip" + data.data.id).remove();
 
     } else {
+        $("#rideQueue2").html();
+        $("#rideQueue" + data.data.id).prepend(`<div class="tooltip-outer">
+        <div class="tooltip-icon" id="tooltip`+ data.data.id + `" data-toggle="tooltip" title="" data-original-title="` + data.data.sub_cat + `"><i class="fa fa-info-circle"> </i></div>
+        </div>`);
+
         document.getElementById("rideStatus" + data.data.id).style.backgroundColor = "#ffc7ce";
-        $("#tooltip" + data.data.id).attr("data-original-title", data.data.sub_cat);
+
     }
 
 });

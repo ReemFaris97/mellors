@@ -1,9 +1,10 @@
 <?php
 
-use App\Events\PrivetChatEvent;
-use App\Events\RsrReportEvent;
-use App\Events\timeSlotNotification;
 use Illuminate\Http\Request;
+use App\Events\RsrReportEvent;
+use App\Events\PrivetChatEvent;
+use App\Events\RideStatusEvent;
+use App\Events\timeSlotNotification;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -207,7 +208,8 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
 
     Route::get('test', function () {
 
-        event(new RsrReportEvent(2, 'qqq', 'ddd', 1));
+        // event(new RsrReportEvent(2, 'qqq', 'ddd', 1));
+        event(new RideStatusEvent(2, 'activeqq', 'eeeeeeeeee'));
 
         return "Event has been sent!";
 

@@ -20,6 +20,10 @@ use App\Http\Requests\Dashboard\Ride\RideStoppageStatusRequest;
 use App\Models\ParkTime;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\StoppageNotifications;
+
 
 class RideStoppageController extends Controller
 {
@@ -38,7 +42,7 @@ class RideStoppageController extends Controller
         } else {
             $items = RideStoppages::where('ride_status', 'stopped')->orwhere('opened_date', date('Y-m-d'))->get();
         }
-       
+
         return view('admin.rides_stoppages.index', compact('items', 'stopage_category', 'stopage_sub_category'));
     }
 
@@ -66,16 +70,16 @@ class RideStoppageController extends Controller
     {
         $items = RideStoppages::where(function ($query) use ($park_time_id, $ride_id) {
             $query->where('park_time_id', $park_time_id)
-                  ->where('type','time_slot')
-                  ->where('ride_id', $ride_id);
-        })->get(); 
-        $all_day_stoppages= RideStoppages::where(function ($query) use ($ride_id) {
+                ->where('type', 'time_slot')
+                ->where('ride_id', $ride_id);
+        })->get();
+        $all_day_stoppages = RideStoppages::where(function ($query) use ($ride_id) {
             $query->where('ride_id', $ride_id)
-                  ->where('ride_status', 'stopped');
-        })->latest()->first();   
-            $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
-            $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
-        return view('admin.rides_stoppages.index', compact('items','all_day_stoppages', 'ride_id', 'park_time_id', 'stopage_category', 'stopage_sub_category'));
+                ->where('ride_status', 'stopped');
+        })->latest()->first();
+        $stopage_category = StopageCategory::pluck('name', 'id')->toArray();
+        $stopage_sub_category = StopageSubCategory::pluck('name', 'id')->toArray();
+        return view('admin.rides_stoppages.index', compact('items', 'all_day_stoppages', 'ride_id', 'park_time_id', 'stopage_category', 'stopage_sub_category'));
     }
 
     /**
@@ -86,8 +90,10 @@ class RideStoppageController extends Controller
      */
     public function store(RideStoppageRequest $request)
     {
-        
+
         // dd($request);
+        $validate = $request->validated();
+
         \DB::beginTransaction();
         $park_time_id = $request->park_time_id;
         $ride_id = $request->ride_id;
@@ -106,33 +112,48 @@ class RideStoppageController extends Controller
         $stoppageEndTime = Carbon::parse("$request->end_date $request->time_slot_end");
         $stoppageParkTimeEnd = Carbon::parse("$park_time->close_date $park_time->end");
         $stoppageParkTimeStart = Carbon::parse("$park_time->date $park_time->start");
-        if($data['stoppage_status'] == "done"){
+        if ($data['stoppage_status'] == "done") {
             $data['ride_status'] = "active";
             $data['down_minutes'] = $stoppageEndTime->diffInMinutes($stoppageStartTime);
-        }
-        else{
-        $data['ride_status'] = "stopped";
-        if ($data['type'] == 'all_day') {
-            if($request->date === $park_time->date){
-            $data['down_minutes'] = $duration;
-            }else{
-                alert()->error('Stoppage Start Date Is Incorrect !');
-                return redirect()->back();
+        } else {
+            $data['ride_status'] = "stopped";
+            if ($data['type'] == 'all_day') {
+                if ($request->date === $park_time->date) {
+                    $data['down_minutes'] = $duration;
+                } else {
+                    alert()->error('Stoppage Start Date Is Incorrect !');
+                    return redirect()->back();
+                }
+            } else {
+
+                if ($stoppageStartTime >= $stoppageParkTimeStart) {
+                    $data['down_minutes'] = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
+                } else {
+                    alert()->error('Stoppage Time Is Incorrect !');
+                    return redirect()->back();
+                }
             }
-        } else{
-        
-            if($stoppageStartTime >= $stoppageParkTimeStart){
-            $data['down_minutes'] = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
-            }else{
-                alert()->error('Stoppage Time Is Incorrect !');
-                return redirect()->back();
+            $ride = Ride::find($validate['ride_id']);
+            $data1 = [
+                'title' => $ride?->name . ' ' . 'has stoppage status',
+                'ride_id' => $validate['ride_id'],
+                'time_id' => $park_time_id,
+                'user_id' => Auth::user()->id,
+
+            ];
+            $users = User::whereHas('roles', function ($query) {
+                return $query->where('name', 'Super Admin');
+            })->get();
+            $now = Carbon::now()->toDateTimeString();
+            foreach ($users as $user) {
+                Notification::send($user, new StoppageNotifications($data1));
+                event(new StoppageEvent($user->id, $data1['title'], $now, $park_time_id, $validate['ride_id']));
             }
         }
-    }
         $data['time'] = Carbon::now()->toTimeString();
         $stoppage = RideStoppages::create($data);
 
-        event(new RideStatusEvent($ride_id, $data['ride_status'],$stoppage->stopageSubCategory?->name));
+        event(new RideStatusEvent($ride_id, $data['ride_status'], $stoppage->stopageSubCategory?->name));
 
         if ($request->has('images')) {
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' => $stoppage->id]);
@@ -174,34 +195,61 @@ class RideStoppageController extends Controller
         $ride_id = $item->ride_id;
         $data = $request->validated();
         $park_time = ParkTime::findOrFail($request['park_time_id']);
-        $time_slot_end= $request['time_slot_end'];
-        $data['ride_status']= $item['ride_status'];
-        $data['opened_date']= $park_time->date;
-        $data['park_time_id']= $request['park_time_id'];
-        $time_slot_start= $request['time_slot_start'];
-        $stoppageStartDate= $request['date'];
-        $stopageEnddate=$request['end_date'];
+        $time_slot_end = $request['time_slot_end'];
+        $data['ride_status'] = $item['ride_status'];
+        $data['opened_date'] = $park_time->date;
+        $data['park_time_id'] = $request['park_time_id'];
+        $time_slot_start = $request['time_slot_start'];
+        $stoppageStartDate = $request['date'];
+        $stopageEnddate = $request['end_date'];
         $stoppageStartTime = Carbon::parse("$stoppageStartDate $time_slot_start");
         $stoppageParkTimeEnd = Carbon::parse("$park_time->close_date $park_time->end");
+        $ride = Ride::find($ride_id);
 
-        if ($data['type'] == 'all_day' && $request['stoppage_status'] == "working"){
+        $users = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'Super Admin');
+        })->get();
+        $now = Carbon::now()->toDateTimeString();
+
+        if ($data['type'] == 'all_day' && $request['stoppage_status'] == "working") {
             $data['down_minutes'] = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
-            $data['ride_status']="stopped";
+            $data['ride_status'] = "stopped";
+            $data1 = [
+                'title' => $ride?->name . ' ' . 'has stoppage status',
+                'ride_id' => $ride_id,
+                'time_id' => $data['park_time_id'],
+                'user_id' => Auth::user()->id,
+            ];
+            foreach ($users as $user) {
+                Notification::send($user, new StoppageNotifications($data1));
+                event(new StoppageEvent($user->id, $data1['title'], $now, $data['park_time_id'], $ride_id));
+            }
 
         } elseif ($data['type'] == 'time_slot' && $request['stoppage_status'] == "done") {
-            $stopageEndTime=Carbon::parse("$stopageEnddate $time_slot_end");
-            if($stopageEndTime <= $stoppageParkTimeEnd){
-            $data['down_minutes'] = $stopageEndTime->diffInMinutes($stoppageStartTime);
-            $data['ride_status']="active";
-            }else{
+            $stopageEndTime = Carbon::parse("$stopageEnddate $time_slot_end");
+            if ($stopageEndTime <= $stoppageParkTimeEnd) {
+                $data['down_minutes'] = $stopageEndTime->diffInMinutes($stoppageStartTime);
+                $data['ride_status'] = "active";
+                $data1 = [
+                    'title' => $ride?->name . ' ' . 'has active status',
+                    'ride_id' => $ride_id,
+                    'time_id' => $data['park_time_id'],
+                    'user_id' => Auth::user()->id,
+                ];
+                foreach ($users as $user) {
+                    Notification::send($user, new StoppageNotifications($data1));
+                    event(new StoppageEvent($user->id, $data1['title'], $now, $data['park_time_id'], $ride_id));
+                }
+            } else {
                 alert()->error('Stoppage End Time Is Incorrect !');
                 return redirect()->back();
             }
 
         }
+
         // Update the ride stoppage with the new data
         $item->update($data);
-        event(new RideStatusEvent($ride_id, $data['ride_status'],$item->stopageSubCategory?->name));
+        event(new RideStatusEvent($ride_id, $data['ride_status'], $item->stopageSubCategory?->name));
 
         if ($request->has('images')) {
             $this->Gallery($request, new rideStoppagesImages(), ['ride_stoppages_id' => $id]);
@@ -215,53 +263,69 @@ class RideStoppageController extends Controller
     public function update_stoppage_status(RideStoppageStatusRequest $request, RideStoppages $rideStoppage)
     {
         $data = $request->validated();
-        $oldStoppageData=RideStoppages::findOrFail($request['stoppage_id']);
+        $oldStoppageData = RideStoppages::findOrFail($request['stoppage_id']);
         $data['park_id'] = $oldStoppageData->park_id;
         //dd($request['stoppage_id']);
         $data['zone_id'] = $oldStoppageData->zone_id;
         $data['ride_id'] = $oldStoppageData->ride_id;
-        $park_time = ParkTime::query()->where('date',date('Y-m-d'))->where('park_id',$data['park_id'] )->first();
-      // dd($park_time);
-        if(!($park_time)){
+        $park_time = ParkTime::query()->where('date', date('Y-m-d'))->where('park_id', $data['park_id'])->first();
+        // dd($park_time);
+        if (!($park_time)) {
             alert()->error('Please, Set Time Slot First To Extend This Stoppage !');
             return redirect()->back();
-                 } else{
+        } else {
             $data['park_time_id'] = $park_time->id;
             $duration = $park_time->duration_time;
             $data['down_minutes'] = $duration;
-            $opened_date= $park_time->date;
-            $data['opened_date'] =$opened_date ;
-            $data['parent_id'] =$request['stoppage_id'] ;
+            $opened_date = $park_time->date;
+            $data['opened_date'] = $opened_date;
+            $data['parent_id'] = $request['stoppage_id'];
             $data['stopage_category_id'] = $request['stopage_category_id'];
             $data['stopage_sub_category_id'] = $request['stopage_sub_category_id'];
             $data['user_id'] = auth()->user()->id;
-        if ($request['stoppage_status'] === "done") {
-            $data['ride_status'] = "active";
-            $stopageEndTime=$request['time_slot_end'];
-            $stopageEnddate=$request['end_date'];
-            $parkTimeStart = Carbon::parse("$opened_date $park_time->start");
-            $stoppageEnd = Carbon::parse("$stopageEnddate $stopageEndTime");
-            $data['down_minutes'] = $stoppageEnd->diffInMinutes($parkTimeStart);
-           
-        } elseif ($request['stoppage_status'] === "working") {
-            $data['ride_status'] = "stopped";
-            if ($request['type'] == 'all_day') {
-                $data['type']='all_day';
-            }elseif ($request['type'] == 'time_slot') {
-                $data['type']="time_slot";
-                $data['time_slot_start']=$park_time->start;
+            if ($request['stoppage_status'] === "done") {
+                $data['ride_status'] = "active";
+                $stopageEndTime = $request['time_slot_end'];
+                $stopageEnddate = $request['end_date'];
+                $parkTimeStart = Carbon::parse("$opened_date $park_time->start");
+                $stoppageEnd = Carbon::parse("$stopageEnddate $stopageEndTime");
+                $data['down_minutes'] = $stoppageEnd->diffInMinutes($parkTimeStart);
+
+            } elseif ($request['stoppage_status'] === "working") {
+                $data['ride_status'] = "stopped";
+                if ($request['type'] == 'all_day') {
+                    $data['type'] = 'all_day';
+                } elseif ($request['type'] == 'time_slot') {
+                    $data['type'] = "time_slot";
+                    $data['time_slot_start'] = $park_time->start;
+                }
+            }
+            $ride = Ride::find($data['ride_id']);
+            $now = Carbon::now()->toDateTimeString();
+
+            $data1 = [
+                'title' => $ride?->name . ' ' . 'has' . $data['ride_status'] . ' status',
+                'ride_id' => $data['ride_id'],
+                'time_id' => $data['park_time_id'],
+                'user_id' => Auth::user()->id,
+            ];
+            $users = User::whereHas('roles', function ($query) {
+                return $query->where('name', 'Super Admin');
+            })->get();
+            foreach ($users as $user) {
+                Notification::send($user, new StoppageNotifications($data1));
+                event(new StoppageEvent($user->id, $data1['title'], $now, $data['park_time_id'], $data['ride_id']));
+            }
+            $stoppage = RideStoppages::create($data);
+        }
+        $stoppageSubCategoryName = '';
+        if ($data['stopage_sub_category_id']) {
+            $stoppageSubCategory = StopageSubCategory::find($data['stopage_sub_category_id']);
+            if ($stoppageSubCategory) {
+                $stoppageSubCategoryName = $stoppageSubCategory->name;
             }
         }
-        $stoppage = RideStoppages::create($data);
-        }  
-                     $stoppageSubCategoryName = '';
-                     if ($data['stopage_sub_category_id']) {
-                         $stoppageSubCategory = StopageSubCategory::find($data['stopage_sub_category_id']);
-                         if ($stoppageSubCategory) {
-                             $stoppageSubCategoryName = $stoppageSubCategory->name;
-                         }
-                     }
-        event(new RideStatusEvent($data['ride_id'],  $data['ride_status'],$stoppageSubCategoryName));
+        event(new RideStatusEvent($data['ride_id'], $data['ride_status'], $stoppageSubCategoryName));
 
         alert()->success('Stoppage Status ِAdded Successfully !');
         return redirect()->back();

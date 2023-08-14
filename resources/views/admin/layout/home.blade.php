@@ -32,7 +32,8 @@
                                         <!-- Start Tooltip -->
                                         <div class="tooltip-outer">
                                             <div class="tooltip-icon" id="tooltip{{ $ride->id }}" data-toggle="tooltip"
-                                                title="{{$ride->stoppageSubCategoryName}}!"><i class="fa fa-info-circle"> </i></div>
+                                                title="{{ $ride->stoppageSubCategoryName }}!"><i class="fa fa-info-circle">
+                                                </i></div>
                                         </div>
                                         <!-- !!End Tooltip -->
                                         <a href="{{ url('/all-rides/' . $ride->park_id . '/' . $time->id) }}">
@@ -63,9 +64,8 @@
                                 </h4>
                             @endif
                             @foreach ($cycles as $cycle_rides)
-                            {{-- @dd($cycle_rides) --}}
+                                {{-- @dd($cycle_rides) --}}
                                 @foreach ($queues as $queue)
-
                                     @if (($cycle_rides->park_time_id === $time->id) & ($queue->park_time_id === $time->id))
                                         <ul>
                                             @if (($cycle_rides->ride_cat === 'family') & ($queue->ride_cat === 'family'))
@@ -96,8 +96,24 @@
                         </div>
 
                         <div class="col-lg-6 col-xs-12">
+                            <style>
+                                .item:hover .innerText {
+                                    display: block;
+                                }
+                            </style>
+                            <div class="wrapper">
+                                <div class="box pastries">
+                                    <div class="box item cupcake">Category
+                                        <div class="innerText">
+                                            <p>Ice cream fruitcake cotton candy.</p>
+                                        </div>
+                                    </div>
 
-
+                                </div>
+                                <div class="box textInfo">
+                                    <h2>Please, select a category first!</h2>
+                                </div>
+                            </div>
                         </div>
 
 
