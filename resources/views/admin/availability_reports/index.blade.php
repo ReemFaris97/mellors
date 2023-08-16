@@ -7,7 +7,6 @@ Ride Availability Report
 @section('content')
 
     <div class="card-box">
-    <div class="card-box">
     <form class="formSection" action="{{url('/show-availability-report/')}}" method="GET">
             @csrf
         <div class="row">
@@ -43,15 +42,22 @@ Ride Availability Report
     </div>
 </div>
             {!!Form::close() !!}
-    </div>
+</div>
         <br><br>
-
-        <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-            <div class="row">
+     <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row">
             <div class="col-xs-12">
-                    <input type="button" value="Print Report" id="printDiv" class="btn btn-primary printBtn"></input>
+                <input type="button" value="Print Report" id="printDiv" class="btn btn-primary printBtn"></input>
+            </div>
+            <div class="col-xs-12 printable_div" id="myDivToPrint">
+                <div class="col-xs-12 printOnly">
+                    <div class="logo">
+                        <img src="{{ asset('/_admin/assets/images/logo1.png') }}" alt="Mellors-img" title="Mellors"
+                            class="image">
+                    </div>
+                    <h3 class="table-title">Ride Availability Report</h3>
                 </div>
-                <div class="col-xs-12 printable_div" id="myDivToPrint">
+                <div class="col-xs-12">
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                         <thead>
                         <tr role="row">
@@ -108,7 +114,8 @@ Ride Availability Report
             </div>
 
         </div>
-    </div>
+     </div>
+
 
 
 @endsection
@@ -126,11 +133,11 @@ $("#park").change(function() {
 });
 </script>
 <script language="javascript">
-      $('#printDiv').click(function(){
-          $('#myDivToPrint').show();
-             window.print();
-             return false;
-  });
+        $('#printDiv').click(function() {
+            $('#myDivToPrint').show();
+            window.print();
+            return false;
+        });
     </script>
 @endpush
 @section('footer')
