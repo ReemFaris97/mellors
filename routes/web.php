@@ -118,6 +118,8 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::resource('availability_reports', 'Admin\AvailabilityReportController');
     Route::get('add-availability-report/{park_id}', 'Admin\AvailabilityReportController@addAvailabilityReport')->name('addAvailabilityReport');
     Route::get('show-availability-report', 'Admin\AvailabilityReportController@showAvailabilityReport')->name('reports.showAvailabilityReport');
+    Route::get('all-reports', 'Admin\AvailabilityReportController@all')->name('availability_reports.all');
+    Route::get('availability_report/{id}/{date}/approve', 'Admin\AvailabilityReportController@approve');
 
     Route::get('rides-status', 'Admin\ReportsController@rideStatus')->name('reports.rideStatus');
     Route::get('operator-time-report', 'Admin\ReportsController@operatorTimeReport')->name('reports.operatorTimeReport');
