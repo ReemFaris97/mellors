@@ -30,8 +30,16 @@ class IndexController extends Controller
         } else {
             $parks = auth()->user()->parks->pluck('id');
         }
-        $park_times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->pluck('id');
+        //$park_times = ParkTime::where('date', date('Y-m-d'))->wherein('park_id', $parks)->pluck('id');
+        $currentDate = Carbon::now()->toDateString();
+        $currentTime = Carbon::now()->format('H:i');
 
+        $park_times = ParkTime::where('date', $currentDate)
+        ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
+            $subquery->where('close_date', $currentDate)
+                ->where('end', '>=', $currentTime);
+        })->whereIn('park_id', $parks)
+        ->pluck('id');
         $cycles = DB::table('rides')
             ->join('ride_cycles', 'rides.id', '=', 'ride_cycles.ride_id')
             ->join('park_times', 'ride_cycles.park_time_id', '=', 'park_times.id')
@@ -60,6 +68,7 @@ class IndexController extends Controller
             ->whereIn('parks.id', $parks)
             ->orderBy('park_times.id')
             ->get();
+           // dd ($queues);
 
 //get total riders
         $total_riders = DB::table('rides')
@@ -126,9 +135,7 @@ class IndexController extends Controller
                 }
 
             }
-        $currentDate = Carbon::now()->toDateString();
-        $currentTime = Carbon::now()->format('H:i');
-
+    
         $times = ParkTime::where('date', $currentDate)
                 ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
                     $subquery->where('close_date', $currentDate)
