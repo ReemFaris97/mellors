@@ -74,6 +74,7 @@ class IndexController extends Controller
            // dd ($queues);
            $stoppages = RideStoppages::whereIn('park_time_id', $park_times)
            ->whereIn('park_id', $parks)
+           ->where('stoppage_status','done')
            ->get();
          //   dd ($stoppages);
 //get total riders
