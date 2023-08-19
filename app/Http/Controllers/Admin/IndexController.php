@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Park;
+use App\Models\Ride;
 use App\Models\Zone;
 use App\Models\StopageSubCategory;
 use App\Models\Notification;

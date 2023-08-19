@@ -136,11 +136,22 @@
 
                     </div>
 
+            <div class="contentDescription">
+            <h4 class="bold">title</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi</p>
+           </div>
 
                 </div>
+         
             </div>
-
+        
         </div>
+
+      
+     
+
+    </div>
+
     @endforeach
 
 @stop
