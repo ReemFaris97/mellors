@@ -13,7 +13,7 @@
                 <div class='contentRide'>
                     <h3>{{ $time->parks->name }}: {{ $time->duration_time ?? 0 . ' minute' }}
                     </h3>
-                    <p> {{ $time->date }} : ( {{ $time->start->format('H:i') }} - {{ $time->end }} )</p>
+                    <p> {{ $time->date }} : ( {{ $time->start }} - {{ $time->end }} )</p>
                     <div class="home-flex">
                         @foreach ($rides as $ride)
                             @if ($ride->park_id === $time->parks->id)
