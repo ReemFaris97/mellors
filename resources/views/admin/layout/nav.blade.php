@@ -242,6 +242,22 @@
         </ul>
     </li>
 @endif
+@if (auth()->user()->can('rsr_reports-list') ||
+        auth()->user()->can('rsr_reports-create'))
+    <li class="has_sub">
+        <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span>Availability Reports
+            </span>
+            <span class="menu-arrow"></span></a>
+        <ul class="list-unstyled">
+            @can('rsr_reports-list')
+                <li><a href="{{ route('admin.availability_reports.all') }}">All Ride availability Reports</a></li>
+            @endcan
+            @can('rsr_reports-create')
+                <li><a href="{{ route('admin.parks.index') }}">Add Ride availability Report</a></li>
+            @endcan
+        </ul>
+    </li>
+@endif
 @if (auth()->user()->can('customer_feedbacks-list') ||
         auth()->user()->can('customer_feedbacks-create'))
     <li class="has_sub">

@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    observation Report
+    Observation Report
 @endsection
 
 @section('content')
@@ -54,7 +54,7 @@
                         <img src="{{ asset('/_admin/assets/images/logo1.png') }}" alt="Mellors-img" title="Mellors"
                             class="image">
                     </div>
-                    <h3 class="table-title">Inspection Lists Report</h3>
+                    <h3 class="table-title">Observation Report</h3>
                 </div>
                 <div class="col-xs-12">
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">

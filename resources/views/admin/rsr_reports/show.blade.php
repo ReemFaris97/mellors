@@ -75,7 +75,7 @@
                     <td  style="border-color: #0b0b0b">Report Verified by</td>
                     @if($rsrReport->status=='pending')
 
-                    <td  style="border-color: #0b0b0b">RSR report not Verified yet</td>
+                    <td  style="border-color: #0b0b0b">RSR Report not Verified yet</td>
                     @else
                     <td  style="border-color: #0b0b0b">{{ auth()->user()->name}}</td>
                     @endif

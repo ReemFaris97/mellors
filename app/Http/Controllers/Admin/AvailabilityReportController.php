@@ -31,6 +31,11 @@ class AvailabilityReportController extends Controller
         }
         return view('admin.availability_reports.index', compact('parks'));
     }
+    public function all()
+    {
+        $items = GameTime::where('date',Carbon::now()->format('Y-m-d'))->groupBy('park_id')->get() ;
+        return view('admin.availability_reports.all_reports', compact('items'));
+    }
 
     public function addAvailabilityReport($id)
     {
@@ -92,7 +97,9 @@ class AvailabilityReportController extends Controller
 
     public function show($id)
     {
-
+        $items = GameTime::where('park_id',$id)->where('date', Carbon::now()->format('Y-m-d'))->get();
+        $item = GameTime::where('park_id',$id)->where('date', Carbon::now()->format('Y-m-d'))->first();
+        return view('admin.availability_reports.show', compact('items','item'));
     }
 
     public function update(Request $request)
@@ -141,7 +148,7 @@ class AvailabilityReportController extends Controller
         $items = GameTime::whereBetween('date', [$from, $to])
             ->where('park_id', $park_id)
             ->get();
-        //     return $items;
+        //  return $items;
         if ($request->input('ride_id')) {
             $items->where('ride_id', $request->input('ride_id'));
         }
@@ -170,5 +177,33 @@ class AvailabilityReportController extends Controller
         return redirect()->route('admin.park.index');
     }
 
+    public function approve($id,$date)
+    {
+        $park_name = Park::where('id', $id)->pluck('name')->first();
+
+        $reports = GameTime::where('park_id',$id)->where('date',$date)->get();
+        
+        foreach ($reports as $report) {
+            $report->status = 'approved';
+            $report->verified_by_id = auth()->user()->id;
+            $report->save();
+        }
+        $users = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'Super Admin');
+        })->get();
+
+        $data = [
+            'user_id' => Auth::user()->id,
+            'title' => 'Ride Availability Report to park ' . $park_name . 'verified successfully!',
+        ];
+          if ($users) {
+            foreach ($users as $user) {
+                Notification::send($user, new ReportNotifications($data));
+                event(new ReportEvent($user->id, $data['title'], Carbon::now()));
+            }
+        }
+        alert()->success('Availabilty Report Approved successfully !');
+        return redirect()->route('admin.availability_reports.all');
+    }
 
 }
