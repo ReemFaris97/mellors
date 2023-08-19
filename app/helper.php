@@ -14,8 +14,7 @@ if (!function_exists('dateTime')) {
         $parks = auth()->user()->parks->pluck('id');
         $time = ParkTime::where('date', $currentDate)
             ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
-                $subquery->where('close_date', $currentDate)
-                    ->where('end', '>=', $currentTime);
+                $subquery->where('close_date', $currentDate);
             })->whereIn('park_id', $parks)
             ->first();
         return $time;
