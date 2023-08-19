@@ -37,6 +37,7 @@ rideStatus.bind('App\\Events\\RideStatusEvent', function (data) {
     }
 
 });
+
 rideQueue.bind('App\\Events\\RideQueueEvent', function (data) {
     console.log(data);
     if (data.data.status === "active") {
@@ -48,6 +49,11 @@ rideQueue.bind('App\\Events\\RideQueueEvent', function (data) {
     }
 
 });
+
+function playSound() {
+    const audio = new Audio('/audios/notification.mp3');
+    audio.play();
+}
 
 function notification(data) {
     var newNotificationHtml = '<li class=""> <a href="' + data.data.action + '" class="media"> <div class="media-body"> <p class="notification-text font-small-3 text-muted"> ' + data.data.title + '</p> </div> <span style="direction: ltr;"class="date">' + data.data.date + '</span> </a> </li>';
@@ -61,16 +67,19 @@ function notification(data) {
 not.bind('App\\Events\\RsrReportEvent', function (data) {
 
     notification(data);
+    playSound();
 
 });
 
 not.bind('App\\Events\\StoppageEvent', function (data) {
 
     notification(data);
+    playSound();
 });
 not.bind('App\\Events\\ReportEvent', function (data) {
     console.log(data)
     notification(data);
+    playSound();
 });
 
 // not.bind('App\\Events\\showNotification', function (data) {

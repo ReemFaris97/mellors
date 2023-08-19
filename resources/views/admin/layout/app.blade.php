@@ -69,7 +69,7 @@
                                                     data-count="{{ notifications()->count() }}">{{ notifications()->count() }}</span>
                                             </a>
 
-                                            <ul class="dropdown-menu" id="appendNotifications" style="width:300px">
+                                            <ul class="dropdown-menu" id="appendNotifications" style="width:388px">
 
                                                 @forelse(notifications() as $not)
                                                     <li class="">
