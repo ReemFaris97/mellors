@@ -54,13 +54,15 @@
                         <div class="col-lg-6 col-xs-12">
                             @if (!empty($total_riders))
                                 <h4> Total Riders :
-                                    @foreach ($total_riders as $total_rider_id => $total_rider_rides)
+                                    @forelse ($total_riders as $total_rider_id => $total_rider_rides)
                                         @if ($total_rider_id === $time->id)
                                             @foreach ($total_rider_rides as $ride)
                                                 <span id="park-{{ $time->park_id }}">{{ $ride->total_rider }}</span>
                                             @endforeach
                                         @endif
-                                    @endforeach
+                                    @empty
+                                        <span id="park-{{ $time->park_id }}">0</span>
+                                    @endforelse
                                 </h4>
                             @endif
                     
@@ -128,7 +130,7 @@
 
                         <div class="col-lg-6 col-xs-12">
 
-                               
+
                         </div>
 
 

@@ -49,7 +49,7 @@ class RideStoppageController extends Controller
         })->get();
 
         $data = [
-            'title' => $stoppage->ride?->name . ' ' . 'has stoppage status',
+            'title' => $stoppage->ride?->name . ' ' . 'has stoppage status because of ' .$stoppage->stopageSubCategory->name,
             'ride_id' => $validate['ride_id'],
             'time_id' => dateTime()?->id,
             'user_id' => Auth::user()->id,
