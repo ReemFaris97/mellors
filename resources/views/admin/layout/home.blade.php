@@ -13,7 +13,7 @@
                 <div class='contentRide'>
                     <h3>{{ $time->parks->name }}: {{ $time->duration_time ?? 0 . ' minute' }}
                     </h3>
-                    <p> {{ $time->date }} : ( {{ $time->start }} - {{ $time->end }} )</p>
+                    <p> {{ $time->date }} : ( {{ $time->start->format('H:i') }} - {{ $time->end }} )</p>
                     <div class="home-flex">
                         @foreach ($rides as $ride)
                             @if ($ride->park_id === $time->parks->id)
@@ -137,8 +137,21 @@
                     </div>
 
             <div class="contentDescription">
-            <h4 class="bold">title</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi</p>
+                 @php
+                    $groupedStoppages = $stoppages->groupBy('stopage_category_id');
+                @endphp
+
+                    @foreach ($groupedStoppages as $categoryId => $categoryStoppages)
+                        <h4 class="bold">{{$categoryStoppages->first()->stopageCategory->name}}</h4>
+                        @foreach ($categoryStoppages as $stoppage)
+                            @if ($stoppage->park_time_id === $time->id)
+                                <p>{{$stoppage->down_minutes}} mins {{$stoppage->ride->name}} {{$stoppage->stopageSubCategory->name}} {{$stoppage->description ??''}}</p>
+                            @endif
+                        @endforeach
+                    @endforeach
+        
+
+
            </div>
 
                 </div>

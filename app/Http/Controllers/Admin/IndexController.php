@@ -72,7 +72,10 @@ class IndexController extends Controller
             ->orderBy('park_times.id')
             ->get();
            // dd ($queues);
-
+           $stoppages = RideStoppages::whereIn('park_time_id', $park_times)
+           ->whereIn('park_id', $parks)
+           ->get();
+         //   dd ($stoppages);
 //get total riders
         $total_riders = DB::table('rides')
             ->join('ride_cycles', 'rides.id', '=', 'ride_cycles.ride_id')
@@ -146,7 +149,7 @@ class IndexController extends Controller
                 })->whereIn('park_id', $parks)
                 ->get();
 
-return view('admin.layout.home', compact('rides', 'queues', 'cycles', 'times', 'total_riders'));
+return view('admin.layout.home', compact('stoppages','rides', 'queues', 'cycles', 'times', 'total_riders'));
     }
 
     public function statistics(){
