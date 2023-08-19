@@ -20,7 +20,7 @@ class StoppageNotifications extends Notification
     public function __construct($data)
     {
         $this->data = $data;
-        $this->action = route('admin.showStoppages', ['ride_id' => $this->data['ride_id'], 'park_time_id' => dateTime()?->id]);
+        $this->action = route('admin.showStoppages', ['ride_id' => $this->data['ride_id'], 'park_time_id' => $this->data['time_id']]);
 
 
     }
