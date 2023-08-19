@@ -65,35 +65,66 @@
                                     @endforelse
                                 </h4>
                             @endif
-                            @foreach ($cycles as $cycle_rides)
-                                {{-- @dd($cycle_rides) --}}
-                                @foreach ($queues as $queue)
-                                    @if (($cycle_rides->park_time_id === $time->id) & ($queue->park_time_id === $time->id))
-                                        <ul>
-                                            @if (($cycle_rides->ride_cat === 'family') & ($queue->ride_cat === 'family'))
-                                                <li>Family Riders :{{ $cycle_rides->total_rider }}
-                                                    - Avg Queue :{{ $queue->avg_queue_minutes }} min
-                                                    - Avg Cycles : {{ $cycle_rides->avg_duration }} Sec
-                                                </li>
-                                            @endif
+                    
+            @php
+                $displayedRideCat = [];
+            @endphp
 
-                                            @if (($cycle_rides->ride_cat === 'thrill') & ($queue->ride_cat === 'thrill'))
-                                                <li>Thrill Riders :{{ $cycle_rides->total_rider }}
-                                                    - Avg Queue :{{ $queue->avg_queue_minutes }} min
-                                                    - Avg Cycles : {{ $cycle_rides->avg_duration }}
-                                                </li>
-                                            @endif
-                                            @if (($cycle_rides->ride_cat === 'kids') & ($queue->ride_cat === 'kids'))
-                                                <li>Kids Riders :{{ $cycle_rides->total_rider }}
-                                                    - Avg Queue :{{ $queue->avg_queue_minutes }} min
-                                                    - Avg Cycles : {{ $cycle_rides->avg_duration }}
-                                                </li>
-                                            @endif
+            @foreach ($cycles as $cycle_rides)
+                @php
+                $queueFound = false;
+                $cycleFound = false;
+                @endphp
 
-                                        </ul>
+                @foreach ($queues as $queue)
+                    @if (($cycle_rides->park_time_id === $time->id) && ($queue->park_time_id === $time->id) && ($cycle_rides->ride_cat === $queue->ride_cat))
+                        @if (!in_array($cycle_rides->ride_cat, $displayedRideCat))
+                            <ul>
+                                <li>{{ ucfirst($cycle_rides->ride_cat) }} Riders: {{ $cycle_rides->total_rider }}
+                                    @if ($queue->avg_queue_minutes !== null)
+                                        - Avg Queue: {{ number_format($queue->avg_queue_minutes, 1) }} min
                                     @endif
-                                @endforeach
-                            @endforeach
+                                    @if ($cycle_rides->avg_duration !== null)
+                                    - Avg Cycles: {{ number_format($cycle_rides->avg_duration, 1) }} Sec
+                                    @endif
+                                </li>
+                            </ul>
+                            @php
+                                $displayedRideCat[] = $cycle_rides->ride_cat;
+                            @endphp
+                        @endif
+                        @php
+                            $queueFound = true;
+                            $cycleFound = true;
+
+                        @endphp
+                        @break
+                    @endif
+                @endforeach
+
+                @if (!$queueFound && !in_array($cycle_rides->ride_cat, $displayedRideCat))
+                    <ul>
+                        <li>{{ ucfirst($cycle_rides->ride_cat) }} Riders: {{ $cycle_rides->total_rider }}
+                            - Avg Cycles: {{ number_format($cycle_rides->avg_duration, 1) }} Sec
+                        </li>
+                    </ul>
+                    @php
+                        $displayedRideCat[] = $cycle_rides->ride_cat;
+                    @endphp
+                @endif
+                @if (!$cycleFound && !in_array($queue->ride_cat, $displayedRideCat))
+                    <ul>
+                        <li>
+                        - Avg Queue: {{ number_format($queue->avg_queue_minutes, 1) }} min
+                        </li>
+                    </ul>
+                    @php
+                        $displayedRideCat[] = $cycle_rides->ride_cat;
+                    @endphp
+                @endif
+
+            @endforeach
+
 
                         </div>
 
