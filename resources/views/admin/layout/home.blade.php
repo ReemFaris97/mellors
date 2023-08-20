@@ -136,11 +136,35 @@
 
                     </div>
 
+            <div class="contentDescription">
+                 @php
+                    $groupedStoppages = $stoppages->groupBy('stopage_category_id');
+                @endphp
+
+                    @foreach ($groupedStoppages as $categoryId => $categoryStoppages)
+                        <h4 class="bold">{{$categoryStoppages->first()->stopageCategory->name}}</h4>
+                        @foreach ($categoryStoppages as $stoppage)
+                            @if ($stoppage->park_time_id === $time->id)
+                                <p>{{$stoppage->down_minutes}} mins {{$stoppage->ride->name}} {{$stoppage->stopageSubCategory->name}} {{$stoppage->description ??''}}</p>
+                            @endif
+                        @endforeach
+                    @endforeach
+        
+
+
+           </div>
 
                 </div>
+         
             </div>
-
+        
         </div>
+
+      
+     
+
+    </div>
+
     @endforeach
 
 @stop
