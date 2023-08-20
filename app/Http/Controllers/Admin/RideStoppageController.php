@@ -113,21 +113,7 @@ class RideStoppageController extends Controller
         $stoppageParkTimeEnd = Carbon::parse("$park_time->close_date $park_time->end");
         $stoppageParkTimeStart = Carbon::parse("$park_time->date $park_time->start");
         $ride = Ride::find($validate['ride_id']);
-        $data1 = [
-            'title' => $ride?->name . ' ' . 'has stoppage status',
-            'ride_id' => $validate['ride_id'],
-            'time_id' => $park_time_id,
-            'user_id' => Auth::user()->id,
 
-        ];
-        $users = User::whereHas('roles', function ($query) {
-            return $query->where('name', 'Super Admin');
-        })->get();
-        $now = Carbon::now()->toDateTimeString();
-        foreach ($users as $user) {
-            Notification::send($user, new StoppageNotifications($data1));
-            event(new StoppageEvent($user->id, $data1['title'], $now, $park_time_id, $validate['ride_id']));
-        }
         if ($data['stoppage_status'] == "done") {
             $data['ride_status'] = "active";
             $data['down_minutes'] = $stoppageEndTime->diffInMinutes($stoppageStartTime);
@@ -153,7 +139,21 @@ class RideStoppageController extends Controller
         }
         $data['time'] = Carbon::now()->toTimeString();
         $stoppage = RideStoppages::create($data);
+        $data1 = [
+            'title' => $ride?->name . ' ' . 'has '. $data['ride_status'] .' because of ' .$stoppage->stopageSubCategory->name,
+            'ride_id' => $validate['ride_id'],
+            'time_id' => $park_time_id,
+            'user_id' => Auth::user()->id,
 
+        ];
+        $users = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'Super Admin');
+        })->get();
+        $now = Carbon::now()->toDateTimeString();
+        foreach ($users as $user) {
+            Notification::send($user, new StoppageNotifications($data1));
+            event(new StoppageEvent($user->id, $data1['title'], $now, $park_time_id, $validate['ride_id']));
+        }
         event(new RideStatusEvent($ride_id, $data['ride_status'], $stoppage->stopageSubCategory?->name));
 
         if ($request->has('images')) {
