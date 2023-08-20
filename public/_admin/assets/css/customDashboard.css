@@ -494,6 +494,14 @@ div.dataTables_paginate {
 }
 .notification-box .media-body .notification-text {
     padding-left: 0.5rem;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+    word-wrap: break-word;
 }
 .notification-box .dropdown-menu-header{
     color: var(--text);
@@ -613,6 +621,32 @@ td.no.noImportant {
     background-clip: padding-box;
     margin-bottom: 20px;
     background-color: #fff;
+}
+.contentRide_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.contentRide_title{
+    text-transform: capitalize; 
+}
+.contentRide_mins{
+    text-align: right; 
+}
+.total_riders{
+    text-align: right;
+}
+.riders_list  .playHasQue{
+    color: #ebab43;
+}
+.riders_list .cycle{
+    background-color: #c6efce;
+}
+.contentDescription .bold {
+    background-color: #ffc7ce;
+    width: max-content;
+    text-transform: capitalize;
+    padding: 0.3rem 0.6rem;
 }
 textarea.editTextArea {
     width: 100%;
@@ -910,7 +944,7 @@ table.dataTable.dtr-inline.collapsed
 }
 .home-flex .playBox.playHasQue .card-box {
     border-color: #ebab43;
-}
+} 
 .home-flex .playBox .tooltip-outer{
     position: absolute;
     right: .5rem;
