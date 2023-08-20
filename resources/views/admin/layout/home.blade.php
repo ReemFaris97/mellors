@@ -103,6 +103,8 @@
                 @endforeach
 
                 @if (!$queueFound && !in_array($cycle_rides->ride_cat, $displayedRideCat))
+                @if (($cycle_rides->park_time_id === $time->id))
+
                     <ul>
                         <li>{{ ucfirst($cycle_rides->ride_cat) }} Riders: {{ $cycle_rides->total_rider }}
                             - Avg Cycles: {{ number_format($cycle_rides->avg_duration, 1) }} Sec
@@ -112,8 +114,10 @@
                         $displayedRideCat[] = $cycle_rides->ride_cat;
                     @endphp
                 @endif
+                @endif
                 @if (!$cycleFound && !in_array($queue->ride_cat, $displayedRideCat))
-                    <ul>
+                @if ( ($queue->park_time_id === $time->id) )
+                <ul>
                         <li>
                         - Avg Queue: {{ number_format($queue->avg_queue_minutes, 1) }} min
                         </li>
@@ -121,7 +125,8 @@
                     @php
                         $displayedRideCat[] = $cycle_rides->ride_cat;
                     @endphp
-                @endif
+                    @endif
+                    @endif
 
             @endforeach
 
@@ -140,9 +145,10 @@
                  @php
                     $groupedStoppages = $stoppages->groupBy('stopage_category_id');
                 @endphp
-
                     @foreach ($groupedStoppages as $categoryId => $categoryStoppages)
+                    @if ($categoryStoppages->first()->park_time_id === $time->id)
                         <h4 class="bold">{{$categoryStoppages->first()->stopageCategory->name}}</h4>
+                    @endif
                         @foreach ($categoryStoppages as $stoppage)
                             @if ($stoppage->park_time_id === $time->id)
                                 <p>{{$stoppage->down_minutes}} mins {{$stoppage->ride->name}} {{$stoppage->stopageSubCategory->name}} {{$stoppage->description ??''}}</p>
@@ -159,11 +165,6 @@
             </div>
         
         </div>
-
-      
-     
-
-    </div>
 
     @endforeach
 
