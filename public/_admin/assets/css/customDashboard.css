@@ -639,8 +639,14 @@ td.no.noImportant {
 .riders_list  .playHasQue{
     color: #ebab43;
 }
+.riders_list  .playHasCycle{
+    color: #c6efce;
+}
 .riders_list .cycle{
     background-color: #c6efce;
+}
+.riders_list .que{
+    background-color: #fad08c;
 }
 .contentDescription .bold {
     background-color: #ffc7ce;
