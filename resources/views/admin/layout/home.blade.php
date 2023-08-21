@@ -11,9 +11,13 @@
 
             <div class="col-lg-12 col-xs-12">
                 <div class='contentRide'>
-                    <h3>{{ $time->parks->name }}: {{ $time->duration_time ?? 0 . ' minute' }}
-                    </h3>
-                    <p> {{ $time->date }} : ( {{ $time->start }} - {{ $time->end }} )</p>
+                    <div class="contentRide_header">
+                        <h3 class="contentRide_title" class="bold">{{ $time->parks->name }}</h3> 
+                        <div class="contentRide_mins">
+                            <h3  class="contentRide_title">Park Hours : {{ $time->duration_time ?? 0 . ' minute' }} </h3>
+                            <p> {{ $time->date }} : ( {{ $time->start }} - {{ $time->end }} )</p>
+                        </div>
+                    </div>
                     <div class="home-flex">
                         @foreach ($rides as $ride)
                             @if ($ride->park_id === $time->parks->id)
@@ -58,9 +62,9 @@
                         @endforeach
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 col-xs-12">
+                        <div class="col-xs-12">
                             @if (!empty($total_riders))
-                                <h4> Total Riders :
+                                <div class="total_riders" ><h3 class="contentRide_title"> Total Riders :
                                     @forelse ($total_riders as $total_rider_id => $total_rider_rides)
                                         @if ($total_rider_id === $time->id)
                                             @foreach ($total_rider_rides as $ride)
@@ -70,7 +74,8 @@
                                     @empty
                                         <span id="park-{{ $time->park_id }}">0</span>
                                     @endforelse
-                                </h4>
+                                            </h3>
+                                </div>
                             @endif
 
                             @php
@@ -89,15 +94,19 @@
                                             $queue->park_time_id === $time->id &&
                                             $cycle_rides->ride_cat === $queue->ride_cat)
                                         @if (!in_array($cycle_rides->ride_cat, $displayedRideCat))
-                                            <ul>
+                                            <ul class="riders_list">
                                                 <li>{{ ucfirst($cycle_rides->ride_cat) }} Riders:
                                                     {{ $cycle_rides->total_rider }}
-                                                    @if ($queue->avg_queue_minutes !== null)
-                                                        - Avg Queue: {{ number_format($queue->avg_queue_minutes, 1) }} min
+                                                   
+                                                   @if ($queue->avg_queue_minutes !== null)
+                                                      <!-- NOTE : kindly add class : (playHasQue) to <li></li>  if label: Avg Queue ---> 
+                                                      <span class="playHasQue">   - Avg Queue: {{ number_format($queue->avg_queue_minutes, 1) }} min </span>
                                                     @endif
                                                     @if ($cycle_rides->avg_duration !== null)
+                                                    <span class="cycle">
                                                         - Avg Cycles: {{ number_format($cycle_rides->avg_duration, 1) }}
                                                         Sec
+                                                        </span>
                                                     @endif
                                                 </li>
                                             </ul>
@@ -114,27 +123,33 @@
                                 @endif
                             @endforeach
 
-                            @if (!$queueFound && !in_array($cycle_rides->ride_cat, $displayedRideCat))
-                                <ul>
-                                    <li>{{ ucfirst($cycle_rides->ride_cat) }} Riders: {{ $cycle_rides->total_rider }}
-                                        - Avg Cycles: {{ number_format($cycle_rides->avg_duration, 1) }} Sec
-                                    </li>
-                                </ul>
-                                @php
-                                    $displayedRideCat[] = $cycle_rides->ride_cat;
-                                @endphp
-                            @endif
-                            @if (!$cycleFound && !in_array($queue->ride_cat, $displayedRideCat))
-                                <ul>
-                                    <li>
-                                        - Avg Queue: {{ number_format($queue->avg_queue_minutes, 1) }} min
-                                    </li>
-                                </ul>
-                                @php
-                                    $displayedRideCat[] = $cycle_rides->ride_cat;
-                                @endphp
-                            @endif
-                        @endforeach
+                @if (!$queueFound && !in_array($cycle_rides->ride_cat, $displayedRideCat))
+                @if (($cycle_rides->park_time_id === $time->id))
+
+                    <ul>
+                        <li>{{ ucfirst($cycle_rides->ride_cat) }} Riders: {{ $cycle_rides->total_rider }}
+                            - Avg Cycles: {{ number_format($cycle_rides->avg_duration, 1) }} Sec
+                        </li>
+                    </ul>
+                    @php
+                        $displayedRideCat[] = $cycle_rides->ride_cat;
+                    @endphp
+                @endif
+                @endif
+                @if (!$cycleFound && !in_array($queue->ride_cat, $displayedRideCat))
+                @if ( ($queue->park_time_id === $time->id) )
+                <ul>
+                        <li>
+                        - Avg Queue: {{ number_format($queue->avg_queue_minutes, 1) }} min
+                        </li>
+                    </ul>
+                    @php
+                        $displayedRideCat[] = $cycle_rides->ride_cat;
+                    @endphp
+                    @endif
+                    @endif
+
+            @endforeach
 
 
                     </div>
@@ -147,13 +162,14 @@
 
                 </div>
 
-                <div class="contentDescription">
-                    @php
-                        $groupedStoppages = $stoppages->groupBy('stopage_category_id');
-                    @endphp
-
+            <div class="contentDescription">
+                 @php
+                    $groupedStoppages = $stoppages->groupBy('stopage_category_id');
+                @endphp
                     @foreach ($groupedStoppages as $categoryId => $categoryStoppages)
+                    @if ($categoryStoppages->first()->park_time_id === $time->id)
                         <h4 class="bold">{{ $categoryStoppages->first()->stopageCategory->name }}</h4>
+                    @endif
                         @foreach ($categoryStoppages as $stoppage)
                             @if ($stoppage->park_time_id === $time->id)
                                 <p>{{ $stoppage->down_minutes }} mins {{ $stoppage->ride->name }}
@@ -172,11 +188,7 @@
 
     </div>
 
-
-
-
-    </div>
-@endforeach
+    @endforeach
 
 @stop
 
