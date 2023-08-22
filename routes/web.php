@@ -216,5 +216,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
         return "Event has been sent!";
 
     });
+    Route::get('/auto-refresh-page','Admin\AutoRefreshController')->name('auto-refresh-page');
+
 
 });

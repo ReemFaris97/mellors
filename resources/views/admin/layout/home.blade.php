@@ -5,10 +5,10 @@
 @stop
 
 @section('content')
+<!-- <div id="auto-refresh-content">
+ --><div id="times-content" >
     @foreach ($times as $time)
-        <div class="row">
-
-
+        <div class="row" >
             <div class="col-lg-12 col-xs-12">
                 <div class='contentRide'>
                     <div class="contentRide_header">
@@ -18,7 +18,7 @@
                             <p> {{ $time->date }} : ( {{ $time->start }} - {{ $time->end }} )</p>
                         </div>
                     </div>
-                    <div class="home-flex">
+                    <div class="home-flex" id="rides">
                         @foreach ($rides as $ride)
                             @if ($ride->park_id === $time->parks->id)
                                 @if ($ride->available == 'active')
@@ -38,7 +38,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                @elseif($ride->available == 'stopped' || 'closed')
+                                    @elseif($ride->available == 'stopped' || 'closed')
                                     <div class="playBox no cardGame " id="rideQueue{{ $ride->id }}">
                                         <!-- Start Tooltip -->
                                         <div class="tooltip-outer">
@@ -138,11 +138,10 @@
             </div>
 
         </div>
-
-    </div>
-
     @endforeach
-
+    </div>
+<!--     </div>
+ -->
 @stop
 
 @push('scripts')
@@ -162,4 +161,28 @@
 
     });
 </script>
+<!-- <script>
+    function autoRefresh() {
+        $.ajax({
+            url: "{{ route('admin.auto-refresh-page') }}",
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                var stoppages = response.stoppages;
+                var rides = response.rides;
+                var queues = response.queues;
+                var cycles = response.cycles;
+                var times= response.times;
+                var total_riders= response.total_riders;
+                
+                $('#times-content').html(JSON.stringify(times, null, 2));
+                $('#rides-content').html(JSON.stringify(rides, null, 2));
+                
+
+            }
+        });
+    }
+    setInterval(autoRefresh, 30000);
+    autoRefresh();
+</script> -->
 @endpush

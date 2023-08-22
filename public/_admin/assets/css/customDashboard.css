@@ -649,7 +649,7 @@ td.no.noImportant {
     background-color: #fad08c;
 }
 .contentDescription .bold {
-    background-color: #ffc7ce;
+    color: #ff5b5b;
     width: max-content;
     text-transform: capitalize;
     padding: 0.3rem 0.6rem;
