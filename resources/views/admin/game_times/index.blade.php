@@ -98,7 +98,7 @@
                                                 </button>
                                             </a>
                                             <a href="{{ url('show_general_questions/' . $item->id . '/' . $park_time_id) }}">
-                                                <button type="button" id="add" class="add btn btn-success">
+                                                <button type="button" id="add" class="add btn btn-primary">
                                                     <i class="fa fa-plus"></i> General Questions
                                                 </button>
                                             </a>
