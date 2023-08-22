@@ -94,6 +94,13 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('/cheack_preopening_list/', 'Admin\PreopeningListController@cheackPreopeningList')->name('cheackPreopeningList');
     Route::get('/show_preopening_list/{ride_id}/{park_time_id}', 'Admin\PreopeningListController@show_ride_preopening_list')->name('showPreopeningList');
 
+    Route::get('/show_general_questions/{ride_id}/{park_time_id}', 'Admin\GeneralQuestionsController@show_questions')->name('show_questions');
+    Route::get('/add_general_questions/{ride_id}/{park_time_id}', 'Admin\GeneralQuestionsController@add_general_questions');
+    Route::get('/edit_questions/{id}', 'Admin\GeneralQuestionsController@edit')->name('edit_questions');
+    Route::post('/update_questions/{id}', 'Admin\GeneralQuestionsController@update')->name('update_questions');
+    Route::post('/store_questions', 'Admin\GeneralQuestionsController@store')->name('store_questions');
+    Route::get('questions/{id}/approve', 'Admin\GeneralQuestionsController@approve');
+
 
     Route::get('/zone_rides/{zone_id}', 'Admin\PreopeningListController@zone_rides')->name('zoneRides');
     Route::resource('ride_inspection_lists', 'Admin\RideInspectionListController');
