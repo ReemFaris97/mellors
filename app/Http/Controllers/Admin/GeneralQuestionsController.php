@@ -76,7 +76,7 @@ class GeneralQuestionsController extends Controller
     {
         $list = Attraction::findOrFail($id);
         $items = AttractionInfo::where('attraction_id',$id)->get();
-        
+
         return view('admin.general_questions.Show', compact('items','list','id'));
 
     }

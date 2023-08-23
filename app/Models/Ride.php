@@ -61,8 +61,10 @@ class Ride extends Model
 
     public function times()
     {
-        return $this->hasMany(GameTime::class, 'ride_id', 'id')
-            ->where('date', '<=', Carbon::now()->toDateString())->where('close_date', '>=', Carbon::now()->toDateString());
+        return $this->hasMany(GameTime::class, 'ride_id', 'id')->where(function ($query) {
+            $query->where('date', '<=', Carbon::now()->toDateString())->where('close_date', '>=', Carbon::now()->toDateString())
+                ->orWhereDate('date',  Carbon::now()->toDateString())->whereNull('close_date');
+        });
     }
     public function preopening_lists()
     {

@@ -18,6 +18,7 @@ class RideInfoResource extends JsonResource
      */
     public function toArray($request)
     {
+// dd($this->times?->first());
         $data = [
             'id' => $this->id,
             'name' => $this->name,

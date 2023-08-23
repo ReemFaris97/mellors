@@ -2,28 +2,35 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\CustomerFeedbackRequest;
-use App\Http\Requests\Api\ObservationRequest;
-use App\Http\Requests\Api\UpdateInspectionsRequest;
-use App\Http\Resources\User\Ride\PreopeningListResource;
+use App\Models\Ride;
+use App\Models\User;
+use App\Models\ParkTime;
+use App\Models\Attraction;
+use App\Models\Observation;
 
 ;
 
-use App\Http\Resources\User\Zone\ZoneResource;
-use App\Models\CustomerFeedbackImage;
-use App\Models\CustomerFeedbacks;
-use App\Models\Observation;
-use App\Models\PreopeningList;
-use App\Models\Ride;
-
-use App\Models\User;
-use App\Notifications\UserNotifications;
-use App\Traits\Api\ApiResponse;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use App\Models\AttractionInfo;
+use App\Models\PreopeningList;
+use Illuminate\Support\Carbon;
+use App\Models\GeneralQuestion;
+
+use App\Traits\Api\ApiResponse;
+use App\Models\CustomerFeedbacks;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
+use App\Models\CustomerFeedbackImage;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\UserNotifications;
+use Illuminate\Support\Facades\Notification;
+use App\Http\Requests\Api\ObservationRequest;
+use App\Http\Resources\User\Zone\ZoneResource;
+use App\Http\Requests\Api\CustomerFeedbackRequest;
+use App\Http\Requests\Api\UpdateInspectionsRequest;
+use App\Http\Resources\User\Ride\QuestionsResource;
+use App\Http\Resources\User\Ride\PreopeningListResource;
 
 class SupervisorController extends Controller
 {
@@ -136,6 +143,51 @@ class SupervisorController extends Controller
             $observation->update(['image' => $path]);
         }
         return self::apiResponse(200, __('create observation successfully'), []);
+
+    }
+
+    protected function questions()
+    {
+        $questions = GeneralQuestion::get();
+        $this->body['questions'] = QuestionsResource::collection($questions->groupBy('type'));
+
+        return self::apiResponse(200, __('questions'), $this->body);
+
+    }
+
+    protected function addAttraction(Request $request)
+    {
+        $request->validate([
+            'ride_id' => 'required|exists:rides,id',
+            'park_time_id' => 'required|exists:park_times,id',
+            'question_id' => 'required|array|exists:general_questions,id',
+            'status' => 'required|array',
+            'note' => 'nullable|array',
+            'corrective_action' => 'nullable|array',
+        ]);
+
+        $ride = Ride::findOrFail($request->ride_id);
+        $park_time = ParkTime::findOrFail($request->park_time_id);
+
+        $attraction = Attraction::create([
+            'ride_id' => $request->ride_id,
+            'park_time_id' => $request->park_time_id,
+            'date' => Carbon::now()->toDateString(),
+            'zone_id' => $ride->zone_id,
+            'park_id' => $park_time->park_id,
+            'created_by_id' => auth()->id()
+        ]);
+        foreach ($request->question_id as $key => $value) {
+            AttractionInfo::create([
+                'attraction_id' => $attraction->id,
+                'general_question_id' => $value,
+                'status' => $request->status[$key] ?? null,
+                'note' => $request->note[$key] ?? null,
+                'corrective_action' => $request->corrective_action[$key] ?? null,
+            ]);
+        }
+
+        return self::apiResponse(200, __('add attraction list successfully'), []);
 
     }
 
