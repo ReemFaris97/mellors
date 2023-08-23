@@ -1,13 +1,13 @@
 @extends('admin.layout.app')
 
 @section('title')
-    general questions
+ATTRACTION AUDIT CHECK LISTS
 @endsection
 
 @section('content')
     <div class="card-box">
         <a href="{{ url('add_general_questions/' . $ride_id . '/' . $park_time_id) }}">
-            <button type="button" class="btn btn-info">Create New Questions List</button>
+            <button type="button" class="btn btn-info">Create New Attraction Audit Check Form</button>
         </a>
         <br><br>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -43,14 +43,18 @@
                             @foreach ($items as $item)
                                 <tr role="row" class="odd" id="row-{{ $item->id }}">
                                     <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                    <td>List of questions {{ $loop->iteration }}</td>
+                                    <td>ATTRACTION AUDIT CHECK LIST {{ $loop->iteration }}</td>
                                     <td>{{ $item->date }}</td>
-
                                     <td>
                                         @if (auth()->user()->can('preopening_lists-edit'))
                                             <a href="{{ route('admin.edit_questions', $item->id) }}">
                                                 <button type="button" id="add" class="add btn btn-success">
-                                                    <i class="fa fa-edit"></i>Edit Question List
+                                                    <i class="fa fa-edit"></i>Edit List
+                                                </button>
+                                            </a>
+                                            <a href="{{ route('admin.show_questions_list', $item->id) }}">
+                                                <button type="button" id="add" class="add btn btn-primary">
+                                                    <i class="fa fa-info"></i>  Show List
                                                 </button>
                                             </a>
                                         @endif

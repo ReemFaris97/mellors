@@ -648,8 +648,12 @@ td.no.noImportant {
 .riders_list .que{
     background-color: #fad08c;
 }
+.type-header {
+    background-color: #71b6f9 !important; /* Light gray color */
+    text-align: center;
+}
 .contentDescription .bold {
-    background-color: #ffc7ce;
+    color: #ff5b5b;
     width: max-content;
     text-transform: capitalize;
     padding: 0.3rem 0.6rem;
@@ -1070,5 +1074,7 @@ table.dataTable.dtr-inline.collapsed
     .btn-group, .btn-group-vertical , .dataTables_filter ,  div.dataTables_paginate , .printBtn , .card-box{
         display: none;
     }
+  
+ 
 }
 /**********************************************************************/

@@ -1,14 +1,14 @@
 @extends('admin.layout.app')
 
 @section('title')
-  Add New Question list
+Create New Attraction Audit Check Form
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box">
-                <h4 class="header-title m-t-0 m-b-30"> Add New Question list</h4>
+                <h4 class="header-title m-t-0 m-b-30"> Add New Attraction Audit Check Form</h4>
                         {!!Form::open( ['route' => 'admin.store_questions' ,'class'=>'form phone_validate', 'method' => 'Post', 'enctype'=>"multipart/form-data",'class'=>'form-horizontal','files' => true]) !!}
                         @csrf
                         @include('admin.general_questions.form')
