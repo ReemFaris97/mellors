@@ -1,47 +1,50 @@
 {{-- @include('admin.common.errors') --}}
 <div class="row">
-
     <div class="col-xs-12 col-sm-12 col-md-12">
-
         <div class="form-group">
             @if (isset($questions))
+                @php
+                    $groupedQuestions = $questions->groupBy('type');
+                @endphp
                 <div class="row">
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                         <thead>
-                            <tr role="row">
-                                <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1" aria-sort="ascending"> Description of Check Required
-                                </th>
-                                <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1" aria-sort="ascending">Any Issues ?
-                                </th>
-                                <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1" aria-sort="ascending">Comments
-                                </th>
+                            <tr role="row" class="type-header">
+                                <th style="text-align: center;">Sections</th>
+                                <th>Any Issues?</th>
+                                <th>Comments</th>
+                                <th>Corrective Action</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            @foreach ($questions as $value)
-                                <tr>
-                                    <td>
-                                        {{ $value->name ?? '' }}
-                                    </td>
-                                    <td>
-                                        <label>
-                                            <select name="status[]" id="element_id" class="form-control element-id">
-                                                <option default value=""> None</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
-                                            <input type="hidden" name="question_id[]" class="ele_id"
-                                                value="{{ $value->id }}">
-                                        </label>
-                                    </td>
-                                    <td>
-                                        {!! Form::textArea('note[]', null, ['class' => 'form-control comment', 'rows' => '1']) !!}
-
-
+                            @foreach ($groupedQuestions as $type => $typeQuestions)
+                                <tr >
+                                    <td colspan="4" class="type-header">
+                                        <strong>Section {{ $loop->iteration }}- {{ $type }}</strong>
                                     </td>
                                 </tr>
+                                @foreach ($typeQuestions as $question)
+                                    <tr>
+                                        <td>{{ $question->name ?? '' }}</td>
+                                        <td>
+                                            <label>
+                                                <select name="status[]" id="element_id" class="form-control element-id">
+                                                    <option default value="">None</option>
+                                                    <option value="yes">Yes</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                                <input type="hidden" name="question_id[]" class="ele_id"
+                                                    value="{{ $question->id }}">
+                                            </label>
+                                        </td>
+                                        <td>
+                                            {!! Form::textArea('note[]', null, ['class' => 'form-control comment', 'rows' => '1']) !!}
+                                        </td>
+                                        <td>
+                                            {!! Form::textArea('corrective_action[]', null, ['class' => 'form-control corrective_action', 'rows' => '1']) !!}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @endforeach
                             <input name="ride_id" type="hidden" class="ride-id" value={{ $ride_id }}>
                             <input name="park_time_id" type="hidden" id="park-time-id" class="park-time-id"
@@ -56,8 +59,6 @@
             @else
                 <label>No questions</label>
             @endif
-
-
         </div>
     </div>
 </div>
@@ -68,6 +69,7 @@
                 e.preventDefault();
                 const element_id = [];
                 const comment = [];
+                const corrective_action = [];
                 const status = [];
                 const ride_id = $('.ride-id').val();
                 const park_time_id = $('.park-time-id').val();
@@ -84,9 +86,9 @@
                 $('.comment').each(function() {
                     comment.push($(this).val());
                 });
-                // $('.ride-id').each(function() {
-                //     ride_id.push($(this).val());
-                // });
+                 $('.corrective_action').each(function() {
+                    corrective_action.push($(this).val());
+                 });
                 // $('.park-time-id').each(function() {
                 //     park_time_id.push($(this).val());
                 // });
@@ -100,13 +102,14 @@
                         status: status,
                         element_ids: element_id,
                         comment: comment,
+                        corrective_action: corrective_action,
                         ride_id: ride_id,
                         park_time_id: park_time_id
                     },
                     success: function(response) {
                         if (response.success) {
                             swal({
-                                title: "Question List Report Added successfully",
+                                title: "ATTRACTION AUDIT CHECK FORM Added successfully",
                                 icon: "success",
                                 buttons: ["Ok"]
                             });

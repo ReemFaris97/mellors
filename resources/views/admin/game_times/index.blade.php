@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    Update Rides Time Slots
+    All Rides 
 @endsection
 
 @section('content')
@@ -40,7 +40,7 @@
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
-                                    Inspection List
+                                    Zone Supervisor Actions
                                 </th>
 
                             </tr>
@@ -99,7 +99,7 @@
                                             </a>
                                             <a href="{{ url('show_general_questions/' . $item->id . '/' . $park_time_id) }}">
                                                 <button type="button" id="add" class="add btn btn-primary">
-                                                    <i class="fa fa-plus"></i> General Questions
+                                                    <i class="fa fa-plus"></i> Audit Check
                                                 </button>
                                             </a>
                                         @endif

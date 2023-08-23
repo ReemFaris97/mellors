@@ -97,6 +97,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('/show_general_questions/{ride_id}/{park_time_id}', 'Admin\GeneralQuestionsController@show_questions')->name('show_questions');
     Route::get('/add_general_questions/{ride_id}/{park_time_id}', 'Admin\GeneralQuestionsController@add_general_questions');
     Route::get('/edit_questions/{id}', 'Admin\GeneralQuestionsController@edit')->name('edit_questions');
+    Route::get('/show_questions_list/{id}', 'Admin\GeneralQuestionsController@show_questions_list')->name('show_questions_list');
     Route::post('/update_questions/{id}', 'Admin\GeneralQuestionsController@update')->name('update_questions');
     Route::post('/store_questions', 'Admin\GeneralQuestionsController@store')->name('store_questions');
     Route::get('questions/{id}/approve', 'Admin\GeneralQuestionsController@approve');

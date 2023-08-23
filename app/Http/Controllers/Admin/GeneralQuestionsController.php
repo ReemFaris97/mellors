@@ -28,12 +28,13 @@ class GeneralQuestionsController extends Controller
         $questions = GeneralQuestion::get();
         $ride = Ride::findOrFail($ride_id);
         $zone_id = $ride->zone_id;
+       // dd( $questions);
         return view('admin.general_questions.add', compact('questions', 'ride_id', 'zone_id', 'park_time_id'));
     }
 
     public function store(Request $request)
     {
-        // dd($request->all());
+         //dd($request->all());
         $ride = Ride::findOrFail($request->ride_id);
         $park_time = ParkTime::findOrFail($request->park_time_id);
 
@@ -51,6 +52,7 @@ class GeneralQuestionsController extends Controller
                 'general_question_id' => $value,
                 'status' => $request->status[$key],
                 'note' => $request->comment[$key],
+                'corrective_action' => $request->corrective_action[$key],
             ]);
         }
         return response()->json(['success' => 'Question List Added successfully']);
@@ -70,6 +72,14 @@ class GeneralQuestionsController extends Controller
         return view('admin.general_questions.edit', compact('items','id'));
 
     }
+    public function show_questions_list($id)
+    {
+        $list = Attraction::findOrFail($id);
+        $items = AttractionInfo::where('attraction_id',$id)->get();
+        
+        return view('admin.general_questions.Show', compact('items','list','id'));
+
+    }
 
     public function update(Request $request,$id)
     {
@@ -80,16 +90,20 @@ class GeneralQuestionsController extends Controller
                 'general_question_id' => $value,
                 'status' => $request->status[$key],
                 'note' => $request->note[$key],
+                'corrective_action' => $request->corrective_action[$key],
             ]);
         }
-        alert()->success('Update questions successfully !');
-        return redirect()->route('admin.park_times.index');
+        alert()->success('Update Audit Check List successfully !');
+        return redirect()->back();
 
 
     }
 
     protected function approve($id){
-        Attraction::find($id)->update(['approve' => 1]);
+        Attraction::find($id)->update(['approve' => 1,
+                                     'approved_at'=>Carbon::now()->toDateTimeString(),
+                                     'approve_by_id'=>auth()->id()
+                                    ]);
         alert()->success('Approve successfully !');
         return redirect()->back();
     }
