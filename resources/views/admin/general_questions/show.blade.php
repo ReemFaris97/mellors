@@ -35,41 +35,42 @@
                             </tbody>
                         </table>
 
-                    </div>
-
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 ">
-                    <div class="row">
-                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
-                            <thead>
-                                @php
-                                    use Carbon\Carbon;
-                                    $approved = Carbon::parse($list->approved_at);
-                                    $created = Carbon::parse($list->created_at);
-                                @endphp
-                                <tr role="row">
-                                    <th class="type-header">Created Date:</th>
-                                    <th>{{ $list->date }}</th>
-                                    <th class="type-header">Created Time:</th>
-                                    <th>{{ $created->format('H:i') }}</th>
-                                </tr>
-                                <tr role="row">
-                                    <th class="type-header">Approved Date:</th>
-                                    <th>{{ $approved->format('Y-m-d') }}</th>
-                                    <th class="type-header">Approved Time:</th>
-                                    <th>{{ $approved->format('H:i') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colspan="6">
-                                        <p>It is a mandatory requirement that Attraction Management Inspections must be
-                                            completed according to the schedule provided or as the business requires.
-                                            Inspection to be completed by a trained individual and in person.
+                       
+               </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 " >
+                <div class="row">
+                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
+                        <thead>
+                            @php
+                            use Carbon\Carbon;
+                            $approved="";
+                            if($list->approve === "1")
+                            $approved = Carbon::parse($list->approved_at);
 
-                                            Any problems identified whilst completing an inspection must also be documented
-                                            and should be reported to the Management and addressed immediately.
-                                        </p>
+                            $created = Carbon::parse($list->created_at);
+                            @endphp
+                            <tr role="row" >
+                                <th class="type-header" >Created Date:</th>
+                                <th >{{$list->date}}</th>
+                                <th class="type-header">Created Time:</th>
+                                <th >{{$created->format('H:i')}}</th>
+                            </tr>
+                            <tr role="row" >
+                                <th class="type-header" >Approved Date:</th>
+                                <th >{{ ($list->approve === "1") ? $approved->format('Y-m-d'):"Not Reviewed Yet"}}</th>
+                                <th class="type-header">Approved Time:</th>
+                                <th >{{ ($list->approve === "1") ? $approved->format('H:i'):"Not Reviewed Yet"}}</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td colspan="6" >
+                                        <p>It is a mandatory requirement that Attraction Management Inspections must be completed according to the schedule provided or as the business requires.  Inspection to be completed by a trained individual and in person.
+                                        </p><p>
+                                            Any problems identified whilst completing an inspection must also be documented and should be reported to the Management and addressed immediately.
+                                            </p>
                                     </td>
                                 </tr>
                             </tbody>
