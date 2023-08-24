@@ -32,7 +32,7 @@ class RideInfoResource extends JsonResource
             'ride_price_ft' => $this->ride_price_ft,
             'minimum_height_requirement' => $this->minimum_height_requirement,
             'ride_cat' => $this->ride_cat,
-            'no_of_gondolas' =>($this->times?->first()?->no_of_gondolas)??$this->no_of_gondolas,
+            'no_of_gondolas' =>(int)(($this->times?->first()?->no_of_gondolas)??$this->no_of_gondolas),
             'ride_type' => RideTypeResource::make($this->ride_type),
             'zone' => ZoneResource::make($this->zone),
             'park' => ParkResource::make($this->park),
