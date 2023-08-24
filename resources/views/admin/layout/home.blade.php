@@ -178,7 +178,7 @@
                     }
                 });
             }
-            setTimeout(autoRefresh, 10000);
+            setInterval(autoRefresh, 40000);
 
             $('.cardGame').each(function() {
                 if ($(this).hasClass("yes")) {
