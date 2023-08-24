@@ -167,6 +167,14 @@
     <footer class="footer text-right">
         Mellors Entertainment Saudi
     </footer>
+    <!-- Start Notification Alert bottom -->
+    <a href="#" id="hoverme" style="float: right;">Click me!</a> <!-- this button for test only -->
+    <!-- NOTE : to appear norification box : please add class (visible-notif) to <div class="notif-alert" id="notif">-->
+    <div class="notif-alert" id="notif"> 
+        <p class="notif-dtls">Ride Availability Report to park park1verified successfully!<a href="/yourlink" class="notif-link">here</a></p>
+        <span class="notification-close" id="notificationClose">X</span>
+    </div>
+    <!-- !!End Notification Alert bottom -->
     @include('admin.layout.scripts')
     @include('sweetalert::alert')
     @yield('footer')
@@ -195,6 +203,16 @@
                 ]
             });
 
+            var buttonTest = document.getElementById('hoverme');
+            var slideout = document.getElementById('notif');
+
+            buttonTest.onclick = function() {
+                slideout.classList.toggle('visible-notif');
+            };
+            var notificationClose = document.getElementById('notificationClose');
+            notificationClose.onclick = function() {
+                slideout.classList.toggle('visible-notif');
+            };
         });
     </script>
     <script>
