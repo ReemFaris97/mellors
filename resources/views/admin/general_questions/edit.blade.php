@@ -55,7 +55,7 @@
                                                             <label>
                                                                 <select name="status[]" id="element_id"
                                                                     class="form-control element-id">
-                                                                    <option default value=""> None</option>
+                                                                    <option default value=""> N/A</option>
                                                                     <option value="yes"
                                                                         @if ($value->status == 'yes') selected @endif>
                                                                         Yes</option>
