@@ -149,7 +149,7 @@ class SupervisorController extends Controller
     protected function questions()
     {
         $questions = GeneralQuestion::get();
-        $this->body['questions'] = QuestionsResource::collection($questions->groupBy('type'));
+        $this->body['questions'] = QuestionsResource::collection($questions);
 
         return self::apiResponse(200, __('questions'), $this->body);
 

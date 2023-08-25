@@ -62,12 +62,20 @@ function notification(data) {
     notificationsCountElem.attr('data-count', notificationsCount);
     notificationsWrapper.find('.notif-count').text(notificationsCount);
     notificationsWrapper.show();
+
+    $("#not-realtime").html('');
+    $("#notif-real").addClass("visible-notif");
+    $("#not-realtime").append(data.data.title +' <a href="' + data.data.action + '" class="notif-link">here</a>');
+    document.getElementById('notif-real').style.animation = 'movein 0.5s ease forwards, moveout 0.5s 5s ease forwards'
 }
 
 not.bind('App\\Events\\RsrReportEvent', function (data) {
 
     notification(data);
     playSound();
+    $("#notif-real").addClass("visible-notif");
+    $("#not-realtime").append(data.data.title +' <a href="' + data.data.action + '" class="notif-link">here</a>');
+    console.log(111)
 
 });
 
@@ -75,17 +83,16 @@ not.bind('App\\Events\\StoppageEvent', function (data) {
 
     notification(data);
     playSound();
+
+
 });
 not.bind('App\\Events\\ReportEvent', function (data) {
     console.log(data)
     notification(data);
     playSound();
+
 });
 
-// not.bind('App\\Events\\showNotification', function (data) {
-//     console.log(data);
-
-// });
 
 totalRiders.bind('App\\Events\\TotalRidersEvent', function (data) {
     console.log(data);

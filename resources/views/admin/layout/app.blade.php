@@ -168,10 +168,15 @@
         Mellors Entertainment Saudi
     </footer>
     <!-- Start Notification Alert bottom -->
-    <a href="#" id="hoverme" style="float: right;">Click me!</a> <!-- this button for test only -->
+    {{-- <a href="#" id="hoverme" style="float: right;">Click me!</a> <!-- this button for test only --> --}}
     <!-- NOTE : to appear norification box : please add class (visible-notif) to <div class="notif-alert" id="notif">-->
-    <div class="notif-alert" id="notif"> 
-        <p class="notif-dtls">Ride Availability Report to park park1verified successfully!<a href="/yourlink" class="notif-link">here</a></p>
+    <div class="notif-alert" id="notif-real">
+        <p class="notif-dtls" id="not-realtime">
+            {{-- Ride Availability Report to park park1verified successfully!
+            <a href="/yourlink" class="notif-link">here</a> --}}
+        </p>
+
+
         <span class="notification-close" id="notificationClose">X</span>
     </div>
     <!-- !!End Notification Alert bottom -->
