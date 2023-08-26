@@ -172,8 +172,8 @@
     <!-- NOTE : to appear norification box : please add class (visible-notif) to <div class="notif-alert" id="notif">-->
     <div class="notif-alert" id="notif-real">
         <p class="notif-dtls" id="not-realtime">
-            {{-- Ride Availability Report to park park1verified successfully!
-            <a href="/yourlink" class="notif-link">here</a> --}}
+            Ride Availability Report to park park1verified successfully!
+            <a href="/yourlink" class="notif-link">here</a>
         </p>
 
 
