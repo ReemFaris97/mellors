@@ -48,7 +48,7 @@
                 <td><label>
                 </label></td>
                 <td> {!! Form::number("no_of_gondolas[]",$item->no_of_gondolas,['class'=>'form-control','placeholder'=>' number_of_gondolas'])!!}</td>
-                <td> {!! Form::number("no_of_seats[]",$item->number_of_seats,['class'=>'form-control','placeholder'=>' number_of_seats'])!!}</td>
+                <td> {!! Form::number("no_of_seats[]",$item->capacity_one_cycle,['class'=>'form-control','placeholder'=>' number_of_seats'])!!}</td>
                 <td> {!! Form::textArea("comment[]",null,['class'=>'form-control summernote','placeholder'=>'Comment'])!!}
                 </td>
 
