@@ -196,7 +196,7 @@ class SupervisorController extends Controller
         })->first();
 
         $data = [
-            'title' => 'you have a new audit check list added to ride' .$ride->name,
+            'title' => ' ' .$ride->name,
             'ride_id' => $request->ride_id,
             'user_id' => Auth::user()->id,
         ];
