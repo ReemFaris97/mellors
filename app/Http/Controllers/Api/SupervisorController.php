@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\showNotification;
 use App\Models\Ride;
 use App\Models\User;
 use App\Models\ParkTime;
@@ -157,6 +158,8 @@ class SupervisorController extends Controller
 
     protected function addAttraction(Request $request)
     {
+
+
         $request->validate([
             'ride_id' => 'required|exists:rides,id',
             'park_time_id' => 'required|exists:park_times,id',
@@ -185,6 +188,21 @@ class SupervisorController extends Controller
                 'note' => $request->note[$key] ?? null,
                 'corrective_action' => $request->corrective_action[$key] ?? null,
             ]);
+        }
+        $user = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'Park Admin');
+        })->whereHas('parks', function ($q) use ($park_time) {
+            return $q->where('park_id', $park_time->park_id);
+        })->first();
+
+        $data = [
+            'title' => 'you have a new audit check list added to ride' .$ride->name,
+            'ride_id' => $request->ride_id,
+            'user_id' => Auth::user()->id,
+        ];
+        if ($user) {
+            Notification::send($user, new UserNotifications($data));
+            event(new showNotification($user->id, $data['title'], Carbon::now(), dateTime()?->id, $data['ride_id']));
         }
 
         return self::apiResponse(200, __('add attraction list successfully'), []);
