@@ -26,5 +26,10 @@ class UserZone extends Model
         ]);
 
     }
+    public function rides()
+    {
+        return $this->belongsTo(Ride::class,'ride_id');
+
+    }
 
 }
