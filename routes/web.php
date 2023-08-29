@@ -197,7 +197,10 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
 
     Route::resource('user_parks', 'Admin\UserParkController');
     Route::get('/add_user_park/{user_id}', 'Admin\UserParkController@addUserPark')->name('addUserPark');
-
+    Route::get('/user_roles/{user_id}', 'Admin\UserController@userRoles')->name('userRoles');
+    Route::get('/get_zones', 'Admin\UserController@getZones')->name('getZones');
+    Route::get('/get_riders', 'Admin\UserController@getRiders')->name('getRiders');
+    Route::post('/role_update/{id}', 'Admin\UserController@rolesUpdate')->name('rolesUpdate');
     Route::resource('user_zones', 'Admin\UserZoneController');
     Route::get('/add_user_zone/{user_id}', 'Admin\UserZoneController@addUserZone')->name('addUserZone');
 
