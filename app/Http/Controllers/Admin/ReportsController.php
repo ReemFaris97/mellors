@@ -9,6 +9,7 @@ use App\Models\PreopeningList;
 use App\Models\Ride;
 use App\Models\RideStoppages;
 use App\Models\User;
+use App\Models\Attraction;
 use App\Models\UserLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -102,6 +103,34 @@ class ReportsController extends Controller
         return view('admin.reports.inspection_list_report', compact('parks'));
 
     }
+
+    public function auditReport()
+    {
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+        } else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
+        }
+        return view('admin.reports.audit_report', compact('parks'));
+
+    }
+    public function showAuditReport(Request $request)
+    {
+        $from = $request->input('from');
+        $to = $request->input('to');
+        $park_id = $request->input('park_id');
+        $ride_id = $request->input('ride_id');
+        $items = Attraction::whereBetween('created_at', [$from,$to])
+                             ->where('ride_id', $ride_id)
+                             ->get();
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+        } else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
+        }
+        return view('admin.reports.audit_report', compact('items', 'parks'));
+    }
+
     public function showInspectionListReport(Request $request)
     {
         $from = $request->input('from');
