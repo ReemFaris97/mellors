@@ -19,7 +19,7 @@ Attraction Audit Check Report
     <div class='col-md-5'>
         <div class="form-group">
             <label for="last_name">Select Ride</label>
-            {!! Form::select('ride_id', [],null, array('class' => 'form-control ride','id'=>'ride','placeholder'=>'Choose Ride','required')) !!}
+            {!! Form::select('ride_id', [],null, array('class' => 'form-control ride','id'=>'ride','placeholder'=>'Choose Ride')) !!}
         </div>
     </div>
 
