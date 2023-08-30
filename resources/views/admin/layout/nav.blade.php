@@ -306,8 +306,10 @@
                 <li><a href="{{ route('admin.reports.stoppagesReport') }}">Stoppages Report</a></li>
             @endcan
             @can('inspectionListReport')
-                <li><a href="{{ route('admin.reports.inspectionListReport') }}">Inspection Lists Report</a></li>
-            @endcan
+            <li><a href="{{ route('admin.reports.inspectionListReport') }}">Inspection Lists Report</a></li>
+            <li><a href="{{ route('admin.reports.auditReport') }}">Attraction Audit Check Report</a></li>
+           
+                @endcan
             @can('duty-report-list')
                 <li><a href="{{ route('admin.reports.operatorTimeReport') }}">Operator Time Report</a></li>
             @endcan

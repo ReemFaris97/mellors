@@ -8,11 +8,11 @@
     <div class="row">
         <div class="col-xs-12">
             <input type="button" value="Print Report" id="printDiv" class="btn btn-primary printBtn"></input>
-            <a href="{{ url('show_general_questions/' . $list->ride_id . '/' . $list->park_time_id) }}">
+            <!-- <a href="{{ url('show_general_questions/' . $list->ride_id . '/' . $list->park_time_id) }}">
                 <button type="button" id="add" class="add btn btn-primary">
                     <i class="fa fa-arrow-left"></i> Back
                 </button>
-            </a>
+            </a> -->
         </div>
 
 

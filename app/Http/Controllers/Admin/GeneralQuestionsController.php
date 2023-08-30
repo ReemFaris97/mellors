@@ -104,7 +104,7 @@ class GeneralQuestionsController extends Controller
                                      'approved_at'=>Carbon::now()->toDateTimeString(),
                                      'approve_by_id'=>auth()->id()
                                     ]);
-        alert()->success('Approve successfully !');
+        alert()->success('Approve Successfully !');
         return redirect()->back();
     }
 
