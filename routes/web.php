@@ -184,7 +184,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::resource('duty-report', 'Admin\RideOpsReportsController');
     Route::get('inspection-list-report', 'Admin\ReportsController@inspectionListReport')->name('reports.inspectionListReport');
     Route::get('show-inspection-list-report', 'Admin\ReportsController@showInspectionListReport')->name('reports.showInspectionListReport');
-    
+
     Route::get('audit-report', 'Admin\ReportsController@auditReport')->name('reports.auditReport');
     Route::get('show-audit-report', 'Admin\ReportsController@showAuditReport')->name('reports.showAuditReport');
 
@@ -225,13 +225,12 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
 
     Route::get('test', function () {
 
-        // event(new RsrReportEvent(2, 'qqq', 'ddd', 1));
         event(new RideStatusEvent(2, 'activeqq', 'eeeeeeeeee'));
 
         return "Event has been sent!";
 
     });
     Route::get('/auto-refresh-page','Admin\AutoRefreshController')->name('auto-refresh-page');
-
+    Route::resource('incident','Admin\GeneralIncidentController');
 
 });

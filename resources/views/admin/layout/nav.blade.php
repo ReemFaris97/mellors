@@ -284,6 +284,7 @@
             @can('customer_feedbacks-list')
                 <li><a href="{{ route('admin.observations.index') }}"> Show Observations</a></li>
             @endcan
+            <li><a href="{{ route('admin.incident.index') }}"> Show accident && incident</a></li>
 
 
         </ul>
@@ -308,7 +309,7 @@
             @can('inspectionListReport')
             <li><a href="{{ route('admin.reports.inspectionListReport') }}">Inspection Lists Report</a></li>
             <li><a href="{{ route('admin.reports.auditReport') }}">Attraction Audit Check Report</a></li>
-           
+
                 @endcan
             @can('duty-report-list')
                 <li><a href="{{ route('admin.reports.operatorTimeReport') }}">Operator Time Report</a></li>

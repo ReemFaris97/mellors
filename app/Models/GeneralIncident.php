@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class GeneralIncident extends Model
 {
-    use HasFactory;
+    protected $guarded = [];
+    protected $casts = [
+        'value' => 'array',
+        'value_2' => 'array',
+        'value_3' => 'array',
+        'value_4' => 'array',
+    ];
 }

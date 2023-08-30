@@ -143,7 +143,7 @@ class RideController extends Controller
         $cycle = RideCycles::query()->create($validate);
         $this->body['cycle'] = RideCycleResource::make($cycle);
         $totalRiders = $validate['riders_count'] + $validate['number_of_disabled'] + $validate['number_of_vip'] + $validate['number_of_ft'];
-      
+
         event(new \App\Events\TotalRidersEvent($cycle->park_id, $totalRiders));
 
         return self::apiResponse(200, __('create ride cycle successfully'), $this->body);
@@ -218,8 +218,9 @@ class RideController extends Controller
     protected function timeSlot()
     {
         $time = dateTime();
+        $this->body['time_slot'] = null;
         if (!$time) {
-            return self::apiResponse(400, __('not found time slot'), []);
+            return self::apiResponse(404, __('not found time slot'),$this->body);
         }
         $this->body['time_slot'] = TimeSlotResource::make($time);
         return self::apiResponse(200, __('time slot info'), $this->body);
