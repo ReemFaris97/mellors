@@ -283,8 +283,9 @@
         <ul class="list-unstyled">
             @can('customer_feedbacks-list')
                 <li><a href="{{ route('admin.observations.index') }}"> Show Observations</a></li>
-            @endcan
-            <li><a href="{{ route('admin.incident.index') }}"> Show accident && incident</a></li>
+            @endcan 
+            <li><a href="{{ route('admin.incident.index') }}">Accident & Incident</a></li>
+            <li><a href="{{ route('admin.investigation.index') }}">Investigation</a></li>
 
 
         </ul>

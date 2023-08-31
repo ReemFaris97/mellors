@@ -13,7 +13,7 @@ use App\Models\Park;
 use App\Models\Ride;
 use Carbon\Carbon;
 
-class GeneralIncidentController extends Controller
+class InvestigationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,8 +22,8 @@ class GeneralIncidentController extends Controller
      */
     public function index()
     {
-        $items = GeneralIncident::where('type','incident')->get();
-        return view('admin.general_incident.index', compact('items'));
+        $items = GeneralIncident::where('type','investigation')->get();
+        return view('admin.investigation.index', compact('items'));
     }
 
     /**
@@ -34,7 +34,7 @@ class GeneralIncidentController extends Controller
     public function create()
     {
         $departments = Department::pluck('name', 'id')->all();
-        return view('admin.general_incident.add', compact('departments'));
+        return view('admin.investigation.add', compact('departments'));
     }
 
 
@@ -48,12 +48,12 @@ class GeneralIncidentController extends Controller
     {
         $data = $request->validated();
         GeneralIncident::create([
-            'type' => 'incident',
+            'type' => 'investigation',
             'date' => Carbon::now(),
             'created_by_id' => auth()->user()->id,
-            'value' => $data
+            'value2' => $data
         ]);
-        alert()->success('Accident Incident  Report Added successfully !');
+        alert()->success('Incident Investigation Report Added successfully !');
         return redirect()->route('admin.incident.index');
     }
 

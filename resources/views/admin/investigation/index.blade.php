@@ -7,8 +7,8 @@
 @section('content')
     <div class="card-box">
 
-        <a class="input-group-btn" href="{{ route('admin.incident.create') }}">
-            <button type="button" class="btn waves-effect waves-light btn-primary">Add Accident / Incident Form QMS-F-13</button>
+        <a class="input-group-btn" href="{{ route('admin.investigation.create') }}">
+            <button type="button" class="btn waves-effect waves-light btn-primary">Add Incident Investigation Form QMS-F-14</button>
         </a>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">

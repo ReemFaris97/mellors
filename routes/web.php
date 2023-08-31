@@ -232,5 +232,6 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     });
     Route::get('/auto-refresh-page','Admin\AutoRefreshController')->name('auto-refresh-page');
     Route::resource('incident','Admin\GeneralIncidentController');
+    Route::resource('investigation','Admin\InvestigationController');
 
 });
