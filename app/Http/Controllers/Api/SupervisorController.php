@@ -40,6 +40,9 @@ class SupervisorController extends Controller
     protected function home()
     {
         $user = Auth::user();
+        if (dateTime() != null) {
+            $user->zones = $user->zones->where('park_id', dateTime()?->park_id);
+        }
         $this->body['zones'] = ZoneResource::collection($user->zones);
         return self::apiResponse(200, __('home page supervisor'), $this->body);
     }
@@ -196,7 +199,7 @@ class SupervisorController extends Controller
         })->first();
 
         $data = [
-            'title' => 'Attraction Audit check list added to ' .$ride->name,
+            'title' => 'Attraction Audit check list added to ' . $ride->name,
             'ride_id' => $request->ride_id,
             'user_id' => Auth::user()->id,
         ];
