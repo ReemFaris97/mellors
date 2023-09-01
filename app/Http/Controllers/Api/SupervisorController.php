@@ -43,6 +43,7 @@ class SupervisorController extends Controller
         if (dateTime() != null) {
             $user->zones = $user->zones->where('park_id', dateTime()?->park_id);
         }
+        // dd($user->zones);
         $this->body['zones'] = ZoneResource::collection($user->zones);
         return self::apiResponse(200, __('home page supervisor'), $this->body);
     }

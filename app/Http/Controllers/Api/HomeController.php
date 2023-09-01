@@ -22,7 +22,7 @@ class HomeController extends Controller
         if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Client')) {
             $parks = Park::pluck('id');
         } else {
-            $n  = auth()->user()->parks->pluck('id');
+            $parks  = auth()->user()->parks->pluck('id');
         }
         $currentDate = Carbon::now()->toDateString();
         $currentTime = Carbon::now()->format('H:i');
