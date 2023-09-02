@@ -26,5 +26,5 @@ Add New Incident Investigation Form QMS-F-14
     <!-- end row -->
 @endsection
 @push('scripts')
-    {!! JsValidator::formRequest(\App\Http\Requests\Dashboard\Accident\IncidentRequest::class, '#form') !!}
+    {!! JsValidator::formRequest(\App\Http\Requests\Dashboard\Accident\InvestigationRequest::class, '#form') !!}
 @endpush

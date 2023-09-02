@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Accident\AccidentRequest;
-use App\Http\Requests\Dashboard\Accident\IncidentRequest;
+use App\Http\Requests\Dashboard\Accident\InvestigationRequest;
 use App\Models\Accident;
 use App\Models\Department;
 use App\Models\GeneralIncident;
@@ -44,7 +44,7 @@ class InvestigationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(IncidentRequest $request)
+    public function store(InvestigationRequest $request)
     {
         $data = $request->validated();
         GeneralIncident::create([

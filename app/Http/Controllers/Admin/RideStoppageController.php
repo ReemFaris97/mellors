@@ -140,7 +140,7 @@ class RideStoppageController extends Controller
         $data['time'] = Carbon::now()->toTimeString();
         $stoppage = RideStoppages::create($data);
         $data1 = [
-            'title' => $ride?->name . ' ' . 'has '. $data['ride_status'] .' because of ' .$stoppage->stopageSubCategory->name,
+            'title' => $ride?->name . ' ' . 'has stopped '.' because of ' .$stoppage->stopageSubCategory->name,
             'ride_id' => $validate['ride_id'],
             'time_id' => $park_time_id,
             'user_id' => Auth::user()->id,
