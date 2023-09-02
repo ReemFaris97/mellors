@@ -4,7 +4,7 @@ namespace App\Http\Requests\Dashboard\Accident;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IncidentRequest extends FormRequest
+class StatementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,19 +26,12 @@ class IncidentRequest extends FormRequest
             $rules = [
                 'department_id'=>'required',
                 'date'=>'required',
-                'location'=>'required',
-                'type_of_event'=>'required',
-                'harm'=>'required',
-                'name'=>'required',
-                'position'=>'required',
-                'address'=>'required',
-                'phone'=>'required',
-                'description'=>'nullable',
-                'details'=>'nullable',
-                'investigation'=>'required',
-                'reportable'=>'required',
-                'investigation_level'=>'required',
-                'book'=>'required',
+                'witness_statement'=>'required',
+                'time'=>'required',
+                'witness_name'=>'required',
+                'witness_phone'=>'required',
+                'witness_position'=>'required',
+                'statement'=>'required',
                 'choose'=>'required',
                 'ride_id'=>'nullable',
                 'park_id'=>'nullable',

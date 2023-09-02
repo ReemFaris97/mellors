@@ -286,6 +286,7 @@
             @endcan
             <li><a href="{{ route('admin.incident.index') }}"> Show accident && incident</a></li>
 
+            <li><a href="{{ route('admin.statement.index') }}"> Show Witness Statement</a></li>
 
         </ul>
     </li>
