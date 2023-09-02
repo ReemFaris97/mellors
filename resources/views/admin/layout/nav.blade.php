@@ -287,6 +287,7 @@
             <li><a href="{{ route('admin.incident.index') }}">Accident & Incident</a></li>
             <li><a href="{{ route('admin.investigation.index') }}">Investigation</a></li>
 
+            <li><a href="{{ route('admin.statement.index') }}"> Show Witness Statement</a></li>
 
         </ul>
     </li>

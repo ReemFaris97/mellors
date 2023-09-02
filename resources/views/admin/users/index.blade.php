@@ -24,7 +24,7 @@
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
-                                    Roles
+                                    Accessibilities
                                 </th>
                                 {{-- <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
                                 User Zone
@@ -48,10 +48,10 @@
                                     <td>
                                         @if (in_array($item->id, $user_parks_exist))
                                             <a href="{{ route('admin.userRoles', $item->id) }}" class=" btn btn-success">
-                                                <i class="fa fa-edit"></i>Edit
+                                                <i class="fa fa-edit"></i>Edit Accessibility
                                             @else
                                                 <a href="{{ route('admin.userRoles', $item->id) }}" class=" btn btn-info">
-                                                    <i class="fa fa-plus"></i>Add
+                                                    <i class="fa fa-plus"></i>Add Accessibility
                                                 </a>
                                         @endif
                                     </td>

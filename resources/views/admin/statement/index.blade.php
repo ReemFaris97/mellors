@@ -1,14 +1,14 @@
 @extends('admin.layout.app')
 
 @section('title')
-    Accident / Incident
+Witness Statement
 @endsection
 
 @section('content')
     <div class="card-box">
 
         <a class="input-group-btn" href="{{ route('admin.incident.create') }}">
-            <button type="button" class="btn waves-effect waves-light btn-primary">Add Accident / Incident Form QMS-F-13</button>
+            <button type="button" class="btn waves-effect waves-light btn-primary">Add Witness Statement</button>
         </a>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
@@ -25,7 +25,7 @@
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
-                                    Type Of Event
+                                    Person Phone
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
@@ -44,22 +44,22 @@
                                 <tr role="row" class="odd" id="row-{{ $item->id }}">
                                     <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                     <td>{{ $item->value['date'] }}</td>
-                                    <td>{{ $item->value['type_of_event'] }}</td>
-                                    <td>{{ $item->value['name'] }}</td>
+                                    <td>{{ $item->value['witness_phone'] }}</td>
+                                    <td>{{ $item->value['witness_name'] }}</td>
 
                                     {!! Form::open([
-                                        'route' => ['admin.incident.destroy', $item->id],
+                                        'route' => ['admin.statement.destroy', $item->id],
                                         'id' => 'delete-form' . $item->id,
                                         'method' => 'Delete',
                                     ]) !!}
                                     {!! Form::close() !!}
                                     <td>
-                                        <a href="{{ route('admin.incident.edit', $item) }}" class="btn btn-info">Edit</a>
+                                        <a href="{{ route('admin.statement.edit', $item) }}" class="btn btn-info">Edit</a>
 
-                                        <!-- <a href="{{ route('admin.incident.edit', $item) }}"
+                                        <!-- <a href="{{ route('admin.statement.edit', $item) }}"
                                                                class="btn btn-info">Edit</a> -->
                                         <a class="btn btn-danger" data-name=""
-                                            data-url="{{ route('admin.incident.destroy', $item) }}"
+                                            data-url="{{ route('admin.statement.destroy', $item) }}"
                                             onclick="delete_form(this)">
                                             Delete
                                         </a>

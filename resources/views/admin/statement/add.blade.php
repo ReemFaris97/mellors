@@ -1,25 +1,24 @@
 @extends('admin.layout.app')
 
 @section('title')
-    Update Accident / Incident
+    Add New Witness Statement
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box">
-                <h4 class="header-title m-t-0 m-b-30">Update Accident / Incident  </h4>
-                <a class="input-group-btn" href="{{ route('admin.incident.index') }}">
-                    <button type="button" class="btn waves-effect waves-light btn-primary">back</button>
-                </a>
-                {!! Form::model($accident, [
-                    'route' => ['admin.incident.update', $accident->id],
-                    'method' => 'PATCH',
+                <h4 class="header-title m-t-0 m-b-30"> Add New  Witness Statement </h4>
+                {!! Form::open([
+                    'route' => 'admin.statement.store',
+                    'class' => 'form phone_validate',
+                    'method' => 'Post',
                     'enctype' => 'multipart/form-data',
+                    'class' => 'form-horizontal',
                     'files' => true,
-                    'id' => 'form',
                 ]) !!}
-                @include('admin.general_incident.form_edit')
+                @csrf
+                @include('admin.statement.form')
                 {!! Form::close() !!}
             </div>
         </div><!-- end col -->
@@ -27,7 +26,8 @@
     <!-- end row -->
 @endsection
 @push('scripts')
-    {!! JsValidator::formRequest(\App\Http\Requests\Dashboard\Accident\AccidentRequest::class, '#form') !!}
+    {!! JsValidator::formRequest(\App\Http\Requests\Dashboard\Accident\IncidentRequest::class, '#form') !!}
+
     <script>
         $('#park').click(function () {
             $('#parks').show();

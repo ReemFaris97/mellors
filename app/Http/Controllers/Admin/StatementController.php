@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Http\Requests\Dashboard\Accident\StatementRequest;
 use Carbon\Carbon;
 use App\Models\Park;
 use App\Models\Ride;
 use App\Models\Zone;
-use App\Models\Accident;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Models\GeneralIncident;
@@ -15,7 +15,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Accident\AccidentRequest;
 use App\Http\Requests\Dashboard\Accident\IncidentRequest;
 
-class GeneralIncidentController extends Controller
+class StatementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,8 +24,8 @@ class GeneralIncidentController extends Controller
      */
     public function index()
     {
-        $items = GeneralIncident::where('type','incident')->get();
-        return view('admin.general_incident.index', compact('items'));
+        $items = GeneralIncident::where('type','statement')->get();
+        return view('admin.statement.index', compact('items'));
     }
 
     /**
@@ -39,7 +39,7 @@ class GeneralIncidentController extends Controller
         $zones = Zone::pluck('name', 'id')->all();
         $rides = Ride::pluck('name', 'id')->all();
         $departments = Department::pluck('name', 'id')->all();
-        return view('admin.general_incident.add', compact('departments', 'parks', 'zones', 'rides'));
+        return view('admin.statement.add', compact('departments', 'parks', 'zones', 'rides'));
     }
 
 
@@ -49,12 +49,12 @@ class GeneralIncidentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(IncidentRequest $request)
+    public function store(StatementRequest $request)
     {
         $data = $request->validated();
         $incident = GeneralIncident::create([
-            'type' => 'incident',
-            'date' => $data['date'],
+            'type' => 'statement',
+            'date' => Carbon::now(),
             'created_by_id' => auth()->user()->id,
             'value' => $data
         ]);
@@ -77,8 +77,8 @@ class GeneralIncidentController extends Controller
             $incident->zone_id = null;
         }
         $incident->save();
-        alert()->success('Accident Incident  Report Added successfully !');
-        return redirect()->route('admin.incident.index');
+        alert()->success('Witness Statement Added successfully !');
+        return redirect()->route('admin.statement.index');
     }
 
     /**
@@ -94,7 +94,7 @@ class GeneralIncidentController extends Controller
         $rides = Ride::pluck('name', 'id')->all();
         $departments = Department::pluck('name', 'id')->all();
         $accident = GeneralIncident::find($id);
-        return view('admin.general_incident.edit', compact('accident', 'departments', 'parks', 'zones', 'rides'));
+        return view('admin.statement.edit', compact('accident', 'departments', 'parks', 'zones', 'rides'));
 
     }
 
@@ -105,13 +105,12 @@ class GeneralIncidentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(IncidentRequest $request, $id)
+    public function update(StatementRequest $request, $id)
     {
         $data = $request->validated();
         $incident = GeneralIncident::findOrFail($id);
         $incident->update([
-            'value' => $request->validated(),
-            'date' => $data['date']
+            'value' => $request->validated()
         ]);
         if ($data['choose'] == 'ride') {
             $incident->ride_id = $data['ride_id'];
@@ -131,8 +130,8 @@ class GeneralIncidentController extends Controller
             $incident->text = $data['text'];
         }
         $incident->save();
-        alert()->success('Accident / incident updated successfully !');
-        return redirect()->route('admin.incident.index');
+        alert()->success('Witness Statement updated successfully !');
+        return redirect()->route('admin.statement.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -145,30 +144,12 @@ class GeneralIncidentController extends Controller
         $accident = GeneralIncident::find($id);
         if ($accident) {
             $accident->delete();
-            alert()->success('Incident Report deleted successfully');
+            alert()->success('Witness Statement deleted successfully');
             return back();
         }
         alert()->error('Incident Report not found');
-        return redirect()->route('admin.incident.index');
+        return redirect()->route('admin.statement.index');
     }
 
-    public function getZones(Request $request)
-    {
-        $html = '<option value=""> Select Zone</option>';
 
-        $parks = Zone::where('park_id', $request->bark_id)->get();
-        foreach ($parks as $park) {
-            $html .= '<option value="' . $park->id . '">' . $park->name . '</option>';
-        }
-        return response()->json(['html' => $html]);
-    }
-    public function getRides(Request $request)
-    {
-        $html = '';
-        $zones = Zone::find($request->zone_id);
-        foreach ($zones->rides as $ride) {
-            $html .= '<option value="' . $ride->id . '">' . $ride->name . '</option>';
-        }
-        return response()->json(['html' => $html]);
-    }
 }

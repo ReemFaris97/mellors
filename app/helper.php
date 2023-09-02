@@ -12,11 +12,12 @@ if (!function_exists('dateTime')) {
         $currentDate = Carbon::now()->toDateString();
         $currentTime = Carbon::now()->format('H:i');
         $parks = auth()->user()->parks->pluck('id');
-        $time = ParkTime::where('date', $currentDate)
-            ->orWhere(function ($subquery) use ($currentDate, $currentTime) {
-                $subquery->where('close_date', $currentDate)
-                ->where('end', '>=', $currentTime);
-            })->whereIn('park_id', $parks)
+        $time = ParkTime::whereIn('park_id', $parks)
+            ->where(function ($query) use ($currentDate, $currentTime) {
+                $query->where('date', $currentDate)
+                    ->orWhere('close_date', $currentDate)->where('end', '>=', $currentTime);
+            })
+        
             ->first();
         return $time;
     }
@@ -50,7 +51,6 @@ if (!function_exists('addNewDateStappage')) {
 if (!function_exists('notifications')) {
     function notifications()
     {
-        return Notification::where('notifiable_id',auth()->user()->id)->whereNull('read_at')->latest()?->get();
+        return Notification::where('notifiable_id', auth()->user()->id)->whereNull('read_at')->latest()?->get();
     }
 }
-
