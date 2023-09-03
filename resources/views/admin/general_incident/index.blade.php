@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    Accident / Incident
+    Accident / Incident 
 @endsection
 
 @section('content')
@@ -33,6 +33,10 @@
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
+                                    Status
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1">
                                     Process
                                 </th>
                             </tr>
@@ -46,7 +50,15 @@
                                     <td>{{ $item->value['date'] }}</td>
                                     <td>{{ $item->value['type_of_event'] }}</td>
                                     <td>{{ $item->value['name'] }}</td>
-
+                                    <td>
+                                        @if($item->status=='pending')
+                                        <a href="{{url('incident/'.$item->id.'/approve')}}"
+                                        class="btn btn-xs btn-danger"><i class="fa fa-check"></i> Approve</a>
+                                        @endif
+                                        @if($item->status=='approved')
+                                       <span>Verified</span>
+                                          @endif
+                                    </td>
                                     {!! Form::open([
                                         'route' => ['admin.incident.destroy', $item->id],
                                         'id' => 'delete-form' . $item->id,
@@ -55,6 +67,7 @@
                                     {!! Form::close() !!}
                                     <td>
                                         <a href="{{ route('admin.incident.edit', $item) }}" class="btn btn-info">Edit</a>
+                                        <a href="{{ route('admin.incident.show', $item->id) }}" class="btn btn-info">show</a>
 
                                         <!-- <a href="{{ route('admin.incident.edit', $item) }}"
                                                                class="btn btn-info">Edit</a> -->

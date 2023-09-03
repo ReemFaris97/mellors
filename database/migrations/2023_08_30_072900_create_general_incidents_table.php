@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('type');
             $table->dateTime('date')->nullable();
-            $table->json('value');
+            $table->json('value')->nullable();
             $table->json('value_2')->nullable();
             $table->json('value_3')->nullable();
             $table->json('value_4')->nullable();

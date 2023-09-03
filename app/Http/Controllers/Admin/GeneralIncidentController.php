@@ -54,6 +54,7 @@ class GeneralIncidentController extends Controller
         $data = $request->validated();
         $incident = GeneralIncident::create([
             'type' => 'incident',
+            'status' => 'pending',
             'date' => $data['date'],
             'created_by_id' => auth()->user()->id,
             'value' => $data
@@ -97,7 +98,13 @@ class GeneralIncidentController extends Controller
         return view('admin.general_incident.edit', compact('accident', 'departments', 'parks', 'zones', 'rides'));
 
     }
+    public function show($id)
+    {
+        $departments = Department::pluck('name', 'id')->all();
+        $accident = GeneralIncident::find($id);
+        return view('admin.general_incident.show', compact('accident', 'departments'));
 
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -171,4 +178,15 @@ class GeneralIncidentController extends Controller
         }
         return response()->json(['html' => $html]);
     }
+
+    public function approve($id)
+    {
+        $rsr = GeneralIncident::find($id);
+        $rsr->status = 'approved';
+        $rsr->approve_by_id  = \auth()->user()->id;
+        $rsr->save();
+        alert()->success('Incident form Approved successfully !');
+        return redirect()->route('admin.incident.index');
+    }
+
 }

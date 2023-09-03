@@ -1,4 +1,80 @@
 <div class="row">
+        <div class="col-xs-12">
+            <div class="form-group form-float">
+                <label class="form-label">Choose One</label>
+                <div class="form-line">
+                    <input type="radio" name="choose" id="ride" value="ride" checked class="ml-4"> Ride
+    
+                    <input type="radio" name="choose" id="park" value="park" class="ml-4" > Park
+                    <input type="radio" name="choose" id="zone" value="zone" class="ml-4"> Zone
+                    <input type="radio" name="choose" id="general" value="general" class="ml-4"> General
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4" id="parks">
+            <div class="form-group form-float">
+                <label class="form-label">Parks</label>
+                <div class="form-line">
+                    {!! Form::select('park_id', $parks, null, [
+                        'class' => 'form-control select2 Parks',
+                        'placeholder' => 'Choose Park...',
+                    ]) !!}
+                    @error('park_id')
+                        <div class="invalid-feedback" style="color: #ef1010">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4" id="zones" >
+            <div class="form-group form-float">
+                <label class="form-label">Zones</label>
+                <div class="form-line">
+                    {!! Form::select('zone_id', $zones, null, [
+                        'class' => 'form-control select2 Zones',
+                        'placeholder' => 'Choose Zone...',
+                    ]) !!}
+                    @error('zone_id')
+                        <div class="invalid-feedback" style="color: #ef1010">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4" id="rides"  >
+            <div class="form-group form-float">
+                <label class="form-label">Rides</label>
+                <div class="form-line">
+                    {!! Form::select('ride_id', $rides, null, [
+                        'class' => 'form-control select2 Rides',
+                        'placeholder' => 'Choose Ride...',
+                    ]) !!}
+                    @error('ride_id')
+                        <div class="invalid-feedback" style="color: #ef1010">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12" id="text" style="display: none;">
+            <div class="form-group form-float">
+                <label class="form-label">General Text</label>
+                <div class="form-line">
+                    {!! Form::input('text', 'text', null, ['class' => 'form-control  ', 'placeholder' => 'text']) !!}
+                    @error('text')
+                        <div class="invalid-feedback" style="color: #ef1010">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+</div>
+<div class="row">
+
         <h4 style="text-align:center">
             <strong>Incident Details</strong>
         </h4>
@@ -19,7 +95,7 @@
             <div class="form-group form-float">
                 <label class="form-label">Incident Date:</label>
                 <div class="form-line">
-                    {!! Form::input('text', 'incident_date', null, ['class' => 'form-control']) !!}
+                    {!! Form::date('incident_date', null, ['class' => 'form-control']) !!}
                     @error('incident_date')
                         <div class="invalid-feedback" style="color: #ef1010">
                             {{ $message }}
@@ -32,7 +108,7 @@
             <div class="form-group form-float">
                 <label class="form-label">Time of Incident:</label>
                 <div class="form-line">
-                    {!! Form::input('text', 'incident_time', null, ['class' => 'form-control']) !!}
+                    {!! Form::time('incident_time', null, ['class' => 'form-control']) !!}
                     @error('incident_time')
                         <div class="invalid-feedback" style="color: #ef1010">
                             {{ $message }}
@@ -46,7 +122,8 @@
         <div class="form-group form-float">
             <label class="form-label">Employee</label>
             <div class="form-line">
-                <input type="radio" name="employee" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="employee" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="employee" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="employee" value="No" class="ml-3"> No
            </div>
         </div>
@@ -55,7 +132,8 @@
         <div class="form-group form-float">
             <label class="form-label">Contractor</label>
             <div class="form-line">
-                <input type="radio" name="contractor" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="contractor" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="contractor" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="contractor" value="No" class="ml-3"> No
            </div>
         </div>
@@ -64,7 +142,8 @@
         <div class="form-group form-float">
             <label class="form-label">Customer</label>
             <div class="form-line">
-                <input type="radio" name="customer" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="customer" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="customer" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="customer" value="No" class="ml-3"> No
            </div>
         </div>
@@ -73,7 +152,8 @@
         <div class="form-group form-float">
             <label class="form-label">Pedestrian</label>
             <div class="form-line">
-                <input type="radio" name="pedestrian" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="pedestrian" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="pedestrian" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="pedestrian" value="No" class="ml-3"> No
            </div>
         </div>
@@ -111,7 +191,8 @@
         <div class="form-group form-float">
             <label class="form-label">Head Office Informed?</label>
             <div class="form-line">
-                <input type="radio" name="head_office_informed" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="head_office_informed" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="head_office_informed" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="head_office_informed" value="No" class="ml-3"> No
            </div>
         </div>
@@ -147,7 +228,8 @@
         <div class="form-group form-float">
             <label class="form-label">Accident Book Completed? </label>
             <div class="form-line">
-                <input type="radio" name="accident_book_completed" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="accident_book_completed" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="accident_book_completed" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="accident_book_completed" value="No" class="ml-3"> No
            </div>
         </div>
@@ -185,7 +267,8 @@
         <div class="form-group form-float">
             <label class="form-label">RIDDOR Reportable?</label>
             <div class="form-line">
-                <input type="radio" name="riddor_reportable" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="riddor_reportable" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="riddor_reportable" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="riddor_reportable" value="No" class="ml-3"> No
            </div>
         </div>
@@ -313,7 +396,8 @@
         <div class="form-group form-float">
             <label class="form-label">Was Incident Witnessed? </label>
             <div class="form-line">
-                <input type="radio" name="was_incident_witnessed" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="was_incident_witnessed" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="was_incident_witnessed" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="was_incident_witnessed" value="No" class="ml-3"> No
            </div>
         </div>
@@ -322,7 +406,8 @@
         <div class="form-group form-float">
             <label class="form-label">Are Witnesses Employees?</label>
             <div class="form-line">
-                <input type="radio" name="are_witnesses_employees" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="are_witnesses_employees" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="are_witnesses_employees" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="are_witnesses_employees" value="No" class="ml-3"> No
            </div>
         </div>
@@ -331,7 +416,8 @@
         <div class="form-group form-float">
             <label class="form-label">Witnesses Statements Taken?</label>
             <div class="form-line">
-                <input type="radio" name="witnesses_statements_taken" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="witnesses_statements_taken" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="witnesses_statements_taken" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="witnesses_statements_taken" value="No" class="ml-3"> No
            </div>
         </div>
@@ -476,7 +562,8 @@
         <div class="form-group form-float">
             <label class="form-label">Was the Incident Work Related?</label>
             <div class="form-line">
-                <input type="radio" name="was_the_incident_work_related" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="was_the_incident_work_related" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="was_the_incident_work_related" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="was_the_incident_work_related" value="No" class="ml-3"> No
            </div>
         </div>
@@ -485,7 +572,8 @@
         <div class="form-group form-float">
             <label class="form-label">Was First Aid Administered at Location?</label>
             <div class="form-line">
-                <input type="radio" name="was_first_aid_administered_at_location" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="was_first_aid_administered_at_location" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="was_first_aid_administered_at_location" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="was_first_aid_administered_at_location" value="No" class="ml-3"> No
            </div>
         </div>
@@ -522,7 +610,8 @@
         <div class="form-group form-float">
             <label class="form-label">Were Emergency Services Called?</label>
             <div class="form-line">
-                <input type="radio" name="were_emergency_services_called" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="were_emergency_services_called" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="were_emergency_services_called" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="were_emergency_services_called" value="No" class="ml-3"> No
            </div>
         </div>
@@ -531,7 +620,8 @@
         <div class="form-group form-float">
             <label class="form-label">Was Person Involved Hospitalised?</label>
             <div class="form-line">
-                <input type="radio" name="was_person_involved_hospitalised" value="Yes" class="ml-3"> Yes
+                <input type="hidden" name="was_person_involved_hospitalised" value="null"> <!-- Hidden input with value null -->
+    <input type="radio" name="was_person_involved_hospitalised" value="Yes" class="ml-3"> Yes
                 <input type="radio" name="was_person_involved_hospitalised" value="No" class="ml-3"> No
            </div>
         </div>
@@ -554,7 +644,8 @@
         <tbody>
             <tr>
                 <td>
-                <input type="checkBox" name="Noise" value="Yes" class="ml-3"> Noise
+                <input type="hidden" name="Noise" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Noise" value="Yes" class="ml-3"> Noise
                 </td>
                 <td>
                     {!! Form::input('text', 'Noise_desc', null, ['class' => 'form-control ']) !!}
@@ -562,7 +653,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Lighting" value="Yes" class="ml-3"> Lighting
+                <input type="hidden" name="Lighting" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Lighting" value="Yes" class="ml-3"> Lighting
                 </td>
                 <td>
                     {!! Form::input('text', 'Lighting_desc', null, ['class' => 'form-control  ']) !!}
@@ -570,7 +662,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Dust_Fumes" value="Yes" class="ml-3"> Dust / Fumes
+                <input type="hidden" name="Dust_Fumes" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Dust_Fumes" value="Yes" class="ml-3"> Dust / Fumes
                 </td>
                 <td>
                     {!! Form::input('text', 'Dust_Fumes_desc', null, ['class' => 'form-control  ']) !!}
@@ -578,7 +671,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Slip_Trip_Hazard" value="Yes" class="ml-3"> Slip / Trip Hazard
+                <input type="hidden" name="Slip_Trip_Hazard" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Slip_Trip_Hazard" value="Yes" class="ml-3"> Slip / Trip Hazard
                 </td>
                 <td>
                     {!! Form::input('text', 'Slip_Trip_Hazard_desc', null, ['class' => 'form-control  ']) !!}
@@ -586,7 +680,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Layout_Design" value="Yes" class="ml-3"> Layout / Design
+                <input type="hidden" name="Layout_Design" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Layout_Design" value="Yes" class="ml-3"> Layout / Design
                 </td>
                 <td>
                     {!! Form::input('text', 'Layout_Design_desc', null, ['class' => 'form-control  ']) !!}
@@ -594,7 +689,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Vibration" value="Yes" class="ml-3"> Vibration
+                <input type="hidden" name="Vibration" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Vibration" value="Yes" class="ml-3"> Vibration
                 </td>
                 <td>
                     {!! Form::input('text', 'Vibration_desc', null, ['class' => 'form-control  ']) !!}
@@ -602,7 +698,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Damaged_Unstable_Floor" value="Yes" class="ml-3"> Damaged / Unstable Floor
+                <input type="hidden" name="Damaged_Unstable_Floor" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Damaged_Unstable_Floor" value="Yes" class="ml-3"> Damaged / Unstable Floor
                 </td>
                 <td>
                 {!! Form::input('text', 'Damaged_Unstable_Floor_desc', null, ['class' => 'form-control  ']) !!}
@@ -610,7 +707,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Weather" value="Yes" class="ml-3"> Weather
+                <input type="hidden" name="Weather" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Weather" value="Yes" class="ml-3"> Weather
                 </td>
                 <td>
                     {!! Form::input('text', 'Weather_desc', null, ['class' => 'form-control  ']) !!}
@@ -618,7 +716,8 @@
             </tr>
             <tr>
                <td class="checkbox-cell">
-                <input type="checkBox" name="Other" value="Yes" class="ml-3"> Other
+                <input type="hidden" name="Other" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Other" value="Yes" class="ml-3"> Other
                 </td>
                 <td>
                     {!! Form::input('text', 'Other_desc', null, ['class' => 'form-control  ']) !!}
@@ -643,7 +742,8 @@
         <tbody>
             <tr>
                 <td>
-                <input type="checkBox" name="Fatigue" value="Yes" class="ml-3"> Fatigue
+                <input type="hidden" name="Fatigue" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Fatigue" value="Yes" class="ml-3"> Fatigue
                 </td>
                 <td>
                 {!! Form::input('text', 'Fatigue_desc', null, ['class' => 'form-control  ']) !!}
@@ -651,7 +751,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Lack_of_Communication" value="Yes" class="ml-3"> Lack of Communication
+                <input type="hidden" name="Lack_of_Communication" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Lack_of_Communication" value="Yes" class="ml-3"> Lack of Communication
                 </td>
                 <td>
                     {!! Form::input('text', 'Lack_of_Communication_desc', null, ['class' => 'form-control  ']) !!}
@@ -659,7 +760,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Distractions" value="Yes" class="ml-3"> Distractions
+                <input type="hidden" name="Distractions" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Distractions" value="Yes" class="ml-3"> Distractions
 
 
                 </td>
@@ -669,7 +771,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Change_of_Routine" value="Yes" class="ml-3">  Change of Routine
+                <input type="hidden" name="Change_of_Routine" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Change_of_Routine" value="Yes" class="ml-3">  Change of Routine
 
 
                 </td>
@@ -679,7 +782,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Time_Production_Pressure" value="Yes" class="ml-3"> Time / Production Pressure
+                <input type="hidden" name="Time_Production_Pressure" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Time_Production_Pressure" value="Yes" class="ml-3"> Time / Production Pressure
 
 
                 </td>
@@ -689,7 +793,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Procedure_No_Followed" value="Yes" class="ml-3"> Procedure Not Followed
+                <input type="hidden" name="Procedure_No_Followed" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Procedure_No_Followed" value="Yes" class="ml-3"> Procedure Not Followed
                 </td>
                 <td>
                     {!! Form::input('text', 'Procedure_No_Followed_desc', null, ['class' => 'form-control  ']) !!}
@@ -697,7 +802,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Drugs_or_Alcohol_tow" value="Yes" class="ml-3"> Drugs or Alcohol
+                <input type="hidden" name="Drugs_or_Alcohol" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Drugs_or_Alcohol" value="Yes" class="ml-3"> Drugs or Alcohol
                 </td>
                 <td>
                     {!! Form::input('text', 'Drugs_or_Alcohol_desc', null, ['class' => 'form-control  ']) !!}
@@ -705,7 +811,8 @@
             </tr>
             <tr>
                <td class="checkbox-cell">
-                <input type="checkBox" name="Attribute_Other" value="Yes" class="ml-3"> Other
+                <input type="hidden" name="Attribute_Other" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Attribute_Other" value="Yes" class="ml-3"> Other
                 </td>
                 <td>
                     {!! Form::input('text', 'Attribute_Other_desc', null, ['class' => 'form-control  ']) !!}
@@ -732,7 +839,8 @@
         <tbody>
             <tr>
                 <td>
-                <input type="checkBox" name="No_Hazard_Identified" value="Yes" class="ml-3"> No Hazard Identified
+                <input type="hidden" name="No_Hazard_Identified" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="No_Hazard_Identified" value="Yes" class="ml-3"> No Hazard Identified
                 </td>
                 <td>
                     {!! Form::input('text', 'No_Hazard_Identified_desc', null, ['class' => 'form-control  ']) !!}
@@ -740,7 +848,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Inadequate_Safe_Procedure" value="Yes" class="ml-3"> Inadequate Safe Procedure’s
+                <input type="hidden" name="Inadequate_Safe_Procedure" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Inadequate_Safe_Procedure" value="Yes" class="ml-3"> Inadequate Safe Procedure’s
                 </td>
                 <td>
                     {!! Form::input('text', 'Inadequate_Safe_Procedure_desc', null, ['class' => 'form-control  ']) !!}
@@ -748,7 +857,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Inadequate_Risk_Assessment" value="Yes" class="ml-3"> Inadequate Risk Assessment
+                <input type="hidden" name="Inadequate_Risk_Assessment" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Inadequate_Risk_Assessment" value="Yes" class="ml-3"> Inadequate Risk Assessment
                 </td>
                 <td>
                     {!! Form::input('text', 'Inadequate_Risk_Assessment_desc', null, ['class' => 'form-control  ']) !!}
@@ -756,7 +866,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Inadequate_Controls_in_Place" value="Yes" class="ml-3"> Inadequate Controls in Place
+                <input type="hidden" name="Inadequate_Controls_in_Place" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Inadequate_Controls_in_Place" value="Yes" class="ml-3"> Inadequate Controls in Place
                 </td>
                 <td>
                     {!! Form::input('text', 'Inadequate_Controls_in_Place_desc', null, ['class' => 'form-control  ']) !!}
@@ -764,7 +875,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Inadequate_Training" value="Yes" class="ml-3"> Inadequate Training
+                <input type="hidden" name="Inadequate_Training" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Inadequate_Training" value="Yes" class="ml-3"> Inadequate Training
 
 
                 </td>
@@ -774,7 +886,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Lack_of_Supervision" value="Yes" class="ml-3"> Lack of Supervision
+                <input type="hidden" name="Lack_of_Supervision" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Lack_of_Supervision" value="Yes" class="ml-3"> Lack of Supervision
 
 
                 </td>
@@ -784,7 +897,8 @@
             </tr>
             <tr>
                 <td class="checkbox-cell">
-                    <input type="checkBox" name="Attribute_two_Other" value="Yes" class="ml-3"> Other
+                    <input type="hidden" name="Attribute_two_Other" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Attribute_two_Other" value="Yes" class="ml-3"> Other
                     </td>
                     <td>
                         {!! Form::input('text', 'Attribute_two_Other_desc', null, ['class' => 'form-control  ']) !!}
@@ -810,7 +924,8 @@
         <tbody>
             <tr>
                 <td>
-                <input type="checkBox" name="Incorrect_Equipment" value="Yes" class="ml-3"> Incorrect Equipment
+                <input type="hidden" name="Incorrect_Equipment" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Incorrect_Equipment" value="Yes" class="ml-3"> Incorrect Equipment
 
 
                 </td>
@@ -820,7 +935,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Equipment_Failure" value="Yes" class="ml-3"> Equipment Failure
+                <input type="hidden" name="Equipment_Failure" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Equipment_Failure" value="Yes" class="ml-3"> Equipment Failure
                 </td>
                 <td>
                 {!! Form::input('text', 'Equipment_Failure_desc', null, ['class' => 'form-control  ']) !!}
@@ -828,7 +944,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Inadequate_Maintenance" value="Yes" class="ml-3">  Inadequate Maintenance
+                <input type="hidden" name="Inadequate_Maintenance" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Inadequate_Maintenance" value="Yes" class="ml-3">  Inadequate Maintenance
                 </td>
                 <td>
                     {!! Form::input('text', 'Inadequate_Maintenance_desc', null, ['class' => 'form-control  ']) !!}
@@ -836,7 +953,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Heavy_or_Awkward" value="Yes" class="ml-3"> Heavy or Awkward
+                <input type="hidden" name="Heavy_or_Awkward" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Heavy_or_Awkward" value="Yes" class="ml-3"> Heavy or Awkward
                 </td>
                 <td>
                     {!! Form::input('text', 'Heavy_or_Awkward_desc', null, ['class' => 'form-control  ']) !!}
@@ -844,7 +962,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Inadequate_Training_two" value="Yes" class="ml-3"> Inadequate Training
+                <input type="hidden" name="Inadequate_Training_two" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Inadequate_Training_two" value="Yes" class="ml-3"> Inadequate Training
 
 
                 </td>
@@ -854,7 +973,8 @@
             </tr>
             <tr>
                 <td>
-                <input type="checkBox" name="Inadequate_Guarding" value="Yes" class="ml-3"> Inadequate Guarding
+                <input type="hidden" name="Inadequate_Guarding" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Inadequate_Guarding" value="Yes" class="ml-3"> Inadequate Guarding
 
 
                 </td>
@@ -864,7 +984,8 @@
             </tr>
             <tr>
                <td class="checkbox-cell">
-                <input type="checkBox" name="Other_four" value="Yes" class="ml-3"> Other
+                <input type="hidden" name="Other_four" value="null"> <!-- Hidden input with value null -->
+    <input type="checkbox" name="Other_four" value="Yes" class="ml-3"> Other
                 </td>
                 <td>
                     {!! Form::input('text', 'Other_four_desc', null, ['class' => 'form-control  ']) !!}

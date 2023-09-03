@@ -7,7 +7,7 @@ Witness Statement
 @section('content')
     <div class="card-box">
 
-        <a class="input-group-btn" href="{{ route('admin.incident.create') }}">
+        <a class="input-group-btn" href="{{ route('admin.statement.create') }}">
             <button type="button" class="btn waves-effect waves-light btn-primary">Add Witness Statement</button>
         </a>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -32,6 +32,10 @@ Witness Statement
                                     Person Name
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                colspan="1">
+                                Status
+                            </th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
                                     Process
                                 </th>
@@ -46,7 +50,15 @@ Witness Statement
                                     <td>{{ $item->value['date'] }}</td>
                                     <td>{{ $item->value['witness_phone'] }}</td>
                                     <td>{{ $item->value['witness_name'] }}</td>
-
+                                    <td>
+                                        @if($item->status=='pending')
+                                        <a href="{{url('statement/'.$item->id.'/approve')}}"
+                                        class="btn btn-xs btn-danger"><i class="fa fa-check"></i> Approve</a>
+                                        @endif
+                                        @if($item->status=='approved')
+                                       <span>Verified</span>
+                                          @endif
+                                    </td>
                                     {!! Form::open([
                                         'route' => ['admin.statement.destroy', $item->id],
                                         'id' => 'delete-form' . $item->id,
@@ -55,6 +67,7 @@ Witness Statement
                                     {!! Form::close() !!}
                                     <td>
                                         <a href="{{ route('admin.statement.edit', $item) }}" class="btn btn-info">Edit</a>
+                                        <a href="{{ route('admin.statement.show', $item->id) }}" class="btn btn-info">show</a>
 
                                         <!-- <a href="{{ route('admin.statement.edit', $item) }}"
                                                                class="btn btn-info">Edit</a> -->

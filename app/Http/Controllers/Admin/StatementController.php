@@ -54,6 +54,7 @@ class StatementController extends Controller
         $data = $request->validated();
         $incident = GeneralIncident::create([
             'type' => 'statement',
+            'status' => 'pending',
             'date' => Carbon::now(),
             'created_by_id' => auth()->user()->id,
             'value' => $data
@@ -97,7 +98,13 @@ class StatementController extends Controller
         return view('admin.statement.edit', compact('accident', 'departments', 'parks', 'zones', 'rides'));
 
     }
+    public function show($id)
+    {
+        $departments = Department::pluck('name', 'id')->all();
+        $accident = GeneralIncident::find($id);
+        return view('admin.statement.show', compact('accident', 'departments'));
 
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -147,7 +154,17 @@ class StatementController extends Controller
             alert()->success('Witness Statement deleted successfully');
             return back();
         }
-        alert()->error('Incident Report not found');
+        alert()->error('Witness Statement Report not found');
+        return redirect()->route('admin.statement.index');
+    }
+
+    public function approve($id)
+    {
+        $rsr = GeneralIncident::find($id);
+        $rsr->status = 'approved';
+        $rsr->approve_by_id  = \auth()->user()->id;
+        $rsr->save();
+        alert()->success('Witness Statement form Approved successfully !');
         return redirect()->route('admin.statement.index');
     }
 

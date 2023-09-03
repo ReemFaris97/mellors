@@ -40,6 +40,7 @@ class InvestigationRequest extends FormRequest
                 'date_entered'=>'nullable',
                 'riddor_reportable'=>'nullable',
                 'date_reported'=>'nullable',
+                'report_eference_no'=>'nullable',
                 'time_eported'=>'nullable',
                 'investigation_lead_name'=>'nullable',
                 'department_id'=>'nullable',
@@ -117,7 +118,7 @@ class InvestigationRequest extends FormRequest
                 'Lack_of_Supervision_desc'=>'nullable',
                 'Attribute_two_Other'=>'nullable',
                 'Attribute_two_Other_desc'=>'nullable',
-
+                
                
                 'Incorrect_Equipment'=>'nullable',
                 'Incorrect_Equipment_desc'=>'nullable',
@@ -129,8 +130,8 @@ class InvestigationRequest extends FormRequest
                 'Heavy_or_Awkward_desc'=>'nullable',
                 'Inadequate_Training_two'=>'nullable',
                 'Inadequate_Training_two_desc'=>'nullable',
-                'Inadequate Guarding'=>'nullable',
-                'Inadequate Guarding_desc'=>'nullable',
+                'Inadequate_Guarding'=>'nullable',
+                'Inadequate_Guarding_desc'=>'nullable',
                 'Other_four'=>'nullable',
                 'Other_four_desc'=>'nullable',
 
@@ -165,7 +166,11 @@ class InvestigationRequest extends FormRequest
                 'Signature'=>'nullable',
                 'Position'=>'nullable',
 
-                
+                'choose'=>'required',
+                'ride_id'=>'nullable',
+                'park_id'=>'nullable',
+                'zone_id'=>'nullable',
+                'text'=>'nullable',
             ];
 
         return $rules;

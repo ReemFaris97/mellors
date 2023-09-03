@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    Accident / Incident
+Incident Investigation QMS-F-14
 @endsection
 
 @section('content')
@@ -25,12 +25,12 @@
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
-                                    Type Of Event
+                                    Name of Person Involved
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1">
-                                    Person Name
-                                </th>
+                                colspan="1">
+                                Status
+                            </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
                                     Process
@@ -43,25 +43,33 @@
                             @foreach ($items as $item)
                                 <tr role="row" class="odd" id="row-{{ $item->id }}">
                                     <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                    <td>{{ $item->value['date'] }}</td>
-                                    <td>{{ $item->value['type_of_event'] }}</td>
-                                    <td>{{ $item->value['name'] }}</td>
-
+                                    <td>{{ $item->value['incident_date'] }}</td>
+                                    <td>{{ $item->value['person_name'] }}</td>
+                                    <td>
+                                        @if($item->status=='pending')
+                                        <a href="{{url('investigation/'.$item->id.'/approve')}}"
+                                        class="btn btn-xs btn-danger"><i class="fa fa-check"></i> Approve</a>
+                                        @endif
+                                        @if($item->status=='approved')
+                                       <span>Verified</span>
+                                          @endif
+                                    </td>
                                     {!! Form::open([
-                                        'route' => ['admin.incident.destroy', $item->id],
+                                        'route' => ['admin.investigation.destroy', $item->id],
                                         'id' => 'delete-form' . $item->id,
                                         'method' => 'Delete',
                                     ]) !!}
                                     {!! Form::close() !!}
                                     <td>
-                                        <!-- <a href="{{ route('admin.incident.edit', $item) }}"
+                                        <!-- <a href="{{ route('admin.investigation.edit', $item) }}"
                                                                class="btn btn-info">Edit</a> -->
                                         <a class="btn btn-danger" data-name=""
-                                            data-url="{{ route('admin.incident.destroy', $item) }}"
+                                            data-url="{{ route('admin.investigation.destroy', $item) }}"
                                             onclick="delete_form(this)">
                                             Delete
                                         </a>
-                                        <a href="{{ route('admin.incident.edit', $item) }}" class="btn btn-info">Edit</a>
+                                        <a href="{{ route('admin.investigation.edit', $item) }}" class="btn btn-info">Edit</a>
+                                        <a href="{{ route('admin.investigation.show', $item->id) }}" class="btn btn-info">show</a>
                                     </td>
                                 </tr>
                             @endforeach
