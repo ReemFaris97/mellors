@@ -48,9 +48,7 @@ Attraction Audit Check Report
         <br><br>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
-                <div class="col-xs-12">
-                    <input type="button" value="Print Report" id="printDiv" class="btn btn-primary printBtn"></input>
-                </div>                   
+                                 
                     <div class="col-xs-12">
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                         <thead>
@@ -127,14 +125,6 @@ Attraction Audit Check Report
         });
     });
 </script>
-
-<script language="javascript">
-      $('#printDiv').click(function(){
-          $('#myDivToPrint').show();
-             window.print();
-             return false;
-  });
-    </script>
 @endpush
 @section('footer')
     @include('admin.datatable.scripts')
