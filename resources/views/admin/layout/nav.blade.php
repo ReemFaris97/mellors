@@ -292,14 +292,14 @@
 @if (auth()->user()->can('accidents-list') ||
         auth()->user()->can('accidents-create'))
     <li class="has_sub">
-        <a href="javascript:void(0);" class="waves-effect"><i class="glyphicon glyphicon-heart"></i><span>Health & Saftey
+        <a href="javascript:void(0);" class="waves-effect"><i class="glyphicon glyphicon-heart"></i><span>Health & Safety
             </span> <span class="menu-arrow"></span></a>
         <ul class="list-unstyled">
             @can('accidents-list')
             
             <li><a href="{{ route('admin.incident.index') }}">Accident & Incident</a></li>
-            <li><a href="{{ route('admin.investigation.index') }}">Investigation</a></li>
-            <li><a href="{{ route('admin.statement.index') }}"> Show Witness Statement</a></li>
+            <li><a href="{{ route('admin.investigation.index') }}">Investigation Incident</a></li>
+            <li><a href="{{ route('admin.statement.index') }}">  Witness Statement</a></li>
             @endcan 
         </ul>
     </li>

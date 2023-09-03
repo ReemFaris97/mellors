@@ -27,10 +27,13 @@ Incident Investigation QMS-F-14
                                     colspan="1">
                                     Name of Person Involved
                                 </th>
+                                @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
+
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                 colspan="1">
                                 Status
                             </th>
+                            @endif
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
                                     Process
@@ -45,6 +48,8 @@ Incident Investigation QMS-F-14
                                     <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                     <td>{{ $item->value['incident_date'] }}</td>
                                     <td>{{ $item->value['person_name'] }}</td>
+                                    @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
+
                                     <td>
                                         @if($item->status=='pending')
                                         <a href="{{url('investigation/'.$item->id.'/approve')}}"
@@ -54,6 +59,7 @@ Incident Investigation QMS-F-14
                                        <span>Verified</span>
                                           @endif
                                     </td>
+                                    @endif
                                     {!! Form::open([
                                         'route' => ['admin.investigation.destroy', $item->id],
                                         'id' => 'delete-form' . $item->id,

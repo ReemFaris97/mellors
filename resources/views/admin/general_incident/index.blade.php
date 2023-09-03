@@ -31,10 +31,13 @@
                                     colspan="1">
                                     Person Name
                                 </th>
+                                @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
+
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
                                     Status
                                 </th>
+                                @endif
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
                                     Process
@@ -50,6 +53,7 @@
                                     <td>{{ $item->value['date'] }}</td>
                                     <td>{{ $item->value['type_of_event'] }}</td>
                                     <td>{{ $item->value['name'] }}</td>
+                                    @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
                                     <td>
                                         @if($item->status=='pending')
                                         <a href="{{url('incident/'.$item->id.'/approve')}}"
@@ -58,7 +62,11 @@
                                         @if($item->status=='approved')
                                        <span>Verified</span>
                                           @endif
-                                    </td>
+                                    </td>                                       
+                                       @endif
+
+
+
                                     {!! Form::open([
                                         'route' => ['admin.incident.destroy', $item->id],
                                         'id' => 'delete-form' . $item->id,

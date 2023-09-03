@@ -31,10 +31,13 @@ Witness Statement
                                     colspan="1">
                                     Person Name
                                 </th>
+                                @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
+
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                 colspan="1">
                                 Status
                             </th>
+                            @endif
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
                                     Process
@@ -50,6 +53,8 @@ Witness Statement
                                     <td>{{ $item->value['date'] }}</td>
                                     <td>{{ $item->value['witness_phone'] }}</td>
                                     <td>{{ $item->value['witness_name'] }}</td>
+                                    @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
+
                                     <td>
                                         @if($item->status=='pending')
                                         <a href="{{url('statement/'.$item->id.'/approve')}}"
@@ -59,6 +64,7 @@ Witness Statement
                                        <span>Verified</span>
                                           @endif
                                     </td>
+                                    @endif
                                     {!! Form::open([
                                         'route' => ['admin.statement.destroy', $item->id],
                                         'id' => 'delete-form' . $item->id,
