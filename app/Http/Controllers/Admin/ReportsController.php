@@ -119,10 +119,10 @@ class ReportsController extends Controller
         $from = $request->input('from');
         $to = $request->input('to');
         $park_id = $request->input('park_id');
-        $ride_id = $request->input('ride_id');
-        $items = Attraction::whereBetween('created_at', [$from,$to])
-                             ->where('ride_id', $ride_id)
-                             ->get();
+        $items = Attraction::whereBetween('created_at', [$from,$to])->get();
+        if ($request->input('ride_id')) {
+            $items->where('ride_id', $request->input('ride_id'));
+        }
         if (auth()->user()->hasRole('Super Admin')) {
             $parks = Park::pluck('name', 'id')->all();
         } else {

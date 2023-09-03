@@ -34,9 +34,18 @@ class InvestigationController extends Controller
      */
     public function create()
     {
-        $parks = Park::pluck('name', 'id')->all();
-        $zones = Zone::pluck('name', 'id')->all();
-        $rides = Ride::pluck('name', 'id')->all();
+        
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+            $zones = Zone::pluck('name', 'id')->all();
+            $rides = Ride::pluck('name', 'id')->all();
+
+        }else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all(); 
+            $zones = auth()->user()->zones->pluck('name', 'id')->all(); 
+            $rides = auth()->user()->rides->pluck('name', 'id')->all(); 
+                }   
+
         $departments = Department::pluck('name', 'id')->all();
         return view('admin.investigation.add', compact('departments', 'parks', 'zones', 'rides'));
     }
@@ -89,9 +98,16 @@ class InvestigationController extends Controller
      */
     public function edit($id)
     {
-        $parks = Park::pluck('name', 'id')->all();
-        $zones = Zone::pluck('name', 'id')->all();
-        $rides = Ride::pluck('name', 'id')->all();
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+            $zones = Zone::pluck('name', 'id')->all();
+            $rides = Ride::pluck('name', 'id')->all();
+
+        }else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all(); 
+            $zones = auth()->user()->zones->pluck('name', 'id')->all(); 
+            $rides = auth()->user()->rides->pluck('name', 'id')->all(); 
+                } 
         $departments = Department::pluck('name', 'id')->all();
         $accident = GeneralIncident::find($id);
         return view('admin.investigation.edit', compact('accident', 'departments','parks','zones','rides'));
