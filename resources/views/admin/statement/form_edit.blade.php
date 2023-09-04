@@ -77,6 +77,8 @@
             </div>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-xs-6">
         <div class="form-group form-float">
             <label class="form-label">Department</label>

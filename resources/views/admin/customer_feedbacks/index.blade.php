@@ -22,7 +22,8 @@
     <div class='col-md-5'>
         <div class="form-group">
             <label for="last_name">Select Zone</label>
-            {!! Form::select('zone_id',[],null, array('class' => 'form-control park','id'=>'zone','placeholder'=>'Choose Zone') ) !!}
+            {!! Form::select('zone_id',[],null, array('class' => 'form-control park',
+                'id'=>'zone','placeholder'=>'Choose Zone') ) !!}
         </div>
     </div>
 

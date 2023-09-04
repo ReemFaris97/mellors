@@ -21,7 +21,7 @@ class GeneralController extends Controller
             ->whereIn('id', auth()->user()->zones->pluck('id'))
             ->get();
         }
-        $html = '<option value="">' .'Choose Zoon' . '</option>';
+        $html = '<option value="">' .'Choose Zone' . '</option>';
 
         foreach ($zones as $zone) {
             $html .= '<option value="' . $zone->id . '">' . $zone->name . '</option>';

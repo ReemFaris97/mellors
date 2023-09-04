@@ -35,9 +35,16 @@ class StatementController extends Controller
      */
     public function create()
     {
-        $parks = Park::pluck('name', 'id')->all();
-        $zones = Zone::pluck('name', 'id')->all();
-        $rides = Ride::pluck('name', 'id')->all();
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+            $zones = Zone::pluck('name', 'id')->all();
+            $rides = Ride::pluck('name', 'id')->all();
+
+        }else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all(); 
+            $zones = auth()->user()->zones->pluck('name', 'id')->all(); 
+            $rides = auth()->user()->rides->pluck('name', 'id')->all(); 
+                } 
         $departments = Department::pluck('name', 'id')->all();
         return view('admin.statement.add', compact('departments', 'parks', 'zones', 'rides'));
     }
@@ -54,6 +61,7 @@ class StatementController extends Controller
         $data = $request->validated();
         $incident = GeneralIncident::create([
             'type' => 'statement',
+            'status' => 'pending',
             'date' => Carbon::now(),
             'created_by_id' => auth()->user()->id,
             'value' => $data
@@ -89,15 +97,28 @@ class StatementController extends Controller
      */
     public function edit($id)
     {
-        $parks = Park::pluck('name', 'id')->all();
-        $zones = Zone::pluck('name', 'id')->all();
-        $rides = Ride::pluck('name', 'id')->all();
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+            $zones = Zone::pluck('name', 'id')->all();
+            $rides = Ride::pluck('name', 'id')->all();
+
+        }else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all(); 
+            $zones = auth()->user()->zones->pluck('name', 'id')->all(); 
+            $rides = auth()->user()->rides->pluck('name', 'id')->all(); 
+                } 
         $departments = Department::pluck('name', 'id')->all();
         $accident = GeneralIncident::find($id);
         return view('admin.statement.edit', compact('accident', 'departments', 'parks', 'zones', 'rides'));
 
     }
+    public function show($id)
+    {
+        $departments = Department::pluck('name', 'id')->all();
+        $accident = GeneralIncident::find($id);
+        return view('admin.statement.show', compact('accident', 'departments'));
 
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -147,7 +168,17 @@ class StatementController extends Controller
             alert()->success('Witness Statement deleted successfully');
             return back();
         }
-        alert()->error('Incident Report not found');
+        alert()->error('Witness Statement Report not found');
+        return redirect()->route('admin.statement.index');
+    }
+
+    public function approve($id)
+    {
+        $rsr = GeneralIncident::find($id);
+        $rsr->status = 'approved';
+        $rsr->approve_by_id  = \auth()->user()->id;
+        $rsr->save();
+        alert()->success('Witness Statement form Approved successfully !');
         return redirect()->route('admin.statement.index');
     }
 

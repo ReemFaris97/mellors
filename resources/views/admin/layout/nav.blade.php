@@ -283,11 +283,24 @@
         <ul class="list-unstyled">
             @can('customer_feedbacks-list')
                 <li><a href="{{ route('admin.observations.index') }}"> Show Observations</a></li>
-            @endcan
-            <li><a href="{{ route('admin.incident.index') }}"> Show accident && incident</a></li>
+            @endcan 
 
-            <li><a href="{{ route('admin.statement.index') }}"> Show Witness Statement</a></li>
+        </ul>
+    </li>
+@endif
 
+@if (auth()->user()->can('accidents-list') ||
+        auth()->user()->can('accidents-create'))
+    <li class="has_sub">
+        <a href="javascript:void(0);" class="waves-effect"><i class="glyphicon glyphicon-heart"></i><span>Health & Safety
+            </span> <span class="menu-arrow"></span></a>
+        <ul class="list-unstyled">
+            @can('accidents-list')
+            
+            <li><a href="{{ route('admin.incident.index') }}">Accident & Incident</a></li>
+            <li><a href="{{ route('admin.investigation.index') }}">Investigation Incident</a></li>
+            <li><a href="{{ route('admin.statement.index') }}">  Witness Statement</a></li>
+            @endcan 
         </ul>
     </li>
 @endif

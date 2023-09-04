@@ -1089,6 +1089,36 @@ table.dataTable.dtr-inline.collapsed
 
  
 }
+.bordered-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.bordered-table th {
+    border: 1px solid #000; /* Add border to table cells */
+    padding: 5px; /* Add some padding for better spacing */
+    text-align: center; /* Center-align text in table cells */
+    background-color: rgb(226, 226, 242);
+}
+.bordered-table td {
+    border: 1px solid #000; /* Add border to table cells */
+    padding: 5px; /* Add some padding for better spacing */
+    text-align: left; /* Center-align text in table cells */
+}
+.bottom {
+    margin-bottom: 25px; /* Add margin to create space between the two tables */
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /**********************************************************************/
 /******************** Print *********************************/

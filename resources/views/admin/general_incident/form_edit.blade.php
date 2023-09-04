@@ -76,6 +76,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="row">
+
     <div class="col-xs-6">
         <div class="form-group form-float">
             <label class="form-label">Department</label>
@@ -163,7 +166,7 @@
                 <label class="form-label">Name</label>
                 <div class="form-line">
                     {!! Form::input('text', 'name', $accident?->value['name'], ['class' => 'form-control']) !!}
-                    @error('time')
+                    @error('name')
                         <div class="invalid-feedback" style="color: #ef1010">
                             {{ $message }}
                         </div>

@@ -1,14 +1,14 @@
 @extends('admin.layout.app')
 
 @section('title')
-Witness Statement
+Incident Investigation QMS-F-14
 @endsection
 
 @section('content')
     <div class="card-box">
 
-        <a class="input-group-btn" href="{{ route('admin.statement.create') }}">
-            <button type="button" class="btn waves-effect waves-light btn-primary">Add Witness Statement</button>
+        <a class="input-group-btn" href="{{ route('admin.investigation.create') }}">
+            <button type="button" class="btn waves-effect waves-light btn-primary">Add Incident Investigation Form QMS-F-14</button>
         </a>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
@@ -25,11 +25,7 @@ Witness Statement
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
-                                    Person Phone
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1">
-                                    Person Name
+                                    Name of Person Involved
                                 </th>
                                 @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
 
@@ -50,14 +46,13 @@ Witness Statement
                             @foreach ($items as $item)
                                 <tr role="row" class="odd" id="row-{{ $item->id }}">
                                     <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                    <td>{{ $item->value['date'] }}</td>
-                                    <td>{{ $item->value['witness_phone'] }}</td>
-                                    <td>{{ $item->value['witness_name'] }}</td>
+                                    <td>{{ $item->value['incident_date'] }}</td>
+                                    <td>{{ $item->value['person_name'] }}</td>
                                     @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
 
                                     <td>
                                         @if($item->status=='pending')
-                                        <a href="{{url('statement/'.$item->id.'/approve')}}"
+                                        <a href="{{url('investigation/'.$item->id.'/approve')}}"
                                         class="btn btn-xs btn-danger"><i class="fa fa-check"></i> Approve</a>
                                         @endif
                                         @if($item->status=='approved')
@@ -66,22 +61,21 @@ Witness Statement
                                     </td>
                                     @endif
                                     {!! Form::open([
-                                        'route' => ['admin.statement.destroy', $item->id],
+                                        'route' => ['admin.investigation.destroy', $item->id],
                                         'id' => 'delete-form' . $item->id,
                                         'method' => 'Delete',
                                     ]) !!}
                                     {!! Form::close() !!}
                                     <td>
-                                        <a href="{{ route('admin.statement.edit', $item) }}" class="btn btn-info">Edit</a>
-                                        <a href="{{ route('admin.statement.show', $item->id) }}" class="btn btn-info">show</a>
-
-                                        <!-- <a href="{{ route('admin.statement.edit', $item) }}"
+                                        <!-- <a href="{{ route('admin.investigation.edit', $item) }}"
                                                                class="btn btn-info">Edit</a> -->
                                         <a class="btn btn-danger" data-name=""
-                                            data-url="{{ route('admin.statement.destroy', $item) }}"
+                                            data-url="{{ route('admin.investigation.destroy', $item) }}"
                                             onclick="delete_form(this)">
                                             Delete
                                         </a>
+                                        <a href="{{ route('admin.investigation.edit', $item) }}" class="btn btn-info">Edit</a>
+                                        <a href="{{ route('admin.investigation.show', $item->id) }}" class="btn btn-info">show</a>
                                     </td>
                                 </tr>
                             @endforeach

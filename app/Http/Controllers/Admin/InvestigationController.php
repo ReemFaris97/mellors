@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 
-use Carbon\Carbon;
-use App\Models\Park;
-use App\Models\Ride;
-use App\Models\Zone;
-use App\Models\Accident;
-use App\Models\Department;
-use Illuminate\Http\Request;
-use App\Models\GeneralIncident;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Accident\AccidentRequest;
-use App\Http\Requests\Dashboard\Accident\IncidentRequest;
+use App\Http\Requests\Dashboard\Accident\InvestigationRequest;
+use App\Models\Accident;
+use App\Models\Department;
+use App\Models\GeneralIncident;
+use App\Models\Park;
+use App\Models\Zone;
+use App\Models\Ride;
+use Carbon\Carbon;
 
-class GeneralIncidentController extends Controller
+class InvestigationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,8 +23,8 @@ class GeneralIncidentController extends Controller
      */
     public function index()
     {
-        $items = GeneralIncident::where('type','incident')->get();
-        return view('admin.general_incident.index', compact('items'));
+        $items = GeneralIncident::where('type','investigation')->get();
+        return view('admin.investigation.index', compact('items'));
     }
 
     /**
@@ -35,6 +34,7 @@ class GeneralIncidentController extends Controller
      */
     public function create()
     {
+        
         if (auth()->user()->hasRole('Super Admin')) {
             $parks = Park::pluck('name', 'id')->all();
             $zones = Zone::pluck('name', 'id')->all();
@@ -44,9 +44,10 @@ class GeneralIncidentController extends Controller
             $parks = auth()->user()->parks->pluck('name', 'id')->all(); 
             $zones = auth()->user()->zones->pluck('name', 'id')->all(); 
             $rides = auth()->user()->rides->pluck('name', 'id')->all(); 
-                } 
+                }   
+
         $departments = Department::pluck('name', 'id')->all();
-        return view('admin.general_incident.add', compact('departments', 'parks', 'zones', 'rides'));
+        return view('admin.investigation.add', compact('departments', 'parks', 'zones', 'rides'));
     }
 
 
@@ -56,37 +57,37 @@ class GeneralIncidentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(IncidentRequest $request)
-    {
-        $data = $request->validated();
-        $incident = GeneralIncident::create([
-            'type' => 'incident',
-            'status' => 'pending',
-            'date' => $data['date'],
-            'created_by_id' => auth()->user()->id,
-            'value' => $data
-        ]);
-        if ($data['choose'] == 'ride') {
-            $incident->ride_id = $data['ride_id'];
-            $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
-        }
-        if ($data['choose'] == 'park') {
-            $incident->park_id = $data['park_id'];
-
-        }
-        if ($data['choose'] == 'zone') {
-            $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
-        }
-        if ($data['choose'] == 'general') {
-            $incident->text = $data['text'];
-            $incident->park_id = null;
-            $incident->zone_id = null;
-        }
-        $incident->save();
-        alert()->success('Accident Incident  Report Added successfully !');
-        return redirect()->route('admin.incident.index');
+    public function store(InvestigationRequest $request)
+    {       
+         $data = $request->validated();
+            $incident = GeneralIncident::create([
+                'type' => 'investigation',
+                'status' => 'pending',
+                'date' => Carbon::now(),
+                'created_by_id' => auth()->user()->id,
+                'value' => $data
+            ]);
+            if ($data['choose'] == 'ride') {
+                $incident->ride_id = $data['ride_id'];
+                $incident->park_id = $data['park_id'];
+                $incident->zone_id = $data['zone_id'];
+            }
+            if ($data['choose'] == 'park') {
+                $incident->park_id = $data['park_id'];
+    
+            }
+            if ($data['choose'] == 'zone') {
+                $incident->park_id = $data['park_id'];
+                $incident->zone_id = $data['zone_id'];
+            }
+            if ($data['choose'] == 'general') {
+                $incident->text = $data['text'];
+                $incident->park_id = null;
+                $incident->zone_id = null;
+            }
+            $incident->save();
+        alert()->success('Incident Investigation Report Added successfully !');
+        return redirect()->route('admin.investigation.index');
     }
 
     /**
@@ -109,16 +110,17 @@ class GeneralIncidentController extends Controller
                 } 
         $departments = Department::pluck('name', 'id')->all();
         $accident = GeneralIncident::find($id);
-        return view('admin.general_incident.edit', compact('accident', 'departments', 'parks', 'zones', 'rides'));
+        return view('admin.investigation.edit', compact('accident', 'departments','parks','zones','rides'));
 
     }
     public function show($id)
     {
         $departments = Department::pluck('name', 'id')->all();
         $accident = GeneralIncident::find($id);
-        return view('admin.general_incident.show', compact('accident', 'departments'));
+        return view('admin.investigation.show', compact('accident', 'departments'));
 
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -126,13 +128,13 @@ class GeneralIncidentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(IncidentRequest $request, $id)
+    public function update(InvestigationRequest $request, $id)
     {
+
         $data = $request->validated();
         $incident = GeneralIncident::findOrFail($id);
         $incident->update([
-            'value' => $request->validated(),
-            'date' => $data['date']
+            'value' => $request->validated()
         ]);
         if ($data['choose'] == 'ride') {
             $incident->ride_id = $data['ride_id'];
@@ -152,8 +154,9 @@ class GeneralIncidentController extends Controller
             $incident->text = $data['text'];
         }
         $incident->save();
-        alert()->success('Accident / incident updated successfully !');
-        return redirect()->route('admin.incident.index');
+
+        alert()->success('Investigation form updated successfully !');
+        return redirect()->route('admin.investigation.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -166,32 +169,11 @@ class GeneralIncidentController extends Controller
         $accident = GeneralIncident::find($id);
         if ($accident) {
             $accident->delete();
-            alert()->success('Incident Report deleted successfully');
+            alert()->success('Investigation Report deleted successfully');
             return back();
         }
-        alert()->error('Incident Report not found');
-        return redirect()->route('admin.incident.index');
-    }
-
-    public function getZones(Request $request)
-    {
-        $html = '<option value=""> Select Zone</option>';
-
-        $parks = Zone::where('park_id', $request->bark_id)->get();
-        foreach ($parks as $park) {
-            $html .= '<option value="' . $park->id . '">' . $park->name . '</option>';
-        }
-        return response()->json(['html' => $html]);
-    }
-    public function getRides(Request $request)
-    {
-        $html = '';
-        $zones = Zone::find($request->zone_id);
-        
-        foreach ($zones->rides as $ride) {
-            $html .= '<option value="' . $ride->id . '">' . $ride->name . '</option>';
-        }
-        return response()->json(['html' => $html]);
+        alert()->error('Investigation Report not found');
+        return redirect()->route('admin.investigation.index');
     }
 
     public function approve($id)
@@ -200,8 +182,7 @@ class GeneralIncidentController extends Controller
         $rsr->status = 'approved';
         $rsr->approve_by_id  = \auth()->user()->id;
         $rsr->save();
-        alert()->success('Incident form Approved successfully !');
-        return redirect()->route('admin.incident.index');
+        alert()->success('Investigation form Approved successfully !');
+        return redirect()->route('admin.investigation.index');
     }
-
 }

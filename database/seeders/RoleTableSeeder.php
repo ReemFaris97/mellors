@@ -99,13 +99,21 @@ class RoleTableSeeder extends Seeder
                 //     'updated_at' => NULL,
                 // ),
                 // 10 =>
-                array(
+             //   array(
                     // 'id' => 11,
-                    'name' => 'Client',
-                    'guard_name' => 'web',
-                    'created_at' => NULL,
-                    'updated_at' => NULL,
-                ),
+                 //   'name' => 'Client',
+                //    'guard_name' => 'web',
+                 //   'created_at' => NULL,
+                  //  'updated_at' => NULL,
+              //  ),
+                11 =>
+               array(
+                     'id' => 12,
+                    'name' => 'Health & Safty Supervisor',
+                   'guard_name' => 'web',
+                     'created_at' => NULL,
+                  'updated_at' => NULL,
+               ), 
             )
         );
     }

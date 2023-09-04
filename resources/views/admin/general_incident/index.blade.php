@@ -1,14 +1,14 @@
 @extends('admin.layout.app')
 
 @section('title')
-    Accident / Incident
+    Accident / Incident 
 @endsection
 
 @section('content')
     <div class="card-box">
 
         <a class="input-group-btn" href="{{ route('admin.incident.create') }}">
-            <button type="button" class="btn waves-effect waves-light btn-primary">Add Accident / Incident</button>
+            <button type="button" class="btn waves-effect waves-light btn-primary">Add Accident / Incident Form QMS-F-13</button>
         </a>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
@@ -31,6 +31,13 @@
                                     colspan="1">
                                     Person Name
                                 </th>
+                                @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
+
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1">
+                                    Status
+                                </th>
+                                @endif
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
                                     Process
@@ -46,6 +53,19 @@
                                     <td>{{ $item->value['date'] }}</td>
                                     <td>{{ $item->value['type_of_event'] }}</td>
                                     <td>{{ $item->value['name'] }}</td>
+                                    @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
+                                    <td>
+                                        @if($item->status=='pending')
+                                        <a href="{{url('incident/'.$item->id.'/approve')}}"
+                                        class="btn btn-xs btn-danger"><i class="fa fa-check"></i> Approve</a>
+                                        @endif
+                                        @if($item->status=='approved')
+                                       <span>Verified</span>
+                                          @endif
+                                    </td>                                       
+                                       @endif
+
+
 
                                     {!! Form::open([
                                         'route' => ['admin.incident.destroy', $item->id],
@@ -55,6 +75,7 @@
                                     {!! Form::close() !!}
                                     <td>
                                         <a href="{{ route('admin.incident.edit', $item) }}" class="btn btn-info">Edit</a>
+                                        <a href="{{ route('admin.incident.show', $item->id) }}" class="btn btn-info">show</a>
 
                                         <!-- <a href="{{ route('admin.incident.edit', $item) }}"
                                                                class="btn btn-info">Edit</a> -->
