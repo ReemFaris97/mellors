@@ -113,7 +113,7 @@
                     <tr role="row" class="odd" id="row-{{3}}">
                         <td tabindex="0" class="sorting_1">{{3 }}</td>
                         <td>{{$tech['c']->question ?? '  ' }}</td>
-                        <td class="{{($tech['c']->answer ?? '  '  == '0') ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($tech['c']->answer ?? '  '  == 0) ? 'yes' : 'no'}} align-center" >
                             {{ $tech['c']->answer ?? '  '  }}
                         </td>
                         <td>{!!$tech['c']->comment ?? '  '  !!}</td>
@@ -121,7 +121,7 @@
                     <tr role="row" class="odd" id="row-{{4}}">
                         <td tabindex="0" class="sorting_1">{{4}}</td>
                         <td>{{$tech['d']->question ?? '  ' }}</td>
-                        <td class=" align-center" >
+                        <td class="{{($tech['d']->answer ?? '  '  == 0) ? 'yes' : 'no'}} align-center" >
                             {{ $tech['d']->answer ?? '  '  }}
                         </td>
                         <td>{!!$tech['d']->comment ?? '  '  !!}</td>
@@ -129,7 +129,7 @@
                     <tr role="row" class="odd" id="row-{{5}}">
                         <td tabindex="0" class="sorting_1">{{5}}</td>
                         <td>{{$tech['e']->question ?? '  ' }}</td>
-                        <td class=" align-center" >
+                        <td class="{{($tech['e']->answer ?? '  '  == 0) ? 'yes' : 'no'}} align-center" >
                             {{ $tech['e']->answer ?? '  '  }}
                         </td>
                         <td>{!!$tech['e']->comment ?? '  '  !!}</td>
@@ -137,7 +137,7 @@
                     <tr role="row" class="odd" id="row-{{6}}">
                         <td tabindex="0" class="sorting_1">{{6}}</td>
                         <td>{{$tech['f']->question ?? '  ' }}</td>
-                        <td class=" align-center" >
+                        <td class="{{($tech['f']->answer ?? '  '  == 0) ? 'yes' : 'no'}} align-center" >
                             {{ $tech['f']->answer ?? '  '  }}
                         </td>
                         <td>{!!$tech['f']->comment ?? '  '  !!}</td>
@@ -145,7 +145,7 @@
                     <tr role="row" class="odd" id="row-{{7}}">
                         <td tabindex="0" class="sorting_1">{{7}}</td>
                         <td>{{$tech['g']->question ?? '  ' }}</td>
-                        <td class=" align-center" >
+                        <td class="{{($tech['g']->answer ?? '  '  == 0) ? 'yes' : 'no'}} align-center" >
                             {{ $tech['g']->answer ?? '  '  }}
                         </td>
                         <td>{!!$tech['g']->comment ?? '  '  !!}</td>
@@ -164,7 +164,7 @@
                     <tr role="row" class="odd" id="row-{{1}}">
                         <td tabindex="0" class="sorting_1">{{1 }}</td>
                         <td>{{$skillgame['a']->question ?? '  ' }}</td>
-                        <td class="{{($skillgame['a']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($skillgame['a']->answer ?? '  '  == 'yes') ? 'no' : 'yes'}} align-center" >
                             {{ $skillgame['a']->answer ?? '  '  }}
                         </td>
                         <td>{!!$skillgame['a']->comment ?? '  '  !!}</td>
@@ -252,7 +252,7 @@
                     <tr role="row" class="odd" id="row-{{12}}">
                         <td tabindex="0" class="sorting_1">{{12}}</td>
                         <td>{{$skillgame['l']->question ?? '  ' }}</td>
-                        <td class="{{($skillgame['l']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($skillgame['l']->answer ?? '  '  == 'yes') ? 'no' : 'yes'}} align-center" >
                             {{ $skillgame['l']->answer ?? '  '  }}
                         </td>
                         <td>{!!$skillgame['l']->comment ?? '  '  !!}</td>
@@ -260,7 +260,7 @@
                     <tr role="row" class="odd" id="row-{{13}}">
                         <td tabindex="0" class="sorting_1">{{13}}</td>
                         <td>{{$skillgame['m']->question ?? '  ' }}</td>
-                        <td class="{{($skillgame['m']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($skillgame['m']->answer ?? '  '  == 'yes') ? 'no' : 'yes'}} align-center" >
                             {{ $skillgame['m']->answer ?? '  '  }}
                         </td>
                         <td>{!!$skillgame['m']->comment ?? '  '  !!}</td>
@@ -303,7 +303,7 @@
                     <tr role="row" class="odd" id="row-{{4}}">
                         <td tabindex="0" class="sorting_1">{{4}}</td>
                         <td>{{$rideops['d']->question ?? '' }}</td>
-                        <td class="{{($rideops['d']->answer ?? '  '  == 'no') ? 'no' : 'yes'}} align-center" >
+                        <td class="{{($rideops['d']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
                             {{ $rideops['d']->answer ?? '  '   ?? ''}}
                         </td>
                         <td>{!!$rideops['d']->comment ?? '  '   ?? ''!!}</td>
@@ -311,7 +311,7 @@
                     <tr role="row" class="odd" id="row-{{5}}">
                         <td tabindex="0" class="sorting_1">{{5}}</td>
                         <td>{{$rideops['e']->question ?? ''}}</td>
-                        <td class="{{($rideops['e']->answer ?? '  '  == 'no') ? 'no' : 'yes'}} align-center" >
+                        <td class="{{($rideops['e']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
                             {{ $rideops['e']->answer ?? '  '   ?? ''}}
                         </td>
                         <td>{!!$rideops['e']->comment ?? '  '  ?? '' !!}</td>
@@ -319,7 +319,7 @@
                     <tr role="row" class="odd" id="row-{{6}}">
                         <td tabindex="0" class="sorting_1">{{6}}</td>
                         <td>{{$rideops['f']->question?? '' }}</td>
-                        <td class="{{($rideops['f']->answer ?? '  '  == 'no') ? 'no' : 'yes'}} align-center" >
+                        <td class="{{($rideops['f']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
                             {{ $rideops['f']->answer ?? '  '   ?? '' }}
                         </td>
                         <td>{!!$rideops['f']->comment ?? '  '   ?? '' !!}</td>
@@ -396,7 +396,7 @@
                     <tr role="row" class="odd" id="row-{{2}}">
                         <td tabindex="0" class="sorting_1">{{2}}</td>
                         <td>{{$maintenance['b']->question ?? '  ' }}</td>
-                        <td class="{{($maintenance['b']->answer ?? '  '  == 'yes') ? 'no' : 'yes'}} align-center" >
+                        <td class="{{($maintenance['b']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
                             {{ $maintenance['b']->answer ?? '  '  }}
                         </td>
                         <td>{!!$maintenance['b']->comment ?? '  '  !!}</td>
@@ -404,7 +404,7 @@
                     <tr role="row" class="odd" id="row-{{3}}">
                         <td tabindex="0" class="sorting_1">{{3 }}</td>
                         <td>{{$maintenance['c']->question ?? '  ' }}</td>
-                        <td class="{{($maintenance['c']->answer ?? '  '  == 'yes') ? 'no' : 'yes'}} align-center" >
+                        <td class="{{($maintenance['c']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
                             {{ $maintenance['c']->answer ?? '  '  }}
                         </td>
                         <td>{!!$maintenance['c']->comment ?? '  '  !!}</td>
@@ -420,7 +420,7 @@
                     <tr role="row" class="odd" id="row-{{5}}">
                         <td tabindex="0" class="sorting_1">{{5}}</td>
                         <td>{{$maintenance['e']->question ?? '  ' }}</td>
-                        <td class="{{($maintenance['e']->answer ?? '  '  == 'yes') ? 'no' : 'yes'}} align-center" >
+                        <td class="{{($maintenance['e']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
                             {{ $maintenance['e']->answer ?? '  '  }}
                         </td>
                         <td>{!!$maintenance['e']->comment ?? '  '  !!}</td>
