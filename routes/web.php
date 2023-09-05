@@ -243,6 +243,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
 
     Route::resource('statement','Admin\StatementController');
     Route::get('statement/{id}/approve', 'Admin\StatementController@approve');
+    Route::get('show_statment/{id}', 'Admin\StatementController@showStatment');
 
 
 });

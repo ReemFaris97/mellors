@@ -27,6 +27,12 @@ class StatementController extends Controller
         $items = GeneralIncident::where('type','statement')->get();
         return view('admin.statement.index', compact('items'));
     }
+    public function showStatment($incident_id){
+
+        $items = IncidentStatement::where('incident_id',$incident_id)->get();
+        return view('admin.statement.index', compact('items','incident_id'));
+        
+    }
 
     /**
      * Show the form for creating a new resource.

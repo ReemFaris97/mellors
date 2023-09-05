@@ -31,6 +31,10 @@
                                     colspan="1">
                                     Person Name
                                 </th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1">
+                                    Witness Statement
+                                </th>
                                 @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
 
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
@@ -53,6 +57,11 @@
                                     <td>{{ $item->value['date'] }}</td>
                                     <td>{{ $item->value['type_of_event'] }}</td>
                                     <td>{{ $item->value['name'] }}</td>
+                                   
+                                   <td>
+                                     <a href="{{ url('show_statment/' . $item->id) }}"
+                                        class="btn btn-primary"><i class="fa fa-check"></i>  Witness Statment </a>
+                                   </td>
                                     @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
                                     <td>
                                         @if($item->status=='pending')
