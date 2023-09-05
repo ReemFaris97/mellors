@@ -111,7 +111,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12">
+    {{-- <div class="col-xs-12">
         <div class="form-group form-float">
             <label class="form-label">Location</label>
             <div class="form-line">
@@ -126,7 +126,7 @@
                 @enderror
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-xs-6">
         <div class="form-group form-float">
             <label class="form-label">Type Of Event</label>
