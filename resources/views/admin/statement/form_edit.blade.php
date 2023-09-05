@@ -9,10 +9,10 @@
 
                 <input type="radio" name="choose" id="park" @if ($accident->park_id != null && $accident->zone_id == null && $accident->ride_id == null) checked @endif
                     value="park" class="ml-4"> Park
-                <input type="radio" name="choose" id="zone" value="zone" class="ml-4"
-                    @if ($accident->zone_id != null && $accident->ride_id == null) checked @endif> Zone
-                <input type="radio" name="choose" id="general" value="general" class="ml-4"
-                    @if ($accident->text != null) checked @endif> General
+                {{-- <input type="radio" name="choose" id="zone" value="zone" class="ml-4"
+                    @if ($accident->zone_id != null && $accident->ride_id == null) checked @endif> Zone --}}
+                {{-- <input type="radio" name="choose" id="general" value="general" class="ml-4"
+                    @if ($accident->text != null) checked @endif> General --}}
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-4" id="zones"  @if ($accident->zone_id == null) style="display: none;" @endif>
+    {{-- <div class="col-xs-4" id="zones"  @if ($accident->zone_id == null) style="display: none;" @endif>
         <div class="form-group form-float">
             <label class="form-label">Zones</label>
             <div class="form-line">
@@ -47,7 +47,7 @@
                 @enderror
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-xs-4" id="rides" @if ($accident->ride_id == null) style="display: none;" @endif>
         <div class="form-group form-float">
             <label class="form-label">Rides</label>
@@ -66,7 +66,7 @@
     </div>
     <div class="col-xs-12" id="text"   @if ($accident->text == null) style="display: none;" @endif>
         <div class="form-group form-float">
-            <label class="form-label">General Text</label>
+            <label class="form-label">Location</label>
             <div class="form-line">
                 {!! Form::input('text', 'text', null, ['class' => 'form-control  ', 'placeholder' => 'text']) !!}
                 @error('text')

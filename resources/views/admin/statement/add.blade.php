@@ -33,7 +33,7 @@
             $('#parks').show();
             $('#zones').hide();
             $('#rides').hide();
-            $('#text').hide();
+            $('#text').show();
         })
         $('#zone').click(function () {
             $('#parks').show();
@@ -55,21 +55,21 @@
         })
         $(".Parks").change(function(){
             $.ajax({
-                url: "{{ route('admin.getZones') }}?bark_id=" + $(this).val(),
-                method: 'GET',
-                success: function(data) {
-                    $('.Zones').html(data.html);
-                }
-            });
-        });
-        $(".Zones").change(function(){
-            $.ajax({
-                url: "{{ route('admin.getRides') }}?zone_id=" + $(this).val(),
+                url: "{{ route('admin.getRides') }}?park_id=" + $(this).val(),
                 method: 'GET',
                 success: function(data) {
                     $('.Rides').html(data.html);
                 }
             });
         });
+        // $(".Zones").change(function(){
+        //     $.ajax({
+        //         url: "{{ route('admin.getRides') }}?zone_id=" + $(this).val(),
+        //         method: 'GET',
+        //         success: function(data) {
+        //             $('.Rides').html(data.html);
+        //         }
+        //     });
+        // });
     </script>
 @endpush
