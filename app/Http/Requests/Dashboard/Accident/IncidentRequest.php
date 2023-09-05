@@ -26,7 +26,6 @@ class IncidentRequest extends FormRequest
             $rules = [
                 'department_id'=>'required',
                 'date'=>'required',
-                'location'=>'required',
                 'type_of_event'=>'required',
                 'harm'=>'required',
                 'name'=>'required',
@@ -39,7 +38,7 @@ class IncidentRequest extends FormRequest
                 'reportable'=>'required',
                 'investigation_level'=>'required',
                 'book'=>'required',
-                'choose'=>'required',
+                // 'choose'=>'required',
                 'ride_id'=>'nullable',
                 'park_id'=>'nullable',
                 'zone_id'=>'nullable',

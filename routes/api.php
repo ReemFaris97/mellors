@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\HealthSaftyController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\RideController;
 use App\Http\Controllers\Api\RideStoppageController;
@@ -60,5 +61,7 @@ Route::middleware(['auth:sanctum','settimezone'])->group(function () {
     Route::get('main_page',[HomeController::class,'home']);
     Route::get('test_event',[HomeController::class,'event']);
 
-
+    Route::post('incident',[HealthSaftyController::class,'incident']);
+    Route::post('investigation',[HealthSaftyController::class,'investigation']);
+    Route::get('departments',[HealthSaftyController::class,'departments']);
 });

@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
- Incident Investigation Form QMS-F-14 
+ Incident Investigation Form QMS-F-14
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
     <div class="col-xs-12">
         <input type="button" value="Print Report" id="printDiv"
          class="btn btn-primary printBtn" > Print Report </input>
-    </div> 
+    </div>
     <div class="col-xs-12 printable_div" id="myDivToPrint">
         <div class="col-xs-12 printOnly">
             <div class="logo">
@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12">
+    {{-- <div class="col-xs-12">
         <div class="form-group form-float">
             <label class="form-label">Location</label>
             <div class="form-line">
@@ -66,7 +66,7 @@
                 @enderror
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-xs-6">
         <div class="form-group form-float">
             <label class="form-label">Type Of Event</label>

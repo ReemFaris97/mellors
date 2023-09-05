@@ -103,7 +103,7 @@ class InvestigationRequest extends FormRequest
                 'Drugs_or_Alcohol_desc'=>'nullable',
                 'Attribute_Other'=>'nullable',
                 'Attribute_Other_desc'=>'nullable',
-               
+
                 'No_Hazard_Identified'=>'nullable',
                 'No_Hazard_Identified_desc'=>'nullable',
                 'Inadequate_Safe_Procedure'=>'nullable',
@@ -118,8 +118,8 @@ class InvestigationRequest extends FormRequest
                 'Lack_of_Supervision_desc'=>'nullable',
                 'Attribute_two_Other'=>'nullable',
                 'Attribute_two_Other_desc'=>'nullable',
-                
-               
+
+
                 'Incorrect_Equipment'=>'nullable',
                 'Incorrect_Equipment_desc'=>'nullable',
                 'Equipment_Failure'=>'nullable',
@@ -146,19 +146,19 @@ class InvestigationRequest extends FormRequest
                 'Completed_by_Name2'=>'nullable',
                 'Date_to_be_Completed2'=>'nullable',
                 'Further_Actions2'=>'nullable',
-                
+
                 'Contributing3'=>'nullable',
                 'Corrective_Actions3'=>'nullable',
                 'Completed_by_Name3'=>'nullable',
                 'Date_to_be_Completed3'=>'nullable',
                 'Further_Actions3'=>'nullable',
-                
+
                 'Contributing4'=>'nullable',
                 'Corrective_Actions4'=>'nullable',
                 'Completed_by_Name4'=>'nullable',
                 'Date_to_be_Completed4'=>'nullable',
                 'Further_Actions4'=>'nullable',
-                
+
                 'Further_Information'=>'nullable',
 
                 'Report_Completed_By'=>'nullable',
@@ -166,7 +166,7 @@ class InvestigationRequest extends FormRequest
                 'Signature'=>'nullable',
                 'Position'=>'nullable',
 
-                'choose'=>'required',
+                // 'choose'=>'required',
                 'ride_id'=>'nullable',
                 'park_id'=>'nullable',
                 'zone_id'=>'nullable',

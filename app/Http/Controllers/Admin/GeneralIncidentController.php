@@ -41,10 +41,10 @@ class GeneralIncidentController extends Controller
             $rides = Ride::pluck('name', 'id')->all();
 
         }else {
-            $parks = auth()->user()->parks->pluck('name', 'id')->all(); 
-            $zones = auth()->user()->zones->pluck('name', 'id')->all(); 
-            $rides = auth()->user()->rides->pluck('name', 'id')->all(); 
-                } 
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
+            $zones = auth()->user()->zones->pluck('name', 'id')->all();
+            $rides = auth()->user()->rides->pluck('name', 'id')->all();
+                }
         $departments = Department::pluck('name', 'id')->all();
         return view('admin.general_incident.add', compact('departments', 'parks', 'zones', 'rides'));
     }
@@ -103,10 +103,10 @@ class GeneralIncidentController extends Controller
             $rides = Ride::pluck('name', 'id')->all();
 
         }else {
-            $parks = auth()->user()->parks->pluck('name', 'id')->all(); 
-            $zones = auth()->user()->zones->pluck('name', 'id')->all(); 
-            $rides = auth()->user()->rides->pluck('name', 'id')->all(); 
-                } 
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
+            $zones = auth()->user()->zones->pluck('name', 'id')->all();
+            $rides = auth()->user()->rides->pluck('name', 'id')->all();
+                }
         $departments = Department::pluck('name', 'id')->all();
         $accident = GeneralIncident::find($id);
         return view('admin.general_incident.edit', compact('accident', 'departments', 'parks', 'zones', 'rides'));
@@ -186,9 +186,9 @@ class GeneralIncidentController extends Controller
     public function getRides(Request $request)
     {
         $html = '';
-        $zones = Zone::find($request->zone_id);
-        
-        foreach ($zones->rides as $ride) {
+        $parks = Park::find($request->park_id);
+
+        foreach ($parks->rides as $ride) {
             $html .= '<option value="' . $ride->id . '">' . $ride->name . '</option>';
         }
         return response()->json(['html' => $html]);
