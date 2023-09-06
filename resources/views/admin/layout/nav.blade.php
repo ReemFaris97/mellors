@@ -323,8 +323,7 @@
             @can('inspectionListReport')
             <li><a href="{{ route('admin.reports.inspectionListReport') }}">Inspection Lists Report</a></li>
             <li><a href="{{ route('admin.reports.auditReport') }}">Attraction Audit Check Report</a></li>
-
-                @endcan
+            @endcan
             @can('duty-report-list')
                 <li><a href="{{ route('admin.reports.operatorTimeReport') }}">Operator Time Report</a></li>
             @endcan
@@ -333,8 +332,12 @@
             @endcan
             @if (!auth()->user()->hasRole('Client'))
             <li><a href="{{ route('admin.reports.observationReport') }}">Observation Report</a></li>
-
             @endif
+            @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin')||
+            auth()->user()->hasRole('Park Admin') || auth()->user()->hasRole('Branch Admin'))
+             <li><a href="{{ route('admin.reports.incidentReport') }}">Health & Safety Report</a></li>
+            @endif
+
         </ul>
     </li>
 @endif

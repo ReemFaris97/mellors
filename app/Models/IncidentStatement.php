@@ -10,8 +10,6 @@ class IncidentStatement extends Model
     protected $guarded = [];
     protected $casts = [
         'value' => 'array',
-        'value_2' => 'array',
-        'value_3' => 'array',
-        'value_4' => 'array',
+        
     ];
 }

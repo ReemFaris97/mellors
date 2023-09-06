@@ -67,23 +67,14 @@ class InvestigationController extends Controller
                 'created_by_id' => auth()->user()->id,
                 'value' => $data
             ]);
-            if ($data['choose'] == 'ride') {
+            if ($request['choose'] == 'ride') {
                 $incident->ride_id = $data['ride_id'];
                 $incident->park_id = $data['park_id'];
-                $incident->zone_id = $data['zone_id'];
             }
-            if ($data['choose'] == 'park') {
+            if ($request['choose'] == 'park') {
                 $incident->park_id = $data['park_id'];
-    
-            }
-            if ($data['choose'] == 'zone') {
-                $incident->park_id = $data['park_id'];
-                $incident->zone_id = $data['zone_id'];
-            }
-            if ($data['choose'] == 'general') {
+                $incident->ride_id = null;
                 $incident->text = $data['text'];
-                $incident->park_id = null;
-                $incident->zone_id = null;
             }
             $incident->save();
         alert()->success('Incident Investigation Report Added successfully !');
@@ -136,21 +127,13 @@ class InvestigationController extends Controller
         $incident->update([
             'value' => $request->validated()
         ]);
-        if ($data['choose'] == 'ride') {
+        if ($request['choose'] == 'ride') {
             $incident->ride_id = $data['ride_id'];
             $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
         }
-        if ($data['choose'] == 'park') {
+        if ($request['choose'] == 'park') {
             $incident->park_id = $data['park_id'];
-        }
-        if ($data['choose'] == 'zone') {
-            $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
-        }
-        if ($data['choose'] == 'general') {
-            $incident->park_id = null;
-            $incident->zone_id = null;
+            $incident->ride_id = null;
             $incident->text = $data['text'];
         }
         $incident->save();

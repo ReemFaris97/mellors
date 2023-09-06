@@ -32,10 +32,16 @@
                                     Person Name
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                colspan="1">
+                                Location
+                            </th>
+                            
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
                                     Witness Statement
                                 </th>
-                                @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
+                                @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin')||
+                                auth()->user()->hasRole('Park Admin') || auth()->user()->hasRole('Branch Admin'))
 
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
@@ -57,13 +63,15 @@
                                     <td>{{ $item->value['date'] }}</td>
                                     <td>{{ $item->value['type_of_event'] }}</td>
                                     <td>{{ $item->value['name'] }}</td>
-                                   
+                                    <td>{{ $item->park->name }} / {{ $item->ride->name ?? $item->text }} </td>
+
                                    <td>
                                      <a href="{{ url('show_statment/' . $item->id) }}"
-                                        class="btn btn-primary"><i class="fa fa-check"></i>  Witness Statment </a>
+                                        class="btn btn-primary"><i class="fa fa-plus"></i>  Witness Statment </a>
                                    </td>
-                                    @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
-                                    <td>
+                                   @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin')||
+                                   auth()->user()->hasRole('Park Admin') || auth()->user()->hasRole('Branch Admin'))
+                                  <td>
                                         @if($item->status=='pending')
                                         <a href="{{url('incident/'.$item->id.'/approve')}}"
                                         class="btn btn-xs btn-danger"><i class="fa fa-check"></i> Approve</a>

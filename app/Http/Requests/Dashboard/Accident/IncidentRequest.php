@@ -41,7 +41,6 @@ class IncidentRequest extends FormRequest
                 // 'choose'=>'required',
                 'ride_id'=>'nullable',
                 'park_id'=>'nullable',
-                'zone_id'=>'nullable',
                 'text'=>'nullable',
             ];
 

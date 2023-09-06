@@ -7,7 +7,7 @@ Witness Statement
 @section('content')
     <div class="card-box">
 
-        <a class="input-group-btn" href="{{ route('admin.statement.create') }}">
+        <a class="input-group-btn" href= "{{ url('add_statment/' . $incident_id) }}">
             <button type="button" class="btn waves-effect waves-light btn-primary">Add Witness Statement</button>
         </a>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">

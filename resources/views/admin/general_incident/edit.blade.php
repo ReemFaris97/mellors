@@ -31,25 +31,25 @@
     <script>
         $('#park').click(function () {
             $('#parks').show();
-            $('#zones').hide();
+           // $('#zones').hide();
             $('#rides').hide();
             $('#text').show();
         })
-        $('#zone').click(function () {
-            $('#parks').show();
-            $('#zones').show();
-            $('#rides').hide();
-            $('#text').hide();
-        })
+      //  $('#zone').click(function () {
+       //     $('#parks').show();
+         //   $('#zones').show();
+       //     $('#rides').hide();
+       //     $('#text').hide();
+       // })
         $('#ride').click(function () {
             $('#parks').show();
-            $('#zones').show();
+           // $('#zones').show();
             $('#rides').show();
             $('#text').hide();
         })
         $('#general').click(function () {
             $('#parks').hide();
-            $('#zones').hide();
+         //   $('#zones').hide();
             $('#rides').hide();
             $('#text').show();
         })

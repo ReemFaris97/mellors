@@ -243,7 +243,10 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
 
     Route::resource('statement','Admin\StatementController');
     Route::get('statement/{id}/approve', 'Admin\StatementController@approve');
-    Route::get('show_statment/{id}', 'Admin\StatementController@showStatment');
-
+    Route::get('add_statment/{id}', 'Admin\StatementController@addStatment');
+    Route::get('show_statment/{id}', 'Admin\StatementController@showStatment')->name('showStatment');
+    
+    Route::get('incident-report', 'Admin\ReportsController@incidentReport')->name('reports.incidentReport');
+    Route::get('show-incident-report', 'Admin\ReportsController@showIncidentReport')->name('reports.showIncidentReport');
 
 });

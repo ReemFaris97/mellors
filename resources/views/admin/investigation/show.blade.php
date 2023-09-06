@@ -111,12 +111,8 @@
         <div class="form-group form-float">
             <label class="form-label">Location</label>
             <div class="form-line">
-                {!! Form::input('text', 'location', $accident?->value['location'], ['class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => 'location']) !!}
-                @error('location')
-                    <div class="invalid-feedback" style="color: #ef1010">
-                        {{ $message }}
-                    </div>
-                @enderror
+                <span>  {{ $accident->park->name }} / {{ $accident->ride->name ?? $accident->text }}</span>
+               
             </div>
         </div>
     </div>
