@@ -13,7 +13,7 @@ Health & Safety Report
     <div class='col-md-5'>
         <div class="form-group">
             <label for="last_name">Select Park</label>
-            {!! Form::select('park_id',$parks,null, array('class' => 'form-control park','id'=>'park','placeholder'=>'Choose Park') ) !!}
+            {!! Form::select('park_id',$parks,null, array('class' => 'form-control park','id'=>'park','placeholder'=>'Choose Park', 'required' => 'required') ) !!}
         </div>
     </div>
     <div class='col-md-5'>
@@ -30,13 +30,13 @@ Health & Safety Report
     <div class='col-md-5'>
         <div class="form-group">
             <label for="middle_name">Time Slot Date From </label>
-            {!! Form::date('from',null,['class'=>'form-control','id'=>'date']) !!}
+            {!! Form::date('from',null,['class'=>'form-control','id'=>'date', 'required' => 'required']) !!}
         </div>
     </div> 
     <div class='col-md-5'>
         <div class="form-group">
             <label for="middle_name">Time Slot Date To </label>
-            {!! Form::date('to',null,['class'=>'form-control','id'=>'date']) !!}
+            {!! Form::date('to',null,['class'=>'form-control','id'=>'date', 'required' => 'required']) !!}
         </div>
     </div>
     <div class='col-md-2 mtButton'>

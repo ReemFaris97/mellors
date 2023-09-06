@@ -127,6 +127,22 @@
             </div>
         </div>
     </div> --}}
+    <div class="col-xs-12">
+        <div class="form-group form-float">
+            <label class="form-label"> Report Reference No:</label>
+            <div class="form-line">
+                {!! Form::input('text', 'report_reference_no', $accident->value['report_reference_no'], [
+                    'class' => 'form-control  ',
+                    'placeholder' => 'Report Reference No',
+                ]) !!}
+                @error('report_reference_no')
+                    <div class="invalid-feedback" style="color: #ef1010">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+        </div>
+    </div>
     <div class="col-xs-6">
         <div class="form-group form-float">
             <label class="form-label">Type Of Event</label>

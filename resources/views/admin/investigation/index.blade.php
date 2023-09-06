@@ -82,16 +82,14 @@ Incident Investigation QMS-F-14
                                     ]) !!}
                                     {!! Form::close() !!}
                                     <td>
-                                        <!-- <a href="{{ route('admin.investigation.edit', $item) }}"
-                                                               class="btn btn-info">Edit</a> -->
-                                        <a class="btn btn-danger" data-name=""
+                                        <a href="{{ route('admin.investigation.edit', $item) }}" class="btn btn-info">Edit</a>
+                                        <a href="{{ route('admin.investigation.show', $item->id) }}" class="btn btn-info">show</a>
+                                       <a class="btn btn-danger" data-name=""
                                             data-url="{{ route('admin.investigation.destroy', $item) }}"
                                             onclick="delete_form(this)">
                                             Delete
                                         </a>
-                                        <a href="{{ route('admin.investigation.edit', $item) }}" class="btn btn-info">Edit</a>
-                                        <a href="{{ route('admin.investigation.show', $item->id) }}" class="btn btn-info">show</a>
-                                    </td>
+                                       </td>
                                 </tr>
                             @endforeach
                         </tbody>
