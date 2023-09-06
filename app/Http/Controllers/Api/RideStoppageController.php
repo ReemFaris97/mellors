@@ -49,7 +49,7 @@ class RideStoppageController extends Controller
         })->get();
 
         $data = [
-            'title' => $stoppage->ride?->name . ' ' . 'has stoppage status because of ' .$stoppage->stopageSubCategory->name,
+            'title' => $stoppage->ride?->name . ' ' . 'has stoppage status because of ' . $stoppage->stopageSubCategory->name,
             'ride_id' => $validate['ride_id'],
             'time_id' => dateTime()?->id,
             'user_id' => Auth::user()->id,
@@ -197,6 +197,71 @@ class RideStoppageController extends Controller
         ]);
         return self::apiResponse(200, __('update stoppage categories successfully!'), []);
 
+    }
+
+    protected function addAnotherStoppage(Request $request)
+    {
+        $validate = $request->validate([
+            'ride_id' => 'required|exists:rides,id',
+            'park_time_id' => 'required|exists:park_times,id',
+            'time_slot_start' => 'required',
+            'date' =>'required',
+            'stopage_category_id' => 'required|exists:stopage_categories,id',
+            'stopage_sub_category_id' => 'required|exists:stopage_sub_categories,id',
+            'park_id'=>'required|exists:parks,id',
+            'zone_id'=>'required|exists:zones,id',
+
+        ]);
+        $ride = Ride::find($validate['ride_id']);
+
+        $last = $ride->rideStoppages->last();
+        $time = $validate['time_slot_start'];
+        $park_time = ParkTime::findOrFail($validate['park_time_id']);
+        $stoppageStartTime = Carbon::parse("$park_time->date $last->time_slot_start");
+        $stoppageParkTimeEnd = Carbon::parse("$park_time->date $time");
+        $last->down_minutes = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
+        $last->ride_status = 'active';
+        $last->stoppage_status = 'done';
+        $last->time_slot_end = $time;
+        $last->save();
+
+        $validate['user_id'] = \auth()->user()->id;
+        $validate['ride_status'] = 'stopped';
+        $validate['stoppage_status'] = 'pending';
+        $open = $validate['date'];
+        $time_slot_start = $validate['time_slot_start'];
+        $stoppageStartTime = Carbon::parse("$open $time_slot_start");
+        $stoppageParkTimeEnd = Carbon::parse("$park_time->close_date $park_time->end");
+        $validate['down_minutes'] = $stoppageParkTimeEnd->diffInMinutes($stoppageStartTime);
+        $validate['opened_date'] = $open;
+        $validate['time_slot_start'] = \Carbon\Carbon::now()->toTimeString();
+        $stoppage = RideStoppages::query()->create($validate);
+
+        event(new \App\Events\RideStatusEvent($validate['ride_id'], 'stopped', $stoppage->stopageSubCategory?->name));
+
+        $users = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'Super Admin');
+        })->get();
+
+        $data = [
+            'title' => $stoppage->ride?->name . ' ' . 'has stoppage status because of ' . $stoppage->stopageSubCategory->name,
+            'ride_id' => $validate['ride_id'],
+            'time_id' => dateTime()?->id,
+            'user_id' => Auth::user()->id,
+
+        ];
+        foreach ($users as $user) {
+            Notification::send($user, new StoppageNotifications($data));
+            event(new StoppageEvent($user->id, $data['title'], $stoppage->created_at, dateTime()?->id, $validate['ride_id']));
+        }
+        $zone = User::whereHas('roles', function ($query) {
+            return $query->where('name', 'zone supervisor');
+        })->first();
+        if ($zone) {
+            Notification::send($zone, new StoppageNotifications($data));
+            event(new showNotification($zone->id, $data['title'], $stoppage->created_at, dateTime()?->id, $validate['ride_id']));
+        }
+        return self::apiResponse(200, __('stoppage added successfully'), []);
     }
 
 

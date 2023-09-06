@@ -37,6 +37,7 @@ Route::middleware(['auth:sanctum','settimezone'])->group(function () {
     Route::post('update_stoppage',[RideStoppageController::class,'UpdateRideStoppages']);
     Route::post('update_stoppage_category',[RideStoppageController::class,'UpdateStoppageCategory']);
     Route::post('reopen',[RideStoppageController::class,'reopen']);
+    Route::post('add_another_stoppage',[RideStoppageController::class,'addAnotherStoppage']);
 
     Route::post('add_cycle',[RideController::class,'addCycle']);
     Route::post('update_cycle_count',[RideController::class,'updateCycleCount']);
