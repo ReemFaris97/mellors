@@ -10,6 +10,7 @@ use App\Models\Ride;
 use App\Models\RideStoppages;
 use App\Models\User;
 use App\Models\Attraction;
+use App\Models\GeneralIncident;
 use App\Models\UserLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -119,17 +120,25 @@ class ReportsController extends Controller
         $from = $request->input('from');
         $to = $request->input('to');
         $park_id = $request->input('park_id');
-        $items = Attraction::whereBetween('created_at', [$from,$to])->get();
+        
+        $items = Attraction::where('park_id', $park_id)->whereBetween('date', [$from, $to])->get();
+        
         if ($request->input('ride_id')) {
-            $items->where('ride_id', $request->input('ride_id'));
+            $rideId = $request->input('ride_id');
+            $items = $items->filter(function ($item) use ($rideId) {
+                return $item->ride_id == $rideId;
+            });
         }
+    
         if (auth()->user()->hasRole('Super Admin')) {
             $parks = Park::pluck('name', 'id')->all();
         } else {
             $parks = auth()->user()->parks->pluck('name', 'id')->all();
         }
+        
         return view('admin.reports.audit_report', compact('items', 'parks'));
-    }
+    } 
+    
 
     public function showInspectionListReport(Request $request)
     {
@@ -207,4 +216,42 @@ class ReportsController extends Controller
 
         return view('admin.reports.observation_report', compact('items', 'request','rides'));
     }
+
+    public function incidentReport()
+    {
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+        } else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
+        }
+        return view('admin.reports.incident_report', compact('parks'));
+
+    }
+    public function showIncidentReport(Request $request)
+    {
+        $from = $request->input('from');
+        $to = $request->input('to');
+        $park_id = $request->input('park_id');
+    
+        // Parse the date inputs into DateTime objects
+        $fromDate = \Carbon\Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
+        $toDate = \Carbon\Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
+    
+        $items = GeneralIncident::where('park_id', $park_id)
+            ->whereBetween('date', [$fromDate, $toDate])->get();
+    
+        if ($request->input('type')) {
+            $items->where('type', $request->input('type'));
+        }
+        
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+        } else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all();
+        }
+    
+        //dd($query);
+        return view('admin.reports.incident_report', compact('items', 'parks'));
+    }
+    
 }

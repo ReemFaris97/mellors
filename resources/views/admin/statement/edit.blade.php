@@ -28,47 +28,5 @@
 @endsection
 @push('scripts')
     <script>
-        $('#park').click(function () {
-            $('#parks').show();
-            // $('#zones').hide();
-            $('#rides').hide();
-            $('#text').show();
-        })
-        $('#zone').click(function () {
-            $('#parks').show();
-            // $('#zones').show();
-            $('#rides').hide();
-            $('#text').hide();
-        })
-        $('#ride').click(function () {
-            $('#parks').show();
-            // $('#zones').show();
-            $('#rides').show();
-            $('#text').hide();
-        })
-        $('#general').click(function () {
-            $('#parks').hide();
-            $('#zones').hide();
-            // $('#rides').hide();
-            $('#text').show();
-        })
-        $(".Parks").change(function(){
-            $.ajax({
-                url: "{{ route('admin.getZones') }}?park_id=" + $(this).val(),
-                method: 'GET',
-                success: function(data) {
-                    $('.Rides').html(data.html);
-                }
-            });
-        });
-        // $(".Zones").change(function(){
-        //     $.ajax({
-        //         url: "{{ route('admin.getRides') }}?zone_id=" + $(this).val(),
-        //         method: 'GET',
-        //         success: function(data) {
-        //             $('.Rides').html(data.html);
-        //         }
-        //     });
-        // });
-    </script>
+
 @endpush

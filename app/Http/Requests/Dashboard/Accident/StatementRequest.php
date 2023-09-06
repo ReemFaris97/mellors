@@ -32,11 +32,6 @@ class StatementRequest extends FormRequest
                 'witness_phone'=>'required',
                 'witness_position'=>'required',
                 'statement'=>'required',
-                'choose'=>'required',
-                'ride_id'=>'nullable',
-                'park_id'=>'nullable',
-                'zone_id'=>'nullable',
-                'text'=>'nullable',
             ];
 
         return $rules;

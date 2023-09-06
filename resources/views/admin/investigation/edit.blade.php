@@ -31,25 +31,25 @@ Update Incident Investigation Form QMS-F-14
     <script>
         $('#park').click(function () {
             $('#parks').show();
-            $('#zones').hide();
+        //    $('#zones').hide();
             $('#rides').hide();
             $('#text').hide();
         })
-        $('#zone').click(function () {
+     /*    $('#zone').click(function () {
             $('#parks').show();
             $('#zones').show();
             $('#rides').hide();
             $('#text').hide();
-        })
+        }) */
         $('#ride').click(function () {
             $('#parks').show();
-            $('#zones').show();
+        //    $('#zones').show();
             $('#rides').show();
             $('#text').hide();
         })
         $('#general').click(function () {
             $('#parks').hide();
-            $('#zones').hide();
+        //    $('#zones').hide();
             $('#rides').hide();
             $('#text').show();
         })
@@ -62,7 +62,7 @@ Update Incident Investigation Form QMS-F-14
                 }
             });
         });
-        $(".Zones").change(function(){
+   /*      $(".Zones").change(function(){
             $.ajax({
                 url: "{{ route('admin.getRides') }}?zone_id=" + $(this).val(),
                 method: 'GET',
@@ -70,6 +70,6 @@ Update Incident Investigation Form QMS-F-14
                     $('.Rides').html(data.html);
                 }
             });
-        });
+        }); */
     </script>
     @endpush

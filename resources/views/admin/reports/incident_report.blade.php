@@ -1,13 +1,13 @@
 @extends('admin.layout.app')
 
 @section('title')
-Attraction Audit Check Report
+Health & Safety Report
 @endsection
 
 @section('content')
 
     <div class="card-box">
-    <form class="formSection" action="{{url('/show-audit-report/')}}" method="GET">
+    <form class="formSection" action="{{url('/show-incident-report/')}}" method="GET">
             @csrf
         <div class="row">
     <div class='col-md-5'>
@@ -18,8 +18,12 @@ Attraction Audit Check Report
     </div>
     <div class='col-md-5'>
         <div class="form-group">
-            <label for="last_name">Select Ride</label>
-            {!! Form::select('ride_id', [],null, array('class' => 'form-control ride','id'=>'ride','placeholder'=>'Choose Ride')) !!}
+            <label for="last_name">Select Report Type (Optional)</label>
+            <select name="type"  class="form-control ">
+                <option value="" > Choose...</option>
+                <option value="incident">Incident /Accident QMS-F-13 </option>
+                <option value="investigation">Incident Investigation QMS-F-14</option>
+            </select>
         </div>
     </div>
 
@@ -58,31 +62,27 @@ Attraction Audit Check Report
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
-                                    List
+                                    Location
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
-                                    Park
+                                    Date
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
-                                    Ride
+                                    Report Type 
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1">
-                                    Created By
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1">
-                                    Created At
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1">
-                                    Show List 
+                                colspan="1">
+                                Witness statement
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
                                     Status
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1">
+                                    Show /Print
                                 </th>
                             </tr>
                         </thead>
@@ -92,29 +92,31 @@ Attraction Audit Check Report
                             @foreach ($items as $item)
                                 <tr role="row" class="odd" id="row-{{ $item->id }}">
                                     <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                    <td>ATTRACTION AUDIT CHECK LIST {{ $loop->iteration }}</td>
-                                    <td>{{ $item->park->name }}</td>
-                                    <td>{{ $item->ride->name }}</td>
-                                    <td>{{ $item->created_by->name }}</td>
+                                    <td>{{ $item->park->name }} / {{ $item->ride->name ?? $item->text }} </td>
                                     <td>{{ $item->date }}</td>
-
+                                    <td>{{ $item->type =='incident' ? 'Incident /Accident QMS-F-13' :'Incident Investigation QMS-F-14' }}</td>
                                     <td>
-                                        @if (auth()->user()->can('preopening_lists-edit'))
-                                            <a href="{{ route('admin.show_questions_list', $item->id) }}">
-                                                <button type="button" id="add" class="add btn btn-primary">
-                                                    <i class="fa fa-info"></i>  Show List
-                                                </button>
-                                            </a>
+                                        <a href="{{ url('show_statment/' . $item->id) }}"
+                                           class="btn btn-primary"><i class="fa fa-plus"></i>  Witness Statment </a>
+                                      </td>
+                                    @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin')||
+                                     auth()->user()->hasRole('Park Admin') || auth()->user()->hasRole('Branch Admin'))
+                                    <td>
+                                        @if($item->status=='pending')
+                                        <a href="{{url('investigation/'.$item->id.'/approve')}}"
+                                        class="btn btn-xs btn-danger"><i class="fa fa-check"></i> Approve</a>
+                                        @endif
+                                        @if($item->status=='approved')
+                                          <span>Verified</span>
                                         @endif
                                     </td>
+                                    @endif
                                     <td>
-                                        @if ($item->approve == 0)
-                                            <a href="{{ url('questions/' . $item->id . '/approve') }}"
-                                                class="btn btn-xs btn-danger"><i class="fa fa-check"></i> Approve</a>
+                                        @if ($item->type =='incident')
+                                        <a href="{{ route('admin.incident.show', $item->id) }}" class="btn btn-info">show</a>
                                         @else
-                                            <span>Verified</span>
+                                        <a href="{{ route('admin.investigation.show', $item->id) }}" class="btn btn-info">show</a>
                                         @endif
-
                                     </td>
                                 </tr>
                             @endforeach

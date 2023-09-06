@@ -58,6 +58,7 @@ class GeneralIncidentController extends Controller
      */
     public function store(IncidentRequest $request)
     {
+       // dd( $request);
         $data = $request->validated();
         $incident = GeneralIncident::create([
             'type' => 'incident',
@@ -66,23 +67,14 @@ class GeneralIncidentController extends Controller
             'created_by_id' => auth()->user()->id,
             'value' => $data
         ]);
-        if ($data['choose'] == 'ride') {
+        if ($request['choose'] == 'ride') {
             $incident->ride_id = $data['ride_id'];
             $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
         }
-        if ($data['choose'] == 'park') {
+        if ($request['choose'] == 'park') {
             $incident->park_id = $data['park_id'];
-
-        }
-        if ($data['choose'] == 'zone') {
-            $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
-        }
-        if ($data['choose'] == 'general') {
+            $incident->ride_id = null;
             $incident->text = $data['text'];
-            $incident->park_id = null;
-            $incident->zone_id = null;
         }
         $incident->save();
         alert()->success('Accident Incident  Report Added successfully !');
@@ -134,21 +126,13 @@ class GeneralIncidentController extends Controller
             'value' => $request->validated(),
             'date' => $data['date']
         ]);
-        if ($data['choose'] == 'ride') {
+        if ($request['choose'] == 'ride') {
             $incident->ride_id = $data['ride_id'];
             $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
         }
-        if ($data['choose'] == 'park') {
+        if ($request['choose'] == 'park') {
             $incident->park_id = $data['park_id'];
-        }
-        if ($data['choose'] == 'zone') {
-            $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
-        }
-        if ($data['choose'] == 'general') {
-            $incident->park_id = null;
-            $incident->zone_id = null;
+            $incident->ride_id = null;
             $incident->text = $data['text'];
         }
         $incident->save();

@@ -1,79 +1,4 @@
-<div class="row">
-    <div class="col-xs-12">
-        <div class="form-group form-float">
-            <label class="form-label">Choose One</label>
-            <div class="form-line">
-                <input type="radio" name="choose" id="ride" value="ride" checked class="ml-4"> Ride
-
-                <input type="radio" name="choose" id="park" value="park" class="ml-4"> Park
-                {{-- <input type="radio" name="choose" id="zone" value="zone" class="ml-4"> Zone --}}
-                {{-- <input type="radio" name="choose" id="general" value="general" class="ml-4"> General --}}
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-4" id="parks">
-        <div class="form-group form-float">
-            <label class="form-label">Parks</label>
-            <div class="form-line">
-                {!! Form::select('park_id', $parks, null, [
-                    'class' => 'form-control select2 Parks',
-                    'placeholder' => 'Choose Park...',
-                ]) !!}
-                @error('park_id')
-                    <div class="invalid-feedback" style="color: #ef1010">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-        </div>
-    </div>
-    {{-- <div class="col-xs-4" id="zones">
-        <div class="form-group form-float">
-            <label class="form-label">Zones</label>
-            <div class="form-line">
-                {!! Form::select('zone_id', $zones, null, [
-                    'class' => 'form-control select2 Zones',
-                    'placeholder' => 'Choose Zone...',
-                ]) !!}
-                @error('zone_id')
-                    <div class="invalid-feedback" style="color: #ef1010">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-        </div>
-    </div> --}}
-    <div class="col-xs-4" id="rides">
-        <div class="form-group form-float">
-            <label class="form-label">Rides</label>
-            <div class="form-line">
-                {!! Form::select('ride_id', $rides, null, [
-                    'class' => 'form-control select2 Rides',
-                    'placeholder' => 'Choose Ride...',
-                ]) !!}
-                @error('ride_id')
-                    <div class="invalid-feedback" style="color: #ef1010">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12" id="text" style="display: none;">
-        <div class="form-group form-float">
-            <label class="form-label">Location</label>
-            <div class="form-line">
-                {!! Form::input('text', 'text', null, ['class' => 'form-control  ', 'placeholder' => 'text']) !!}
-                @error('text')
-                    <div class="invalid-feedback" style="color: #ef1010">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
+    <div class="row">
 
     <div class="col-xs-6">
         <div class="form-group form-float">
@@ -121,6 +46,7 @@
         <div class="form-group form-float">
             <label class="form-label">Time Statement Taken</label>
             <div class="form-line">
+                <input type="hidden" name="incident_id" value="{{ $incident_id }}" >
                 {!! Form::time('time', null, ['class' => 'form-control', 'placeholder' => 'Start Time']) !!}
                 @error('time')
                     <div class="invalid-feedback" style="color: #ef1010">

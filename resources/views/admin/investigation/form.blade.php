@@ -6,9 +6,9 @@
                 <input type="radio" name="choose" id="ride" value="ride" checked class="ml-4"> Ride
 
                 <input type="radio" name="choose" id="park" value="park" class="ml-4"> Park
-                <input type="radio" name="choose" id="zone" value="zone" class="ml-4"> Zone
+               {{--  <input type="radio" name="choose" id="zone" value="zone" class="ml-4"> Zone
                 <input type="radio" name="choose" id="general" value="general" class="ml-4"> General
-            </div>
+            --}} </div>
         </div>
     </div>
     <div class="col-xs-4" id="parks">
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-4" id="zones">
+    {{-- <div class="col-xs-4" id="zones">
         <div class="form-group form-float">
             <label class="form-label">Zones</label>
             <div class="form-line">
@@ -42,7 +42,7 @@
                 @enderror
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-xs-4" id="rides">
         <div class="form-group form-float">
             <label class="form-label">Rides</label>
@@ -61,9 +61,9 @@
     </div>
     <div class="col-xs-12" id="text" style="display: none;">
         <div class="form-group form-float">
-            <label class="form-label">General Text</label>
+            <label class="form-label">Location</label>
             <div class="form-line">
-                {!! Form::input('text', 'text', null, ['class' => 'form-control  ', 'placeholder' => 'text']) !!}
+                {!! Form::input('text', 'text', null, ['class' => 'form-control  ', 'placeholder' => 'Location']) !!}
                 @error('text')
                     <div class="invalid-feedback" style="color: #ef1010">
                         {{ $message }}
@@ -159,7 +159,7 @@
     </div>
 </div>
 
-<div class="col-xs-12">
+{{-- <div class="col-xs-12">
     <div class="form-group form-float">
         <label class="form-label">Location</label>
         <div class="form-line">
@@ -171,13 +171,13 @@
             @enderror
         </div>
     </div>
-</div>
+</div> --}}
 
 <div class="col-xs-12">
     <div class="form-group form-float">
         <label class="form-label">Address</label>
         <div class="form-line">
-            {!! Form::input('text', 'address', null, ['class' => 'form-control  ', 'placeholder' => 'location']) !!}
+            {!! Form::input('text', 'address', null, ['class' => 'form-control  ', 'placeholder' => 'Address']) !!}
             @error('address')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
@@ -555,7 +555,7 @@
                 'class' => 'form-control  ',
                 'placeholder' => 'Contact Phone No',
             ]) !!}
-            @error('location')
+            @error('contact_phone_no_three')
                 <div class="invalid-feedback" style="color: #ef1010">
                     {{ $message }}
                 </div>
@@ -1245,7 +1245,7 @@
                     Position:
                 </td>
                 <td>
-                    {!! Form::input('text', 'Position', null, ['class' => 'form-control  ', 'placeholder' => 'location']) !!}
+                    {!! Form::input('text', 'Position', null, ['class' => 'form-control  ', 'placeholder' => 'Position']) !!}
                 </td>
             </tr>
         </tbody>

@@ -105,7 +105,7 @@
                     <tr role="row" class="odd" id="row-{{2}}">
                         <td tabindex="0" class="sorting_1">{{2}}</td>
                         <td>{{$tech['b']->question ?? '  ' }}</td>
-                        <td class=" align-center" >
+                        <td class="{{($tech['d']->answer ?? '  '  == 0) ? 'no' : 'yes'}} align-center" >
                             {{ $tech['b']->answer ?? '  '  }}
                         </td>
                         <td>{!!$tech['b']->comment ?? '  '  !!}</td>
@@ -113,7 +113,7 @@
                     <tr role="row" class="odd" id="row-{{3}}">
                         <td tabindex="0" class="sorting_1">{{3 }}</td>
                         <td>{{$tech['c']->question ?? '  ' }}</td>
-                        <td class="{{($tech['c']->answer ?? '  '  == 0) ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($tech['c']->answer ?? '  '  == 0 ) ? 'no' : 'yes'}} align-center" >
                             {{ $tech['c']->answer ?? '  '  }}
                         </td>
                         <td>{!!$tech['c']->comment ?? '  '  !!}</td>
@@ -121,7 +121,7 @@
                     <tr role="row" class="odd" id="row-{{4}}">
                         <td tabindex="0" class="sorting_1">{{4}}</td>
                         <td>{{$tech['d']->question ?? '  ' }}</td>
-                        <td class="{{($tech['d']->answer ?? '  '  == 0) ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($tech['d']->answer ?? '  '  == 0) ? 'no' : 'yes'}} align-center" >
                             {{ $tech['d']->answer ?? '  '  }}
                         </td>
                         <td>{!!$tech['d']->comment ?? '  '  !!}</td>
@@ -129,7 +129,7 @@
                     <tr role="row" class="odd" id="row-{{5}}">
                         <td tabindex="0" class="sorting_1">{{5}}</td>
                         <td>{{$tech['e']->question ?? '  ' }}</td>
-                        <td class="{{($tech['e']->answer ?? '  '  == 0) ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($tech['e']->answer ?? '  '  == 0) ? 'no' : 'yes'}} align-center" >
                             {{ $tech['e']->answer ?? '  '  }}
                         </td>
                         <td>{!!$tech['e']->comment ?? '  '  !!}</td>
@@ -137,7 +137,7 @@
                     <tr role="row" class="odd" id="row-{{6}}">
                         <td tabindex="0" class="sorting_1">{{6}}</td>
                         <td>{{$tech['f']->question ?? '  ' }}</td>
-                        <td class="{{($tech['f']->answer ?? '  '  == 0) ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($tech['f']->answer ?? '  '  == 0) ? 'no' : 'yes'}} align-center" >
                             {{ $tech['f']->answer ?? '  '  }}
                         </td>
                         <td>{!!$tech['f']->comment ?? '  '  !!}</td>
@@ -145,7 +145,7 @@
                     <tr role="row" class="odd" id="row-{{7}}">
                         <td tabindex="0" class="sorting_1">{{7}}</td>
                         <td>{{$tech['g']->question ?? '  ' }}</td>
-                        <td class="{{($tech['g']->answer ?? '  '  == 0) ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($tech['g']->answer ?? '  '  == 0) ? 'no' : 'yes'}} align-center" >
                             {{ $tech['g']->answer ?? '  '  }}
                         </td>
                         <td>{!!$tech['g']->comment ?? '  '  !!}</td>
@@ -295,7 +295,7 @@
                     <tr role="row" class="odd" id="row-{{3}}">
                         <td tabindex="0" class="sorting_1">{{3 }}</td>
                         <td>{{$rideops['c']->question ?? '' }}</td>
-                        <td class="{{($rideops['c']->answer ?? '  '  == 'no') ? 'yes' : 'no'}} align-center" >
+                        <td class="{{($rideops['c']->answer ?? '  '  == 'yes') ? 'no' : 'yes'}} align-center" >
                             {{ $rideops['c']->answer ?? '  '   ?? ''}}
                         </td>
                         <td>{!!$rideops['c']->comment ?? '  '   ?? '' !!}</td>
@@ -381,6 +381,7 @@
                         </td>
                         <td></td>
                     </tr>
+
                    @endif
                 
                    @if(isset($maintenance))

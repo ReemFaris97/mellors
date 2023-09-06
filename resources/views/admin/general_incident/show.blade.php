@@ -51,22 +51,14 @@
             </div>
         </div>
     </div>
-    {{-- <div class="col-xs-12">
+    <div class="col-xs-12">
         <div class="form-group form-float">
             <label class="form-label">Location</label>
             <div class="form-line">
-                {!! Form::input('text', 'location', $accident?->value['location'], [
-                    'class' => 'form-control  ',
-                    'placeholder' => 'location',
-                ]) !!}
-                @error('location')
-                    <div class="invalid-feedback" style="color: #ef1010">
-                        {{ $message }}
-                    </div>
-                @enderror
+              <span>  {{ $accident->park->name }} / {{ $accident->ride->name ?? $accident->text }}</span>
             </div>
         </div>
-    </div> --}}
+    </div> 
     <div class="col-xs-6">
         <div class="form-group form-float">
             <label class="form-label">Type Of Event</label>

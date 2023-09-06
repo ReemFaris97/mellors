@@ -14,4 +14,13 @@ class GeneralIncident extends Model
         'value_3' => 'array',
         'value_4' => 'array',
     ];
+
+    public function ride()
+    {
+        return $this->belongsTo(Ride::class,'ride_id')->withDefault();
+    }
+    public function park()
+    {
+        return $this->belongsTo(Park::class,'park_id')->withDefault();
+    }
 }

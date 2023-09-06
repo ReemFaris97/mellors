@@ -10,6 +10,7 @@ use App\Models\Ride;
 use App\Models\Zone;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Models\IncidentStatement;
 use App\Models\GeneralIncident;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Accident\AccidentRequest;
@@ -27,12 +28,36 @@ class StatementController extends Controller
         $items = GeneralIncident::where('type','statement')->get();
         return view('admin.statement.index', compact('items'));
     }
+    public function showStatment($incident_id){
+
+        $items = IncidentStatement::where('incident_form_id',$incident_id)->get();
+        return view('admin.statement.index', compact('items','incident_id'));
+        
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function addStatment($id)
+    {
+        $incident_id=$id ;
+        if (auth()->user()->hasRole('Super Admin')) {
+            $parks = Park::pluck('name', 'id')->all();
+            $zones = Zone::pluck('name', 'id')->all();
+            $rides = Ride::pluck('name', 'id')->all();
+
+        }else {
+            $parks = auth()->user()->parks->pluck('name', 'id')->all(); 
+            $zones = auth()->user()->zones->pluck('name', 'id')->all(); 
+            $rides = auth()->user()->rides->pluck('name', 'id')->all(); 
+                } 
+        $departments = Department::pluck('name', 'id')->all();
+        return view('admin.statement.add', compact('departments', 'parks', 'zones', 'rides','incident_id'));
+    }
+
+
     public function create()
     {
         if (auth()->user()->hasRole('Super Admin')) {
@@ -58,35 +83,17 @@ class StatementController extends Controller
      */
     public function store(StatementRequest $request)
     {
+        $incident_id =$request->incident_id;
         $data = $request->validated();
-        $incident = GeneralIncident::create([
-            'type' => 'statement',
-            'status' => 'pending',
+        $incident = IncidentStatement::create([
             'date' => Carbon::now(),
             'created_by_id' => auth()->user()->id,
-            'value' => $data
+            'value' => $data,
+            'incident_form_id'=>$incident_id
         ]);
-        if ($data['choose'] == 'ride') {
-            $incident->ride_id = $data['ride_id'];
-            $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
-        }
-        if ($data['choose'] == 'park') {
-            $incident->park_id = $data['park_id'];
-
-        }
-        if ($data['choose'] == 'zone') {
-            $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
-        }
-        if ($data['choose'] == 'general') {
-            $incident->text = $data['text'];
-            $incident->park_id = null;
-            $incident->zone_id = null;
-        }
         $incident->save();
         alert()->success('Witness Statement Added successfully !');
-        return redirect()->route('admin.statement.index');
+        return redirect()->route('admin.showStatment', ['id' => $incident_id]);
     }
 
     /**
@@ -108,14 +115,14 @@ class StatementController extends Controller
             $rides = auth()->user()->rides->pluck('name', 'id')->all(); 
                 } 
         $departments = Department::pluck('name', 'id')->all();
-        $accident = GeneralIncident::find($id);
+        $accident = IncidentStatement::find($id);
         return view('admin.statement.edit', compact('accident', 'departments', 'parks', 'zones', 'rides'));
 
     }
     public function show($id)
     {
         $departments = Department::pluck('name', 'id')->all();
-        $accident = GeneralIncident::find($id);
+        $accident = IncidentStatement::find($id);
         return view('admin.statement.show', compact('accident', 'departments'));
 
     }
@@ -128,31 +135,17 @@ class StatementController extends Controller
      */
     public function update(StatementRequest $request, $id)
     {
+
         $data = $request->validated();
-        $incident = GeneralIncident::findOrFail($id);
+        $incident = IncidentStatement::findOrFail($id);
+        $incident_id= $incident->incident_form_id;
         $incident->update([
             'value' => $request->validated()
         ]);
-        if ($data['choose'] == 'ride') {
-            $incident->ride_id = $data['ride_id'];
-            $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
-        }
-        if ($data['choose'] == 'park') {
-            $incident->park_id = $data['park_id'];
-        }
-        if ($data['choose'] == 'zone') {
-            $incident->park_id = $data['park_id'];
-            $incident->zone_id = $data['zone_id'];
-        }
-        if ($data['choose'] == 'general') {
-            $incident->park_id = null;
-            $incident->zone_id = null;
-            $incident->text = $data['text'];
-        }
+      
         $incident->save();
         alert()->success('Witness Statement updated successfully !');
-        return redirect()->route('admin.statement.index');
+        return redirect()->route('admin.showStatment', ['id' => $incident_id]);
     }
     /**
      * Remove the specified resource from storage.
@@ -162,7 +155,7 @@ class StatementController extends Controller
      */
     public function destroy($id)
     {
-        $accident = GeneralIncident::find($id);
+        $accident = IncidentStatement::find($id);
         if ($accident) {
             $accident->delete();
             alert()->success('Witness Statement deleted successfully');

@@ -27,7 +27,16 @@ Incident Investigation QMS-F-14
                                     colspan="1">
                                     Name of Person Involved
                                 </th>
-                                @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1">
+                                    Location
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                colspan="1">
+                                Witness Statement
+                            </th>
+                            @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin')||
+                            auth()->user()->hasRole('Park Admin') || auth()->user()->hasRole('Branch Admin'))
 
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                 colspan="1">
@@ -48,7 +57,13 @@ Incident Investigation QMS-F-14
                                     <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                     <td>{{ $item->value['incident_date'] }}</td>
                                     <td>{{ $item->value['person_name'] }}</td>
-                                    @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin'))
+                                    <td>{{ $item->park->name }} / {{ $item->ride->name ?? $item->text }} </td>
+                                    <td>
+                                        <a href="{{ url('show_statment/' . $item->id) }}"
+                                           class="btn btn-primary"><i class="fa fa-plus"></i>  Witness Statment </a>
+                                      </td>
+                                    @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin')||
+                                     auth()->user()->hasRole('Park Admin') || auth()->user()->hasRole('Branch Admin'))
 
                                     <td>
                                         @if($item->status=='pending')

@@ -493,13 +493,25 @@
                     </table>
 
                 </div>
-                <div class='mt-4'>
-                    <h4 class='redFlags'>Duty Manager general comments on today's operations:</h4>
-                    <textarea class="editTextArea" name="" id="" rows="10">
-                    @if(isset($parkTime))
-                       {!! $parkTime->general_comment !!}
-                       @endif
-                    </textarea>
+
+               
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4 class='redFlags'>Duty Manager general comments on today's operations:</h4>
+                        <table style="width: 100%; text-align: center; background-color: yellow;">
+                            <tr>
+                                <td>
+                                    @if(isset($parkTime))
+                                        {!! $parkTime->general_comment !!}
+                                    @endif
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                  
+                  
                 </div>
 
             </div>
