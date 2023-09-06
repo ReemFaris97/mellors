@@ -296,10 +296,8 @@
             </span> <span class="menu-arrow"></span></a>
         <ul class="list-unstyled">
             @can('accidents-list')
-            
             <li><a href="{{ route('admin.incident.index') }}">Accident & Incident</a></li>
             <li><a href="{{ route('admin.investigation.index') }}">Investigation Incident</a></li>
-            <li><a href="{{ route('admin.statement.index') }}">  Witness Statement</a></li>
             @endcan 
         </ul>
     </li>

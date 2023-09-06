@@ -185,7 +185,7 @@ class GeneralIncidentController extends Controller
         $rsr->approve_by_id  = \auth()->user()->id;
         $rsr->save();
         alert()->success('Incident form Approved successfully !');
-        return redirect()->route('admin.incident.index');
+        return redirect()->back();
     }
 
 }

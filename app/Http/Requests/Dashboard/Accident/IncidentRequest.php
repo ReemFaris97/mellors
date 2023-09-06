@@ -38,7 +38,7 @@ class IncidentRequest extends FormRequest
                 'reportable'=>'required',
                 'investigation_level'=>'required',
                 'book'=>'required',
-                // 'choose'=>'required',
+                'report_reference_no'=>'required',
                 'ride_id'=>'nullable',
                 'park_id'=>'nullable',
                 'text'=>'nullable',

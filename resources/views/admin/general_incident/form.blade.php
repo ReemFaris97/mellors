@@ -43,6 +43,7 @@
             </div>
         </div>
     </div> --}}
+    
     <div class="col-xs-4" id="rides"  >
         <div class="form-group form-float">
             <label class="form-label">Rides</label>
@@ -90,7 +91,7 @@
     </div>
     <div class="col-xs-6">
         <div class="form-group form-float">
-            <label class="form-label">Date/Time</label>
+            <label class="form-label">Date/Time of Event</label>
             <div class="form-line">
                 {!! Form::datetimeLocal('date', null, ['class' => 'form-control', 'placeholder' => 'Start Time']) !!}
                 @error('date')
@@ -114,6 +115,22 @@
             </div>
         </div>
     </div> --}}
+    <div class="col-xs-12">
+        <div class="form-group form-float">
+            <label class="form-label"> Report Reference No:</label>
+            <div class="form-line">
+                {!! Form::input('text', 'report_reference_no', null, [
+                    'class' => 'form-control  ',
+                    'placeholder' => 'Report Reference No',
+                ]) !!}
+                @error('report_reference_no')
+                    <div class="invalid-feedback" style="color: #ef1010">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+        </div>
+    </div>
     <div class="col-xs-6">
         <div class="form-group form-float">
             <label class="form-label">Type Of Event</label>

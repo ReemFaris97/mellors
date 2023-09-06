@@ -166,6 +166,6 @@ class InvestigationController extends Controller
         $rsr->approve_by_id  = \auth()->user()->id;
         $rsr->save();
         alert()->success('Investigation form Approved successfully !');
-        return redirect()->route('admin.investigation.index');
+        return redirect()->back();
     }
 }
