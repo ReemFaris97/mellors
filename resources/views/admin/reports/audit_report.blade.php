@@ -62,6 +62,18 @@ Attraction Audit Check Report
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
+                                    Park
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1">
+                                    Ride
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1">
+                                    Created By
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1">
                                     Created At
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
@@ -81,7 +93,11 @@ Attraction Audit Check Report
                                 <tr role="row" class="odd" id="row-{{ $item->id }}">
                                     <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
                                     <td>ATTRACTION AUDIT CHECK LIST {{ $loop->iteration }}</td>
+                                    <td>{{ $item->park->name }}</td>
+                                    <td>{{ $item->ride->name }}</td>
+                                    <td>{{ $item->created_by->name }}</td>
                                     <td>{{ $item->date }}</td>
+
                                     <td>
                                         @if (auth()->user()->can('preopening_lists-edit'))
                                             <a href="{{ route('admin.show_questions_list', $item->id) }}">

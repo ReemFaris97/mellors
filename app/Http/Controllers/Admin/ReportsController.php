@@ -120,17 +120,25 @@ class ReportsController extends Controller
         $from = $request->input('from');
         $to = $request->input('to');
         $park_id = $request->input('park_id');
-        $items = Attraction::whereBetween('created_at', [$from,$to])->get();
+        
+        $items = Attraction::where('park_id', $park_id)->whereBetween('date', [$from, $to])->get();
+        
         if ($request->input('ride_id')) {
-            $items->where('ride_id', $request->input('ride_id'));
+            $rideId = $request->input('ride_id');
+            $items = $items->filter(function ($item) use ($rideId) {
+                return $item->ride_id == $rideId;
+            });
         }
+    
         if (auth()->user()->hasRole('Super Admin')) {
             $parks = Park::pluck('name', 'id')->all();
         } else {
             $parks = auth()->user()->parks->pluck('name', 'id')->all();
         }
+        
         return view('admin.reports.audit_report', compact('items', 'parks'));
-    }
+    } 
+    
 
     public function showInspectionListReport(Request $request)
     {
