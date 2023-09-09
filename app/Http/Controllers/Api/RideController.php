@@ -37,6 +37,7 @@ use App\Http\Requests\Api\UpdateInspectionsRequest;
 use App\Http\Resources\User\Ride\RideCycleResource;
 use App\Http\Resources\User\Ride\RideQueueResource;
 use App\Http\Requests\Api\UpdateCycleDurationRequest;
+use Illuminate\Support\Arr;
 
 class RideController extends Controller
 {
@@ -136,6 +137,20 @@ class RideController extends Controller
                 $capacity->save();
             }
         }
+        if ($validate['lists_type'] == 'preclosing' && isset($validate['duration_seconds']) && $validate['duration_seconds'] != null) {
+            $rider = RideCycles::where('ride_id', $validate['ride_id'])
+                ->where('duration_seconds', 0)
+                ->where(function ($query) {
+                    $query->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
+                        ->orWhereDate('start_time', dateTime()?->date);
+                })?->latest()->first();
+               
+            if ($rider) {
+                $rider->duration_seconds = $validate['duration_seconds'];
+                $rider->save();
+            }
+
+        }
         $zone = Zone::find($validate['zone_id']);
 
         $user = $zone->users()->whereHas('roles', function ($query) {
@@ -169,11 +184,27 @@ class RideController extends Controller
     protected function addCycle(SubmitCycleRequest $request)
     {
         $validate = $request->validated();
+
+        if (isset($validate['duration_seconds']) && $validate['duration_seconds'] != null) {
+            $rider = RideCycles::where('ride_id', $validate['ride_id'])
+                ->where('duration_seconds', 0)
+                ->where(function ($query) {
+                    $query->whereBetween('start_time', [dateTime()?->date, dateTime()?->close_date])
+                        ->orWhereDate('start_time', dateTime()?->date);
+                })?->latest()->first();
+            if ($rider) {
+                $rider->duration_seconds = $validate['duration_seconds'];
+                $rider->save();
+            }
+
+        }
         $ride = Ride::query()->find($validate['ride_id']);
+
         $validate['user_id'] = \auth()->user()->id;
         $validate['sales'] = $validate['number_of_ft'] * $ride->ride_price_ft + $validate['riders_count'] * $ride->ride_price;
         $validate['opened_date'] = Carbon::now()->toDateString();
-        $cycle = RideCycles::query()->create($validate);
+        $validate2 = Arr::except($validate, 'duration_seconds');
+        $cycle = RideCycles::query()->create($validate2);
         $this->body['cycle'] = RideCycleResource::make($cycle);
         $totalRiders = $validate['riders_count'] + $validate['number_of_disabled'] + $validate['number_of_vip'] + $validate['number_of_ft'];
 

@@ -35,6 +35,7 @@ class InspectionsRequest extends FormRequest
             'park_id' => 'required|exists:parks,id',
             'lists_type' => 'required',
             'number_of_seats' => 'nullable',
+            'duration_seconds' =>'nullable',
 
         ];
     }
