@@ -54,6 +54,10 @@ function playSound() {
     const audio = new Audio('/audios/notification.mp3');
     audio.play();
 }
+function playSoundStoppage() {
+    const audio = new Audio('/audios/stoppage-tone.mp3');
+    audio.play();
+}
 
 function notification(data) {
     var newNotificationHtml = '<li class=""> <a href="' + data.data.action + '" class="media"> <div class="media-body"> <p class="notification-text font-small-3 text-muted"> ' + data.data.title + '</p> </div> <span style="direction: ltr;"class="date">' + data.data.date + '</span> </a> </li>';
@@ -83,7 +87,7 @@ not.bind('App\\Events\\RsrReportEvent', function (data) {
 not.bind('App\\Events\\StoppageEvent', function (data) {
 
     notification(data);
-    playSound();
+    playSoundStoppage();
 
 
 });
