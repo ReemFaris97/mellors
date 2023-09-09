@@ -67,7 +67,7 @@
         <div class="form-group form-float">
             <label class="form-label">General Text</label>
             <div class="form-line">
-                {!! Form::input('text', 'text', null, ['class' => 'form-control  ', 'placeholder' => 'text']) !!}
+                {!! Form::input('text', 'text', $accident?->value['text'], ['class' => 'form-control  ', 'placeholder' => 'text']) !!}
                 @error('text')
                     <div class="invalid-feedback" style="color: #ef1010">
                         {{ $message }}
@@ -172,7 +172,7 @@
         </div>
     </div>
 
-    <div class="col-xs-12">
+    {{-- <div class="col-xs-12">
         <div class="form-group form-float">
             <label class="form-label">Location</label>
             <div class="form-line">
@@ -184,7 +184,7 @@
                 @enderror
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="col-xs-12">
         <div class="form-group form-float">
@@ -582,7 +582,7 @@
                 @enderror
             </div>
         </div>
-        </div>    
+        </div>
         <div class="col-xs-6">
         <div class="form-group form-float">
             <label class="form-label">Was the Incident Work Related?</label>
@@ -634,7 +634,7 @@
             </div>
         </div>
     </div>
-  
+
     <div class="col-xs-6">
         <div class="form-group form-float">
             <label class="form-label">Were Emergency Services Called?</label>
@@ -765,7 +765,7 @@
                     {!! Form::input('text', 'Other_desc', $accident?->value['Other_desc'], ['class' => 'form-control  ']) !!}
                 </td>
             </tr>
-           
+
         </tbody>
     </table>
 </div>
@@ -868,7 +868,7 @@
                     {!! Form::input('text', 'Attribute_Other_desc', $accident?->value['Attribute_Other_desc'], ['class' => 'form-control  ']) !!}
                 </td>
             </tr>
-           
+
         </tbody>
     </table>
 </div>
@@ -961,7 +961,7 @@
                         {!! Form::input('text', 'Attribute_two_Other_desc', $accident?->value['Attribute_two_Other_desc'], ['class' => 'form-control  ']) !!}
                     </td>
             </tr>
-           
+
         </tbody>
     </table>
     </div>
@@ -1054,7 +1054,7 @@
                     {!! Form::input('text', 'Other_four_desc', $accident?->value['Other_four_desc'], ['class' => 'form-control  ']) !!}
                 </td>
             </tr>
-           
+
         </tbody>
     </table>
     </div>
@@ -1074,11 +1074,11 @@
 
              <p class="bold">  Risk Assessments, Witness Statements, Method Statements, Location Photographs, Training documents, Accident Book copy and any other related documents or evidence to be forwarded to Mellors Group Head Office.
              </p>
-          <p class="bold" style="text-align:center;"> Email All Information to: p.pearson@mellorsgroup.com or j.pearson@mellorsgroup.com 
+          <p class="bold" style="text-align:center;"> Email All Information to: p.pearson@mellorsgroup.com or j.pearson@mellorsgroup.com
           </p>
             </td>
             </tr>
-           
+
         </tbody>
     </table>
     </div>
@@ -1184,7 +1184,7 @@
 
             </td>
             </tr>
-           
+
         </tbody>
     </table>
     </div>
@@ -1199,12 +1199,12 @@
         </thead>
         <tbody>
             <tr>
-            <td class="bold"> 
+            <td class="bold">
             Report Completed By: </td>
             <td>
                 {!! Form::input('text', 'Report_Completed_By', $accident?->value['Report_Completed_By'], ['class' => 'form-control  ']) !!}
             </td>
-            <td class="bold"> 
+            <td class="bold">
             Date Completed:
             </td>
             <td>
@@ -1212,12 +1212,12 @@
             </td>
             </tr>
             <tr>
-            <td class="bold"> 
+            <td class="bold">
             Signature: </td>
             <td>
                 {!! Form::input('text', 'Signature', $accident?->value['Signature'], ['class' => 'form-control  ']) !!}
             </td>
-            <td class="bold"> 
+            <td class="bold">
             Position:
              </td>
             <td>
