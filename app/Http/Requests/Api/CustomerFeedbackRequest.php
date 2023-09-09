@@ -31,7 +31,7 @@ class CustomerFeedbackRequest extends FormRequest
             'image' => 'nullable|array',
             'zone_id' => 'required|exists:zones,id',
             'park_id' => 'required|exists:parks,id',
-
+            'complaint_id' => 'nullable|exists:customer_complaints,id',
         ];
     }
 }

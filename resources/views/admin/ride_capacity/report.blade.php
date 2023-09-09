@@ -7,8 +7,8 @@
 @section('content')
 
     <div class="card-box">
-        <form class="formSection" action="{{ url('/show-availability-report/') }}" method="GET">
-            @csrf
+        <form class="formSection" action="{{ url('/ride_capacity_report/') }}" method="GET">
+
             <div class="row">
                 <div class='col-md-5'>
                     <div class="form-group">
@@ -78,27 +78,20 @@
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
-                                    Park
+                                    Availabilty Capacity
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
-                                    Status
+                                    Preopening checkList Capacity
+                                </th>
+
+                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
+                                    colspan="1">
+                                    Final Capacity
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
                                     colspan="1">
-                                    Status
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1">
-                                    No Of Gondolas
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1">
-                                    No Of Seats
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1"
-                                    colspan="1">
-                                    Comment
+                                    Date
                                 </th>
                             </tr>
                         </thead>
@@ -108,13 +101,16 @@
                                 @foreach ($items as $item)
                                     <tr role="row" class="odd" id="row-{{ $item->id }}">
                                         <td tabindex="0" class="sorting_1">{{ $item->id }}</td>
-                                        <td>{{ $item->rides->name }}</td>
-                                        <td>{{ $item->parks->name }}</td>
-                                        <td>{{ $item->first_status }}</td>
-                                        <td>{{ $item->second_status }}</td>
-                                        <td>{{ $item->no_of_gondolas }}</td>
-                                        <td>{{ $item->no_of_seats }}</td>
-                                        <td>{!! $item->comment !!} </td>
+                                        <td>{{ $item->ride->name ?? '' }}</td>
+                                        <td>{{ $item->ride_availablity_capacity ?? 'Not yet' }}</td>
+
+                                        <td>
+                                            {{ $item->preopening_capacity ?? 'Not yet' }}
+                                        </td>
+                                        <td>
+                                            {{ $item->final_capacity ?? 'Not yet' }}
+                                        </td>
+                                         <td>{{ $item->date }}</td>
                                     </tr>
                                 @endforeach
                             @endif

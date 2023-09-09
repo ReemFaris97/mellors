@@ -51,6 +51,8 @@ Route::middleware(['auth:sanctum','settimezone'])->group(function () {
     Route::get('preopening_list/{id}',[SupervisorController::class,'preopeningList']);
     Route::get('preclosing_list/{id}',[SupervisorController::class,'preclosingList']);
     Route::post('add_feedback',[SupervisorController::class,'storeCustomerFeedback']);
+    Route::get('get_complaints',[SupervisorController::class,'getComplaint']);
+
     Route::post('update_inspection',[SupervisorController::class,'updateInspectionList']);
     Route::post('add_observation',[SupervisorController::class,'observation']);
     Route::get('get_questions',[SupervisorController::class,'questions']);

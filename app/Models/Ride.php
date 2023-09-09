@@ -88,4 +88,11 @@ class Ride extends Model
     {
         return $this->belongsToMany(User::class, 'ride_users');
     }
+
+    public function capacity()
+    {
+        return $this->hasOne(RideCapacity::class, 'ride_id', 'id')->where(function ($query) {
+            $query->where('date', Carbon::now()->toDateString());
+        });
+    }
 }

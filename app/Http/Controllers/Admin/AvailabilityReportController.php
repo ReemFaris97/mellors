@@ -133,7 +133,7 @@ class AvailabilityReportController extends Controller
                 $ride = RideCapacity::where('date', Carbon::now()->toDateString())->where('ride_id', $value)->first();
                 $ride->ride_availablity_capacity = $request->no_of_seats[$key];
                 $ride->save();
-                 
+
             }
 
         }
@@ -168,7 +168,7 @@ class AvailabilityReportController extends Controller
             ->get();
         //  return $items;
         if ($request->input('ride_id')) {
-            $items->where('ride_id', $request->input('ride_id'));
+            $items =  $items->where('ride_id', $request->input('ride_id'));
         }
         if (auth()->user()->hasRole('Super Admin')) {
             $parks = Park::pluck('name', 'id')->all();

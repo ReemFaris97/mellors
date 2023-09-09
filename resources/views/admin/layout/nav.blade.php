@@ -245,7 +245,8 @@
 @if (auth()->user()->can('rsr_reports-list') ||
         auth()->user()->can('rsr_reports-create'))
     <li class="has_sub">
-        <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span>Availability Reports
+        <a href="javascript:void(0);" class="waves-effect"><i
+                class="zmdi zmdi-collection-text"></i><span>Availability Reports
             </span>
             <span class="menu-arrow"></span></a>
         <ul class="list-unstyled">
@@ -268,7 +269,7 @@
                 <li><a href="{{ route('admin.customer_feedbacks.index') }}"> Show Customer Feedback</a></li>
             @endcan
             @can('customer_feedbacks-create')
-            <li><a href="{{ route('admin.complaints.index') }}"> Add Complaints Items</a></li>
+                <li><a href="{{ route('admin.complaints.index') }}"> Add Complaints Items</a></li>
 
                 <li><a href="{{ route('admin.customer_feedbacks.create') }}"> Add Customer Feedback</a></li>
             @endcan
@@ -285,7 +286,7 @@
         <ul class="list-unstyled">
             @can('customer_feedbacks-list')
                 <li><a href="{{ route('admin.observations.index') }}"> Show Observations</a></li>
-            @endcan 
+            @endcan
 
         </ul>
     </li>
@@ -294,35 +295,37 @@
 @if (auth()->user()->can('accidents-list') ||
         auth()->user()->can('accidents-create'))
     <li class="has_sub">
-        <a href="javascript:void(0);" class="waves-effect"><i class="glyphicon glyphicon-heart"></i><span>Health & Safety
+        <a href="javascript:void(0);" class="waves-effect"><i class="glyphicon glyphicon-heart"></i><span>Health &
+                Safety
             </span> <span class="menu-arrow"></span></a>
         <ul class="list-unstyled">
             @can('accidents-list')
-            <li><a href="{{ route('admin.incident.index') }}">Accident & Incident</a></li>
-            <li><a href="{{ route('admin.investigation.index') }}">Investigation Incident</a></li>
-            @endcan 
+                <li><a href="{{ route('admin.incident.index') }}">Accident & Incident</a></li>
+                <li><a href="{{ route('admin.investigation.index') }}">Investigation Incident</a></li>
+            @endcan
         </ul>
     </li>
 @endif
 @if (auth()->user()->can('duty-report-list') ||
         auth()->user()->can('stoppagesReport') ||
         auth()->user()->can('inspectionListReport') ||
-        auth()->user()->can('rideStatus') || auth()->user()->hasRole('Client'))
+        auth()->user()->can('rideStatus') ||
+        auth()->user()->hasRole('Client'))
     <li class="has_sub">
         <a href="javascript:void(0);" class="waves-effect"><i class="fa-regular fa-folder-open"></i><span>Reports
             </span>
             <span class="menu-arrow"></span></a>
         <ul class="list-unstyled">
-            @if (auth()->user()->can('duty-report-list') || auth()->user()->hasRole('Client'))
-
+            @if (auth()->user()->can('duty-report-list') ||
+                    auth()->user()->hasRole('Client'))
                 <li><a href="{{ route('admin.duty-report.index') }}">Duty Report</a></li>
             @endif
             @can('stoppagesReport')
                 <li><a href="{{ route('admin.reports.stoppagesReport') }}">Stoppages Report</a></li>
             @endcan
             @can('inspectionListReport')
-            <li><a href="{{ route('admin.reports.inspectionListReport') }}">Inspection Lists Report</a></li>
-            <li><a href="{{ route('admin.reports.auditReport') }}">Attraction Audit Check Report</a></li>
+                <li><a href="{{ route('admin.reports.inspectionListReport') }}">Inspection Lists Report</a></li>
+                <li><a href="{{ route('admin.reports.auditReport') }}">Attraction Audit Check Report</a></li>
             @endcan
             @can('duty-report-list')
                 <li><a href="{{ route('admin.reports.operatorTimeReport') }}">Operator Time Report</a></li>
@@ -331,12 +334,31 @@
                 <li><a href="{{ route('admin.availability_reports.index') }}">Ride Availability Report</a></li>
             @endcan
             @if (!auth()->user()->hasRole('Client'))
-            <li><a href="{{ route('admin.reports.observationReport') }}">Observation Report</a></li>
+                <li><a href="{{ route('admin.reports.observationReport') }}">Observation Report</a></li>
             @endif
-            @if(auth()->user()->hasRole('Health & Safety Manager') || auth()->user()->hasRole('Super Admin')||
-            auth()->user()->hasRole('Park Admin') || auth()->user()->hasRole('Branch Admin'))
-             <li><a href="{{ route('admin.reports.incidentReport') }}">Health & Safety Report</a></li>
+            @if (auth()->user()->hasRole('Health & Safety Manager') ||
+                    auth()->user()->hasRole('Super Admin') ||
+                    auth()->user()->hasRole('Park Admin') ||
+                    auth()->user()->hasRole('Branch Admin'))
+                <li><a href="{{ route('admin.reports.incidentReport') }}">Health & Safety Report</a></li>
             @endif
+             <li><a href="{{ route('admin.rideCapacity.report') }}">Ride Capacity Report</a></li>
+
+
+        </ul>
+    </li>
+@endif
+
+@if (auth()->user()->can('rides-list') ||
+        auth()->user()->can('rides-create'))
+    <li class="has_sub">
+        <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-local-parking"></i><span>Ride Capacity
+            </span>
+            <span class="menu-arrow"></span></a>
+        <ul class="list-unstyled">
+
+            <li><a href="{{ route('admin.rideCapacity') }}">Show Ride Capacity</a></li>
+
 
         </ul>
     </li>

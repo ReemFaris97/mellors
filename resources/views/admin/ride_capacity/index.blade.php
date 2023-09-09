@@ -7,7 +7,29 @@
 @section('content')
 
     <div class="card-box">
+        <div class="card-box">
+            <form class="formSection" action="{{ url('/ride_capacity/') }}" method="GET">
 
+                <div class="row">
+                    <div class='col-md-5'>
+                        <div class="form-group">
+                            <label for="last_name">Select Ride</label>
+                            {!! Form::select('ride_id', $rides, null, [
+                                'class' => 'form-control park',
+                                'id' => 'Ride',
+                                'placeholder' => 'Choose Ride',
+                            ]) !!}
+                        </div>
+                    </div>
+                    <div class='col-md-2 mtButton'>
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-primary save_btn waves-effect">Show</button>
+                        </div>
+                    </div>
+                </div>
+                {!! Form::close() !!}
+        </div>
+        <br><br>
         <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">
@@ -71,7 +93,7 @@
                                             @php
                                                 $final = $item->final_capacity;
                                                 $id = $item->id;
-                                            @endphp
+                                          @endphp
                                             @if ($item->preopening_capacity)
                                                 <button type="button" class="btn btn-primary final_capacity"
                                                     data-toggle="modal" data-target="#exampleModal"

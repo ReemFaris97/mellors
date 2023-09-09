@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\showNotification;
+use App\Http\Resources\ComplaintResource;
+use App\Models\CustomerComplaint;
 use App\Models\Ride;
 use App\Models\User;
 use App\Models\ParkTime;
@@ -210,6 +212,14 @@ class SupervisorController extends Controller
         }
 
         return self::apiResponse(200, __('add attraction list successfully'), []);
+
+    }
+
+    protected function getComplaint()
+    {
+        $complaints = CustomerComplaint::all();
+        $this->body['complaints'] = ComplaintResource::collection($complaints);
+        return self::apiResponse(200, __('show complaints'), $this->body);
 
     }
 

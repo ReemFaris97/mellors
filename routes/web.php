@@ -113,7 +113,7 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::resource('complaints', 'Admin\CustomerComplaintController');//done
     Route::resource('customer_feedbacks', 'Admin\CustomerFeedbackController');//done
     Route::get('/search_customer_feedbacks/', 'Admin\CustomerFeedbackController@search')->name('searchCustomerFeedBack');
-    
+
 
     Route::get('get-park-zones', 'Admin\GeneralController@getParkZones')->name('getParkZones');
     Route::post('get-sub-stoppages-categories', 'Admin\GeneralController@getSubStoppageCategories')->name('getSubStoppageCategories');
@@ -253,5 +253,6 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('ride_capacity', 'Admin\RideCapacityController@index')->name('rideCapacity');
     Route::post('ride_capacity_update', 'Admin\RideCapacityController@update')->name('rideCapacity.update');
 
+    Route::get('ride_capacity_report', 'Admin\RideCapacityController@report')->name('rideCapacity.report');
 
 });
