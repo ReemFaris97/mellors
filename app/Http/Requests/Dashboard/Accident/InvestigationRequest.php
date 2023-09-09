@@ -168,7 +168,7 @@ class InvestigationRequest extends FormRequest
 
                 // 'choose'=>'required',
                 'ride_id'=>'nullable',
-                'park_id'=>'nullable',
+                'park_id'=>'required',
                 'zone_id'=>'nullable',
                 'text'=>'nullable',
             ];

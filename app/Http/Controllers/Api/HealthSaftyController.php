@@ -22,6 +22,8 @@ class HealthSaftyController extends Controller
         GeneralIncident::create([
             'type' => 'incident',
             'status' => 'pending',
+            'park_id' => $data['park_id'],
+            'ride_id' => $data['ride_id'],
             'date' => $data['date'],
             'created_by_id' => auth()->user()->id,
             'value' => $data
@@ -38,6 +40,8 @@ class HealthSaftyController extends Controller
         $data = $request->validated();
         GeneralIncident::create([
             'type' => 'investigation',
+            'park_id' => $data['park_id'],
+            'ride_id' => $data['ride_id'],
             'status' => 'pending',
             'date' => Carbon::now(),
             'created_by_id' => auth()->user()->id,
