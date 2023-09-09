@@ -12,17 +12,27 @@
                 @enderror
             </div>
         </div>
-
         <div class="col-xs-12">
             <div class="form-group form-float">
                 <label class="form-label">Customer Feedback Type</label>
                 <div class="form-line">
-                    <select name="type" class="form-control">
-                        <option value="{{ 'Complaint' }}"> Complaint</option>
-                        <option value="{{ 'Suggestion' }}"> Suggestion</option>
-                        <option value="{{ 'Other' }}"> Other</option>
+                    <input type="radio" name="type" value="Complaint" class="ml-3" id="complaint_type" > Complaint
+                    <input type="radio" name="type" value="Suggestion" class="ml-3" id="sugg"  > Suggestion
+                    <input type="radio" name="type" value="Other " class="ml-3" id="other" > Other
+                </div>
+            </div>
+        </div>
 
-                    </select>
+        <div class="col-xs-12 " id="complaint" hidden>
+            <div class="form-group form-float">
+                <label class="form-label">Customer Feedback Type</label>
+                <div class="form-line">
+                    <select name="complaint_id" class="form-control">
+                        <option value=""> Choose....</option>
+                        @foreach ($complaints as $value )
+                           <option value="{{ $value->id }}"> {{ $value->name }} </option>
+                        @endforeach
+                        </select>
                     @error('type')
                     <div class="invalid-feedback" style="color: #ef1010">
                         {{ $message }}
@@ -72,3 +82,17 @@
             <button class="btn btn-primary waves-effect" type="submit">Save</button>
         </div>
     </div>
+    @push('scripts')
+
+    <script>
+        $('#complaint_type').click(function () {
+            $('#complaint').show();
+        }) ;
+        $('#other').click(function () {
+            $('#complaint').hide();
+        }) ;
+        $('#sugg').click(function () {
+            $('#complaint').hide();
+        }) ;
+    </script>
+    @endpush

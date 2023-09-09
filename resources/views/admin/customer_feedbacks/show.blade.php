@@ -25,9 +25,10 @@ Show Customer Feedback
 
             </div>
             <div class="form-group form-float">
-                <span class="title  bold form-label">Comment :</span>
+                <span class="title  bold form-label">Customer Feedback :</span>
                 <div class='contentP-comment'>
-                    <p class='p-comment'>{!! $items->comment !!}</p>
+                    <p class='p-comment'>{!! ( $items->complaint_id != null )? $items->complaint->name : $items->comment !!}
+                    </p>
                 </div>
 
             </div>

@@ -71,7 +71,7 @@
                                 Type
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
-                                Comment
+                                Customer Feedback
                             </th>
 
                             <th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1">
@@ -89,7 +89,7 @@
                                 <td>{{ $item->rides->zone->name }}</td>
                                 <td>{{ $item->rides->name }}</td>
                                 <td>{{ $item->type }}</td>
-                                <td>{!! $item->comment !!}</td>
+                                <td>{!! ( $item->complaint_id != null )? $item->complaint->name : $item->comment !!}</td>
                                 {!!Form::open( ['route' => ['admin.customer_feedbacks.destroy',$item->id] ,'id'=>'delete-form'.$item->id, 'method' => 'Delete']) !!}
                                 {!!Form::close() !!}
                                 <td>   @if(auth()->user()->can('customer_feedbacks-list'))

@@ -10,6 +10,7 @@ use App\Models\CustomerFeedbacks;
 use App\Models\CustomerFeedbackImage;
 use App\Models\Park;
 use Illuminate\Support\Facades\Auth;
+use App\Models\CustomerComplaint;
 
 use App\Traits\ImageOperations;
 use Illuminate\Support\Facades\Storage;
@@ -71,8 +72,8 @@ class CustomerFeedbackController extends Controller
     {
         $zones = auth()->user()->zones->pluck('id');
         $rides = Ride::wherein('zone_id', $zones)->pluck('name', 'id')->all();
-
-        return view('admin.customer_feedbacks.add', compact('rides'));
+        $complaints= CustomerComplaint::all();
+        return view('admin.customer_feedbacks.add', compact('rides','complaints'));
     }
 
     /**
@@ -89,6 +90,7 @@ class CustomerFeedbackController extends Controller
         $zone_id = $ride->zone_id;
         $cf = new CustomerFeedbacks();
         $cf->comment = $request->input('comment');
+        $cf->complaint_id = $request->input('complaint_id');
         if ($is_skill_game == 'Skill Game') {
             $cf->is_skill_game = 'skill_game';
         }

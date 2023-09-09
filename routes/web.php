@@ -110,9 +110,10 @@ Route::group(['middleware' => ['auth', 'settimezone'], 'as' => 'admin.'], functi
     Route::get('/edit_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@edit_ride_inspection_lists')->name('editRideInspectionLists');
     Route::post('/update_ride_inspection_lists/{ride_id}', 'Admin\RideInspectionListController@update_ride_inspection_lists')->name('updatRideInspectionLists');
 
+    Route::resource('complaints', 'Admin\CustomerComplaintController');//done
     Route::resource('customer_feedbacks', 'Admin\CustomerFeedbackController');//done
     Route::get('/search_customer_feedbacks/', 'Admin\CustomerFeedbackController@search')->name('searchCustomerFeedBack');
-
+    
 
     Route::get('get-park-zones', 'Admin\GeneralController@getParkZones')->name('getParkZones');
     Route::post('get-sub-stoppages-categories', 'Admin\GeneralController@getSubStoppageCategories')->name('getSubStoppageCategories');
