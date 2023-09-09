@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\ReportEvent;
+use App\Models\RideCapacity;
 use App\Models\User;
 use App\Notifications\ReportNotifications;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class AvailabilityReportController extends Controller
     }
     public function all()
     {
-        $items = GameTime::where('date',Carbon::now()->format('Y-m-d'))->groupBy('park_id')->get() ;
+        $items = GameTime::where('date', Carbon::now()->format('Y-m-d'))->groupBy('park_id')->get();
         return view('admin.availability_reports.all_reports', compact('items'));
     }
 
@@ -74,7 +75,7 @@ class AvailabilityReportController extends Controller
         $data = [
             'title' => 'Availability Report Added successfully !',
             'user_id' => Auth::user()->id,
-    
+
         ];
         if ($users) {
             foreach ($users as $user) {
@@ -97,14 +98,14 @@ class AvailabilityReportController extends Controller
 
     public function show($id)
     {
-        $items = GameTime::where('park_id',$id)->where('date', Carbon::now()->format('Y-m-d'))->get();
-        $item = GameTime::where('park_id',$id)->where('date', Carbon::now()->format('Y-m-d'))->first();
-        return view('admin.availability_reports.show', compact('items','item'));
+        $items = GameTime::where('park_id', $id)->where('date', Carbon::now()->format('Y-m-d'))->get();
+        $item = GameTime::where('park_id', $id)->where('date', Carbon::now()->format('Y-m-d'))->first();
+        return view('admin.availability_reports.show', compact('items', 'item'));
     }
 
     public function update(Request $request)
     {
-        //dd($request->all());
+
 
         $list = GameTime::where('park_id', $request->park_id)->where('date', Carbon::now()->format('Y-m-d'))->get();
         $users = User::whereHas('roles', function ($query) {
@@ -119,7 +120,24 @@ class AvailabilityReportController extends Controller
             $gameTime->no_of_seats = $request->no_of_seats[$key];
             $gameTime->comment = $request->comment[$key];
             $gameTime->update();
+            $old = RideCapacity::where('date', Carbon::now()->toDateString())->first();
+            if (!$old) {
+                RideCapacity::query()->create([
+                    'ride_id' => $value,
+                    'ride_availablity_capacity' => $request->no_of_seats[$key],
+                    'date' => Carbon::now()->toDateString(),
+                    'park_id' => $request->park_id,
+                ]);
+            } else {
+
+                $ride = RideCapacity::where('date', Carbon::now()->toDateString())->where('ride_id', $value)->first();
+                $ride->ride_availablity_capacity = $request->no_of_seats[$key];
+                $ride->save();
+                 
+            }
+
         }
+
         $users = User::whereHas('roles', function ($query) {
             return $query->where('name', 'Super Admin');
         })->get();
@@ -177,12 +195,12 @@ class AvailabilityReportController extends Controller
         return redirect()->route('admin.park.index');
     }
 
-    public function approve($id,$date)
+    public function approve($id, $date)
     {
         $park_name = Park::where('id', $id)->pluck('name')->first();
 
-        $reports = GameTime::where('park_id',$id)->where('date',$date)->get();
-        
+        $reports = GameTime::where('park_id', $id)->where('date', $date)->get();
+
         foreach ($reports as $report) {
             $report->status = 'approved';
             $report->verified_by_id = auth()->user()->id;
@@ -196,7 +214,7 @@ class AvailabilityReportController extends Controller
             'user_id' => Auth::user()->id,
             'title' => 'Ride Availability Report to park ' . $park_name . 'verified successfully!',
         ];
-          if ($users) {
+        if ($users) {
             foreach ($users as $user) {
                 Notification::send($user, new ReportNotifications($data));
                 event(new ReportEvent($user->id, $data['title'], Carbon::now()));

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\RideCapacityEvent;
 use App\Models\Ride;
+use App\Models\RideCapacity;
+use App\Models\User;
 use App\Models\Zone;
 use App\Models\Queue;
 use App\Models\ParkTime;
 use App\Models\RideCycles;
+use App\Notifications\RideCapacityNotifications;
 use Illuminate\Http\Request;
 use App\Events\StoppageEvent;
 use App\Models\RideStoppages;
@@ -102,8 +106,37 @@ class RideController extends Controller
                 'is_checked' => $validate['is_checked'][$key] ?? null,
             ]);
         }
-        $zone = Zone::find($validate['zone_id']);
         $ride = Ride::find($validate['ride_id']);
+
+        $capacity = RideCapacity::where('date', Carbon::now()->toDateString())->where('ride_id', $validate['ride_id'])->first();
+
+        if ($validate['lists_type'] == 'preopening' && $capacity != null) {
+
+
+            if ($validate['number_of_seats'] != $capacity->ride_availablity_capacity) {
+                $capacity->preopening_capacity = $validate['number_of_seats'];
+                $capacity->save();
+                $users = User::whereHas('roles', function ($query) {
+                    return $query->whereIn('name', ['Super Admin', 'Park Admin']);
+                })->get();
+                $data = [
+                    'ride_id' => $validate['ride_id'],
+                    'title' => 'There was a difference in the number of chairs ' . $ride->name . ' Waiting for confirmation of capacity',
+                    'user_id' => Auth::user()->id,
+
+                ];
+                foreach ($users as $user) {
+                    Notification::send($user, new RideCapacityNotifications($data));
+                    event(new RideCapacityEvent($user->id, $data['title'], Carbon::now()->toDateTimeString()));
+                }
+            } else {
+                $capacity->preopening_capacity = $validate['number_of_seats'];
+                $capacity->final_capacity = $validate['number_of_seats'];
+
+                $capacity->save();
+            }
+        }
+        $zone = Zone::find($validate['zone_id']);
 
         $user = $zone->users()->whereHas('roles', function ($query) {
             return $query->where('name', 'zone supervisor');
@@ -220,7 +253,7 @@ class RideController extends Controller
         $time = dateTime();
         $this->body['time_slot'] = null;
         if (!$time) {
-            return self::apiResponse(404, __('not found time slot'),$this->body);
+            return self::apiResponse(404, __('not found time slot'), $this->body);
         }
         $this->body['time_slot'] = TimeSlotResource::make($time);
         return self::apiResponse(200, __('time slot info'), $this->body);

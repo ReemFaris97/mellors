@@ -88,6 +88,13 @@ not.bind('App\\Events\\StoppageEvent', function (data) {
 
 });
 not.bind('App\\Events\\ReportEvent', function (data) {
+
+    notification(data);
+    playSound();
+
+});
+
+not.bind('App\\Events\\RideCapacityEvent', function (data) {
     console.log(data)
     notification(data);
     playSound();
