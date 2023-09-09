@@ -268,6 +268,8 @@
                 <li><a href="{{ route('admin.customer_feedbacks.index') }}"> Show Customer Feedback</a></li>
             @endcan
             @can('customer_feedbacks-create')
+            <li><a href="{{ route('admin.complaints.index') }}"> Add Complaints Items</a></li>
+
                 <li><a href="{{ route('admin.customer_feedbacks.create') }}"> Add Customer Feedback</a></li>
             @endcan
 
