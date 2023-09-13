@@ -32,4 +32,51 @@ class ParkTime extends Model
         return $this->hasMany(RideCycles::class,'park_time_id','id');
 
     }
+    public function preopeningLists()
+    {
+        return $this->hasMany(PreopeningList::class,'park_time_id','id');
+
+    }
+
+    public function healthAndSafetyReports()
+    {
+        return $this->hasOne(HealthAndSafetyReport::class,'park_time_id','id');
+
+    }
+    public function maintenanceReports()
+    {
+        return $this->hasOne(MaintenanceReport::class,'park_time_id','id');
+
+    }
+    public function gameTimes()
+    {
+        return $this->hasMany(GameTime::class,'park_time_id','id');
+
+    }
+    public function skillGameReports()
+    {
+        return $this->hasOne(SkillGameReport::class,'park_time_id','id');
+
+    }
+    public function techReports()
+    {
+        return $this->hasOne(TechReport::class,'park_time_id','id');
+
+    }
+    public function rideStoppages()
+    {
+        return $this->hasMany(RideStoppages::class,'park_time_id','id');
+
+    }
+    public function rideOpsReport()
+    {
+        return $this->hasOne(RideOpsReport::class,'park_time_id','id');
+
+    } 
+    public function attraction()
+    {
+        return $this->hasOne(Attraction::class,'park_time_id','id');
+
+    }
+
 }

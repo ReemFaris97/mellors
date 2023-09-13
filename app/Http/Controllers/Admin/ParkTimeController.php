@@ -192,10 +192,49 @@ class ParkTimeController extends Controller
 
         $parkTime = ParkTime::find($id);
         if ($parkTime) {
-            $parkTime->delete();
-            alert()->success('Park Time Slot deleted successfully');
+       
+        if ($parkTime->preopeningLists()->exists()) {
+            alert()->error('Cannot delete Park Time Slot because it is associated with preopening List records.');
             return back();
         }
+        if ($parkTime->healthAndSafetyReports()->exists()) {
+            alert()->error('Cannot delete Park Time Slot because it is associated with health  AndSafety Reports records.');
+            return back();
+        }
+        if ($parkTime->maintenanceReports()->exists()) {
+            alert()->error('Cannot delete Park Time Slot because it is associated with maintenance Reports records.');
+            return back();
+        }
+        if ($parkTime->gameTimes()->exists()) {
+            alert()->error('Cannot delete Park Time Slot because it is associated with Ride Availabilty Report  records.');
+            return back();
+        }
+        if ($parkTime->skillGameReports()->exists()) {
+            alert()->error('Cannot delete Park Time Slot because it is associated with skill GameReports  records.');
+            return back();
+        }
+        if ($parkTime->techReports()->exists()) {
+            alert()->error('Cannot delete Park Time Slot because it is associated with tech Reports records.');
+            return back();
+        }
+
+        if ($parkTime->rideStoppages()->exists()) {
+            alert()->error('Cannot delete Park Time Slot because it is associated with ride Stoppages  records.');
+            return back();
+        }
+        if ($parkTime->rideOpsReport()->exists()) {
+            alert()->error('Cannot delete Park Time Slot because it is associated with RideOps Report  records.');
+            return back();
+        }
+        if ($parkTime->attraction()->exists()) {
+            alert()->error('Cannot delete Park Time Slot because it is associated with attraction Audit Check Report  records.');
+            return back();
+        }
+        $parkTime->delete();
+        alert()->success('Park Time Slot deleted successfully');
+        return back();
+    }
+        
         alert()->error('Park Time Slot not found');
         return redirect()->route('admin.park_times.index');
     }

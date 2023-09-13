@@ -60,6 +60,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="row">
+
     <div class="col-xs-12" id="text" style="display: none;">
         <div class="form-group form-float">
             <label class="form-label">Location</label>
